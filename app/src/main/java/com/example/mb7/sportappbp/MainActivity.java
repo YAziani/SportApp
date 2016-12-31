@@ -1,8 +1,13 @@
 package com.example.mb7.sportappbp;
 
+import android.Manifest;
+import android.content.pm.PackageManager;
+import android.location.Criteria;
 import android.support.design.widget.TabLayout;
 import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.Snackbar;
+import android.support.v4.app.ActivityCompat;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
 
@@ -19,7 +24,16 @@ import android.view.ViewGroup;
 
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
+import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
+
+import java.util.LinkedList;
+import java.util.List;
+
 public class MainActivity extends AppCompatActivity {
+
+    // list which consists of all used motivation methods
+    private LinkedList<MotivationMethod> motivationMethods= new LinkedList<MotivationMethod>();
 
     /** sdf sd
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -38,6 +52,7 @@ public class MainActivity extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -160,6 +175,13 @@ public class MainActivity extends AppCompatActivity {
                     return "SECTION 3";
             }
             return null;
+        }
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
+        for(int i = 0; i < motivationMethods.size(); i++) {
+            motivationMethods.get(i).evaluatePermissionResults(requestCode, permissions, grantResults);
         }
     }
 }

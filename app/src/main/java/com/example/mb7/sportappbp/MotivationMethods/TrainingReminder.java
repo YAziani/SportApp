@@ -58,6 +58,8 @@ public class TrainingReminder extends MotivationMethod {
                     System.err.println("ATTENTION: address is null");
                 }
 
+
+                meansOfTransportation = MeansOfTransportation.AFOOT;
                 // TODO remove debug method
                 debug();
             }
@@ -115,10 +117,11 @@ public class TrainingReminder extends MotivationMethod {
         return tmpUserAddress;
     }
 
-
     // returns the distance in meters between the user position and the studio postition
     private float getDistanceToStudio() {
-        return userLocation.distanceTo(studioLocation);
+        // 2 * squareroot(2)
+        float cityBlockFactor = 2.8284f;
+        return userLocation.distanceTo(studioLocation) * cityBlockFactor;
     }
 
     // determines the address object of the given address and returns it for comparing
@@ -142,6 +145,41 @@ public class TrainingReminder extends MotivationMethod {
             System.err.println("ATTENTION: address could not be determined");
             return null;
         }
+    }
+
+    public float getTimeToStudio() {
+
+        // time to studio in minutes
+        float time;
+
+        // standard amount of time which always will be added to the net time
+        float buffer = 15;
+
+        // distance to studio in meter
+        float distance = getDistanceToStudio();
+
+        // speed in meter/minutes
+        float speed;
+        if (meansOfTransportation == MeansOfTransportation.AFOOT) {
+            speed = 85.0f;
+        } else {
+            if (meansOfTransportation == MeansOfTransportation.BICYCLE) {
+                speed = 250.0f;
+            } else {
+                if (meansOfTransportation == MeansOfTransportation.BUS) {
+                    speed = 400.0f;
+                } else {
+                    if (meansOfTransportation == MeansOfTransportation.CAR) {
+                        speed = 700.0f;
+                    } else {
+                        speed = 1500.0f;
+                    }
+                }
+            }
+        }
+
+        time = distance / speed;
+        return time + buffer;
     }
 
     // handles the result of the permission request sent to the user
@@ -172,8 +210,9 @@ public class TrainingReminder extends MotivationMethod {
     public void debug() {
         System.out.println(compareStudioPosition("rüsselsheim marktplatz"));
         if(userAddress != null) {
-            System.out.println(userAddress.getAddressLine(0));
-            System.out.println(getDistanceToStudio());
+            System.out.println("user: " + userAddress.getAddressLine(0));
+            System.out.println("distance: " + getDistanceToStudio());
+            System.out.println("time: " + getTimeToStudio());
         } else {
             System.err.println("WARNING: USERADDRESS IS NULL");
         }

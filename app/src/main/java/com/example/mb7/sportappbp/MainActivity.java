@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp;
 
+import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
@@ -17,14 +18,14 @@ import android.widget.TextView;
 
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
+import java.util.List;
 
 import static com.example.mb7.sportappbp.R.id.container;
 
 public class MainActivity extends AppCompatActivity {
 
-    // list which consists of all used motivation methods
-    private LinkedList<MotivationMethod> motivationMethods= new LinkedList<MotivationMethod>();
 
     /** sdf sd
      * The {@link android.support.v4.view.PagerAdapter} that will provide
@@ -34,12 +35,12 @@ public class MainActivity extends AppCompatActivity {
      * may be best to switch to a
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
+    // list which consists of all used motivation methods
+    private LinkedList<MotivationMethod> motivationMethods= new LinkedList<MotivationMethod>();
     private SectionsPagerAdapter mSectionsPagerAdapter;
-
-    /**
-     * The {@link ViewPager} that will host the section contents.
-     */
     private ViewPager mViewPager;
+    private TabLayout tabLayout;
+    private final String mainColor = "#2648FF";
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -47,11 +48,9 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        int i = 0;
-        i++;
-
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
+
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
         mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
@@ -59,14 +58,23 @@ public class MainActivity extends AppCompatActivity {
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
-
-        TabLayout tabLayout = (TabLayout) findViewById(R.id.tabs);
-        tabLayout.setupWithViewPager(mViewPager);
-
-
-
+        setTabLayout();
 
     }
+
+    // Set all the properties of the main TabLayout in the main page here
+    private void  setTabLayout()
+    {
+        this.getResources().getColor(R.color.colorMain);
+
+
+        tabLayout = (TabLayout) findViewById(R.id.tabs);
+        tabLayout.setupWithViewPager(mViewPager);
+        tabLayout.setSelectedTabIndicatorColor(Color.parseColor(mainColor));
+        tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
+        tabLayout.setTabTextColors(Color.parseColor("#808080"),Color.parseColor(mainColor) );
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
@@ -80,17 +88,16 @@ public class MainActivity extends AppCompatActivity {
         // automatically handle clicks on the Home/Up button, so long
         // as you specify a parent activity in AndroidManifest.xml.
         int id = item.getItemId();
-
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
             return true;
         }
-
         return super.onOptionsItemSelected(item);
     }
 
     /**
      * A placeholder fragment containing a simple view.
+     * and the factory for creating fragments
      */
     public static class PlaceholderFragment extends Fragment {
         /**
@@ -106,17 +113,29 @@ public class MainActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static Fragment newInstance(int sectionNumber) {
+        public static TabFragment newInstance(int sectionNumber) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
+            TabFragment tabFragment = null;
             switch(sectionNumber)
             {
-                case 1: return new TbTaskContent();
-                case 2: return new TbNotificationContent();
-                case 3: return new TbReportContent();
-                default: return new TbNotificationContent();
+                case 1:
+                    tabFragment = new TbTaskContent();
+                    tabFragment.setTitle("Tasks");
+                    return tabFragment;
+                case 2:
+                    tabFragment = new TbNotificationContent();
+                    tabFragment.setTitle("Notfikation");
+                    return tabFragment;
+                case 3:
+                    tabFragment = new TbReportContent();
+                    tabFragment.setTitle("Berichte");
+                    return tabFragment;
+                default:
+                    tabFragment = new TbNotificationContent();
+                    tabFragment.setTitle("Notfikation");
+                    return tabFragment;
             }
-
         }
 
         @Override
@@ -135,34 +154,37 @@ public class MainActivity extends AppCompatActivity {
      */
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
+        List<TabFragment> fragments = new ArrayList<TabFragment>();
+
         public SectionsPagerAdapter(FragmentManager fm) {
             super(fm);
+            for (int i = 1; i < 4; i++) {
+                TabFragment tabFragment = PlaceholderFragment.newInstance(i);
+                fragments.add(tabFragment);
+            }
         }
 
         @Override
         public Fragment getItem(int position) {
             // getItem is called to instantiate the fragment for the given page.
             // Return a PlaceholderFragment (defined as a static inner class below).
-            return PlaceholderFragment.newInstance(position + 1);
+            return fragments.get(position);
         }
 
         @Override
         public int getCount() {
             // Show 3 total pages.
-            return 3;
+            return fragments.size();
         }
 
         @Override
         public CharSequence getPageTitle(int position) {
-            switch (position) {
-                case 0:
-                    return "SECTION 1";
-                case 1:
-                    return "SECTION 2";
-                case 2:
-                    return "SECTION 3";
+            if (!fragments.isEmpty() && fragments.size() >= position + 1) {
+                //Log.d("Title", fragments.get(position).getTitle());
+                return fragments.get(position).getTitle();
             }
-            return null;
+            else
+                return "No Value";
         }
     }
 

@@ -6,7 +6,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="TAB 3"
+        android:text="Reports"
         android:textSize="20dp"
         android:id="@+id/accountsExpenses_msgText"
         android:layout_centerVertical="true"

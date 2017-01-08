@@ -8,7 +8,7 @@
         android:layout_height="wrap_content"
         android:layout_gravity="center"
         android:gravity="center"
-        android:text="TAB 1"
+        android:text="Tasks"
         android:textSize="20dp"
         android:id="@+id/accountsExpenses_msgText"
         android:layout_centerVertical="true"

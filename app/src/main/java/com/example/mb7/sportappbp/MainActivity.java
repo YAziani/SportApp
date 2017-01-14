@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp;
 
+import android.app.Activity;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -53,7 +54,7 @@ public class MainActivity extends AppCompatActivity {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager());
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(container);
@@ -113,7 +114,7 @@ public class MainActivity extends AppCompatActivity {
          * Returns a new instance of this fragment for the given section
          * number.
          */
-        public static TabFragment newInstance(int sectionNumber) {
+        public static TabFragment newInstance(int sectionNumber, Activity activity) {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             TabFragment tabFragment = null;
@@ -121,19 +122,19 @@ public class MainActivity extends AppCompatActivity {
             {
                 case 1:
                     tabFragment = new TbTaskContent();
-                    tabFragment.setTitle("Tasks");
+                    tabFragment.Initialize(activity,"Tasks");
                     return tabFragment;
                 case 2:
                     tabFragment = new TbNotificationContent();
-                    tabFragment.setTitle("Notfikation");
+                    tabFragment.Initialize(activity,"Notfikation");
                     return tabFragment;
                 case 3:
                     tabFragment = new TbReportContent();
-                    tabFragment.setTitle("Berichte");
+                    tabFragment.Initialize(activity,"Berichte");
                     return tabFragment;
                 default:
                     tabFragment = new TbNotificationContent();
-                    tabFragment.setTitle("Notfikation");
+                    tabFragment.Initialize(activity,"Notfikation");
                     return tabFragment;
             }
         }
@@ -155,11 +156,12 @@ public class MainActivity extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         List<TabFragment> fragments = new ArrayList<TabFragment>();
-
-        public SectionsPagerAdapter(FragmentManager fm) {
+        Activity activity ;
+        public SectionsPagerAdapter(FragmentManager fm, Activity act) {
             super(fm);
+            activity = act;
             for (int i = 1; i < 4; i++) {
-                TabFragment tabFragment = PlaceholderFragment.newInstance(i);
+                TabFragment tabFragment = PlaceholderFragment.newInstance(i,activity);
                 fragments.add(tabFragment);
             }
         }

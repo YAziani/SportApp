@@ -21,7 +21,7 @@ public abstract class MotivationMethod {
     public abstract void rate();
 
     /**
-     * evaluate the results of possible permissionRequests, leave empty it motivation method doesn't request permissions
+     * evaluate the results of possible permissionRequests, leave empty if motivation method doesn't request permissions
      * @param requestCode code of the requested permission
      * @param permissions array of all requested permissions
      * @param grantResults permissions which have been granted

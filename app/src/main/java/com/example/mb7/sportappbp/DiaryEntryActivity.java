@@ -10,6 +10,9 @@ import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+
 public class DiaryEntryActivity extends AppCompatActivity {
 
     Button btnSave;
@@ -45,13 +48,13 @@ public class DiaryEntryActivity extends AppCompatActivity {
                 if(radioButton == null)
                     Toast.makeText(DiaryEntryActivity.this, "Button nicht gewaehlt!", Toast.LENGTH_SHORT).show();
                 else {
+
                     //Create the diary object with the input of the user
-                    diaryEntry = new DiaryEntry("Datum", radioButtonYesOrNo(radioButton));
+                    diaryEntry = new DiaryEntry(getCurrentDate(), radioButtonYesOrNo(radioButton));
 
                     //todo Save object to the database
-
                     //Display answer
-                    //Toast.makeText(DiaryEntryActivity.this, radioButton.getText(), Toast.LENGTH_SHORT).show();
+                    //Toast.makeText(DiaryEntryActivity.this, strDate, Toast.LENGTH_SHORT).show();
                     finish();
                 }
             }
@@ -69,5 +72,16 @@ public class DiaryEntryActivity extends AppCompatActivity {
             return true;
         else
             return false;
+    }
+
+    /**
+     * This method returns the current date as a string in the format "dd.MM.yy".
+     * @return a String with the date "dd.MM.yy"
+     */
+    private String getCurrentDate(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
+        String strDate = sdf.format(c.getTime());
+        return strDate;
     }
 }

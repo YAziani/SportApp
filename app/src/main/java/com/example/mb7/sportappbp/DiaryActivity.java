@@ -5,11 +5,13 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
+import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
+
 public class DiaryActivity extends AppCompatActivity {
 
     ArrayAdapter<String> arrayAdapter;
-    String[] entries =  {"1.1.2017","2.1.2017","3.1.2017","4.1.2017","5.1.2017"};
     ListView listView;
+    AllDiaryEntries allDiaryEntries;
 
 
     @Override
@@ -17,10 +19,10 @@ public class DiaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        //get the listView of the layout
         listView = (ListView) findViewById(R.id.listviewDiary);
-        arrayAdapter = new ArrayAdapter<String>(DiaryActivity.this, android.R.layout.simple_list_item_1, entries);
+        //create the array adapter and get the list of all dates
+        arrayAdapter = new ArrayAdapter<String>(DiaryActivity.this, android.R.layout.simple_list_item_1, allDiaryEntries.getInstance().getAllDates());
         listView.setAdapter(arrayAdapter);
 
     }

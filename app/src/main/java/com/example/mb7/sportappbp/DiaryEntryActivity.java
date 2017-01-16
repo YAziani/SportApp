@@ -28,7 +28,7 @@ public class DiaryEntryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diaryentry);
 
         //activate the back button on the toolbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         evaluateData();
     }

@@ -2,7 +2,6 @@ package com.example.mb7.sportappbp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -10,6 +9,7 @@ import android.widget.RadioGroup;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
+import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -20,6 +20,8 @@ public class DiaryEntryActivity extends AppCompatActivity {
     RadioGroup radioGroup;
     RadioButton radioButton;
     DiaryEntry diaryEntry;
+    AllDiaryEntries allDiaryEntries;
+
 
 
     @Override
@@ -52,6 +54,8 @@ public class DiaryEntryActivity extends AppCompatActivity {
 
                     //Create the diary object with the input of the user
                     diaryEntry = new DiaryEntry(getCurrentDate(), radioButtonYesOrNo(radioButton));
+                    //add the entry to the diary list
+                    allDiaryEntries.getInstance().getDiaryList().add(diaryEntry);
 
                     //todo Save object to the database
                     //Display answer

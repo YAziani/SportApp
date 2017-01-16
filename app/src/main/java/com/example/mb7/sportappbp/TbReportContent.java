@@ -14,6 +14,7 @@ import android.view.ViewGroup;
 public class TbReportContent extends TabFragment{
 
     Button testBtn;
+    Button testBtn2;
     View view;
 
 
@@ -23,6 +24,7 @@ public class TbReportContent extends TabFragment{
         view = inflater.inflate(R.layout.tbreportcontent, container, false);
 
         testBasti(view);
+        testBasti2(view);
 
         return view;
     }
@@ -34,6 +36,19 @@ public class TbReportContent extends TabFragment{
             public void onClick(View view){
 
                 Intent open = new Intent(getActivity(), DiaryEntryActivity.class);
+                startActivity(open);
+
+            }
+        });
+    }
+
+    private void testBasti2(View view){
+        testBtn2 = (Button) view.findViewById(R.id.testbutton2);
+        testBtn2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                Intent open = new Intent(getActivity(), DiaryActivity.class);
                 startActivity(open);
 
             }

@@ -14,8 +14,7 @@
         android:icon="@mipmap/ic_launcher"
         android:label="@string/app_name"
         android:supportsRtl="true"
-        android:theme="@style/Theme.AppCompat.Light.NoActionBar">
-        <!--android:theme="@style/AppTheme"-->
+        android:theme="@style/AppTheme">
         <activity
             android:name=".MainActivity"
             android:label="@string/app_name"
@@ -28,9 +27,12 @@
         </activity>
         <activity
             android:name=".DiaryEntryActivity"
-            android:parentActivityName=".MainActivity"
+            android:label="Tagebuch Eintrag"
+            android:parentActivityName=".MainActivity"></activity>
+        <activity
+            android:name=".DiaryActivity"
             android:label="Tagebuch"
-            >
+            android:parentActivityName=".MainActivity">
         </activity>
     </application>
 

@@ -17,6 +17,8 @@ public class DiaryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+
         listView = (ListView) findViewById(R.id.listviewDiary);
         arrayAdapter = new ArrayAdapter<String>(DiaryActivity.this, android.R.layout.simple_list_item_1, entries);
         listView.setAdapter(arrayAdapter);

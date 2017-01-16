@@ -2,6 +2,7 @@ package com.example.mb7.sportappbp;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -27,7 +28,7 @@ public class DiaryEntryActivity extends AppCompatActivity {
         setContentView(R.layout.activity_diaryentry);
 
         //activate the back button on the toolbar
-        getSupportActionBar().setDisplayHomeAsUpEnabled(true);
+        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         evaluateData();
     }

@@ -27,10 +27,9 @@
         </activity>
         <activity
             android:name=".DiaryEntryActivity"
-            android:parentActivityName=".MainActivity"
             android:label="Tagebuch"
-            >
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".DiaryActivity"></activity>
     </application>
 
 </manifest>

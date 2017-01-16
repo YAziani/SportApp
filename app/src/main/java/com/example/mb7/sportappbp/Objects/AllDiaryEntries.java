@@ -29,7 +29,7 @@ public class AllDiaryEntries {
     }
 
     /**
-     * This method returns the list with all diary entries
+     * This method returns the list with all diary entries.
      * @return ArrayList with all diary entries
      */
     public ArrayList<DiaryEntry> getDiaryList(){

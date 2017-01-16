@@ -16,6 +16,9 @@ import android.support.v4.content.ContextCompat;
 import com.example.mb7.sportappbp.MainActivity;
 
 import java.io.IOException;
+import java.sql.Time;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 import java.util.Locale;
 
@@ -59,7 +62,6 @@ public class TrainingReminder extends MotivationMethod {
                 }
 
 
-                meansOfTransportation = MeansOfTransportation.AFOOT;
                 // TODO remove debug method
                 debug();
             }
@@ -94,7 +96,11 @@ public class TrainingReminder extends MotivationMethod {
     }
 
 
-    // determines the address object of the given location object
+    /**
+     * determines the address object of the given location object
+     * @param location: location object, describing the users position
+     * @return address object describing users position
+     */
     private Address getUserAddress(Location location) {
         Address tmpUserAddress = null;
 
@@ -117,14 +123,11 @@ public class TrainingReminder extends MotivationMethod {
         return tmpUserAddress;
     }
 
-    // returns the distance in meters between the user position and the studio postition
-    private float getDistanceToStudio() {
-        // 2 * squareroot(2)
-        float cityBlockFactor = 2.8284f;
-        return userLocation.distanceTo(studioLocation) * cityBlockFactor;
-    }
-
-    // determines the address object of the given address and returns it for comparing
+    /**
+     * determines the address object of the given address and returns it for comparing
+     * @param givenPosition: the user entered name of the studio address
+     * @return address object matching the user given address the most
+     */
     private String compareStudioPosition(String givenPosition) {
         List<Address> determinedAddresses = null;
         Geocoder geocoder = new Geocoder(mainActivity, Locale.getDefault());
@@ -147,19 +150,30 @@ public class TrainingReminder extends MotivationMethod {
         }
     }
 
-    public float getTimeToStudio() {
+    /**
+     * determines the distance between the user position and the studio postition
+     * @return distance in meter
+     */
+    private float getDistanceToStudio() {
+        // 2 * squareroot(2)
+        float cityBlockFactor = 2.8284f;
+        return userLocation.distanceTo(studioLocation) * cityBlockFactor;
+    }
 
+    /**
+     * determines time needed to get to the studio starting at the users position
+     * @return time needed in minutes
+     */
+    private float getTimeToStudio() {
         // time to studio in minutes
         float time;
-
         // standard amount of time which always will be added to the net time
         float buffer = 15;
-
         // distance to studio in meter
         float distance = getDistanceToStudio();
 
         // speed in meter/minutes
-        float speed;
+        float speed = 1.0f;
         if (meansOfTransportation == MeansOfTransportation.AFOOT) {
             speed = 85.0f;
         } else {
@@ -172,17 +186,56 @@ public class TrainingReminder extends MotivationMethod {
                     if (meansOfTransportation == MeansOfTransportation.CAR) {
                         speed = 700.0f;
                     } else {
-                        speed = 1500.0f;
+                        if (meansOfTransportation == MeansOfTransportation.TRAIN) {
+                            speed = 1500.0f;
+                        }
                     }
                 }
             }
         }
-
         time = distance / speed;
         return time + buffer;
     }
 
-    // handles the result of the permission request sent to the user
+    /**
+     * checks if the time has come to remember the user to go to the studio
+     * @return boolean, which is true if user has to be reminded and false if not
+     */
+    private boolean checkNecessityOfNotification() {
+
+        // interval of time between checks in minute
+        int periode = 10;
+
+        // start of the training
+        int trainingHour = 16;
+        int trainingMinute = 30;
+        int trainingMinuteOfDay = trainingHour * 60 + trainingMinute;
+
+        // current time
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        int currentMinuteOfDay = currentHour * 60 + currentMinute;
+
+        // time needed to get to the studio
+        int timeNeeded = (int) getTimeToStudio();
+
+        if(trainingMinuteOfDay - currentMinuteOfDay > 0
+                && trainingMinuteOfDay - currentMinuteOfDay - timeNeeded < periode) {
+            return true;
+        }else {
+            return false;
+        }
+    }
+
+    /**
+     * handles the result of the permission request sent to the user
+     * @param requestCode code of the requested permission
+     * @param permissions array of all requested permissions
+     * @param grantResults permissions which have been granted
+     */
     @Override
     public void evaluatePermissionResults(int requestCode, String permissions[], int[] grantResults) {
 
@@ -208,6 +261,7 @@ public class TrainingReminder extends MotivationMethod {
 
     // TODO remove debug method
     public void debug() {
+        meansOfTransportation = MeansOfTransportation.AFOOT;
         System.out.println(compareStudioPosition("rüsselsheim marktplatz"));
         if(userAddress != null) {
             System.out.println("user: " + userAddress.getAddressLine(0));

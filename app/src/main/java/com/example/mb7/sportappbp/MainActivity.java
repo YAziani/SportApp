@@ -18,6 +18,7 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
+import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -48,6 +49,9 @@ public class MainActivity extends AppCompatActivity {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        //TrainingReminder t = new TrainingReminder(this);
+        //motivationMethods.add(t);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

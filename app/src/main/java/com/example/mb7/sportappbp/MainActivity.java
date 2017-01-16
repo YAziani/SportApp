@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -76,11 +77,26 @@ public class MainActivity extends AppCompatActivity {
         tabLayout.setTabTextColors(Color.parseColor("#808080"),Color.parseColor(mainColor) );
     }
 
+
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
+        MenuItem item= menu.findItem(R.id.action_settings);
         return true;
+    }
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+        int id = item.getItemId();
+        if (id == R.id.action_settings)
+        {
+            startActivity(new Intent(this,SettingsActivity.class));
+            return true;
+        }
+        return super.onContextItemSelected(item);
+
     }
 
     @Override

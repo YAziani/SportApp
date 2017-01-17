@@ -51,8 +51,15 @@ public class MainActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        TrainingReminder t = new TrainingReminder(this);
-        motivationMethods.add(t);
+        // create a new motivation method and add it to the list of methods
+        //TrainingReminder t = new TrainingReminder(this);
+        //motivationMethods.add(t);
+
+        // initialize the settings activity
+        //Intent open = new Intent(this, SettingInitializerActivity.class);
+        //startActivity(open);
+
+
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

@@ -178,7 +178,7 @@ public class TrainingReminder extends MotivationMethod {
         // popup for collection of studio address
         AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
         builder.setTitle("Please enter your fitness studio's address");
-        builder.setCancelable(false);
+        builder.setCancelable(true);
         // set up the input
         final EditText input = new EditText(mainActivity);
         // specify the type of input

@@ -28,12 +28,12 @@
         <activity
             android:name=".DiaryEntryActivity"
             android:label="Tagebuch Eintrag"
-            android:parentActivityName=".MainActivity"></activity>
+            android:parentActivityName=".MainActivity" />
         <activity
             android:name=".DiaryActivity"
             android:label="Tagebuch"
-            android:parentActivityName=".MainActivity">
-        </activity>
+            android:parentActivityName=".MainActivity"></activity>
+        <activity android:name=".SettingInitializerActivity"></activity>
     </application>
 
 </manifest>

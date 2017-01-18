@@ -26,7 +26,7 @@ import java.util.List;
 
 import static com.example.mb7.sportappbp.R.id.container;
 
-public class MainActivity extends AppCompatActivity {
+public class ActivityMain extends AppCompatActivity {
 
 
     /** sdf sd
@@ -93,7 +93,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         if (id == R.id.action_settings)
         {
-            startActivity(new Intent(this,SettingsActivity.class));
+            startActivity(new Intent(this,ActivitySettings.class));
             return true;
         }
         return super.onContextItemSelected(item);
@@ -108,7 +108,7 @@ public class MainActivity extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this,SettingsActivity.class));
+            startActivity(new Intent(this,ActivitySettings.class));
             return true;
         }
         return super.onOptionsItemSelected(item);

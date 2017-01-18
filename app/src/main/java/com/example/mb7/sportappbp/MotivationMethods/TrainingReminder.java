@@ -13,10 +13,9 @@ import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 
-import com.example.mb7.sportappbp.MainActivity;
+import com.example.mb7.sportappbp.ActivityMain;
 
 import java.io.IOException;
-import java.sql.Time;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,18 +36,18 @@ public class TrainingReminder extends MotivationMethod {
     private Location userLocation;
     private Location studioLocation;
     private final int  LOCATION_PERMISSION_REQUEST = 1440;
-    private MainActivity mainActivity;
+    private ActivityMain activityMain;
     private enum MeansOfTransportation {AFOOT, BICYCLE, CAR, BUS, TRAIN};
     private MeansOfTransportation  meansOfTransportation = null;
 
     /**
      * initialize the reminder and collect the address of the users fitness studio
      */
-    public TrainingReminder(MainActivity mainActivity) {
+    public TrainingReminder(ActivityMain activityMain) {
 
         // TODO implement the collection of the studio address
-        this.mainActivity = mainActivity;
-        locationManager = (LocationManager) mainActivity.getSystemService(Context.LOCATION_SERVICE) ;
+        this.activityMain = activityMain;
+        locationManager = (LocationManager) activityMain.getSystemService(Context.LOCATION_SERVICE) ;
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -82,7 +81,7 @@ public class TrainingReminder extends MotivationMethod {
             }
         };
 
-        ActivityCompat.requestPermissions(mainActivity, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+        ActivityCompat.requestPermissions(activityMain, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
     }
 
     @Override
@@ -107,7 +106,7 @@ public class TrainingReminder extends MotivationMethod {
         // get address from coordinates
         Geocoder geocoder;
         List<Address> addresses = null;
-        geocoder = new Geocoder(mainActivity, Locale.getDefault());
+        geocoder = new Geocoder(activityMain, Locale.getDefault());
         try {
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
         } catch(IOException e) {
@@ -130,7 +129,7 @@ public class TrainingReminder extends MotivationMethod {
      */
     private String compareStudioPosition(String givenPosition) {
         List<Address> determinedAddresses = null;
-        Geocoder geocoder = new Geocoder(mainActivity, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(activityMain, Locale.getDefault());
 
         try {
             determinedAddresses = geocoder.getFromLocationName(givenPosition, 1);
@@ -245,7 +244,7 @@ public class TrainingReminder extends MotivationMethod {
                 Criteria criteria = new Criteria();
                 criteria.setAccuracy(Criteria.ACCURACY_FINE);
                 String best = locationManager.getBestProvider(criteria, false);
-                if(ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+                if(ContextCompat.checkSelfPermission(activityMain, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
                     System.out.println("ATTENTION: permission denied");
                 }else{
                     System.out.println("ATTENTION: permission granted");

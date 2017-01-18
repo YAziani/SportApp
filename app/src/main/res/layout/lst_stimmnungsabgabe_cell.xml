@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:p1="http://schemas.android.com/apk/res/android"
+
+    xmlns:tools="http://schemas.android.com/tools"
+    p1:minWidth="25px"
+    p1:minHeight="25px"
+    p1:layout_width="match_parent"
+    p1:layout_height="wrap_content"
+    p1:id="@+id/relativeLayout1"
+    p1:background="@drawable/list_item_selector">
+    <LinearLayout
+        p1:orientation="vertical"
+        p1:minWidth="25px"
+        p1:minHeight="25px"
+        p1:layout_width="wrap_content"
+        p1:layout_height="wrap_content"
+        p1:id="@+id/linearLayout1"
+        p1:listSelector="@drawable/bkg"
+        p1:layout_centerVertical="true"
+        p1:background="@drawable/list_item_selector">
+        <TextView
+            p1:text="Mittelmäßig"
+            p1:layout_width="385dp"
+            p1:layout_height="45dp"
+            p1:id="@+id/txtTitle"
+            p1:textSize="14sp"
+            p1:textColor="@color/colorWhite"
+
+            p1:paddingLeft="60dp"
+            p1:gravity="center_vertical"
+            p1:fontFamily="casual" />
+    </LinearLayout>
+</RelativeLayout>

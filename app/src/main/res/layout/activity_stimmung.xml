@@ -1,0 +1,243 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+
+    <ScrollView
+        android:id="@+id/scrollView1"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+        <LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical" android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtMainQuestion"
+                android:text="Bitte geben Sie an, wie Sie sich jetzt d.h. in diesem Moment fühlen"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:textStyle="normal|bold"
+                android:textSize="18sp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:id="@+id/txtAngespannt"
+                android:text="Angespannt"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual" />
+            <ListView
+                android:id="@+id/lvAngespannt"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_Stimmungen"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="280dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:id="@+id/txtTraurig"
+                android:text="Traurig und niedergeschlagen"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold" />
+
+            <ListView
+                android:id="@+id/lvTraurig"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_Stimmungen"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:layout_height="280dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:id="@+id/txtTatkraeftig"
+                android:text="Tatkräftig"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold" />
+
+            <ListView
+                android:id="@+id/lvTatkraeftig"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_Stimmungen"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:layout_height="280dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:id="@+id/txtZerstreut"
+                android:text="Zerstreut"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold" />
+
+            <ListView
+                android:id="@+id/lvZerstreut"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_Stimmungen"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:layout_height="280dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:id="@+id/txtWuetend"
+                android:text="Wütend"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold" />
+
+            <ListView
+                android:id="@+id/lvWuetend"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_Stimmungen"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:layout_height="280dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:id="@+id/txtMuede"
+                android:text="Müde"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold" />
+
+            <ListView
+                android:id="@+id/lvMuede"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_Stimmungen"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:layout_height="280dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:id="@+id/txtSelbstsicher"
+                android:text="Selbstsicher"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold" />
+
+            <ListView
+                android:id="@+id/lvSelbstsicher"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_Stimmungen"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:layout_height="280dp" />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="50dp"
+                android:gravity="center"
+                android:id="@+id/txtMitteilsam"
+                android:text="Mitteilsam"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold" />
+
+            <ListView
+                android:id="@+id/lvMitteilsam"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_Stimmungen"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:layout_height="280dp" />
+
+        </LinearLayout>
+    </ScrollView>
+    <ImageView
+        android:layout_width="match_parent"
+        android:layout_height="65dp"
+        app:srcCompat="@drawable/stimmungbkg"
+        android:id="@+id/imageView"
+        android:layout_gravity="top"
+        android:layout_marginTop="25dp" />
+</LinearLayout>

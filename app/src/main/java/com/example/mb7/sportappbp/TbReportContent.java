@@ -48,7 +48,7 @@ public class TbReportContent extends TabFragment{
             @Override
             public void onClick(View view){
 
-                Intent open = new Intent(getActivity(), DiaryActivity.class);
+                Intent open = new Intent(getActivity(), ActivityDiary.class);
                 startActivity(open);
 
             }

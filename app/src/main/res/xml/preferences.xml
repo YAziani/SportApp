@@ -1,27 +1,43 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
-    <CheckBoxPreference
-        android:key="pref_sync"
-        android:title="testSettings"
-        android:summary="This is just a test"
-        android:defaultValue="true" />
-    <ListPreference
-        android:key="button_voicemail_provider_key"
-        android:title="/voicemail_provider"  />
-    <!-- opens another nested subscreen -->
-    <PreferenceScreen
-        android:key="button_voicemail_setting_key"
-        android:title="voicemail_settings"
-        android:persistent="false">
-        <CheckBoxPreference
-            android:key="pref_sync"
-            android:title="testSettings"
-            android:summary="This is just a test"
-            android:defaultValue="true" />
-    </PreferenceScreen>
-    <RingtonePreference
-        android:key="button_voicemail_ringtone_key"
-        android:title="voicemail_ringtone_title"
-        android:ringtoneType="notification" />
+    <PreferenceCategory
+        android:title="Stimmungsabfrage"
+        android:key="pref_key_storage_settings">
+
+        <ListPreference
+            android:title="Stimmnungsabfrage vor oder nach dem Training"
+            android:key="lstStimmnungsAbfrage"
+            android:defaultValue="1"
+            android:summary="%s"
+            android:entries="@array/ArrrayStgsAbfrage"
+            android:entryValues="@array/ArrrayStgsAbfrageValue" />
+        <ListPreference
+            android:title="Abstand der Stimmnungsabfrage"
+            android:key="lstStmabfrageAbstand"
+            android:defaultValue="3"
+            android:summary="%s"
+            android:entries="@array/ArrrayStmabfrageAbstand"
+            android:entryValues="@array/ArrrayStmabfrageAbstandeValue" />
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="Benachrichtugn für das Training"
+        android:key="pref_key_storage_settings">
+
+        <ListPreference
+            android:title="Verkehrsmittel"
+            android:key="lstVerkehrsmittel"
+            android:defaultValue="1"
+            android:summary="%s"
+            android:entries="@array/ArrrayVerkehrsmittel"
+            android:entryValues="@array/ArrrayVerkehrsmittelValue" />
+        <ListPreference
+            android:title="Zeitspanne der Benachrichtigung zum Termin"
+            android:key="lstStmabfrageAbstand"
+            android:defaultValue="3"
+            android:summary="%s"
+            android:entries="@array/ArrrayStmabfrageAbstand"
+            android:entryValues="@array/ArrrayStmabfrageAbstandeValue" />
+    </PreferenceCategory>
+
 
 </PreferenceScreen>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string-array name="ArrrayStgsAbfrage">
+        <item>vor</item>
+        <item>nach</item>
+    </string-array>
+
+    <string-array name="ArrrayStgsAbfrageValue">
+        <item>1</item>
+        <item>2</item>
+    </string-array>
+    <string-array name="ArrrayStmabfrageAbstand">
+        <item>0 Minuten</item>
+        <item>20 Minuten</item>
+        <item>30 Minuten</item>
+        <item>40 Minuten</item>
+        <item>50 Minuten</item>
+    </string-array>
+    <string-array name="ArrrayStmabfrageAbstandeValue">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+        <item>5</item>
+    </string-array>
+    <string-array name="ArrrayVerkehrsmittel">
+        <item>Auto</item>
+        <item>Öffentliche Verkehrsmittel</item>
+        <item>Fahrrad</item>
+        <item>Zu Fuß</item>
+    </string-array>
+    <string-array name="ArrrayVerkehrsmittelValue">
+        <item>1</item>
+        <item>2</item>
+        <item>3</item>
+        <item>4</item>
+    </string-array>
+    <string-array name="str_Stimmungen">
+        <item>Überhaupt nicht</item>
+        <item>Wenig</item>
+        <item>Mittelmäßig</item>
+        <item>Ziemlich</item>
+        <item>Extrem</item>
+    </string-array>
+</resources>

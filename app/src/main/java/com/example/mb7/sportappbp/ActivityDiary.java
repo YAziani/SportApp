@@ -5,7 +5,7 @@ import android.os.Bundle;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
 
-public class DiaryActivity extends AppCompatActivity {
+public class ActivityDiary extends AppCompatActivity {
 
     ArrayAdapter<String> arrayAdapter;
     String[] entries =  {"1.1.2017","2.1.2017","3.1.2017","4.1.2017","5.1.2017"};
@@ -20,7 +20,7 @@ public class DiaryActivity extends AppCompatActivity {
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
         listView = (ListView) findViewById(R.id.listviewDiary);
-        arrayAdapter = new ArrayAdapter<String>(DiaryActivity.this, android.R.layout.simple_list_item_1, entries);
+        arrayAdapter = new ArrayAdapter<String>(ActivityDiary.this, android.R.layout.simple_list_item_1, entries);
         listView.setAdapter(arrayAdapter);
 
     }

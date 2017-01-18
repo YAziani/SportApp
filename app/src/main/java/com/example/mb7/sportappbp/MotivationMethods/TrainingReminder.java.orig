@@ -20,11 +20,16 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.text.InputType;
+import android.view.LayoutInflater;
+import android.view.View;
 import android.widget.Button;
 import android.widget.EditText;
 
+<<<<<<< HEAD
 import com.example.mb7.sportappbp.ActivityMain;
-import com.example.mb7.sportappbp.R;
+=======
+import com.example.mb7.sportappbp.*;
+>>>>>>> ead3ff5b1332665407f5d8258f8e46053f36f140
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -50,9 +55,14 @@ public class TrainingReminder extends MotivationMethod {
     private Address studioAddress;
     private Location userLocation;
     private Location studioLocation;
+<<<<<<< HEAD
+    private final int  LOCATION_PERMISSION_REQUEST = 1440;
+    private ActivityMain activityMain;
+=======
 
-    private ActivityMain mainActivity;
+    private MainActivity mainActivity;
     private final int notificationId = 4292;
+>>>>>>> ead3ff5b1332665407f5d8258f8e46053f36f140
     private enum MeansOfTransportation {AFOOT, BICYCLE, CAR, BUS, TRAIN};
     private MeansOfTransportation  meansOfTransportation = null;
 
@@ -65,7 +75,11 @@ public class TrainingReminder extends MotivationMethod {
     public TrainingReminder(ActivityMain activityMain) {
 
         // TODO implement the collection of the studio address
-        this.mainActivity = activityMain;
+<<<<<<< HEAD
+        this.activityMain = activityMain;
+        locationManager = (LocationManager) activityMain.getSystemService(Context.LOCATION_SERVICE) ;
+=======
+        this.mainActivity = mainActivity;
 
         /*
         // TODO remove debug buttons
@@ -90,6 +104,8 @@ public class TrainingReminder extends MotivationMethod {
          */
 
 
+        locationManager = (LocationManager) mainActivity.getSystemService(Context.LOCATION_SERVICE) ;
+>>>>>>> ead3ff5b1332665407f5d8258f8e46053f36f140
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -122,6 +138,9 @@ public class TrainingReminder extends MotivationMethod {
             }
         };
 
+<<<<<<< HEAD
+        ActivityCompat.requestPermissions(activityMain, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+=======
         ActivityCompat.requestPermissions(
                 mainActivity,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
@@ -129,6 +148,7 @@ public class TrainingReminder extends MotivationMethod {
         );
         requestStudioPosition();
         debug();
+>>>>>>> ead3ff5b1332665407f5d8258f8e46053f36f140
     }
 
     @Override
@@ -153,7 +173,7 @@ public class TrainingReminder extends MotivationMethod {
         // get address from coordinates
         Geocoder geocoder;
         List<Address> addresses = null;
-        geocoder = new Geocoder(mainActivity, Locale.getDefault());
+        geocoder = new Geocoder(activityMain, Locale.getDefault());
         try {
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
         } catch(IOException e) {
@@ -217,7 +237,7 @@ public class TrainingReminder extends MotivationMethod {
      */
     private String compareStudioPosition(String givenPosition) {
         List<Address> determinedAddresses = null;
-        Geocoder geocoder = new Geocoder(mainActivity, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(activityMain, Locale.getDefault());
 
         // determine the address matching the given address the most
         try {
@@ -341,9 +361,9 @@ public class TrainingReminder extends MotivationMethod {
                         .setSmallIcon(R.drawable.weight_icon)
                         .setContentTitle("Training Reminder")
                         .setContentText("time to get ready");
-        Intent resultIntent = new Intent(mainActivity, ActivityMain.class);
+        Intent resultIntent = new Intent(mainActivity, MainActivity.class);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(mainActivity);
-        stackBuilder.addParentStack(ActivityMain.class);
+        stackBuilder.addParentStack(MainActivity.class);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
                 stackBuilder.getPendingIntent(
@@ -376,7 +396,7 @@ public class TrainingReminder extends MotivationMethod {
                 Criteria criteria = new Criteria();
                 criteria.setAccuracy(Criteria.ACCURACY_FINE);
                 String best = locationManager.getBestProvider(criteria, false);
-                if(ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+                if(ContextCompat.checkSelfPermission(activityMain, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
                     System.out.println("ATTENTION: permission denied");
                 }else{
                     System.out.println("ATTENTION: permission granted");

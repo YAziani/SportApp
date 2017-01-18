@@ -43,7 +43,7 @@
                 android:layout_marginLeft="50dp"
                 android:textStyle="normal|bold"
                 android:fontFamily="casual" />
-            <ListView
+            <com.example.mb7.sportappbp.StimmungListview
                 android:id="@+id/lvAngespannt"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -69,7 +69,7 @@
                 android:fontFamily="casual"
                 android:textStyle="normal|bold" />
 
-            <ListView
+            <com.example.mb7.sportappbp.StimmungListview
                 android:id="@+id/lvTraurig"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -94,7 +94,7 @@
                 android:fontFamily="casual"
                 android:textStyle="normal|bold" />
 
-            <ListView
+            <com.example.mb7.sportappbp.StimmungListview
                 android:id="@+id/lvTatkraeftig"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -119,7 +119,7 @@
                 android:fontFamily="casual"
                 android:textStyle="normal|bold" />
 
-            <ListView
+            <com.example.mb7.sportappbp.StimmungListview
                 android:id="@+id/lvZerstreut"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -144,7 +144,7 @@
                 android:fontFamily="casual"
                 android:textStyle="normal|bold" />
 
-            <ListView
+            <com.example.mb7.sportappbp.StimmungListview
                 android:id="@+id/lvWuetend"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -169,7 +169,7 @@
                 android:fontFamily="casual"
                 android:textStyle="normal|bold" />
 
-            <ListView
+            <com.example.mb7.sportappbp.StimmungListview
                 android:id="@+id/lvMuede"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -194,7 +194,7 @@
                 android:fontFamily="casual"
                 android:textStyle="normal|bold" />
 
-            <ListView
+            <com.example.mb7.sportappbp.StimmungListview
                 android:id="@+id/lvSelbstsicher"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -219,7 +219,7 @@
                 android:fontFamily="casual"
                 android:textStyle="normal|bold" />
 
-            <ListView
+            <com.example.mb7.sportappbp.StimmungListview
                 android:id="@+id/lvMitteilsam"
                 android:layout_width="match_parent"
                 android:divider="#00279a"

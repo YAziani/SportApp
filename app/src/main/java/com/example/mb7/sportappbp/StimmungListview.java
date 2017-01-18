@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp;
 
 import android.content.Context;
+import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
@@ -15,8 +16,20 @@ public class StimmungListview extends ListView  {
     super(context);
 }
 
+    public StimmungListview(Context context, AttributeSet attrs) {
+        super(context, attrs);
+    }
+
+    public StimmungListview(Context context, AttributeSet attrs, int defStyle) {
+        super(context, attrs, defStyle);
+    }
+    public StimmungListview(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
+        super (context,attrs,defStyleAttr,defStyleRes);
+    }
+
     public void Initialize()
     {
+        // we do this to disable scrolling the listview
         this.setOnTouchListener(new View.OnTouchListener() {
             @Override
             public boolean onTouch(View v, MotionEvent event) {
@@ -27,6 +40,7 @@ public class StimmungListview extends ListView  {
             }
 
         });
+        // we do this so that the selected color remains after clicking on an item
         this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {

@@ -1,7 +1,12 @@
 package com.example.mb7.sportappbp.MotivationMethods;
 
 import android.Manifest;
+import android.app.AlertDialog;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
+import android.content.DialogInterface;
+import android.content.Intent;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -11,7 +16,14 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.support.v4.app.ActivityCompat;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
+import android.text.InputType;
+import android.view.LayoutInflater;
+import android.view.View;
+import android.widget.Button;
+import android.widget.EditText;
 
 import com.example.mb7.sportappbp.ActivityMain;
 
@@ -29,16 +41,24 @@ import java.util.Locale;
 
 public class TrainingReminder extends MotivationMethod {
 
+    // objects required to determine the user and studio positions
     private LocationManager locationManager;
     private LocationListener locationListener;
+    private final int  LOCATION_PERMISSION_REQUEST = 1440;
+
+    // objects describing the user and studio positions
     private Address userAddress;
     private Address studioAddress;
     private Location userLocation;
     private Location studioLocation;
-    private final int  LOCATION_PERMISSION_REQUEST = 1440;
+
     private ActivityMain activityMain;
+    private final int notificationId = 4292;
     private enum MeansOfTransportation {AFOOT, BICYCLE, CAR, BUS, TRAIN};
     private MeansOfTransportation  meansOfTransportation = null;
+
+    Button popupButton;
+    Button notifyButton;
 
     /**
      * initialize the reminder and collect the address of the users fitness studio
@@ -47,7 +67,30 @@ public class TrainingReminder extends MotivationMethod {
 
         // TODO implement the collection of the studio address
         this.activityMain = activityMain;
-        locationManager = (LocationManager) activityMain.getSystemService(Context.LOCATION_SERVICE) ;
+
+        /*
+        // TODO remove debug buttons
+        LayoutInflater layoutInflater = LayoutInflater.from(mainActivity);
+        View notificationView = layoutInflater.inflate(R.layout.tbtaskcontent, null);
+        notifyButton = (Button) notificationView.findViewById(R.id.notifyButton);
+        popupButton = (Button) notificationView.findViewById(R.id.popupButton);
+        popupButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("popupButton");
+                requestStudioPosition();
+            }
+        });
+        notifyButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                System.out.println("notifyButton");
+                notifyUser();
+            }
+        });
+         */
+
+
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -59,7 +102,6 @@ public class TrainingReminder extends MotivationMethod {
                 } else {
                     System.err.println("ATTENTION: address is null");
                 }
-
 
                 // TODO remove debug method
                 debug();
@@ -81,7 +123,13 @@ public class TrainingReminder extends MotivationMethod {
             }
         };
 
-        ActivityCompat.requestPermissions(activityMain, new String[]{Manifest.permission.ACCESS_FINE_LOCATION}, LOCATION_PERMISSION_REQUEST);
+        ActivityCompat.requestPermissions(
+                mainActivity,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                LOCATION_PERMISSION_REQUEST
+        );
+        requestStudioPosition();
+        debug();
     }
 
     @Override
@@ -123,6 +171,47 @@ public class TrainingReminder extends MotivationMethod {
     }
 
     /**
+     * shows popup and requests the user to enter his studio's address
+     */
+    private void requestStudioPosition() {
+        // popup for collection of studio address
+        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        builder.setTitle("Please enter your fitness studio's address");
+        builder.setCancelable(true);
+        // set up the input
+        final EditText input = new EditText(mainActivity);
+        // specify the type of input
+        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        builder.setView(input);
+        // set up buttons
+        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
+            String inputText = "";
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                inputText = input.getText().toString();
+                compareStudioPosition(inputText);
+
+                // TODO remove debug
+                debug();
+                notifyUser();
+            }
+        });
+
+        /*
+        // cancel button
+        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                dialog.cancel();
+            }
+        });
+         */
+
+        // show the popup
+        builder.show();
+    }
+
+    /**
      * determines the address object of the given address and returns it for comparing
      * @param givenPosition: the user entered name of the studio address
      * @return address object matching the user given address the most
@@ -131,12 +220,14 @@ public class TrainingReminder extends MotivationMethod {
         List<Address> determinedAddresses = null;
         Geocoder geocoder = new Geocoder(activityMain, Locale.getDefault());
 
+        // determine the address matching the given address the most
         try {
             determinedAddresses = geocoder.getFromLocationName(givenPosition, 1);
         }catch(Exception e){
             e.printStackTrace();
         }
 
+        // set the studio position to the determined address
         if(determinedAddresses != null && determinedAddresses.size() > 0 && determinedAddresses.get(0) != null) {
             studioAddress = determinedAddresses.get(0);
             studioLocation = new Location("studioLocation");
@@ -154,16 +245,21 @@ public class TrainingReminder extends MotivationMethod {
      * @return distance in meter
      */
     private float getDistanceToStudio() {
-        // 2 * squareroot(2)
-        float cityBlockFactor = 2.8284f;
-        return userLocation.distanceTo(studioLocation) * cityBlockFactor;
+        // 2 * squareroot(2) = 2.8284f
+        // approximate distance compared to beeline about 125%
+        float cityBlockFactor = 1.25f;
+        // return the approximate distance between user and studio
+        if(userLocation != null && studioLocation != null) {
+            return userLocation.distanceTo(studioLocation) * cityBlockFactor;
+        }
+        return 0;
     }
 
     /**
      * determines time needed to get to the studio starting at the users position
      * @return time needed in minutes
      */
-    private float getTimeToStudio() {
+    private int getTimeToStudio() {
         // time to studio in minutes
         float time;
         // standard amount of time which always will be added to the net time
@@ -180,10 +276,10 @@ public class TrainingReminder extends MotivationMethod {
                 speed = 250.0f;
             } else {
                 if (meansOfTransportation == MeansOfTransportation.BUS) {
-                    speed = 400.0f;
+                    speed = 450.0f;
                 } else {
                     if (meansOfTransportation == MeansOfTransportation.CAR) {
-                        speed = 700.0f;
+                        speed = 750.0f;
                     } else {
                         if (meansOfTransportation == MeansOfTransportation.TRAIN) {
                             speed = 1500.0f;
@@ -193,7 +289,9 @@ public class TrainingReminder extends MotivationMethod {
             }
         }
         time = distance / speed;
-        return time + buffer;
+        // round time needed to the next lowest multiple of five
+        time -= (time % 5);
+        return (int)(time + buffer);
     }
 
     /**
@@ -203,8 +301,9 @@ public class TrainingReminder extends MotivationMethod {
     private boolean checkNecessityOfNotification() {
 
         // interval of time between checks in minute
-        int periode = 10;
+        int period = 10;
 
+        // TODO implement time for training
         // start of the training
         int trainingHour = 16;
         int trainingMinute = 30;
@@ -219,14 +318,48 @@ public class TrainingReminder extends MotivationMethod {
         int currentMinuteOfDay = currentHour * 60 + currentMinute;
 
         // time needed to get to the studio
-        int timeNeeded = (int) getTimeToStudio();
+        int timeNeeded = getTimeToStudio();
 
+        // check if one could wait another period before user has to go
         if(trainingMinuteOfDay - currentMinuteOfDay > 0
-                && trainingMinuteOfDay - currentMinuteOfDay - timeNeeded < periode) {
+                && trainingMinuteOfDay - currentMinuteOfDay - timeNeeded < period) {
             return true;
         }else {
             return false;
         }
+    }
+
+    /**
+     * notify the user and provide the time needed until the training begins
+     */
+    private void notifyUser() {
+        // get time until training begins
+        int timeToStudio = getTimeToStudio();
+
+        // setup notification builder
+        final NotificationCompat.Builder notificationBuilder =
+                new NotificationCompat.Builder(mainActivity)
+                        .setSmallIcon(R.drawable.weight_icon)
+                        .setContentTitle("Training Reminder")
+                        .setContentText("time to get ready");
+        Intent resultIntent = new Intent(mainActivity, MainActivity.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(mainActivity);
+        stackBuilder.addParentStack(MainActivity.class);
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntent =
+                stackBuilder.getPendingIntent(
+                        0,
+                        PendingIntent.FLAG_UPDATE_CURRENT
+                );
+        notificationBuilder.setContentIntent(resultPendingIntent);
+        // setup notification manager
+        final NotificationManager notificationManager =
+                (NotificationManager) mainActivity.getSystemService(Context.NOTIFICATION_SERVICE);
+        // send notification
+        notificationManager.notify(
+                notificationId,
+                notificationBuilder.setContentText("Your training begins in about " + timeToStudio + " minutes").build()
+        );
     }
 
     /**
@@ -261,13 +394,19 @@ public class TrainingReminder extends MotivationMethod {
     // TODO remove debug method
     public void debug() {
         meansOfTransportation = MeansOfTransportation.AFOOT;
-        System.out.println(compareStudioPosition("rüsselsheim marktplatz"));
-        if(userAddress != null) {
-            System.out.println("user: " + userAddress.getAddressLine(0));
+        if(userAddress != null && studioAddress != null) {
+            System.out.println("user: " + userAddress.getAddressLine(0) + ", " + userAddress.getLocality());
+            System.out.println("studio: " + studioAddress.getAddressLine(0) + ", " + studioAddress.getLocality());
             System.out.println("distance: " + getDistanceToStudio());
             System.out.println("time: " + getTimeToStudio());
+            notifyUser();
         } else {
-            System.err.println("WARNING: USERADDRESS IS NULL");
+            if(userAddress == null) {
+                System.err.println("WARNING: USERADDRESS IS NULL");
+            }
+            if(studioAddress == null) {
+                System.err.println("WARNING: STUDIOADDRESS IS NULL");
+            }
         }
     }
 }

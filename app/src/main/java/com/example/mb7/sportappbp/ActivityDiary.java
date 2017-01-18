@@ -7,9 +7,10 @@ import android.widget.ListView;
 
 public class ActivityDiary extends AppCompatActivity {
 
+
     ArrayAdapter<String> arrayAdapter;
-    String[] entries =  {"1.1.2017","2.1.2017","3.1.2017","4.1.2017","5.1.2017"};
     ListView listView;
+    AllDiaryEntries allDiaryEntries;
 
 
     @Override
@@ -17,10 +18,10 @@ public class ActivityDiary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-
+        //get the listView of the layout
         listView = (ListView) findViewById(R.id.listviewDiary);
-        arrayAdapter = new ArrayAdapter<String>(ActivityDiary.this, android.R.layout.simple_list_item_1, entries);
+        arrayAdapter = new ArrayAdapter<String>(DiaryActivity.this, android.R.layout.simple_list_item_1, entries);
+        arrayAdapter = new ArrayAdapter<String>(DiaryActivity.this, android.R.layout.simple_list_item_1, allDiaryEntries.getInstance().getAllDates());
         listView.setAdapter(arrayAdapter);
 
     }

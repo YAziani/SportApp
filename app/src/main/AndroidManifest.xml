@@ -35,6 +35,7 @@
             android:parentActivityName=".ActivityMain" />
         <activity android:name=".ActivitySettings" />
         <activity android:name=".ActivityStimmungsAbgabe"></activity>
+         <activity android:name=".SettingInitializerActivity"></activity>
     </application>
 
 </manifest>

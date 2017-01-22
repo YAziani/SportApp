@@ -27,4 +27,13 @@
         android:layout_below="@+id/testbutton"
         android:layout_centerHorizontal="true"
         android:id="@+id/testbutton2" />
+
+    <TextView
+        android:text="TextView"
+        android:layout_width="300dp"
+        android:layout_above="@+id/testbutton"
+        android:layout_centerHorizontal="true"
+        android:layout_marginBottom="22dp"
+        android:id="@+id/txtRequestTest"
+        android:layout_height="100dp" />
 </RelativeLayout>

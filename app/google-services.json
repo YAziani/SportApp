@@ -15,6 +15,14 @@
       },
       "oauth_client": [
         {
+          "client_id": "892175710582-ivkt613etnltnhg535jvh1bjaspbimfj.apps.googleusercontent.com",
+          "client_type": 1,
+          "android_info": {
+            "package_name": "com.example.mb7.sportappbp",
+            "certificate_hash": "122723037E2C3FCBF2F4E16B11068DDCB5C93151"
+          }
+        },
+        {
           "client_id": "892175710582-qf9akl84ckre4ktsmbcuduspkupjschf.apps.googleusercontent.com",
           "client_type": 3
         }
@@ -29,8 +37,13 @@
           "status": 1
         },
         "appinvite_service": {
-          "status": 1,
-          "other_platform_oauth_client": []
+          "status": 2,
+          "other_platform_oauth_client": [
+            {
+              "client_id": "892175710582-qf9akl84ckre4ktsmbcuduspkupjschf.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
         },
         "ads_service": {
           "status": 2

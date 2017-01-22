@@ -1,7 +1,9 @@
 package com.example.mb7.sportappbp;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.support.design.widget.TabLayout;
@@ -18,6 +20,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+
+import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
 
@@ -39,7 +43,7 @@ public class ActivityMain extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     // list which consists of all used motivation methods
-    private LinkedList<MotivationMethod> motivationMethods= new LinkedList<MotivationMethod>();
+    private LinkedList<MotivationMethod> motivationMethods = new LinkedList<MotivationMethod>();
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private TabLayout tabLayout;
@@ -52,14 +56,23 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // create a new motivation method and add it to the list of methods
-        //TrainingReminder t = new TrainingReminder(this);
-        //motivationMethods.add(t);
+        TrainingReminder t = new TrainingReminder(this);
+        motivationMethods.add(t);
 
         // initialize the settings activity
-        //Intent open = new Intent(this, SettingInitializerActivity.class);
-        //startActivity(open);
+        SharedPreferences preferences = getSharedPreferences("SportApp", Context.MODE_PRIVATE);
 
+        // TODO activate line below for init settings every start
+        // preferences.edit().putBoolean("initialized", false).apply();
 
+        if(!preferences.getBoolean("initialized",false)) {
+            Intent open = new Intent(this, SettingInitializerActivity.class);
+            startActivity(open);
+        }
+
+        // start background clock
+        BackgroundClock backgroundClock = new BackgroundClock();
+        backgroundClock.startClock(this, motivationMethods);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);

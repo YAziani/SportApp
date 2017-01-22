@@ -7,6 +7,7 @@ import android.app.PendingIntent;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
 import android.location.Address;
 import android.location.Criteria;
@@ -19,8 +20,8 @@ import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
+import android.support.v7.app.AppCompatActivity;
 import android.text.InputType;
-import android.widget.Button;
 import android.widget.EditText;
 
 import com.example.mb7.sportappbp.ActivityMain;
@@ -33,9 +34,8 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by Aziani on 23.12.2016.
- *
  * class implements a reminder which reminds the user about his planned training
+ * Created by Aziani on 23.12.2016.
  */
 
 public class TrainingReminder extends MotivationMethod {
@@ -50,46 +50,19 @@ public class TrainingReminder extends MotivationMethod {
     private Address studioAddress;
     private Location userLocation;
     private Location studioLocation;
-
-    private ActivityMain mainActivity;
+    private AppCompatActivity activity;
     private final int notificationId = 4292;
     private enum MeansOfTransportation {AFOOT, BICYCLE, CAR, BUS, TRAIN};
-    private MeansOfTransportation  meansOfTransportation = null;
-
-    Button popupButton;
-    Button notifyButton;
+    private MeansOfTransportation  meansOfTransportation = MeansOfTransportation.AFOOT;
 
     /**
      * initialize the reminder and collect the address of the users fitness studio
      */
-    public TrainingReminder(ActivityMain activityMain) {
+    public TrainingReminder(AppCompatActivity activity) {
 
-        // TODO implement the collection of the studio address
-        this.mainActivity = activityMain;
+        this.activity = activity;
 
-        /*
-        // TODO remove debug buttons
-        LayoutInflater layoutInflater = LayoutInflater.from(mainActivity);
-        View notificationView = layoutInflater.inflate(R.layout.tbtaskcontent, null);
-        notifyButton = (Button) notificationView.findViewById(R.id.notifyButton);
-        popupButton = (Button) notificationView.findViewById(R.id.popupButton);
-        popupButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("popupButton");
-                requestStudioPosition();
-            }
-        });
-        notifyButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                System.out.println("notifyButton");
-                notifyUser();
-            }
-        });
-         */
-
-
+        locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE) ;
         locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
@@ -101,9 +74,6 @@ public class TrainingReminder extends MotivationMethod {
                 } else {
                     System.err.println("ATTENTION: address is null");
                 }
-
-                // TODO remove debug method
-                debug();
             }
 
             @Override
@@ -123,24 +93,29 @@ public class TrainingReminder extends MotivationMethod {
         };
 
         ActivityCompat.requestPermissions(
-                mainActivity,
+                this.activity,
                 new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
                 LOCATION_PERMISSION_REQUEST
         );
-        requestStudioPosition();
-        debug();
     }
 
     @Override
-    public void run() {
-
+    public void run(String trainingStartTime) {
+        SharedPreferences preferences = activity.getSharedPreferences("SportApp", Context.MODE_PRIVATE);
+        // update studio location
+        compareStudioPosition(preferences.getString("Studioadresse", ""));
+        if(!(studioAddress == null) && !(userAddress == null)) {
+            // if necessary, notify user
+            if (checkNecessityOfNotification(trainingStartTime)) {
+                notifyUser(trainingStartTime);
+            }
+        }
     }
 
     @Override
     public void rate() {
 
     }
-
 
     /**
      * determines the address object of the given location object
@@ -149,11 +124,10 @@ public class TrainingReminder extends MotivationMethod {
      */
     private Address getUserAddress(Location location) {
         Address tmpUserAddress = null;
-
         // get address from coordinates
         Geocoder geocoder;
         List<Address> addresses = null;
-        geocoder = new Geocoder(mainActivity, Locale.getDefault());
+        geocoder = new Geocoder(activity, Locale.getDefault());
         try {
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
         } catch(IOException e) {
@@ -161,6 +135,7 @@ public class TrainingReminder extends MotivationMethod {
             System.out.println("ATTENTION: Address could not be determined.");
         }
 
+        // check if address is valid
         if(addresses != null && addresses.size() > 0 && addresses.get(0) != null) {
             tmpUserAddress = addresses.get(0);
         } else {
@@ -174,13 +149,13 @@ public class TrainingReminder extends MotivationMethod {
      */
     private void requestStudioPosition() {
         // popup for collection of studio address
-        AlertDialog.Builder builder = new AlertDialog.Builder(mainActivity);
+        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
         builder.setTitle("Please enter your fitness studio's address");
         builder.setCancelable(true);
         // set up the input
-        final EditText input = new EditText(mainActivity);
+        final EditText input = new EditText(activity);
         // specify the type of input
-        input.setInputType(InputType.TYPE_CLASS_TEXT | InputType.TYPE_TEXT_VARIATION_NORMAL);
+        input.setInputType(InputType.TYPE_CLASS_TEXT);
         builder.setView(input);
         // set up buttons
         builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
@@ -189,23 +164,8 @@ public class TrainingReminder extends MotivationMethod {
             public void onClick(DialogInterface dialog, int which) {
                 inputText = input.getText().toString();
                 compareStudioPosition(inputText);
-
-                // TODO remove debug
-                debug();
-                notifyUser();
             }
         });
-
-        /*
-        // cancel button
-        builder.setNegativeButton("Cancel", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                dialog.cancel();
-            }
-        });
-         */
-
         // show the popup
         builder.show();
     }
@@ -215,9 +175,9 @@ public class TrainingReminder extends MotivationMethod {
      * @param givenPosition: the user entered name of the studio address
      * @return address object matching the user given address the most
      */
-    private String compareStudioPosition(String givenPosition) {
+    public String compareStudioPosition(String givenPosition) {
         List<Address> determinedAddresses = null;
-        Geocoder geocoder = new Geocoder(mainActivity, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
 
         // determine the address matching the given address the most
         try {
@@ -297,15 +257,14 @@ public class TrainingReminder extends MotivationMethod {
      * checks if the time has come to remember the user to go to the studio
      * @return boolean, which is true if user has to be reminded and false if not
      */
-    private boolean checkNecessityOfNotification() {
+    private boolean checkNecessityOfNotification(String time) {
 
         // interval of time between checks in minute
         int period = 10;
 
-        // TODO implement time for training
         // start of the training
-        int trainingHour = 16;
-        int trainingMinute = 30;
+        int trainingHour = Integer.valueOf(time.split(":")[0]);
+        int trainingMinute = Integer.valueOf(time.split(":")[1]);
         int trainingMinuteOfDay = trainingHour * 60 + trainingMinute;
 
         // current time
@@ -320,29 +279,36 @@ public class TrainingReminder extends MotivationMethod {
         int timeNeeded = getTimeToStudio();
 
         // check if one could wait another period before user has to go
-        if(trainingMinuteOfDay - currentMinuteOfDay > 0
-                && trainingMinuteOfDay - currentMinuteOfDay - timeNeeded < period) {
-            return true;
-        }else {
-            return false;
-        }
+        return trainingMinuteOfDay - currentMinuteOfDay > 0
+                && trainingMinuteOfDay - currentMinuteOfDay - timeNeeded < period;
     }
 
     /**
      * notify the user and provide the time needed until the training begins
      */
-    private void notifyUser() {
+    private void notifyUser(String trainingStartTime) {
+
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        int trainingHourOfDay = Integer.valueOf(trainingStartTime.split(":")[0]);
+        int trainingMinuteOfDay = Integer.valueOf(trainingStartTime.split(":")[1]);
+        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinuteOfDay = calendar.get(Calendar.MINUTE);
+
         // get time until training begins
-        int timeToStudio = getTimeToStudio();
+        int timeTillTraining = (trainingHourOfDay * 60 + trainingMinuteOfDay)
+                - (currentHourOfDay * 60 + currentMinuteOfDay);
 
         // setup notification builder
         final NotificationCompat.Builder notificationBuilder =
-                new NotificationCompat.Builder(mainActivity)
+                new NotificationCompat.Builder(activity)
                         .setSmallIcon(R.drawable.weight_icon)
-                        .setContentTitle("Training Reminder")
-                        .setContentText("time to get ready");
-        Intent resultIntent = new Intent(mainActivity, ActivityMain.class);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(mainActivity);
+                        .setContentTitle("Trainingserinnerung")
+                        .setContentText("Zeit sich fertig zu machen");
+        Intent resultIntent = new Intent(activity, ActivityMain.class);
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(activity);
         stackBuilder.addParentStack(ActivityMain.class);
         stackBuilder.addNextIntent(resultIntent);
         PendingIntent resultPendingIntent =
@@ -353,11 +319,12 @@ public class TrainingReminder extends MotivationMethod {
         notificationBuilder.setContentIntent(resultPendingIntent);
         // setup notification manager
         final NotificationManager notificationManager =
-                (NotificationManager) mainActivity.getSystemService(Context.NOTIFICATION_SERVICE);
+                (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
         // send notification
         notificationManager.notify(
                 notificationId,
-                notificationBuilder.setContentText("Your training begins in about " + timeToStudio + " minutes").build()
+                notificationBuilder.setContentText(
+                        "Ihr Training beginnt in etwa " + timeTillTraining + " Minuten").build()
         );
     }
 
@@ -369,14 +336,12 @@ public class TrainingReminder extends MotivationMethod {
      */
     @Override
     public void evaluatePermissionResults(int requestCode, String permissions[], int[] grantResults) {
-
         if(requestCode == LOCATION_PERMISSION_REQUEST && grantResults.length > 0 && grantResults[0] == PackageManager.PERMISSION_GRANTED) {
-            System.out.println("case permission granted");
             try {
                 Criteria criteria = new Criteria();
                 criteria.setAccuracy(Criteria.ACCURACY_FINE);
                 String best = locationManager.getBestProvider(criteria, false);
-                if(ContextCompat.checkSelfPermission(mainActivity, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
+                if(ContextCompat.checkSelfPermission(activity, Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
                     System.out.println("ATTENTION: permission denied");
                 }else{
                     System.out.println("ATTENTION: permission granted");
@@ -385,8 +350,6 @@ public class TrainingReminder extends MotivationMethod {
             }catch(SecurityException e){
                 e.printStackTrace();
             }
-        } else {
-            System.out.println("case permission denied");
         }
     }
 
@@ -398,7 +361,6 @@ public class TrainingReminder extends MotivationMethod {
             System.out.println("studio: " + studioAddress.getAddressLine(0) + ", " + studioAddress.getLocality());
             System.out.println("distance: " + getDistanceToStudio());
             System.out.println("time: " + getTimeToStudio());
-            notifyUser();
         } else {
             if(userAddress == null) {
                 System.err.println("WARNING: USERADDRESS IS NULL");

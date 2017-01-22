@@ -12,7 +12,7 @@ public abstract class MotivationMethod {
      * runs the motivation method
      * has to be individually implemented by each concrete motivation method
      */
-    public abstract void run();
+    public abstract void run(String trainingStartTime);
 
     /**
      * initiates the rating of a motivation method

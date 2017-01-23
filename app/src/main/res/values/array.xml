@@ -24,10 +24,10 @@
         <item>5</item>
     </string-array>
     <string-array name="ArrrayVerkehrsmittel">
-        <item>Auto</item>
-        <item>Öffentliche Verkehrsmittel</item>
-        <item>Fahrrad</item>
         <item>Zu Fuß</item>
+        <item>Fahrrad</item>
+        <item>Öffentliche Verkehrsmittel</item>
+        <item>Auto</item>
     </string-array>
     <string-array name="ArrrayVerkehrsmittelValue">
         <item>1</item>

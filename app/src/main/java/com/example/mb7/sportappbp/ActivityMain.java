@@ -6,6 +6,7 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -60,7 +61,7 @@ public class ActivityMain extends AppCompatActivity {
         motivationMethods.add(t);
 
         // initialize the settings activity
-        SharedPreferences preferences = getSharedPreferences("SportApp", Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         // TODO activate line below for init settings every start
         // preferences.edit().putBoolean("initialized", false).apply();

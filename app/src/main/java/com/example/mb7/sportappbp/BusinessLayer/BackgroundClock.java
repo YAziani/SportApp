@@ -4,6 +4,8 @@ import android.app.Activity;
 import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
+import android.preference.PreferenceManager;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -24,7 +26,7 @@ public class BackgroundClock{
      */
     public void startClock(final Activity activity, final LinkedList<MotivationMethod> motivationMethods) {
         // get the shared preferences to determine the training time the user handed to the app
-        final SharedPreferences preferences = activity.getSharedPreferences("SportApp", Context.MODE_PRIVATE);
+        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
 
         // setup handler to schedule regular actions
         final Handler h = new Handler();

@@ -16,6 +16,7 @@ import android.location.Location;
 import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
@@ -52,8 +53,6 @@ public class TrainingReminder extends MotivationMethod {
     private Location studioLocation;
     private AppCompatActivity activity;
     private final int notificationId = 4292;
-    private enum MeansOfTransportation {AFOOT, BICYCLE, CAR, BUS, TRAIN};
-    private MeansOfTransportation  meansOfTransportation = MeansOfTransportation.AFOOT;
 
     /**
      * initialize the reminder and collect the address of the users fitness studio
@@ -101,7 +100,7 @@ public class TrainingReminder extends MotivationMethod {
 
     @Override
     public void run(String trainingStartTime) {
-        SharedPreferences preferences = activity.getSharedPreferences("SportApp", Context.MODE_PRIVATE);
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         // update studio location
         compareStudioPosition(preferences.getString("Studioadresse", ""));
         if(!(studioAddress == null) && !(userAddress == null)) {
@@ -226,27 +225,28 @@ public class TrainingReminder extends MotivationMethod {
         // distance to studio in meter
         float distance = getDistanceToStudio();
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+        String meansOfTransportation = preferences.getString("lstVerkehrsmittel","");
+
         // speed in meter/minutes
-        float speed = 1.0f;
-        if (meansOfTransportation == MeansOfTransportation.AFOOT) {
+        float speed = 85.0f;
+        if (meansOfTransportation.equals("1")) {
             speed = 85.0f;
         } else {
-            if (meansOfTransportation == MeansOfTransportation.BICYCLE) {
+            if (meansOfTransportation.equals("2")) {
                 speed = 250.0f;
             } else {
-                if (meansOfTransportation == MeansOfTransportation.BUS) {
+                if (meansOfTransportation.equals("3")) {
                     speed = 450.0f;
                 } else {
-                    if (meansOfTransportation == MeansOfTransportation.CAR) {
+                    if (meansOfTransportation.equals("4")) {
                         speed = 750.0f;
-                    } else {
-                        if (meansOfTransportation == MeansOfTransportation.TRAIN) {
-                            speed = 1500.0f;
-                        }
                     }
                 }
             }
         }
+
+        System.out.println(speed);
         time = distance / speed;
         // round time needed to the next lowest multiple of five
         time -= (time % 5);
@@ -355,7 +355,6 @@ public class TrainingReminder extends MotivationMethod {
 
     // TODO remove debug method
     public void debug() {
-        meansOfTransportation = MeansOfTransportation.AFOOT;
         if(userAddress != null && studioAddress != null) {
             System.out.println("user: " + userAddress.getAddressLine(0) + ", " + userAddress.getLocality());
             System.out.println("studio: " + studioAddress.getAddressLine(0) + ", " + studioAddress.getLocality());

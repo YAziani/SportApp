@@ -5,6 +5,7 @@ import android.app.DialogFragment;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
@@ -39,11 +40,13 @@ public class SettingInitializerActivity extends AppCompatActivity implements Ada
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_initializer);
 
+
+
         // setup trainingReminder for studio address comparison
         trainingReminder = new TrainingReminder(this);
 
         // setup preferences file
-        sharedPreferences = this.getSharedPreferences("SportApp", Context.MODE_PRIVATE);
+        sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         editor = sharedPreferences.edit();
         editor.putBoolean("initialized",true);
         editor.commit();

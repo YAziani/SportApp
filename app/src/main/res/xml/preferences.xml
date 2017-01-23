@@ -24,7 +24,7 @@
         android:key="pref_key_storage_settings">
 
         <ListPreference
-            android:title="Verkehrsmittel"
+            android:title="Fortbewegungsmittel zum Fitnessstudio"
             android:key="lstVerkehrsmittel"
             android:defaultValue="1"
             android:summary="%s"
@@ -37,7 +37,13 @@
             android:summary="%s"
             android:entries="@array/ArrrayStmabfrageAbstand"
             android:entryValues="@array/ArrrayStmabfrageAbstandeValue" />
+        <Preference
+            android:title="Trainingszeiten und Studioadresse"
+            android:summary="Wann und wo findet Ihr Training statt?">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.example.mb7.sportappbp"
+                android:targetClass="com.example.mb7.sportappbp.SettingInitializerActivity" />
+        </Preference>
     </PreferenceCategory>
-
-
 </PreferenceScreen>

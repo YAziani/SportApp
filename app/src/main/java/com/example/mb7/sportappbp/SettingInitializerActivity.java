@@ -2,7 +2,6 @@ package com.example.mb7.sportappbp;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
-import android.content.Context;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
@@ -40,16 +39,12 @@ public class SettingInitializerActivity extends AppCompatActivity implements Ada
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_initializer);
 
-
-
         // setup trainingReminder for studio address comparison
         trainingReminder = new TrainingReminder(this);
 
         // setup preferences file
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         editor = sharedPreferences.edit();
-        editor.putBoolean("initialized",true);
-        editor.commit();
 
         // setup arrays with the displayed values
         textArray = new String[]{
@@ -91,7 +86,18 @@ public class SettingInitializerActivity extends AppCompatActivity implements Ada
         doneButton.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                finish();
+                if(sharedPreferences.getBoolean("initialized",false)) {
+                    // close the activity
+                    finish();
+                }else {
+                    // show dialog for choosing means of transportation
+                    DialogFragment radioButtonFragment = new RadioButtonFragment();
+                    radioButtonFragment.show(getFragmentManager(), "radiobutton");
+
+                    // set initialized flag
+                    editor.putBoolean("initialized", true);
+                    editor.commit();
+                }
             }
         });
 
@@ -109,14 +115,8 @@ public class SettingInitializerActivity extends AppCompatActivity implements Ada
             pickerFragment.show(getFragmentManager(),"timepicker");
         }else {
             AlertDialog.Builder builder = new AlertDialog.Builder(this);
-            builder.setTitle("Tragen Sie die Adresse ihres Fitnessstudios ein");
+            builder.setTitle("Tragen Sie die Adresse Ihres Fitnessstudios ein.");
             builder.setCancelable(true);
-            builder.setOnCancelListener(new DialogInterface.OnCancelListener() {
-                                            @Override
-                                            public void onCancel(DialogInterface dialog) {
-                                                setStudioAddress("");
-                                            }
-                                        });
             // set up the input
             final EditText input = new EditText(this);
             // specify the type of input
@@ -131,6 +131,17 @@ public class SettingInitializerActivity extends AppCompatActivity implements Ada
                     }
                 }
             });
+            builder.setNegativeButton("Löschen", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                    setStudioAddress("");
+                }
+            });
+            builder.setNeutralButton("Abbrechen", new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialog, int which) {
+                }
+            });
             builder.show();
         }
     }
@@ -142,7 +153,6 @@ public class SettingInitializerActivity extends AppCompatActivity implements Ada
     public void setStudioAddress(String address) {
         // if dialog was canceled
         if(address == null || address.equals("")) {
-            System.out.println("if");
             // remove previously inserted address
             inputArray[userChoiceIndex] = "";
             editor.remove(textArray[userChoiceIndex]);

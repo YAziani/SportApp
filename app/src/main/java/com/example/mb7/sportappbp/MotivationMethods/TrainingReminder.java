@@ -1,11 +1,9 @@
 package com.example.mb7.sportappbp.MotivationMethods;
 
 import android.Manifest;
-import android.app.AlertDialog;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.pm.PackageManager;
@@ -22,8 +20,6 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
-import android.text.InputType;
-import android.widget.EditText;
 
 import com.example.mb7.sportappbp.ActivityMain;
 import com.example.mb7.sportappbp.R;
@@ -52,7 +48,6 @@ public class TrainingReminder extends MotivationMethod {
     private Location userLocation;
     private Location studioLocation;
     private AppCompatActivity activity;
-    private final int notificationId = 4292;
 
     /**
      * initialize the reminder and collect the address of the users fitness studio
@@ -144,32 +139,6 @@ public class TrainingReminder extends MotivationMethod {
     }
 
     /**
-     * shows popup and requests the user to enter his studio's address
-     */
-    private void requestStudioPosition() {
-        // popup for collection of studio address
-        AlertDialog.Builder builder = new AlertDialog.Builder(activity);
-        builder.setTitle("Please enter your fitness studio's address");
-        builder.setCancelable(true);
-        // set up the input
-        final EditText input = new EditText(activity);
-        // specify the type of input
-        input.setInputType(InputType.TYPE_CLASS_TEXT);
-        builder.setView(input);
-        // set up buttons
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            String inputText = "";
-            @Override
-            public void onClick(DialogInterface dialog, int which) {
-                inputText = input.getText().toString();
-                compareStudioPosition(inputText);
-            }
-        });
-        // show the popup
-        builder.show();
-    }
-
-    /**
      * determines the address object of the given address and returns it for comparing
      * @param givenPosition: the user entered name of the studio address
      * @return address object matching the user given address the most
@@ -206,6 +175,7 @@ public class TrainingReminder extends MotivationMethod {
         // 2 * squareroot(2) = 2.8284f
         // approximate distance compared to beeline about 125%
         float cityBlockFactor = 1.25f;
+
         // return the approximate distance between user and studio
         if(userLocation != null && studioLocation != null) {
             return userLocation.distanceTo(studioLocation) * cityBlockFactor;
@@ -260,7 +230,7 @@ public class TrainingReminder extends MotivationMethod {
     private boolean checkNecessityOfNotification(String time) {
 
         // interval of time between checks in minute
-        int period = 10;
+        int period = 1;
 
         // start of the training
         int trainingHour = Integer.valueOf(time.split(":")[0]);
@@ -274,12 +244,11 @@ public class TrainingReminder extends MotivationMethod {
         int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
         int currentMinuteOfDay = currentHour * 60 + currentMinute;
-
         // time needed to get to the studio
         int timeNeeded = getTimeToStudio();
 
         // check if one could wait another period before user has to go
-        return trainingMinuteOfDay - currentMinuteOfDay > 0
+        return trainingMinuteOfDay - currentMinuteOfDay - timeNeeded >= 0
                 && trainingMinuteOfDay - currentMinuteOfDay - timeNeeded < period;
     }
 
@@ -288,6 +257,7 @@ public class TrainingReminder extends MotivationMethod {
      */
     private void notifyUser(String trainingStartTime) {
 
+        final int notificationId = 4292;
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);

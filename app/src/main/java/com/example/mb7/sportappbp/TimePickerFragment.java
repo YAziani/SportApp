@@ -19,7 +19,7 @@ public class TimePickerFragment extends DialogFragment  implements TimePickerDia
 
     @Override
     public Dialog onCreateDialog(Bundle savedInstanceState) {
-        // Create a new instance of TimePickerDialog and return it
+        // create a new instance of TimePickerDialog and return it
         return new TimePickerDialog(getActivity(), this, 0, 0,
                 DateFormat.is24HourFormat(getActivity()));
     }
@@ -29,7 +29,6 @@ public class TimePickerFragment extends DialogFragment  implements TimePickerDia
         onTimeSet(null,999,999);
     }
 
-    // TODO implement cancle behavior (empty the entry iva hourOfDay = 999  or minute = 999 )
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
         SettingInitializerActivity activity = (SettingInitializerActivity) getActivity();
         activity.setTime(hourOfDay, minute);

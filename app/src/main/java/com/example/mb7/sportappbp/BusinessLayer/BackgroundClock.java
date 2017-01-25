@@ -1,7 +1,6 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -27,10 +26,9 @@ public class BackgroundClock{
     public void startClock(final Activity activity, final LinkedList<MotivationMethod> motivationMethods) {
         // get the shared preferences to determine the training time the user handed to the app
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
-
         // setup handler to schedule regular actions
         final Handler h = new Handler();
-        final int delay = 5000;
+        final int delay = 60000;
         h.postDelayed(new Runnable() {
             public void run() {
                 // notify every motivation method about the current time

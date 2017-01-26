@@ -37,6 +37,7 @@
         <activity android:name=".ActivityStimmungsAbgabe" />
         <activity android:name=".SettingInitializerActivity" />
         <activity android:name=".ActivityChallenge"></activity>
+        <activity android:name=".ActivityDiaryCategories"/>
     </application>
 
 </manifest>

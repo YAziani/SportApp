@@ -24,7 +24,6 @@ public class ActivityDiary extends AppCompatActivity {
 
         //get the listView of the layout
         listView = (ListView) findViewById(R.id.listviewDiary);
-        arrayAdapter = new ArrayAdapter<String>(ActivityDiary.this, android.R.layout.simple_list_item_1, entries);
         arrayAdapter = new ArrayAdapter<String>(ActivityDiary.this, android.R.layout.simple_list_item_1, allDiaryEntries.getInstance().getAllDates());
         listView.setAdapter(arrayAdapter);
 

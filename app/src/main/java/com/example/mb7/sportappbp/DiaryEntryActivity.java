@@ -1,7 +1,10 @@
 package com.example.mb7.sportappbp;
 
+import android.app.Activity;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -21,6 +24,8 @@ public class DiaryEntryActivity extends AppCompatActivity {
     RadioButton radioButton;
     DiaryEntry diaryEntry;
     AllDiaryEntries allDiaryEntries;
+
+    private Menu menu;
 
 
 
@@ -64,6 +69,14 @@ public class DiaryEntryActivity extends AppCompatActivity {
                 }
             }
         });
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_add, menu);
+        this.menu = menu;
+        return super.onCreateOptionsMenu(menu);
     }
 
     /**

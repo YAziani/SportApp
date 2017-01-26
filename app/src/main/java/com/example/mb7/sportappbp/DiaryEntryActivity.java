@@ -1,10 +1,12 @@
 package com.example.mb7.sportappbp;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.Button;
 import android.widget.RadioButton;
@@ -74,10 +76,28 @@ public class DiaryEntryActivity extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+        //set an other menu xml
         inflater.inflate(R.menu.menu_add, menu);
         this.menu = menu;
         return super.onCreateOptionsMenu(menu);
     }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        //check which icon was hidden in the toolbar
+        switch (item.getItemId()){
+            case R.id.icon_add:
+                //Open the new activity
+                Intent open = new Intent(DiaryEntryActivity.this, ActivityDiaryCategories.class);
+                startActivity(open);
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
 
     /**
      * This method evaluates the radio button of a radio button group, if the user selected yes or no.

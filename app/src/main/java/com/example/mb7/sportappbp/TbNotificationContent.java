@@ -18,6 +18,8 @@ import java.util.ArrayList;
 
 public class TbNotificationContent extends TabFragment {
 
+    ArrayList<Notification> notifList;
+    ListView lst;
     NotificationViewAdapter adapter;
     View view;
 
@@ -34,12 +36,22 @@ public class TbNotificationContent extends TabFragment {
     public void onStart() {
         Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?");
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?");
+        // TODO remove test
+        /*
+        Notification n3 = new Notification(
+                "Schon gewusst?",
+                "Wissenswertes über Sport");
+        */
 
-        ArrayList<Notification> notifList = new ArrayList<Notification>();
+        notifList = new ArrayList<Notification>();
         notifList.add(n1);
         notifList.add(n2);
+        // TODO remove test
+        /*
+        notifList.add(n3);
+        */
         adapter = new NotificationViewAdapter(getActivity(),notifList, android.R.drawable.ic_menu_edit);
-        ListView lst = (ListView)view.findViewById( R.id.lstNotifications);
+        lst = (ListView)view.findViewById( R.id.lstNotifications);
         lst.setAdapter(adapter);
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -53,6 +65,16 @@ public class TbNotificationContent extends TabFragment {
                     Intent open = new Intent(getActivity(), ActivityStimmungsAbgabe.class);
                     startActivity(open);
                 }
+                // TODO remove test
+                /*
+                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Schon gewusst?")
+                {
+                    Intent open = new Intent(getActivity(), SettingInitializerActivity.class);
+                    startActivity(open);
+                    notifList.remove(2);
+                    lst.setAdapter(adapter);
+                }
+                */
             }
         });
         super.onStart();

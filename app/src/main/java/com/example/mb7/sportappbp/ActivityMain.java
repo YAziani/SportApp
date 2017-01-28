@@ -87,6 +87,11 @@ public class ActivityMain extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         setTabLayout();
 
+        Intent intent = getIntent();
+        int startTab = intent.getIntExtra("startTab",-1);
+        if(startTab != -1 ) {
+            mViewPager.setCurrentItem(startTab);
+        }
     }
 
     // Set all the properties of the main TabLayout in the main page here

@@ -1,5 +1,7 @@
 package com.example.mb7.sportappbp.Objects;
 
+import java.util.ArrayList;
+
 /**
  * Created by Basti on 16.01.2017.
  */
@@ -8,6 +10,7 @@ public class DiaryEntry {
 
     private String date;
     private Boolean successful;
+    private ArrayList<Category> activities;
 
     /**
      * Constructor to create a diary entry
@@ -17,6 +20,7 @@ public class DiaryEntry {
     public DiaryEntry(String date, Boolean successful){
         this.date = date;
         this.successful = successful;
+        activities = new ArrayList<Category>();
     }
 
     /**
@@ -33,5 +37,9 @@ public class DiaryEntry {
      */
     public Boolean getSuccessful(){
         return this.successful;
+    }
+
+    public void addActivity(Category activity){
+        activities.add(activity);
     }
 }

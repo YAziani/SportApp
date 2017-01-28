@@ -1,6 +1,5 @@
 package com.example.mb7.sportappbp;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -8,7 +7,9 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
 import android.widget.Toast;
@@ -17,15 +18,25 @@ import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 
 public class DiaryEntryActivity extends AppCompatActivity {
 
-    Button btnSave;
-    RadioGroup radioGroup;
-    RadioButton radioButton;
-    DiaryEntry diaryEntry;
-    AllDiaryEntries allDiaryEntries;
+    //request id for the activitiy request
+    static final int REQUEST_ID = 1;
+
+    private Button btnSave;
+    private RadioGroup radioGroup;
+    private RadioButton radioButton;
+    private DiaryEntry diaryEntry;
+    private AllDiaryEntries allDiaryEntries;
+
+    private ListView listView;
+    private ArrayAdapter<String> arrayAdapter;
+    private ArrayList<String> listOfActivities;
+    private Button btnAdd;
+    private String activity;
 
     private Menu menu;
 
@@ -39,10 +50,17 @@ public class DiaryEntryActivity extends AppCompatActivity {
         //activate the back button on the toolbar
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        evaluateData();
+        btnSaveListener();
+
+        listOfActivities = new ArrayList<String>();
+
+        listView = (ListView) findViewById(R.id.diaryentryListView);
+        arrayAdapter = new ArrayAdapter<String>(DiaryEntryActivity.this, android.R.layout.simple_list_item_1, listOfActivities);
+        listView.setAdapter(arrayAdapter);
+
     }
 
-    private void evaluateData(){
+    private void btnSaveListener(){
 
         radioGroup = (RadioGroup) findViewById(R.id.RadioGroupTraining);
         btnSave = (Button) findViewById(R.id.buttonSave);
@@ -73,6 +91,22 @@ public class DiaryEntryActivity extends AppCompatActivity {
         });
     }
 
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        //check if the request was successful
+        if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
+            //add the new workout
+            listOfActivities.add(data.getExtras().getString("activity"));
+            arrayAdapter.notifyDataSetChanged();
+            Integer test = data.getExtras().getInt("duration");
+
+            Toast.makeText(DiaryEntryActivity.this,test.toString(), Toast.LENGTH_SHORT).show();
+        }
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -89,8 +123,10 @@ public class DiaryEntryActivity extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.icon_add:
                 //Open the new activity
-                Intent open = new Intent(DiaryEntryActivity.this, ActivityDiaryCategories.class);
-                startActivity(open);
+                //Intent open = new Intent(DiaryEntryActivity.this, ActivityCategories.class);
+                //startActivity(open);
+
+                pickActivity();
                 return true;
 
             default:
@@ -121,5 +157,15 @@ public class DiaryEntryActivity extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
         String strDate = sdf.format(c.getTime());
         return strDate;
+    }
+
+    /**
+     * This method starts a request to the activity ActiveCategorys
+     */
+    public void pickActivity(){
+        Intent pickActivityIntent = new Intent(this, ActivityCategories.class);
+        //add the object to the intent
+        //pickActivityIntent.putExtra("activities", activity);
+        startActivityForResult(pickActivityIntent, REQUEST_ID);
     }
 }

@@ -1,0 +1,805 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <ScrollView
+        android:id="@+id/scrollViewbsaquestions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+        <LinearLayout
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:id="@+id/txtFragebogenausfüllen"
+                android:text="Füllen Sie bitte den Fragebogen aus! \n"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:textSize="22sp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtberufstätig"
+                android:text="Sind Sie berufstätig oder in Ausbildung?"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="50dp"
+                android:layout_marginLeft="50dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.FragebogenListview
+                android:id="@+id/lvberufstätig"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_JaNein"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="120dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtsitzendetätigkeiten"
+                android:text="Ihre berufstätigkeit bzw. Ausbildung umfasst sitzende Tätigkeiten"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"/>
+
+            <com.example.mb7.sportappbp.FragebogenListview
+                android:id="@+id/lvsitzendetätigkeiten"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_tätigkeiten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="220dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtmäßigebewegung"
+                android:text="Ihre berufstätigkeit bzw. Ausbildung umfasst mäßige Bewegung"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"/>
+
+            <com.example.mb7.sportappbp.FragebogenListview
+                android:id="@+id/lvmäßigebewegung"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_tätigkeiten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="220dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtintensivebewegung"
+                android:text="Ihre berufstätigkeit bzw. Ausbildung umfasst intensive Bewegung"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"/>
+
+            <com.example.mb7.sportappbp.FragebogenListview
+                android:id="@+id/lvintensivebewegung"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_tätigkeiten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="220dp" />
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@android:color/black"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtzeitraum"
+                android:text="Folgende Fragen beziehen sich auf den Zeitraum von x Wochen! \n "
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="arial"
+                android:textStyle="normal|bold"
+                android:textSize="22sp"/>
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtwieoftsport"
+                android:text="An wie vielen Tagen und wie lange haben Sie die folgenen Aktivitäten in dem Zeitraum ausgeübt? \n "
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="arial"
+                android:textStyle="normal|bold"
+                android:textSize="22sp"/>
+
+            <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="3">
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtzufußzurarbeit"
+                android:text="\n Zu Fuß zur Arbeit gehen (auch längere Teilstrecken)"
+                android:textColor="@android:color/black"
+                android:textAlignment="gravity"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold"
+                android:textSize="18sp"/>
+
+            <EditText
+                android:id="@+id/edittextzufußzurarbeittag"
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:inputType="number"
+                android:hint="An ... Tagen der angegebenen Zeit"
+                android:gravity="center"
+                android:textColor="@color/primary_text_default_material_light" />
+            <EditText
+                android:id="@+id/edittextzufußzurarbeitminuten"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:inputType="number"
+                android:hint="ca. ... Minuten pro Tag"
+                android:textColor="@color/primary_text_default_material_light"
+                android:gravity="center"/>
+
+
+        </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtzufußzumeinkaufen"
+                    android:text="\n Zu Fuß zum Einkaufen gehen"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edittextzufußzumeinkaufentag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center"/>
+                <EditText
+                    android:id="@+id/edittextzufußzumeinkaufenminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten pro Tag"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtradzurarbeit"
+                    android:text="\n Radfahren zur Arbeit"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edittextradzurarbeittag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center"/>
+                <EditText
+                    android:id="@+id/edittextzuradzurarbeitminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten pro Tag"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtradfahren"
+                    android:text="\n Radfahren zu sonstigen Fortbewegungszwecken"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edittextradfahrentag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <EditText
+                    android:id="@+id/edittextradfahrenminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten pro Tag"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtspazieren"
+                    android:text="\n Spazierengehen"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edittextspazierentag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <EditText
+                    android:id="@+id/edittextspazierenminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten pro Tag"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center"/>
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtgartenarbeit"
+                    android:text="\n Gartenarbeit (z.B. Rasen mähen, Hecke schneiden)"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edittextgartenarbeittag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <EditText
+                    android:id="@+id/edittextgartenarbeitminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten pro Tag"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txthausarbeit"
+                    android:text="\n Körperlich anstrengende Hausarbeit (z.B. Putzen, Aufräumen)"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edittexthausarbeittag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <EditText
+                    android:id="@+id/edittexthausarbeitminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten pro Tag"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtpflegearbeit"
+                    android:text="\n Körperlich anstrengende Pflegearbeit (z.B. Kinder betreuen, Kranke pflegen)"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edittextpflegearbeittag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <EditText
+                    android:id="@+id/edittextpflegearbeitminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten pro Tag"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txttreppensteigen"
+                    android:text="\n Treppensteigen"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+                <EditText
+                    android:id="@+id/edittexttreppensteigentag"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="number"
+                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <EditText
+                    android:id="@+id/edittexttreppensteigenstockwerke"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Stockwerke pro Tag"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+            </LinearLayout>
+
+            <View
+                android:layout_width="match_parent"
+                android:layout_height="10dp"
+                android:background="@android:color/black"/>
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtsportlichaktiv"
+                android:text="\n Haben Sie im angegebenen Zeitraum regelmäßig sportliche Aktivität betrieben? Hierzu zählen Aktivitäten, die größere Muskelgruppen beanspruchen und zur Verbesserung der Ausdauer, Kraft und/oder Beweglichkeit führen, wie z.B. Fahrradfahren, Joggen, Fußball spielen und Reiten. Ausgeschlossen werden dabei Aktivitäten wie z.B. Schach, Billiard und Angeln."
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:textSize="20sp"/>
+
+            <com.example.mb7.sportappbp.FragebogenListview
+                android:id="@+id/lvsportlichaktiv"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_JaNein"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="120dp" />
+
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtsportlicheaktivitäten"
+                android:text="Um welche sportliche(n) Aktivitäte(en) handelt es sich dabei?"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:fontFamily="casual"
+                android:textStyle="normal|bold"
+                android:textSize="18sp" />
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3"
+                android:id="@+id/aktivitäta">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtaktivitäta"
+                    android:text="Aktivität A"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="22sp"/>
+                <EditText
+                    android:id="@+id/edittextaktivitäta"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:hint="Bitte hier eintragen"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtaktivitätaanzahl"
+                    android:text="Wie oft haben Sie Aktivität A in der Zeit ausgeübt"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/edittextaktivitätaanzahl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Mal ausgeübt"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtaktivitätaminuten"
+                    android:text="Für wie viele Minuten haben Sie diese Aktivität jedes Mal ausgeführt"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/edittextaktivitätaminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3"
+                android:id="@+id/aktivitätb">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtaktivitätb"
+                    android:text="\n Aktivität B"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="22sp"/>
+                <EditText
+                    android:id="@+id/edittextaktivitätb"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:hint="Bitte hier eintragen"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center"/>
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtaktivitätbanzahl"
+                    android:text="Wie oft haben Sie Aktivität B in der Zeit ausgeübt"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold"
+                    android:textSize="18sp"/>
+
+                <EditText
+                    android:id="@+id/edittextaktivitätbanzahl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Mal ausgeübt"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtaktivitätbminuten"
+                    android:text="Für wie viele Minuten haben Sie diese Aktivität jedes Mal ausgeführt"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="18sp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/edittextaktivitätbminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+
+            </LinearLayout>
+
+            <LinearLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:orientation="vertical"
+                android:layout_weight="3"
+                android:id="@+id/aktivitätc">
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtaktivitätc"
+                    android:text="\n Aktivität C"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="22sp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold" />
+                <EditText
+                    android:id="@+id/edittextaktivitätc"
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:inputType="text"
+                    android:hint="Bitte hier eintragen"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtaktivitätcanzahl"
+                    android:text="Wie oft haben Sie Aktivität C in der Zeit ausgeübt"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="18sp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/edittextaktivitätcanzahl"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Mal ausgeübt"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center" />
+                <TextView
+                    android:layout_width="match_parent"
+                    android:layout_height="match_parent"
+                    android:gravity="center"
+                    android:id="@+id/txtaktivitätcminuten"
+                    android:text="Für wie viele Minuten haben Sie diese Aktivität jedes Mal ausgeführt"
+                    android:textColor="@android:color/black"
+                    android:textAlignment="gravity"
+                    android:layout_marginTop="10dp"
+                    android:layout_marginRight="20dp"
+                    android:layout_marginLeft="20dp"
+                    android:textSize="18sp"
+                    android:fontFamily="casual"
+                    android:textStyle="normal|bold" />
+
+                <EditText
+                    android:id="@+id/edittextaktivitätcminuten"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:inputType="number"
+                    android:hint="ca. ... Minuten"
+                    android:textColor="@color/primary_text_default_material_light"
+                    android:gravity="center"/>
+
+            </LinearLayout>
+
+
+        </LinearLayout>
+
+
+    </ScrollView>
+
+
+</LinearLayout>

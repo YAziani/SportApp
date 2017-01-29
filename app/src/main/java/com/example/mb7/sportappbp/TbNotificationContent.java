@@ -34,10 +34,12 @@ public class TbNotificationContent extends TabFragment {
     public void onStart() {
         Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?");
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?");
+        Notification n3 = new Notification("Fragebogen zur Aktivität", "Messung der Bewegungs- und Sportaktivität");
 
         ArrayList<Notification> notifList = new ArrayList<Notification>();
         notifList.add(n1);
         notifList.add(n2);
+        notifList.add(n3);
         adapter = new NotificationViewAdapter(getActivity(),notifList, android.R.drawable.ic_menu_edit);
         ListView lst = (ListView)view.findViewById( R.id.lstNotifications);
         lst.setAdapter(adapter);
@@ -51,6 +53,11 @@ public class TbNotificationContent extends TabFragment {
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Stimmungsabfrage")
                 {
                     Intent open = new Intent(getActivity(), ActivityStimmungsAbgabe.class);
+                    startActivity(open);
+                }
+                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Fragebogen zur Aktivität")
+                {
+                    Intent open = new Intent(getActivity(), ActivityFragebogen.class);
                     startActivity(open);
                 }
             }

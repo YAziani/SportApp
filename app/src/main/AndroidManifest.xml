@@ -36,6 +36,7 @@
         <activity android:name=".ActivitySettings" />
         <activity android:name=".ActivityStimmungsAbgabe"></activity>
          <activity android:name=".SettingInitializerActivity"></activity>
+        <activity android:name=".ActivityFragebogen"></activity>
     </application>
 
 </manifest>

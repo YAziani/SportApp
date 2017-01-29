@@ -42,4 +42,15 @@
         <item>Ziemlich</item>
         <item>Extrem</item>
     </string-array>
+    <string-array name="str_JaNein">
+        <item>Ja</item>
+        <item>Nein</item>
+    </string-array>
+    <string-array name="str_tätigkeiten">
+        <item>Keine</item>
+        <item>eher wenig/etwas</item>
+        <item>eher mehr</item>
+        <item>viel</item>
+    </string-array>
+    
 </resources>

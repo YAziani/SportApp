@@ -36,13 +36,14 @@ public class TbNotificationContent extends TabFragment {
     public void onStart() {
         Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?");
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?");
+        Notification n3 = new Notification("Fragebogen zur Aktivität", "Messung der Bewegungs- und Sportaktivität");
         // TODO remove test
         /*
         Notification n3 = new Notification(
                 "Schon gewusst?",
                 "Wissenswertes über Sport");
         */
-        Notification n3 = new Notification("Fragebogen zur Aktivität", "Messung der Bewegungs- und Sportaktivität");
+
 
         notifList = new ArrayList<Notification>();
         notifList.add(n1);

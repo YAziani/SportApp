@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp;
 
+import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
 import android.view.LayoutInflater;
@@ -53,10 +54,11 @@ public class TbReportContent extends TabFragment{
             @Override
             public void onClick(View view){
 
-                Firebase firebaseChild = firebase.child("MyChildTest");
-                firebaseChild.setValue("Mo B");
+                //Firebase firebaseChild = firebase.child("MyChildTest");
+                //firebaseChild.setValue("Mo B");
 
-
+                Intent open = new Intent(getActivity(), DiaryEntryActivity.class);
+                startActivity(open);
             }
         });
     }
@@ -127,7 +129,9 @@ public class TbReportContent extends TabFragment{
         testBtn2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
+                /*
                 MyDownloadTask asyncTask = new MyDownloadTask("https://sportapp-cbd6b.firebaseio.com/MyChildTest.json?print=pretty")
+
                 {
                     @Override
                     public void onResponseReceived(String result) {
@@ -138,7 +142,10 @@ public class TbReportContent extends TabFragment{
                 };
                 // run the background task to read from the database
                 asyncTask.execute();
+                */
 
+                Intent open = new Intent(getActivity(), ActivityDiary.class);
+                startActivity(open);
 
             }
         });

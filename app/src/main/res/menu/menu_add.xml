@@ -1,0 +1,12 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mb7.sportappbp.ActivityMain">
+
+    <item
+        android:id="@+id/icon_add"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="Add"
+        app:showAsAction="always"/>
+
+</menu>

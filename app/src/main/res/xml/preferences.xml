@@ -5,14 +5,14 @@
         android:key="pref_key_storage_settings">
 
         <ListPreference
-            android:title="Stimmnungsabfrage vor oder nach dem Training"
+            android:title="Stimmungsabfrage vor oder nach dem Training"
             android:key="lstStimmnungsAbfrage"
             android:defaultValue="1"
             android:summary="%s"
             android:entries="@array/ArrrayStgsAbfrage"
             android:entryValues="@array/ArrrayStgsAbfrageValue" />
         <ListPreference
-            android:title="Abstand der Stimmnungsabfrage"
+            android:title="Abstand der Stimmungsabfrage"
             android:key="lstStmabfrageAbstand"
             android:defaultValue="3"
             android:summary="%s"
@@ -20,7 +20,7 @@
             android:entryValues="@array/ArrrayStmabfrageAbstandeValue" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Benachrichtugn für das Training"
+        android:title="Erinnerung an das Training"
         android:key="pref_key_storage_settings">
 
         <ListPreference
@@ -30,13 +30,6 @@
             android:summary="%s"
             android:entries="@array/ArrrayVerkehrsmittel"
             android:entryValues="@array/ArrrayVerkehrsmittelValue" />
-        <ListPreference
-            android:title="Zeitspanne der Benachrichtigung zum Termin"
-            android:key="lstStmabfrageAbstand"
-            android:defaultValue="3"
-            android:summary="%s"
-            android:entries="@array/ArrrayStmabfrageAbstand"
-            android:entryValues="@array/ArrrayStmabfrageAbstandeValue" />
         <Preference
             android:title="Trainingszeiten und Studioadresse"
             android:summary="Wann und wo findet Ihr Training statt?">

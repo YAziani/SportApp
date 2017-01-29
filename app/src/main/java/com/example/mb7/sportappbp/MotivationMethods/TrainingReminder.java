@@ -23,6 +23,7 @@ import android.support.v7.app.AppCompatActivity;
 
 import com.example.mb7.sportappbp.ActivityMain;
 import com.example.mb7.sportappbp.R;
+import com.example.mb7.sportappbp.SettingInitializerActivity;
 
 import java.io.IOException;
 import java.util.Calendar;
@@ -34,7 +35,6 @@ import java.util.Locale;
  * class implements a reminder which reminds the user about his planned training
  * Created by Aziani on 23.12.2016.
  */
-
 public class TrainingReminder extends MotivationMethod {
 
     // objects required to determine the user and studio positions
@@ -277,15 +277,14 @@ public class TrainingReminder extends MotivationMethod {
                         .setSmallIcon(R.drawable.weight_icon)
                         .setContentTitle("Trainingserinnerung")
                         .setContentText("Zeit sich fertig zu machen");
-        Intent resultIntent = new Intent(activity, ActivityMain.class);
+        // specify which activity should be started upon clicking on the notification
+        Intent resultIntent = new Intent(activity,ActivityMain.class);
+        // specify the tab on which the activity shall be started
+        resultIntent.putExtra("startTab",1);
         TaskStackBuilder stackBuilder = TaskStackBuilder.create(activity);
         stackBuilder.addParentStack(ActivityMain.class);
         stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent =
-                stackBuilder.getPendingIntent(
-                        0,
-                        PendingIntent.FLAG_UPDATE_CURRENT
-                );
+        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(resultPendingIntent);
         // setup notification manager
         final NotificationManager notificationManager =
@@ -319,23 +318,6 @@ public class TrainingReminder extends MotivationMethod {
                 }
             }catch(SecurityException e){
                 e.printStackTrace();
-            }
-        }
-    }
-
-    // TODO remove debug method
-    public void debug() {
-        if(userAddress != null && studioAddress != null) {
-            System.out.println("user: " + userAddress.getAddressLine(0) + ", " + userAddress.getLocality());
-            System.out.println("studio: " + studioAddress.getAddressLine(0) + ", " + studioAddress.getLocality());
-            System.out.println("distance: " + getDistanceToStudio());
-            System.out.println("time: " + getTimeToStudio());
-        } else {
-            if(userAddress == null) {
-                System.err.println("WARNING: USERADDRESS IS NULL");
-            }
-            if(studioAddress == null) {
-                System.err.println("WARNING: STUDIOADDRESS IS NULL");
             }
         }
     }

@@ -4,6 +4,7 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.TextView;
 
 import com.example.mb7.sportappbp.R;
@@ -31,6 +32,25 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         inflater.inflate(R.menu.menu_save, menu);
 
         return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
+
+        //check which icon was hidden in the toolbar
+        switch (item.getItemId()){
+            case R.id.icon_save:
+                SaveData();
+                return true;
+
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private boolean SaveData()
+    {
+        return true;
     }
 
     private void InitializeControlls(){

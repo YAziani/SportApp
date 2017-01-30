@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Activity;
 
 import android.app.AlertDialog;
 import android.app.DialogFragment;
@@ -15,7 +15,10 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
 
+import com.example.mb7.sportappbp.Fragments.RadioButtonFragment;
+import com.example.mb7.sportappbp.Fragments.TimePickerFragment;
 import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
+import com.example.mb7.sportappbp.R;
 
 /**
  * activity used to get the initial training times of the user

@@ -1,8 +1,10 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Activity;
 
 import android.app.Activity;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
+
+import com.example.mb7.sportappbp.R;
 
 /**
  * Created by MB7 on 15.01.2017.

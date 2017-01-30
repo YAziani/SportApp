@@ -1,7 +1,9 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.example.mb7.sportappbp.R;
 
 public class ActivityChallenge extends AppCompatActivity {
 

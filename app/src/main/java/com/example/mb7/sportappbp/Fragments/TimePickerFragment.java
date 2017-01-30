@@ -1,15 +1,14 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Fragments;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.app.DialogFragment;
 import android.app.TimePickerDialog;
 import android.content.DialogInterface;
-import android.icu.util.Calendar;
 import android.os.Bundle;
-import android.os.Message;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
+
+import com.example.mb7.sportappbp.Activity.SettingInitializerActivity;
 
 /**
  * Fragment to show a time picker

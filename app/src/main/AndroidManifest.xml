@@ -16,7 +16,7 @@
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
         <activity
-            android:name=".ActivityMain"
+            android:name=".Activity.ActivityMain"
             android:label="@string/app_name"
             android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
@@ -28,22 +28,22 @@
         <activity
             android:name=".DiaryEntryActivity"
             android:label="Tagebuch Eintrag"
-            android:parentActivityName=".ActivityMain" />
+            android:parentActivityName=".Activity.ActivityMain" />
         <activity
-            android:name=".ActivityDiary"
+            android:name=".Activity.ActivityDiary"
             android:label="Tagebuch"
-            android:parentActivityName=".ActivityMain" />
-        <activity android:name=".ActivitySettings" />
-        <activity android:name=".ActivityStimmungsAbgabe" />
-        <activity android:name=".SettingInitializerActivity" />
-        <activity android:name=".ActivityChallenge" />
+            android:parentActivityName=".Activity.ActivityMain" />
+        <activity android:name=".Activity.ActivitySettings" />
+        <activity android:name=".Activity.ActivityStimmungsAbgabe" />
+        <activity android:name=".Activity.SettingInitializerActivity" />
+        <activity android:name=".Activity.ActivityChallenge" />
         <activity
-            android:name=".ActivityCategories"
+            android:name=".Activity.ActivityCategories"
             android:label="Kategorie auswählen..."
-            android:parentActivityName=".ActivityExerciseOverview" />
-        <activity android:name=".ActivityExercises"
-            android:parentActivityName=".ActivityCategories"/>
-        <activity android:name=".ActivityExerciseOverview"></activity>
+            android:parentActivityName=".Activity.ActivityExerciseOverview" />
+        <activity android:name=".Activity.ActivityExercises"
+            android:parentActivityName=".Activity.ActivityCategories"/>
+        <activity android:name=".Activity.ActivityExerciseOverview"></activity>
     </application>
 
 </manifest>

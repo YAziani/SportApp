@@ -1,9 +1,13 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Adapters;
 
 import android.content.Context;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentStatePagerAdapter;
+
+import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
+import com.example.mb7.sportappbp.Fragments.TbReportContent;
+import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 
 import java.util.ArrayList;
 /**
@@ -11,9 +15,9 @@ import java.util.ArrayList;
  */
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
-    TbNotificationContent   tbNotificationContent       = null;
-    TbTaskContent           tbTaskContent               = null;
-    TbReportContent         tbReportContent             = null;
+    TbNotificationContent tbNotificationContent       = null;
+    TbTaskContent tbTaskContent               = null;
+    TbReportContent tbReportContent             = null;
 
     ArrayList<String>       csTabsList           = null;
     int                     mNumOfTabs;

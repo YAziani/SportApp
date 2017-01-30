@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Fragments;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,7 +8,11 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
+import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
+import com.example.mb7.sportappbp.Adapters.NotificationViewAdapter;
+import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
 
@@ -57,7 +61,7 @@ public class TbNotificationContent extends TabFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if( ((Notification)parent.getAdapter().getItem(position)).getTitle() == "Trainingeintrag") {
-                    Intent open = new Intent(getActivity(), DiaryEntryActivity.class);
+                    Intent open = new Intent(getActivity(), ActivityDiaryEntry.class);
                     startActivity(open);
                 }
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Stimmungsabfrage")

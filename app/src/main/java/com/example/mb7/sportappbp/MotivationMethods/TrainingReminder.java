@@ -21,9 +21,8 @@ import android.support.v4.app.TaskStackBuilder;
 import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 
-import com.example.mb7.sportappbp.ActivityMain;
+import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.R;
-import com.example.mb7.sportappbp.SettingInitializerActivity;
 
 import java.io.IOException;
 import java.util.Calendar;

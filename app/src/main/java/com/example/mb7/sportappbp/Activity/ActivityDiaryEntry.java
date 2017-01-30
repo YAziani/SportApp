@@ -1,32 +1,24 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Activity;
 
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
-import android.text.Editable;
-import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.view.View;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ListView;
 import android.widget.RadioButton;
-import android.widget.RadioGroup;
-import android.widget.TextView;
-import android.widget.Toast;
 
-import com.example.mb7.sportappbp.Objects.Exercise;
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
-import com.example.mb7.sportappbp.Objects.TrainingExercise;
+import com.example.mb7.sportappbp.Objects.DiaryEntry;
+import com.example.mb7.sportappbp.Objects.Exercise;
+import com.example.mb7.sportappbp.R;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 
-public class DiaryEntryActivity extends AppCompatActivity {
+public class ActivityDiaryEntry extends AppCompatActivity {
 
     //request id for the activitiy request
     static final int REQUEST_ID = 1;

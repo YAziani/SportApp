@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Activity;
 
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -10,8 +10,9 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
 import com.example.mb7.sportappbp.Objects.Exercise;
-import com.example.mb7.sportappbp.Objects.TrainingExercise;
+import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
 

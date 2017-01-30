@@ -1,7 +1,6 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Activity;
 
 import android.app.Activity;
-import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -25,6 +24,11 @@ import android.widget.TextView;
 import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
+import com.example.mb7.sportappbp.R;
+import com.example.mb7.sportappbp.Fragments.TabFragment;
+import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
+import com.example.mb7.sportappbp.Fragments.TbReportContent;
+import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 
 import java.util.ArrayList;
 import java.util.LinkedList;

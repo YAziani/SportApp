@@ -4,7 +4,7 @@
     android:id="@+id/activity_activity_overview"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context="com.example.mb7.sportappbp.ActivityExerciseOverview">
+    tools:context="com.example.mb7.sportappbp.Activity.ActivityExerciseOverview">
 
     <ListView
         android:id="@+id/listviewActivityOverview"

@@ -1,8 +1,12 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.widget.TextView;
+
+import com.example.mb7.sportappbp.R;
+import com.example.mb7.sportappbp.UI_Controls.StimmungListview;
+import com.example.mb7.sportappbp.Adapters.StimmungsViewAdapter;
 
 public class ActivityStimmungsAbgabe extends AppCompatActivity {
     StimmungsViewAdapter adapter;

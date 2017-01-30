@@ -1,8 +1,14 @@
 package com.example.mb7.sportappbp;
 
+
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.View;
+import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
+
 
 
 /**
@@ -10,8 +16,15 @@ import android.widget.TextView;
  */
 
 public class ActivityFragebogen extends AppCompatActivity{
-    FragebogenViewAdapter adapter;
-    FragebogenViewAdapter2 adapter2;
+    private FragebogenViewAdapter adapter;
+    private FragebogenViewAdapter2 adapter2;
+    private Button savebutton;
+    private int scoringbewegung;
+    private int scorungsport;
+    private int scoringgesamt;
+
+    private FragebogenListview berufstätig;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -22,6 +35,20 @@ public class ActivityFragebogen extends AppCompatActivity{
         this.SetControlCaptions();
 
         super.onStart();
+
+        savebutton = (Button) findViewById(R.id.savebuttonfragebogen);
+        savebutton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Toast.makeText(ActivityFragebogen.this, "Antworten wurden gespeichert!", Toast.LENGTH_SHORT).show();
+                //TODO In Datenbank speichern
+
+
+
+            }
+        });
+
+
     }
 
     private void InitializeControlls(){
@@ -61,4 +88,22 @@ public class ActivityFragebogen extends AppCompatActivity{
         ((TextView)findViewById(R.id.txtsportlichaktiv)).setText("Haben Sie in der letzten Zeit regelmäßig sportliche Aktivität betrieben? Hierzu zählen Aktivitäten, die größere Muskelgruppen beanspruchen und zur Verbesserung der Ausdauer, Kraft und/oder Beweglichkeit führen, wie z.B. Fahrradfahren, Joggen, Fußball spielen und Reiten. Ausgeschlossen werden dabei Aktivitäten wie z.B. Schach, Billiard und Angeln.");
         ((TextView)findViewById(R.id.txtsportlicheaktivitäten)).setText("Um welche sportliche(n) Aktivitäte(en) handelt es sich dabei?");
     }
-}
+
+
+
+    private void scoringbewegung(){
+
+    }
+
+    private void scoringsport(){
+        finish();
+    }
+
+    private void scoringgesamt(){
+        finish();
+    }
+
+
+    }
+
+

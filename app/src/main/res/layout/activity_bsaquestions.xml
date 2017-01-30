@@ -11,6 +11,8 @@
         android:layout_height="match_parent"
         android:layout_weight="2">
         <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
@@ -145,7 +147,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
+                android:layout_height="15dp"
                 android:background="@android:color/black"/>
 
             <TextView
@@ -161,7 +163,7 @@
                 android:layout_marginLeft="20dp"
                 android:fontFamily="arial"
                 android:textStyle="normal|bold"
-                android:textSize="22sp"/>
+                android:textSize="18sp"/>
 
             <TextView
                 android:layout_width="match_parent"
@@ -174,9 +176,9 @@
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
-                android:fontFamily="arial"
+                android:fontFamily="casual"
                 android:textStyle="normal|bold"
-                android:textSize="22sp"/>
+                android:textSize="18sp"/>
 
             <LinearLayout
             android:layout_width="match_parent"
@@ -516,7 +518,7 @@
 
             <View
                 android:layout_width="match_parent"
-                android:layout_height="10dp"
+                android:layout_height="15dp"
                 android:background="@android:color/black"/>
 
 
@@ -525,14 +527,15 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtsportlichaktiv"
-                android:text="\n Haben Sie im angegebenen Zeitraum regelmäßig sportliche Aktivität betrieben? Hierzu zählen Aktivitäten, die größere Muskelgruppen beanspruchen und zur Verbesserung der Ausdauer, Kraft und/oder Beweglichkeit führen, wie z.B. Fahrradfahren, Joggen, Fußball spielen und Reiten. Ausgeschlossen werden dabei Aktivitäten wie z.B. Schach, Billiard und Angeln."
+                android:text="\n Haben Sie im angegebenen Zeitraum regelmäßig sportliche Aktivität betrieben? Hierzu zählen Aktivitäten, die größere Muskelgruppen beanspruchen und zur Verbesserung der Ausdauer, Kraft und/oder Beweglichkeit führen, wie z.B. Fahrradfahren, Joggen, Fußball spielen und Reiten. Ausgeschlossen werden dabei Aktivitäten wie z.B. Schach, Billiard und Angeln. \n"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
                 android:layout_marginRight="20dp"
                 android:layout_marginLeft="20dp"
                 android:textStyle="normal|bold"
-                android:textSize="20sp"/>
+                android:textSize="16sp"
+                android:fontFamily="casual"/>
 
             <com.example.mb7.sportappbp.FragebogenListview
                 android:id="@+id/lvsportlichaktiv"
@@ -545,7 +548,8 @@
                 android:footerDividersEnabled="true"
                 android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
-                android:layout_height="120dp" />
+                android:layout_height="120dp"
+                android:fontFamily="casual"/>
 
 
 
@@ -796,7 +800,16 @@
             </LinearLayout>
 
 
+            <Button
+                android:id="@+id/savebuttonfragebogen"
+                android:layout_width="match_parent"
+                android:layout_height="wrap_content"
+                android:text="Speichern"
+                android:textSize="18dp"/>
+
         </LinearLayout>
+
+
 
 
     </ScrollView>

@@ -73,7 +73,7 @@ public class TbNotificationContent extends TabFragment {
                 /*
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Schon gewusst?")
                 {
-                    Intent open = new Intent(getActivity(), SettingInitializerActivity.class);
+                    Intent open = new Intent(getActivity(), ActivitySettingInitializer.class);
                     startActivity(open);
                     notifList.remove(2);
                     lst.setAdapter(adapter);

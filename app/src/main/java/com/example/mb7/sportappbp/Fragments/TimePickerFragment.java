@@ -8,7 +8,7 @@ import android.os.Bundle;
 import android.text.format.DateFormat;
 import android.widget.TimePicker;
 
-import com.example.mb7.sportappbp.Activity.SettingInitializerActivity;
+import com.example.mb7.sportappbp.Activity.ActivitySettingInitializer;
 
 /**
  * Fragment to show a time picker
@@ -41,7 +41,7 @@ public class TimePickerFragment extends DialogFragment
     }
 
     public void onTimeSet(TimePicker view, int hourOfDay, int minute) {
-        SettingInitializerActivity activity = (SettingInitializerActivity) getActivity();
+        ActivitySettingInitializer activity = (ActivitySettingInitializer) getActivity();
         // send the set time to the setting activity
         activity.setTime(hourOfDay, minute);
     }

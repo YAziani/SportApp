@@ -35,7 +35,7 @@
             android:parentActivityName=".Activity.ActivityMain" />
         <activity android:name=".Activity.ActivitySettings" />
         <activity android:name=".Activity.ActivityStimmungsAbgabe" />
-        <activity android:name=".Activity.SettingInitializerActivity" />
+        <activity android:name=".Activity.ActivitySettingInitializer" />
         <activity android:name=".Activity.ActivityChallenge" />
         <activity
             android:name=".Activity.ActivityCategories"

@@ -1,7 +1,9 @@
 package com.example.mb7.sportappbp.Fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
@@ -9,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
+import com.example.mb7.sportappbp.Activity.ActivitySettingInitializer;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.Adapters.NotificationViewAdapter;
@@ -40,20 +43,19 @@ public class TbNotificationContent extends TabFragment {
     public void onStart() {
         Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?");
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?");
-        // TODO remove test
-        /*
-        Notification n3 = new Notification(
-                "Schon gewusst?",
-                "Wissenswertes über Sport");
-        */
 
         notifList = new ArrayList<Notification>();
         notifList.add(n1);
         notifList.add(n2);
-        // TODO remove test
-        /*
-        notifList.add(n3);
-        */
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        if(preferences.getBoolean("motivationMessage",false)) {
+            Notification n3 = new Notification(
+                    "Schon gewusst?",
+                    "Wissenswertes über Sport");
+            notifList.add(n3);
+            preferences.edit().putBoolean("motivationMessage",false).commit();
+        }
         adapter = new NotificationViewAdapter(getActivity(),notifList, android.R.drawable.ic_menu_edit);
         lst = (ListView)view.findViewById( R.id.lstNotifications);
         lst.setAdapter(adapter);
@@ -69,8 +71,6 @@ public class TbNotificationContent extends TabFragment {
                     Intent open = new Intent(getActivity(), ActivityStimmungsAbgabe.class);
                     startActivity(open);
                 }
-                // TODO remove test
-                /*
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Schon gewusst?")
                 {
                     Intent open = new Intent(getActivity(), ActivitySettingInitializer.class);
@@ -78,7 +78,6 @@ public class TbNotificationContent extends TabFragment {
                     notifList.remove(2);
                     lst.setAdapter(adapter);
                 }
-                */
             }
         });
         super.onStart();

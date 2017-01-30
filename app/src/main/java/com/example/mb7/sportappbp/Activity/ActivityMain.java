@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 
 import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
+import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
 import com.example.mb7.sportappbp.R;
@@ -63,6 +64,8 @@ public class ActivityMain extends AppCompatActivity {
         // create a new motivation method and add it to the list of methods
         TrainingReminder t = new TrainingReminder(this);
         motivationMethods.add(t);
+        MotivationMessage m = new MotivationMessage(this);
+        // motivationMethods.add(m);
 
         // initialize the settings activity
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

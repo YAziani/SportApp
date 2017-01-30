@@ -28,7 +28,7 @@
         <activity
             android:name=".DiaryEntryActivity"
             android:label="Tagebuch Eintrag"
-            android:parentActivityName=".ActivityMain"/>
+            android:parentActivityName=".ActivityMain" />
         <activity
             android:name=".ActivityDiary"
             android:label="Tagebuch"
@@ -37,10 +37,13 @@
         <activity android:name=".ActivityStimmungsAbgabe" />
         <activity android:name=".SettingInitializerActivity" />
         <activity android:name=".ActivityChallenge" />
-        <activity android:name=".ActivityCategories"
+        <activity
+            android:name=".ActivityCategories"
             android:label="Kategorie auswählen..."
-            android:parentActivityName=".DiaryEntryActivity"/>
-        <activity android:name=".ActivityActivityCategory"></activity>
+            android:parentActivityName=".ActivityExerciseOverview" />
+        <activity android:name=".ActivityExercises"
+            android:parentActivityName=".ActivityCategories"/>
+        <activity android:name=".ActivityExerciseOverview"></activity>
     </application>
 
 </manifest>

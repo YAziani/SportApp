@@ -10,17 +10,15 @@ public class DiaryEntry {
 
     private String date;
     private Boolean successful;
-    private ArrayList<Category> activities;
+    private ArrayList<Exercise> exerciseList;
 
     /**
      * Constructor to create a diary entry
      * @param date : date of the training
-     * @param successful : was the training successful?
      */
-    public DiaryEntry(String date, Boolean successful){
+    public DiaryEntry(String date){
         this.date = date;
-        this.successful = successful;
-        activities = new ArrayList<Category>();
+        exerciseList = new ArrayList<Exercise>();
     }
 
     /**
@@ -39,7 +37,37 @@ public class DiaryEntry {
         return this.successful;
     }
 
-    public void addActivity(Category activity){
-        activities.add(activity);
+    public double getTotalDuration(){
+        double result = 0;
+        for(Exercise i : exerciseList){
+            result =+ result;
+        }
+        return result;
+    }
+
+    public ArrayList<Exercise> getExerciseList(){
+        return this.exerciseList;
+    }
+
+    public void setDate(String date){
+        this.date = date;
+    }
+    public void setSuccessful(boolean successful){
+        this.successful = successful;
+    }
+    public void setExerciseList(ArrayList<Exercise> newList){
+        this.exerciseList = newList;
+    }
+
+
+
+    public void addActivity(Exercise activity){
+        exerciseList.add(activity);
+    }
+
+    public void addNewExercises(ArrayList<Exercise> exLst){
+        for(Exercise i : exLst){
+            exerciseList.add(i);
+        }
     }
 }

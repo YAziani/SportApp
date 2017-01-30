@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -9,8 +9,7 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
-
-import static android.R.attr.entries;
+import com.example.mb7.sportappbp.R;
 
 public class ActivityDiary extends AppCompatActivity {
 

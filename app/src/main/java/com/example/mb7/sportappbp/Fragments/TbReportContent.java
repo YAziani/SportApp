@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Fragments;
 
 import android.content.Intent;
 import android.os.AsyncTask;
@@ -9,6 +9,10 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.Activity.ActivityDiary;
+import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
+import com.example.mb7.sportappbp.ClientIF;
+import com.example.mb7.sportappbp.R;
 import com.firebase.client.Firebase;
 
 import java.io.BufferedInputStream;
@@ -57,7 +61,7 @@ public class TbReportContent extends TabFragment{
                 //Firebase firebaseChild = firebase.child("MyChildTest");
                 //firebaseChild.setValue("Mo B");
 
-                Intent open = new Intent(getActivity(), DiaryEntryActivity.class);
+                Intent open = new Intent(getActivity(), ActivityDiaryEntry.class);
                 startActivity(open);
             }
         });
@@ -65,7 +69,7 @@ public class TbReportContent extends TabFragment{
 
 
 
-    abstract  class  MyDownloadTask extends AsyncTask<Object,Void,String> implements ClientIF{
+    abstract  class  MyDownloadTask extends AsyncTask<Object,Void,String> implements ClientIF {
         String url ="";
 
         public MyDownloadTask(String url)

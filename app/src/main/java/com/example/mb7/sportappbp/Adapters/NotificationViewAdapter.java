@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Adapters;
 
 import android.app.Activity;
 import android.view.View;
@@ -7,6 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
+import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
 

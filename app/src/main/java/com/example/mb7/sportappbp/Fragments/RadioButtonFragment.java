@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Fragments;
 
 import android.app.AlertDialog;
 import android.app.Dialog;

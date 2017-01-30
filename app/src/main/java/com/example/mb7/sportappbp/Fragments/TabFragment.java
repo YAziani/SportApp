@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Fragments;
 
 
 import android.app.Activity;
@@ -12,9 +12,9 @@ public class TabFragment extends Fragment {
 
         private String title;
         private Activity activity;
-        String getTitle(){return title;}
-        void setTitle(String title1) { title = title1;}
-        void Initialize(Activity act, String t)
+        public String getTitle(){return title;}
+        public void setTitle(String title1) { title = title1;}
+        public void Initialize(Activity act, String t)
         {
                 activity = act;
                 title = t;

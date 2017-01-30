@@ -1,0 +1,106 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_gravity="top|center"
+    android:layout_width="280dp"
+    android:layout_height="350dp">
+
+
+    <LinearLayout
+        android:orientation="vertical"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:weightSum="1">
+
+
+        <TextView
+            android:text="Setze Zeit"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/textView25"
+            android:paddingTop="24dp"
+            android:paddingLeft="24dp"
+            android:paddingRight="24dp"
+            android:paddingBottom="20dp"
+            android:textSize="28sp" />
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <TextView
+                android:text="Stunden"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView27"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+
+            <TextView
+                android:text="Minuten"
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/textView26"
+                android:layout_weight="1"
+                android:textAlignment="center"
+                android:textSize="20sp" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:orientation="horizontal"
+            android:layout_height="wrap_content"
+            android:layout_width="match_parent">
+
+            <NumberPicker
+                android:layout_width="140dp"
+                android:layout_height="wrap_content"
+                android:id="@+id/numberPickerHours"
+                android:layout_weight="0.92">
+
+            </NumberPicker>
+
+            <NumberPicker
+                android:layout_height="wrap_content"
+                android:id="@+id/numberPickerMinutes"
+                android:layout_width="140dp">
+
+            </NumberPicker>
+        </LinearLayout>
+
+    </LinearLayout>
+
+    <LinearLayout
+        android:orientation="horizontal"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content">
+
+        <Button
+            android:text="Cancle"
+            android:layout_width="128dp"
+            android:layout_height="36dp"
+            android:id="@+id/npCancle"
+            android:layout_weight="1"
+            android:paddingBottom="8dp"
+            android:paddingLeft="8dp"
+            android:paddingTop="8dp"
+            android:paddingEnd="8dp"
+            android:paddingStart="8dp"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
+
+        <Button
+            android:text="OK"
+            android:layout_width="128dp"
+            android:layout_height="36dp"
+            android:id="@+id/npOk"
+            android:paddingBottom="8dp"
+            android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
+            android:paddingRight="8dp"
+            android:paddingTop="8dp"
+            android:paddingStart="8dp"
+            android:layout_weight="1"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
+    </LinearLayout>
+</LinearLayout>

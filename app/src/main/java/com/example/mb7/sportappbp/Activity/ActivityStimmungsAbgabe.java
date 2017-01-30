@@ -1,8 +1,14 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Activity;
 
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.view.Menu;
+import android.view.MenuInflater;
 import android.widget.TextView;
+
+import com.example.mb7.sportappbp.R;
+import com.example.mb7.sportappbp.UI_Controls.StimmungListview;
+import com.example.mb7.sportappbp.Adapters.StimmungsViewAdapter;
 
 public class ActivityStimmungsAbgabe extends AppCompatActivity {
     StimmungsViewAdapter adapter;
@@ -16,6 +22,15 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         this.SetControlCaptions();
 
          super.onStart();
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        //set an other menu xml
+        inflater.inflate(R.menu.menu_save, menu);
+
+        return super.onCreateOptionsMenu(menu);
     }
 
     private void InitializeControlls(){

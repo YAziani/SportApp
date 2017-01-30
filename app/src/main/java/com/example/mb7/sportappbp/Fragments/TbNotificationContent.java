@@ -53,6 +53,15 @@ public class TbNotificationContent extends TabFragment {
         /*
         notifList.add(n3);
         */
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        if(preferences.getBoolean("motivationMessage",false)) {
+            Notification n3 = new Notification(
+                    "Schon gewusst?",
+                    "Wissenswertes über Sport");
+            notifList.add(n3);
+            preferences.edit().putBoolean("motivationMessage",false).commit();
+        }
         adapter = new NotificationViewAdapter(getActivity(),notifList, android.R.drawable.ic_menu_edit);
         lst = (ListView)view.findViewById( R.id.lstNotifications);
         lst.setAdapter(adapter);
@@ -60,7 +69,7 @@ public class TbNotificationContent extends TabFragment {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 if( ((Notification)parent.getAdapter().getItem(position)).getTitle() == "Trainingeintrag") {
-                    Intent open = new Intent(getActivity(), DiaryEntryActivity.class);
+                    Intent open = new Intent(getActivity(), ActivityDiaryEntry.class);
                     startActivity(open);
                 }
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Stimmungsabfrage")
@@ -77,7 +86,7 @@ public class TbNotificationContent extends TabFragment {
                 /*
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Schon gewusst?")
                 {
-                    Intent open = new Intent(getActivity(), SettingInitializerActivity.class);
+                    Intent open = new Intent(getActivity(), ActivitySettingInitializer.class);
                     startActivity(open);
                     notifList.remove(2);
                     lst.setAdapter(adapter);

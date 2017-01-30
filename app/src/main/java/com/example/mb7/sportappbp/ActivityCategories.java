@@ -7,19 +7,22 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
 import android.widget.ListView;
+import android.widget.Toast;
+
+import com.example.mb7.sportappbp.Objects.Exercise;
 
 import java.util.ArrayList;
 
 public class ActivityCategories extends AppCompatActivity {
     //request id for the activitiy request
-    final static int REQUEST_ID = 2;
+    final static int REQUEST_ID = 3;
 
     ListView listView;
     ArrayAdapter<String> arrayAdapter;
     String[] listOfCategories = {"Leistungstests", "Training", "Wellness", "Reiner Aufenthalt"};
     Intent open;
 
-    ArrayList<String> listOfActivities;
+    ArrayList<Exercise> exercisesList;
     String activity;
 
 
@@ -32,6 +35,8 @@ public class ActivityCategories extends AppCompatActivity {
         arrayAdapter = new ArrayAdapter<String>(ActivityCategories.this, android.R.layout.simple_list_item_1, listOfCategories);
         listView.setAdapter(arrayAdapter);
 
+        exercisesList = receiveExerciseList();
+
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
@@ -40,16 +45,16 @@ public class ActivityCategories extends AppCompatActivity {
 
                 switch (category){
                     case "Leistungstests":
-                        pickActivity(category);
+                        forwardOldExerciseList(category, exercisesList);
                         break;
                     case "Training":
-                        pickActivity(category);
+                        forwardOldExerciseList(category, exercisesList);
                         break;
                     case "Wellness":
-                        pickActivity(category);
+                        forwardOldExerciseList(category, exercisesList);
                         break;
                     case "Reiner Aufenthalt":
-                        pickActivity(category);
+                        forwardOldExerciseList(category, exercisesList);
                         break;
                     default:
 
@@ -57,13 +62,17 @@ public class ActivityCategories extends AppCompatActivity {
 
             }
         });
+
+        //todo Liste uebergeben, wenn back Button gedrueckt wird
+
     }
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
-            forwardResult(data.getExtras().getString("activity"), data.getExtras().getInt("duration"));
+            ArrayList<Exercise> result = data.getParcelableArrayListExtra("newExercises");
+            forwardResult(result);
         }
     }
 
@@ -71,19 +80,46 @@ public class ActivityCategories extends AppCompatActivity {
      * This method forwards the result of the request
      * @param result
      */
-    private void forwardResult(String result, int duration){
+    private void forwardResult(ArrayList<Exercise> result){
 
         Intent intent = new Intent();
-        intent.putExtra("activity",result);
-        intent.putExtra("duration", duration);
+        intent.putParcelableArrayListExtra("newExercises",result);
         setResult(RESULT_OK, intent);
         finish();
+    }
+
+    private void forwardOldExerciseList(String category, ArrayList<Exercise> exerciseList){
+
+        Intent intent = new Intent(ActivityCategories.this, ActivityExercises.class);
+        intent.putExtra("category", category);
+        intent.putParcelableArrayListExtra("oldExercises", exerciseList);
+        startActivityForResult(intent, REQUEST_ID);
+    }
+
+    private void receiveSerializable(){
+        Exercise testExercise;
+        ArrayList<Exercise> testList = new ArrayList<>();
+
+        testList = getIntent().getParcelableArrayListExtra("category");
+
+        double test = testList.get(0).getWeighting();
+
+
+        Toast.makeText(ActivityCategories.this, String.valueOf(test), Toast.LENGTH_SHORT).show();
+
 
     }
 
-    private void pickActivity(String category){
-        Intent intent = new Intent(ActivityCategories.this, ActivityActivityCategory.class);
-        intent.putExtra("category", category);
-        startActivityForResult(intent, REQUEST_ID);
+    private ArrayList<Exercise> receiveExerciseList(){
+
+        ArrayList<Exercise> result;
+        final Bundle extra = getIntent().getExtras();
+
+        if (extra != null) {
+            result = extra.getParcelableArrayList("oldExercises");
+            return result;
+        }
+        else
+            return result = new ArrayList<Exercise>();
     }
 }

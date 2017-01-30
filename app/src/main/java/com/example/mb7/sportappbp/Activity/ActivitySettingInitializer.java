@@ -24,7 +24,7 @@ import com.example.mb7.sportappbp.R;
  * activity used to get the initial training times of the user
  * Created by Aziani on 17.01.2017.
  */
-public class SettingInitializerActivity extends AppCompatActivity implements AdapterView.OnItemClickListener {
+public class ActivitySettingInitializer extends AppCompatActivity implements AdapterView.OnItemClickListener {
 
     ListView weekdayListView;
     ListView timeListView;
@@ -67,7 +67,7 @@ public class SettingInitializerActivity extends AppCompatActivity implements Ada
 
         // setup adapter to fill the listviews with
         weekdayArrayAdapter = new ArrayAdapter<>(
-                SettingInitializerActivity.this,
+                ActivitySettingInitializer.this,
                 android.R.layout.simple_list_item_1,
                 textArray
         );
@@ -76,7 +76,7 @@ public class SettingInitializerActivity extends AppCompatActivity implements Ada
         weekdayListView.setOnItemClickListener(this);
 
         timeArrayAdapter = new ArrayAdapter<>(
-                SettingInitializerActivity.this,
+                ActivitySettingInitializer.this,
                 android.R.layout.simple_list_item_1,
                 inputArray
         );

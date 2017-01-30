@@ -71,7 +71,7 @@ public class ActivityMain extends AppCompatActivity {
         // preferences.edit().putBoolean("initialized", false).apply();
 
         if(!preferences.getBoolean("initialized",false)) {
-            Intent open = new Intent(this, SettingInitializerActivity.class);
+            Intent open = new Intent(this, ActivitySettingInitializer.class);
             startActivity(open);
         }
 

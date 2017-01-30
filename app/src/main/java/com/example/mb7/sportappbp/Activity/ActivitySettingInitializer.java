@@ -8,6 +8,9 @@ import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.text.InputType;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -41,6 +44,7 @@ public class ActivitySettingInitializer extends AppCompatActivity implements Ada
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_initializer);
+
 
         // setup trainingReminder for studio address comparison
         trainingReminder = new TrainingReminder(this);
@@ -83,12 +87,21 @@ public class ActivitySettingInitializer extends AppCompatActivity implements Ada
         timeListView = (ListView)findViewById(R.id.timeListView);
         timeListView.setAdapter(timeArrayAdapter);
         timeListView.setOnItemClickListener(this);
+    }
 
-        // button to complete initialization and end the activity
-        Button doneButton = (Button) findViewById(R.id.doneButton);
-        doneButton.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // set up save button
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_save, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // handle menu item selection
+        switch (item.getItemId()) {
+            case R.id.icon_save:
                 if(sharedPreferences.getBoolean("initialized",false)) {
                     // close the activity
                     finish();
@@ -101,15 +114,15 @@ public class ActivitySettingInitializer extends AppCompatActivity implements Ada
                     editor.putBoolean("initialized", true);
                     editor.commit();
                 }
-            }
-        });
-
-
-
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     @Override
     public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+        System.out.println(id);
         // save the index for the preferences file
         userChoiceIndex = position;
         if(userChoiceIndex < 7) {

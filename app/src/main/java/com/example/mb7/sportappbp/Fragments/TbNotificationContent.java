@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp.Fragments;
+package com.example.mb7.sportappbp;
 
 import android.content.Intent;
 import android.os.Bundle;
@@ -8,11 +8,7 @@ import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
-import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
-import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
-import com.example.mb7.sportappbp.Adapters.NotificationViewAdapter;
-import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
 
@@ -40,6 +36,7 @@ public class TbNotificationContent extends TabFragment {
     public void onStart() {
         Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?");
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?");
+        Notification n3 = new Notification("Fragebogen zur Aktivität", "Messung der Bewegungs- und Sportaktivität");
         // TODO remove test
         /*
         Notification n3 = new Notification(
@@ -47,13 +44,24 @@ public class TbNotificationContent extends TabFragment {
                 "Wissenswertes über Sport");
         */
 
+
         notifList = new ArrayList<Notification>();
         notifList.add(n1);
         notifList.add(n2);
+        notifList.add(n3);
         // TODO remove test
         /*
         notifList.add(n3);
         */
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        if(preferences.getBoolean("motivationMessage",false)) {
+            Notification n3 = new Notification(
+                    "Schon gewusst?",
+                    "Wissenswertes über Sport");
+            notifList.add(n3);
+            preferences.edit().putBoolean("motivationMessage",false).commit();
+        }
         adapter = new NotificationViewAdapter(getActivity(),notifList, android.R.drawable.ic_menu_edit);
         lst = (ListView)view.findViewById( R.id.lstNotifications);
         lst.setAdapter(adapter);
@@ -67,6 +75,11 @@ public class TbNotificationContent extends TabFragment {
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Stimmungsabfrage")
                 {
                     Intent open = new Intent(getActivity(), ActivityStimmungsAbgabe.class);
+                    startActivity(open);
+                }
+                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Fragebogen zur Aktivität")
+                {
+                    Intent open = new Intent(getActivity(), ActivityFragebogen.class);
                     startActivity(open);
                 }
                 // TODO remove test

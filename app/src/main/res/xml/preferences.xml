@@ -36,7 +36,7 @@
             <intent
                 android:action="android.intent.action.VIEW"
                 android:targetPackage="com.example.mb7.sportappbp"
-                android:targetClass="com.example.mb7.sportappbp.SettingInitializerActivity" />
+                android:targetClass="com.example.mb7.sportappbp.Activity.ActivitySettingInitializer" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

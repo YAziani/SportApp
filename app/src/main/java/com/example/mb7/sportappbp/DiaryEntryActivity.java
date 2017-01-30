@@ -3,6 +3,8 @@ package com.example.mb7.sportappbp;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.text.Editable;
+import android.text.TextWatcher;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -12,10 +14,13 @@ import android.widget.Button;
 import android.widget.ListView;
 import android.widget.RadioButton;
 import android.widget.RadioGroup;
+import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
+import com.example.mb7.sportappbp.Objects.TrainingExercise;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -26,19 +31,25 @@ public class DiaryEntryActivity extends AppCompatActivity {
     //request id for the activitiy request
     static final int REQUEST_ID = 1;
 
+    private Button btnExerciseLst;
     private Button btnSave;
-    private RadioGroup radioGroup;
-    private RadioButton radioButton;
+    private Button btnAdd;
+
+    //private RadioGroup radioGroup;
+    //private RadioButton radioButton;
+
     private DiaryEntry diaryEntry;
     private AllDiaryEntries allDiaryEntries;
 
-    private ListView listView;
-    private ArrayAdapter<String> arrayAdapter;
-    private ArrayList<String> listOfActivities;
-    private Button btnAdd;
-    private String activity;
+    //private ListView listView;
+    //private ArrayAdapter<String> arrayAdapter;
+    private ArrayList<Exercise> exerciseList;
 
+    //private TextView totalDuration;
+
+    private String activity;
     private Menu menu;
+
 
 
 
@@ -47,64 +58,23 @@ public class DiaryEntryActivity extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diaryentry);
 
+        diaryEntry = new DiaryEntry(getCurrentDate());
+        exerciseList = diaryEntry.getExerciseList();
+
+        //radioGroup = (RadioGroup) findViewById(R.id.RadioGroupTraining);
+
+        //totalDuration = (TextView)findViewById(R.id.textViewTotalTime);
+        //totalDuration.setText(String.valueOf(diaryEntry.getTotalDuration()));
+
         //activate the back button on the toolbar
         //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        btnSaveListener();
+        //listOfActivities = new ArrayList<String>();
 
-        listOfActivities = new ArrayList<String>();
+        //listView = (ListView) findViewById(R.id.diaryentryListView);
+        //arrayAdapter = new ArrayAdapter<String>(DiaryEntryActivity.this, android.R.layout.simple_list_item_1, listOfActivities);
+        //listView.setAdapter(arrayAdapter);
 
-        listView = (ListView) findViewById(R.id.diaryentryListView);
-        arrayAdapter = new ArrayAdapter<String>(DiaryEntryActivity.this, android.R.layout.simple_list_item_1, listOfActivities);
-        listView.setAdapter(arrayAdapter);
-
-    }
-
-    private void btnSaveListener(){
-
-        radioGroup = (RadioGroup) findViewById(R.id.RadioGroupTraining);
-        btnSave = (Button) findViewById(R.id.buttonSave);
-
-        btnSave.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                int selectedID = radioGroup.getCheckedRadioButtonId();
-                radioButton = (RadioButton) findViewById(selectedID);
-
-                //check if a button is selected, if not give a message to the user
-                if(radioButton == null)
-                    Toast.makeText(DiaryEntryActivity.this, "Button nicht gewaehlt!", Toast.LENGTH_SHORT).show();
-                else {
-
-                    //Create the diary object with the input of the user
-                    diaryEntry = new DiaryEntry(getCurrentDate(), radioButtonYesOrNo(radioButton));
-                    //add the entry to the diary list
-                    allDiaryEntries.getInstance().getDiaryList().add(diaryEntry);
-
-                    //todo Save object to the database
-                    //Display answer
-                    //Toast.makeText(DiaryEntryActivity.this, strDate, Toast.LENGTH_SHORT).show();
-                    finish();
-                }
-            }
-        });
-    }
-
-
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        //check if the request was successful
-        if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
-            //add the new workout
-            listOfActivities.add(data.getExtras().getString("activity"));
-            arrayAdapter.notifyDataSetChanged();
-            Integer test = data.getExtras().getInt("duration");
-
-            Toast.makeText(DiaryEntryActivity.this,test.toString(), Toast.LENGTH_SHORT).show();
-        }
     }
 
     @Override
@@ -112,7 +82,7 @@ public class DiaryEntryActivity extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
         //set an other menu xml
         inflater.inflate(R.menu.menu_add, menu);
-        this.menu = menu;
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -122,15 +92,59 @@ public class DiaryEntryActivity extends AppCompatActivity {
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_add:
-                //Open the new activity
-                //Intent open = new Intent(DiaryEntryActivity.this, ActivityCategories.class);
-                //startActivity(open);
-
-                pickActivity();
+                sendOldAndRequestNewExerciseList();
+                return true;
+            case R.id.icon_save:
+                btnSaveAction();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
+        }
+    }
+
+    private void btnSaveAction() {
+
+        /*
+        int selectedID = radioGroup.getCheckedRadioButtonId();
+        radioButton = (RadioButton) findViewById(selectedID);
+
+        //check if a button is selected, if not give a message to the user
+        if (radioButton == null)
+            Toast.makeText(DiaryEntryActivity.this, "Button nicht gewaehlt!", Toast.LENGTH_SHORT).show();
+        else {
+
+            //Create the diary object with the input of the user
+            diaryEntry.setSuccessful(radioButtonYesOrNo(radioButton));
+            diaryEntry.setExerciseList(exerciseList);
+            //add the entry to the diary list
+            allDiaryEntries.getInstance().getDiaryList().add(diaryEntry);
+
+            //todo Save object to the database
+
+            //Display answer
+            //Toast.makeText(DiaryEntryActivity.this, strDate, Toast.LENGTH_SHORT).show();
+
+            finish();
+
+        }
+        */
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ArrayList<Exercise> result;
+        //check if the request was successful
+        if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
+
+            //add the new exercises to
+            result = data.getParcelableArrayListExtra("newExercises");
+            exerciseList = result;
+            diaryEntry.setExerciseList(result);
+
+            //Toast.makeText(DiaryEntryActivity.this, diaryEntry.getExerciseList().get(0).getActivity(), Toast.LENGTH_SHORT).show();
         }
     }
 
@@ -162,10 +176,10 @@ public class DiaryEntryActivity extends AppCompatActivity {
     /**
      * This method starts a request to the activity ActiveCategorys
      */
-    public void pickActivity(){
-        Intent pickActivityIntent = new Intent(this, ActivityCategories.class);
-        //add the object to the intent
-        //pickActivityIntent.putExtra("activities", activity);
-        startActivityForResult(pickActivityIntent, REQUEST_ID);
+    public void sendOldAndRequestNewExerciseList(){
+        ArrayList<Exercise> oldList = exerciseList;
+        Intent pickExerciseIntent = new Intent(this, ActivityExerciseOverview.class);
+        pickExerciseIntent.putParcelableArrayListExtra("oldExercises", oldList);
+        startActivityForResult(pickExerciseIntent, REQUEST_ID);
     }
 }

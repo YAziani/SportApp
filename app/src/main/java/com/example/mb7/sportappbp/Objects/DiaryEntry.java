@@ -37,13 +37,108 @@ public class DiaryEntry {
         return this.successful;
     }
 
-    public double getTotalDuration(){
-        double result = 0;
-        for(Exercise i : exerciseList){
-            result =+ result;
+    public int getTotalTimeMinutes() {
+        int result = 0;
+        for (Exercise i : exerciseList) {
+
+            result = result + i.getTimeMunites();
+
+            if (result > 59) {
+                result = result - 60;
+                //i.setTimeHours(i.getTimeHours() + 1 );
+            }
         }
         return result;
     }
+
+    public int getTotalTimeHours(){
+        int result = 0;
+        for(Exercise i : exerciseList) {
+            result = result + i.getTimeHours();
+        }
+        return result;
+    }
+
+    public int getTotalTimeMinutesLeistungstests(){
+        int result = 0;
+        for(Exercise i : exerciseList) {
+
+            if(i instanceof LeistungstestsExercise)
+                result = result + i.getTimeMunites();
+        }
+        return result;
+    }
+
+    public int getTotalTimeHoursLeistungstests(){
+        int result = 0;
+        for(Exercise i : exerciseList) {
+
+            if(i instanceof LeistungstestsExercise)
+                result = result + i.getTimeHours();
+        }
+        return result;
+    }
+
+    public int getTotalTimeMinutesTraining(){
+        int result = 0;
+        for(Exercise i : exerciseList) {
+
+            if(i instanceof TrainingExercise)
+                result = result + i.getTimeMunites();
+        }
+        return result;
+    }
+
+    public int getTotalTimeHoursTraining(){
+        int result = 0;
+        for(Exercise i : exerciseList) {
+
+            if(i instanceof TrainingExercise)
+                result = result + i.getTimeHours();
+        }
+        return result;
+    }
+
+    public int getTotalTimeMinutesWellness(){
+        int result = 0;
+        for(Exercise i : exerciseList) {
+
+            if(i instanceof WellnessExercise)
+                result = result + i.getTimeMunites();
+        }
+        return result;
+    }
+
+    public int getTotalTimeHoursWellness(){
+        int result = 0;
+        for(Exercise i : exerciseList) {
+
+            if(i instanceof WellnessExercise)
+                result = result + i.getTimeHours();
+        }
+        return result;
+    }
+    public int getTotalTimeMinutesReinerAufenthalt(){
+        int result = 0;
+        for(Exercise i : exerciseList) {
+
+            if(i instanceof ReinerAufenthaltExercise)
+                result = result + i.getTimeMunites();
+        }
+        return result;
+    }
+
+    public int getTotalTimeHoursReinerAufenthalt(){
+        int result = 0;
+        for(Exercise i : exerciseList) {
+
+            if(i instanceof ReinerAufenthaltExercise)
+                result = result + i.getTimeHours();
+        }
+        return result;
+    }
+
+
 
     public ArrayList<Exercise> getExerciseList(){
         return this.exerciseList;

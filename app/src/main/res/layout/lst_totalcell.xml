@@ -9,7 +9,7 @@
     <LinearLayout
         android:orientation="vertical"
         android:id="@+id/linearLayout1"
-        android:paddingLeft="72dp"
+        android:paddingLeft="150dp"
         android:paddingRight="16dp"
         android:paddingBottom="20dp"
         android:paddingTop="20dp"
@@ -17,12 +17,11 @@
         android:layout_width="match_parent"
         android:layout_alignParentTop="true"
         android:layout_alignParentEnd="true"
-        android:layout_marginEnd="19dp"
         android:layout_weight="1">
 
         <TextView
             android:text="Punkte/Zeit"
-            android:layout_width="182dp"
+            android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:id="@+id/txtExercise"
             android:textSize="16sp"
@@ -31,7 +30,7 @@
 
         <TextView
             android:text="Dauer"
-            android:layout_width="182dp"
+            android:layout_width="wrap_content"
             android:layout_height="match_parent"
             android:id="@+id/txtDuration"
             android:textSize="30sp"

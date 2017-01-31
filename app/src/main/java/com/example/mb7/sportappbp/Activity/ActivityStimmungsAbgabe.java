@@ -6,19 +6,37 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Adapters.StimmungsViewAdapter;
+import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.StimmungListview;
-import com.example.mb7.sportappbp.Adapters.StimmungsViewAdapter;
+import com.firebase.client.Firebase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 public class ActivityStimmungsAbgabe extends AppCompatActivity {
     StimmungsViewAdapter adapter;
+    StimmungListview lstTraurig;
+    StimmungListview lstTatkraeftig ;
+    StimmungListview  lstZerstreut;
+    StimmungListview lstWuetend ;
+    StimmungListview lstAngespannt ;
+    StimmungListview lstMuede ;
+    StimmungListview lstSelbstsicher ;
+    StimmungListview lstMittelsam ;
+
+    private Firebase mRootRef;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stimmung);
 
+        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
         this.InitializeControlls();
         this.SetControlCaptions();
 
@@ -41,6 +59,9 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.icon_save:
                 SaveData();
+                finish();
+                Toast.makeText(ActivityMain.activityMain,"Erfolgreich gespeichert",Toast.LENGTH_SHORT);
+
                 return true;
 
             default:
@@ -48,8 +69,29 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         }
     }
 
+    private StimmungAbfrage getData()
+    {
+        StimmungAbfrage stimmungAbfrage = new StimmungAbfrage();
+        stimmungAbfrage.Angespannt = lstAngespannt.getIndex();
+        stimmungAbfrage.Mitteilsam = lstMittelsam.getIndex();
+        stimmungAbfrage.Muede = lstMuede.getIndex();
+        stimmungAbfrage.Selbstsicher = lstSelbstsicher.getIndex();
+        stimmungAbfrage.Tatkraeftig = lstTatkraeftig.getIndex();
+        stimmungAbfrage.Traurig = lstTraurig.getIndex();
+        stimmungAbfrage.Wuetend = lstWuetend.getIndex();
+        stimmungAbfrage.Zerstreut= lstZerstreut.getIndex();
+        stimmungAbfrage.Vor  = true;
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        stimmungAbfrage.Date = sdf.format(new Date());
+
+        return stimmungAbfrage;
+    }
+
     private boolean SaveData()
     {
+        StimmungAbfrage stimmungAbfrage  = getData();
+        ActivityMain.mainUser.SaveStimmung(stimmungAbfrage);
+
         return true;
     }
 
@@ -58,16 +100,16 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         // set the listivew
         // first create the adapter
         adapter = new StimmungsViewAdapter(this);
-        StimmungListview lst = (StimmungListview)findViewById( R.id.lvAngespannt);
-        StimmungListview lstTraurig = (StimmungListview)findViewById( R.id.lvTraurig);
-        StimmungListview lstTatkraeftig = (StimmungListview)findViewById( R.id.lvTatkraeftig);
-        StimmungListview  lstZerstreut= (StimmungListview)findViewById( R.id.lvZerstreut);
-        StimmungListview lstWuetend = (StimmungListview)findViewById( R.id.lvWuetend);
-        StimmungListview lstMuede = (StimmungListview)findViewById( R.id.lvMuede);
-        StimmungListview lstSelbstsicher = (StimmungListview)findViewById( R.id.lvSelbstsicher);
-        StimmungListview lstMittelsam = (StimmungListview)findViewById( R.id.lvMitteilsam);
+        lstTraurig = (StimmungListview)findViewById( R.id.lvTraurig);
+        lstTatkraeftig = (StimmungListview)findViewById( R.id.lvTatkraeftig);
+        lstZerstreut= (StimmungListview)findViewById( R.id.lvZerstreut);
+        lstWuetend = (StimmungListview)findViewById( R.id.lvWuetend);
+        lstAngespannt = (StimmungListview)findViewById( R.id.lvAngespannt);
+        lstMuede = (StimmungListview)findViewById( R.id.lvMuede);
+        lstSelbstsicher = (StimmungListview)findViewById( R.id.lvSelbstsicher);
+        lstMittelsam = (StimmungListview)findViewById( R.id.lvMitteilsam);
 
-        lst.setAdapter(adapter);
+        lstAngespannt.setAdapter(adapter);
         lstTraurig.setAdapter(adapter);
         lstTatkraeftig.setAdapter(adapter);
         lstZerstreut.setAdapter(adapter);
@@ -77,7 +119,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         lstMittelsam.setAdapter(adapter);
 
         // set the onTouch Event to disable scrolling
-        lst.Initialize();
+        lstAngespannt.Initialize();
         lstTraurig.Initialize();
         lstTatkraeftig.Initialize();
         lstZerstreut.Initialize();

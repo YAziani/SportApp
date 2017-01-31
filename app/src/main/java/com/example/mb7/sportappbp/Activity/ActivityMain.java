@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 
 import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
@@ -30,7 +31,7 @@ import com.example.mb7.sportappbp.Fragments.TabFragment;
 import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
 import com.example.mb7.sportappbp.Fragments.TbReportContent;
 import com.example.mb7.sportappbp.Fragments.TbTaskContent;
-
+import com.example.mb7.sportappbp.BusinessLayer.User;
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -54,12 +55,21 @@ public class ActivityMain extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout tabLayout;
     private final String mainColor = "#2648FF";
+    public  static  User mainUser ;
+    public static ActivityMain activityMain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
 
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        // set the main URL
+        DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/players/";
+
+        // create the current User
+        mainUser = User.Create("TestUser");
+        activityMain = this;
 
         // create a new motivation method and add it to the list of methods
         TrainingReminder t = new TrainingReminder(this);

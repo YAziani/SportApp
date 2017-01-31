@@ -12,6 +12,9 @@ import android.widget.ListView;
  */
 
 public class StimmungListview extends ListView  {
+    private int index = -1;
+
+
     public StimmungListview(Context context) {
     super(context);
 }
@@ -26,6 +29,7 @@ public class StimmungListview extends ListView  {
     public StimmungListview(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super (context,attrs,defStyleAttr,defStyleRes);
     }
+
 
     public void Initialize()
     {
@@ -44,10 +48,16 @@ public class StimmungListview extends ListView  {
         this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
         @Override
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+            index = position;
+            String val = Integer.toString(index);
+
             view.setSelected(true);
         }
     });
     }
 
+    public int getIndex(){
+        return index;
+    }
 
 }

@@ -1,14 +1,21 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.Fragments;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
+import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
+import com.example.mb7.sportappbp.ActivityFragebogen;
+import com.example.mb7.sportappbp.Adapters.NotificationViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
+import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
 
@@ -56,10 +63,10 @@ public class TbNotificationContent extends TabFragment {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         if(preferences.getBoolean("motivationMessage",false)) {
-            Notification n3 = new Notification(
+            Notification n4 = new Notification(
                     "Schon gewusst?",
                     "Wissenswertes über Sport");
-            notifList.add(n3);
+            notifList.add(n4);
             preferences.edit().putBoolean("motivationMessage",false).commit();
         }
         adapter = new NotificationViewAdapter(getActivity(),notifList, android.R.drawable.ic_menu_edit);

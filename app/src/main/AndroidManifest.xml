@@ -27,7 +27,7 @@
             </intent-filter>
         </activity>
         <activity
-            android:name=".DiaryEntryActivity"
+            android:name=".Activity.ActivityDiaryEntry"
             android:label="Tagebuch Eintrag"
             android:parentActivityName=".Activity.ActivityMain" />
         <activity
@@ -41,11 +41,12 @@
         <activity
             android:name=".Activity.ActivityCategories"
             android:label="Kategorie auswählen..."
-            android:parentActivityName=".DiaryEntryActivity"/>
-        <activity android:name=".ActivityActivityCategory"></activity>
-        <activity android:name=".ActivityStimmungsAbgabe"></activity>
-         <activity android:name=".SettingInitializerActivity"></activity>
+            android:parentActivityName=".Activity.ActivityExerciseOverview" />
+        <activity android:name=".Activity.ActivityExercises"
+            android:parentActivityName=".Activity.ActivityCategories"/>
+        <activity android:name=".Activity.ActivityExerciseOverview"/>
         <activity android:name=".ActivityFragebogen"></activity>
+
     </application>
 
 </manifest>

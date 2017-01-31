@@ -6,13 +6,19 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ArrayAdapter;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.RadioButton;
+import android.widget.TextView;
+import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.R;
+import com.fasterxml.jackson.core.io.CharacterEscapes;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -33,11 +39,11 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     private DiaryEntry diaryEntry;
     private AllDiaryEntries allDiaryEntries;
 
-    //private ListView listView;
-    //private ArrayAdapter<String> arrayAdapter;
+    private ListView listView;
+    private ExerciseViewAdapter exerciseViewAdapter;
     private ArrayList<Exercise> exerciseList;
 
-    //private TextView totalDuration;
+    private TextView textView;
 
     private String activity;
     private Menu menu;
@@ -63,8 +69,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
         //listOfActivities = new ArrayList<String>();
 
-        //listView = (ListView) findViewById(R.id.diaryentryListView);
-        //arrayAdapter = new ArrayAdapter<String>(DiaryEntryActivity.this, android.R.layout.simple_list_item_1, listOfActivities);
         //listView.setAdapter(arrayAdapter);
 
     }
@@ -136,8 +140,31 @@ public class ActivityDiaryEntry extends AppCompatActivity {
             exerciseList = result;
             diaryEntry.setExerciseList(result);
 
-            //Toast.makeText(DiaryEntryActivity.this, diaryEntry.getExerciseList().get(0).getActivity(), Toast.LENGTH_SHORT).show();
+            //Leistungstests
+            setTextFieldTime((TextView)findViewById(R.id.txtTimeLeistungstests), diaryEntry.getTotalTimeHoursLeistungstests(), diaryEntry.getTotalTimeMinutesLeistungstests());
+            //Training
+            setTextFieldTime((TextView)findViewById(R.id.txtTimeTraining), diaryEntry.getTotalTimeHoursTraining(), diaryEntry.getTotalTimeMinutesTraining());
+            //Wellness
+            setTextFieldTime((TextView)findViewById(R.id.txtTimeWellness), diaryEntry.getTotalTimeHoursWellness(), diaryEntry.getTotalTimeMinutesWellness());
+            //Aufenhalt
+            setTextFieldTime((TextView)findViewById(R.id.txtTimeAufenthalt), diaryEntry.getTotalTimeHoursReinerAufenthalt(), diaryEntry.getTotalTimeMinutesReinerAufenthalt());
+            //Total
+            setTextFieldTime((TextView)findViewById(R.id.txtTotalTime), diaryEntry.getTotalTimeHours(), diaryEntry.getTotalTimeMinutes());
+            //Toast.makeText(ActivityDiaryEntry.this,h, Toast.LENGTH_SHORT).show();
+
+
+
+
+
         }
+    }
+
+    private void setTextFieldTime(TextView textView, int hours, int min){
+
+        String m = String.valueOf(min);
+        String h = String.valueOf(hours);
+        textView.setText(h+":"+m+" h");
+
     }
 
 
@@ -174,4 +201,5 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         pickExerciseIntent.putParcelableArrayListExtra("oldExercises", oldList);
         startActivityForResult(pickExerciseIntent, REQUEST_ID);
     }
+
 }

@@ -52,14 +52,11 @@ public class MotivationMessage extends MotivationMethod{
                         .setContentTitle("Schon gewusst?")
                         .setContentText("Wissenswertes über Sport");
         // specify which activity should be started upon clicking on the notification
-        Intent resultIntent = new Intent(activity,ActivityMain.class);
-        // specify the tab on which the activity shall be started
-        resultIntent.putExtra("startTab",1);
-        TaskStackBuilder stackBuilder = TaskStackBuilder.create(activity);
-        stackBuilder.addParentStack(ActivityMain.class);
-        stackBuilder.addNextIntent(resultIntent);
-        PendingIntent resultPendingIntent = stackBuilder.getPendingIntent(0,PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.setContentIntent(resultPendingIntent);
+        Intent notificationIntent = new Intent(activity,ActivityMain.class);
+        notificationIntent.putExtra("startTab",1);
+        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        PendingIntent intent = PendingIntent.getActivity(activity,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(intent);
         // setup notification manager
         final NotificationManager notificationManager =
                 (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);

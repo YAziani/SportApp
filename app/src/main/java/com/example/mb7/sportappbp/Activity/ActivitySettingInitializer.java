@@ -5,6 +5,8 @@ import android.app.DialogFragment;
 import android.content.DialogInterface;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.graphics.ColorFilter;
+import android.graphics.PorterDuff;
 import android.graphics.Rect;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -20,6 +22,7 @@ import android.widget.ArrayAdapter;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ImageButton;
+import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -71,6 +74,9 @@ public class ActivitySettingInitializer extends AppCompatActivity {
             }
         }
 
+        // image view for the location icon
+        final ImageView imageViewStudio = (ImageView)findViewById(R.id.imageViewStudio);
+
         // array of all week day buttons
         imgButtonArr = new ImageButton[8];
         imgButtonArr[0] = (ImageButton)findViewById(R.id.imgButtonMo);
@@ -109,15 +115,24 @@ public class ActivitySettingInitializer extends AppCompatActivity {
                     // if clicked and hold
                     if (event.getAction() == MotionEvent.ACTION_DOWN) {
                         imgButtonArr[j].setColorFilter(Color.argb(100, 0, 0, 255));
+                        if(j == 7){
+                            imageViewStudio.getDrawable().setColorFilter(Color.argb(100, 0, 0, 255), PorterDuff.Mode.MULTIPLY);
+                        }
                         rect = new Rect(v.getLeft(), v.getTop(), v.getRight(), v.getBottom());
                     }
                     if (event.getAction() == MotionEvent.ACTION_UP) {
                         imgButtonArr[j].setColorFilter(Color.argb(0, 0, 0, 0));
+                        if(j == 7){
+                            imageViewStudio.getDrawable().clearColorFilter();
+                        }
                     }
                     // if clicked and left
                     if (event.getAction() == MotionEvent.ACTION_MOVE) {
                         if (!rect.contains(v.getLeft() + (int) event.getX(), v.getTop() + (int) event.getY())) {
                             imgButtonArr[j].setColorFilter(Color.argb(100, 0, 0, 0));
+                            if(j == 7){
+                                imageViewStudio.getDrawable().setColorFilter(Color.argb(100, 0, 0, 0), PorterDuff.Mode.MULTIPLY);
+                            }
                         }
                     }
                     return false;

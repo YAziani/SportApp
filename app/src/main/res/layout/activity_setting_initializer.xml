@@ -105,11 +105,10 @@
         android:gravity="center"
         android:id="@+id/textViewSa"
         android:layout_alignParentEnd="true"
-        android:layout_alignBottom="@+id/imgButtonSo"
         android:layout_toEndOf="@+id/textViewFr"
-        android:layout_marginBottom="109dp"
         android:layout_alignTop="@+id/imgButtonSa"
-        android:layout_alignStart="@+id/imgButtonSa" />
+        android:layout_alignStart="@+id/imgButtonSa"
+        android:layout_alignBottom="@+id/imgButtonSa" />
 
     <TextView
         android:text="So\n00:00"
@@ -185,18 +184,30 @@
         android:layout_alignParentStart="true"
         android:layout_alignParentEnd="true"
         android:layout_alignParentBottom="true"
-        android:layout_below="@+id/imgButtonSo"
-        android:layout_marginTop="28dp" />
+        android:layout_marginTop="20dp"
+        android:layout_below="@+id/imgButtonSo" />
 
     <TextView
         android:text="Studioadresse\n\nAdressstraße 40, Stadt"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignTop="@+id/imgButtonStudio"
-        android:layout_alignParentStart="true"
         android:gravity="center"
         android:id="@+id/textViewStudio"
         android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true" />
+        android:layout_alignParentEnd="true"
+        android:layout_alignTop="@+id/imgButtonStudio"
+        android:layout_alignStart="@+id/imgButtonSo" />
+
+    <ImageView
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:srcCompat="@drawable/location_icon"
+        android:layout_alignParentStart="true"
+        android:id="@+id/imageViewStudio"
+        android:scaleY="0.75"
+        android:scaleX="0.75"
+        android:layout_toStartOf="@+id/textViewStudio"
+        android:layout_alignTop="@+id/imgButtonStudio"
+        android:layout_alignParentBottom="true" />
 
 </RelativeLayout>

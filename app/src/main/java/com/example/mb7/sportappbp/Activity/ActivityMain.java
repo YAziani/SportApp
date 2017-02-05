@@ -32,6 +32,8 @@ import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
 import com.example.mb7.sportappbp.Fragments.TbReportContent;
 import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
+import com.firebase.client.Firebase;
+
 import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
@@ -50,7 +52,8 @@ public class ActivityMain extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     // list which consists of all used motivation methods
-    private LinkedList<MotivationMethod> motivationMethods = new LinkedList<MotivationMethod>();
+    private LinkedList<MotivationMethod> fixMotivationMethods = new LinkedList<MotivationMethod>();
+    private LinkedList<MotivationMethod> variableMotivationMethods = new LinkedList<MotivationMethod>();
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private TabLayout tabLayout;
@@ -73,9 +76,9 @@ public class ActivityMain extends AppCompatActivity {
 
         // create a new motivation method and add it to the list of methods
         TrainingReminder t = new TrainingReminder(this);
-        motivationMethods.add(t);
+        fixMotivationMethods.add(t);
         MotivationMessage m = new MotivationMessage(this);
-        // motivationMethods.add(m);
+        variableMotivationMethods.add(m);
 
         // initialize the settings activity
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -90,7 +93,7 @@ public class ActivityMain extends AppCompatActivity {
 
         // start background clock
         BackgroundClock backgroundClock = new BackgroundClock();
-        backgroundClock.startClock(this, motivationMethods);
+        backgroundClock.startClock(this,fixMotivationMethods,variableMotivationMethods);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -257,8 +260,11 @@ public class ActivityMain extends AppCompatActivity {
 
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
-        for(int i = 0; i < motivationMethods.size(); i++) {
-            motivationMethods.get(i).evaluatePermissionResults(requestCode, permissions, grantResults);
+        for(int i = 0; i < fixMotivationMethods.size(); i++) {
+            fixMotivationMethods.get(i).evaluatePermissionResults(requestCode, permissions, grantResults);
+        }
+        for(int i = 0; i < variableMotivationMethods.size(); i++) {
+            variableMotivationMethods.get(i).evaluatePermissionResults(requestCode, permissions, grantResults);
         }
     }
 }

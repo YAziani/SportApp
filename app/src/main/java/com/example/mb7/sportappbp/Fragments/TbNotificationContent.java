@@ -13,7 +13,7 @@ import android.widget.ListView;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
-import com.example.mb7.sportappbp.ActivityFragebogen;
+import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
 import com.example.mb7.sportappbp.Adapters.NotificationViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.R;
@@ -44,10 +44,12 @@ public class TbNotificationContent extends TabFragment {
     public void onStart() {
         Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?");
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?");
+        Notification n5 = new Notification("Fragebogen zur Aktivität", "Wie aktiv sind Sie?");
 
         notifList = new ArrayList<Notification>();
         notifList.add(n1);
         notifList.add(n2);
+        notifList.add(n5);
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         if(preferences.getBoolean("motivationMessage",false)) {

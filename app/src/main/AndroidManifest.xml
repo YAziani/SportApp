@@ -46,7 +46,7 @@
             android:name=".Activity.ActivityExercises"
             android:parentActivityName=".Activity.ActivityCategories" />
         <activity android:name=".Activity.ActivityExerciseOverview" />
-        <activity android:name=".ActivityFragebogen" />
+        <activity android:name=".Activity.ActivityFragebogen" />
         <activity android:name=".Activity.ActivityMotivationMessage"></activity>
     </application>
 

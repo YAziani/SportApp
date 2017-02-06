@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp;
+package com.example.mb7.sportappbp.UI_Controls;
 
 import android.content.Context;
 import android.util.AttributeSet;
@@ -12,6 +12,9 @@ import android.widget.ListView;
  */
 
 public class FragebogenListview extends ListView {
+    private int index = -1;
+
+
     public FragebogenListview(Context context) {super (context);}
 
     public FragebogenListview(Context context, AttributeSet attrs) {
@@ -42,10 +45,17 @@ public class FragebogenListview extends ListView {
         this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                index = position;
+                String val = Integer.toString(index);
+
                 view.setSelected(true);
             }
         });
     }
+
+
+    public int getIndex(){return index;}
+
 
 
 }

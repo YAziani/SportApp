@@ -5,6 +5,15 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="match_parent">
 
+    <Button
+        android:text="Simulation Scoring Punkte (später löschen)"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_centerVertical="true"
+        android:layout_centerHorizontal="true"
+        android:id="@+id/punktetest" />
+
+
     <ScrollView
         android:id="@+id/scrollViewbsaquestions"
         android:layout_width="match_parent"
@@ -47,7 +56,7 @@
                 android:fontFamily="casual"
                 />
 
-            <com.example.mb7.sportappbp.FragebogenListview
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
                 android:id="@+id/lvberufstätig"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -61,6 +70,12 @@
                 android:layout_height="120dp" />
 
 
+        <LinearLayout
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:orientation="vertical"
+            android:layout_weight="3"
+            android:id="@+id/layoutberuf">
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
@@ -76,7 +91,7 @@
                 android:textStyle="normal|bold"
                 android:textSize="18sp"/>
 
-            <com.example.mb7.sportappbp.FragebogenListview
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
                 android:id="@+id/lvsitzendetätigkeiten"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -104,7 +119,7 @@
                 android:textStyle="normal|bold"
                 android:textSize="18sp"/>
 
-            <com.example.mb7.sportappbp.FragebogenListview
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
                 android:id="@+id/lvmäßigebewegung"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -132,7 +147,7 @@
                 android:textStyle="normal|bold"
                 android:textSize="18sp"/>
 
-            <com.example.mb7.sportappbp.FragebogenListview
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
                 android:id="@+id/lvintensivebewegung"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -145,17 +160,15 @@
                 android:listSelector="@drawable/bkg"
                 android:layout_height="220dp" />
 
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="@android:color/black"/>
+            </LinearLayout>
+
 
             <TextView
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtzeitraum"
-                android:text="Folgende Fragen beziehen sich auf den Zeitraum von x Wochen! \n "
+                android:text="Folgende Fragen beziehen sich auf den Zeitraum von Wochen! \n "
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -205,7 +218,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:inputType="number"
-                android:hint="An ... Tagen der angegebenen Zeit"
+                android:hint="An ... Tagen"
                 android:gravity="center"
                 android:textColor="@color/primary_text_default_material_light" />
             <EditText
@@ -244,7 +257,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:hint="An ... Tagen"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center"/>
                 <EditText
@@ -281,11 +294,11 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:hint="An ... Tagen"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center"/>
                 <EditText
-                    android:id="@+id/edittextzuradzurarbeitminuten"
+                    android:id="@+id/edittextradzurarbeitminuten"
                     android:layout_width="match_parent"
                     android:layout_height="wrap_content"
                     android:inputType="number"
@@ -318,7 +331,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:hint="An ... Tagen"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center" />
                 <EditText
@@ -355,7 +368,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:hint="An ... Tagen"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center" />
                 <EditText
@@ -392,7 +405,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:hint="An ... Tagen"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center" />
                 <EditText
@@ -429,7 +442,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:hint="An ... Tagen"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center" />
                 <EditText
@@ -466,7 +479,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:hint="An ... Tagen"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center" />
                 <EditText
@@ -503,7 +516,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="number"
-                    android:hint="An ... Tagen der angegebenen Zeit"
+                    android:hint="An ... Tagen"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center" />
                 <EditText
@@ -515,11 +528,6 @@
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center" />
             </LinearLayout>
-
-            <View
-                android:layout_width="match_parent"
-                android:layout_height="15dp"
-                android:background="@android:color/black"/>
 
 
             <TextView
@@ -537,7 +545,7 @@
                 android:textSize="16sp"
                 android:fontFamily="casual"/>
 
-            <com.example.mb7.sportappbp.FragebogenListview
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
                 android:id="@+id/lvsportlichaktiv"
                 android:layout_width="match_parent"
                 android:divider="#00279a"
@@ -601,7 +609,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätaanzahl"
-                    android:text="Wie oft haben Sie Aktivität A in der Zeit ausgeübt"
+                    android:text="Wie oft haben Sie Aktivität A ausgeübt"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -678,7 +686,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätbanzahl"
-                    android:text="Wie oft haben Sie Aktivität B in der Zeit ausgeübt"
+                    android:text="Wie oft haben Sie Aktivität B ausgeübt"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -755,7 +763,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätcanzahl"
-                    android:text="Wie oft haben Sie Aktivität C in der Zeit ausgeübt"
+                    android:text="Wie oft haben Sie Aktivität C ausgeübt"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -799,13 +807,6 @@
 
             </LinearLayout>
 
-
-            <Button
-                android:id="@+id/savebuttonfragebogen"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:text="Speichern"
-                android:textSize="18dp"/>
 
         </LinearLayout>
 

@@ -51,16 +51,16 @@ public class TbNotificationContent extends TabFragment {
         notifList.add(n2);
         notifList.add(n5);
 
+        final Notification nMotivationMessage = new Notification(
+                "Schon gewusst?",
+                "Wissenswertes über Sport");
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         if(preferences.getBoolean("motivationMessage",false)) {
-            Notification n4 = new Notification(
-                    "Schon gewusst?",
-                    "Wissenswertes über Sport");
-            notifList.add(n4);
+            notifList.add(nMotivationMessage);
             preferences.edit().putBoolean("motivationMessage",false).commit();
         }
         adapter = new NotificationViewAdapter(getActivity(),notifList, android.R.drawable.ic_menu_edit);
-        lst = (ListView)view.findViewById( R.id.lstNotifications);
+        lst = (ListView)view.findViewById(R.id.lstNotifications);
         lst.setAdapter(adapter);
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -85,7 +85,7 @@ public class TbNotificationContent extends TabFragment {
                 {
                     Intent open = new Intent(getActivity(), ActivityMotivationMessage.class);
                     startActivity(open);
-                    notifList.remove(2);
+                    notifList.remove(nMotivationMessage);
                     lst.setAdapter(adapter);
                 }
 

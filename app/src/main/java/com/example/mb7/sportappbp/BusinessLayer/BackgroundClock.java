@@ -8,6 +8,8 @@ import android.preference.PreferenceManager;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
+import java.util.Random;
+
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 
 
@@ -18,24 +20,53 @@ import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 
 public class BackgroundClock{
 
+    String trainingStartTime;
+    SharedPreferences preferences;
+    Handler h;
+    Date date;
+    Calendar calendar;
+    Random random;
+
     /**
      * start the clock to perform regular checks to determine the moment of motivation
      * @param activity the activity calling the method, needed to access shared preferences
-     * @param motivationMethods list of the motivation methods the app uses
+     * @param fixMotivationMethods list of the motivation methods that will always be called
+     * @param variableMotivationMethods list of the motivation methods from which only one per day will be called
      */
-    public void startClock(final Activity activity, final LinkedList<MotivationMethod> motivationMethods) {
+    public void startClock(final Activity activity,
+                           final LinkedList<MotivationMethod> fixMotivationMethods,
+                           final LinkedList<MotivationMethod> variableMotivationMethods) {
+        random = new Random();
+        calendar = Calendar.getInstance();
         // get the shared preferences to determine the training time the user handed to the app
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+        preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         // setup handler to schedule regular actions
-        final Handler h = new Handler();
+        h = new Handler();
         final int delay = 60000;
         h.postDelayed(new Runnable() {
             public void run() {
+                trainingStartTime = preferences.getString(getCurrentWeekday(), "");
                 // notify every motivation method about the current time
-                if(motivationMethods != null && !preferences.getString(getCurrentWeekday(), "").equals("")) {
-                    for (MotivationMethod m : motivationMethods) {
-                        m.run(preferences.getString(getCurrentWeekday(), ""));
+                if(!trainingStartTime.equals("")) {
+                    for (MotivationMethod m : fixMotivationMethods) {
+                        m.run(trainingStartTime);
                     }
+                    // get current time
+                    date = new Date();
+                    calendar.setTime(date);
+                    int trainingHourOfDay = Integer.valueOf(trainingStartTime.split(":")[0]);
+                    int trainingMinuteOfDay = Integer.valueOf(trainingStartTime.split(":")[1]);
+                    int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+                    int currentMinuteOfDay = calendar.get(Calendar.MINUTE);
+
+                    // get time until training begins
+                    int timeTillTraining = (trainingHourOfDay * 60 + trainingMinuteOfDay)
+                            - (currentHourOfDay * 60 + currentMinuteOfDay);
+
+                    if (timeTillTraining >= 5 && timeTillTraining < 5 + delay/60000) {
+                       variableMotivationMethods.get(random.nextInt(variableMotivationMethods.size())).run(trainingStartTime);
+                    }
+
                 }
                 // schedule the next iteration
                 h.postDelayed(this,delay);

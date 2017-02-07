@@ -5,7 +5,10 @@ import android.util.AttributeSet;
 import android.view.MotionEvent;
 import android.view.View;
 import android.widget.AdapterView;
+import android.widget.LinearLayout;
 import android.widget.ListView;
+
+import com.example.mb7.sportappbp.R;
 
 /**
  * Created by Felix on 19.01.2017.
@@ -47,6 +50,24 @@ public class FragebogenListview extends ListView {
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
                 index = position;
                 String val = Integer.toString(index);
+
+                view.setSelected(true);
+            }
+        });
+    }
+
+    public void visibility(final LinearLayout llayout){
+
+
+        this.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
+                index = position;
+                String val = Integer.toString(index);
+                if (index>0){
+                    llayout.setVisibility(LinearLayout.GONE);}
+                else
+                    llayout.setVisibility(LinearLayout.VISIBLE);
 
                 view.setSelected(true);
             }

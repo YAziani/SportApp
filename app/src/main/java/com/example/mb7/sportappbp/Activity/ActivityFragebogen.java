@@ -40,7 +40,8 @@ public class ActivityFragebogen extends AppCompatActivity{
     FragebogenListview lstintensivebewegung;
     FragebogenListview lstsportlichaktiv;
 
-    LinearLayout beruflayout;
+    //
+
 
     int wochenzeitraum=4;
 
@@ -61,7 +62,7 @@ public class ActivityFragebogen extends AppCompatActivity{
         super.onStart();
         this.scoringbewegung();
         this.toastscoringtest();
-        //this.SetLayoutVisibility();
+        this.SetLayoutVisibility();
 
     }
 
@@ -159,18 +160,20 @@ public class ActivityFragebogen extends AppCompatActivity{
 
     /**
      * Setzt Linearlayout, wenn Index größer 0 auf unsichtbar
-     * @param linearLayout
-     * @param indexwert
      */
-    private void SetLayoutVisibility(LinearLayout linearLayout, int indexwert){
+    private void SetLayoutVisibility(){
+        LinearLayout beruflayout=(LinearLayout)findViewById(R.id.layoutberuf);
+        LinearLayout sportlayout=(LinearLayout)findViewById(R.id.layoutsport);
 
-        if (indexwert<=0) {
+        /*if (indexwert<=0) {
             linearLayout.setVisibility(LinearLayout.VISIBLE);}
         else{
-            linearLayout.setVisibility(LinearLayout.GONE);
+            linearLayout.setVisibility(LinearLayout.GONE);*/
 
+        lstberufstätig.visibility(beruflayout);
+        lstsportlichaktiv.visibility(sportlayout);
         }
-           }
+
 
 
     /**
@@ -220,14 +223,20 @@ public class ActivityFragebogen extends AppCompatActivity{
             default: return 0;
         }
     }
+    private int bewegungberuf(){
+        itemsitzendetätigkeit=listscoringsitzend(lstsitzendetätigkeiten.getIndex());
+        itemmäßigebewegung=listscoringbewegung(lstmäßigebewegung.getIndex());
+        itemintensivebewegung=listscoringbewegung(lstintensivebewegung.getIndex());
+        return bewegungsaktivitätberuf=itemsitzendetätigkeit+itemmäßigebewegung+itemintensivebewegung;
+
+    }
+
 
     //Berechnet Scoringwert für Bewegung (Block 1-4)
     private int scoringbewegung(){
 
-        itemsitzendetätigkeit=listscoringsitzend(lstsitzendetätigkeiten.getIndex());
-        itemmäßigebewegung=listscoringbewegung(lstmäßigebewegung.getIndex());
-        itemintensivebewegung=listscoringbewegung(lstintensivebewegung.getIndex());
-        bewegungsaktivitätberuf=itemsitzendetätigkeit+itemmäßigebewegung+itemintensivebewegung;
+
+
 
 
         try {
@@ -267,6 +276,8 @@ public class ActivityFragebogen extends AppCompatActivity{
 
             itemberufstätig=lstberufstätig.getIndex();
             //SetLayoutVisibility(beruflayout,itemberufstätig);
+
+
 
 
 
@@ -314,7 +325,7 @@ public class ActivityFragebogen extends AppCompatActivity{
 
     //Berechnung Gesamtscoring (Block 1-6)= Bewegungsscoring+Aktivitätsscoring
     private int scoringgesamt(){
-        return scoringgesamtwert=scoringbewegung()+scoringsport()+bewegungsaktivitätberuf;
+        return scoringgesamtwert=scoringbewegung()+scoringsport()+ bewegungberuf();
     }
 
 
@@ -326,9 +337,9 @@ public class ActivityFragebogen extends AppCompatActivity{
             @Override
             public void onClick(View v) {
                 Toast.makeText(v.getContext(),
-                                "Bewegungsaktivität im Beruf: " + bewegungsaktivitätberuf + "\n" +
+                                "Bewegungsaktivität im Beruf: " + bewegungberuf() + "\n" +
                                 "Bewegungsaktivität Freizeit: " + scoringbewegung() + " Minuten pro Woche" + "\n" +
-                                "Bewegungsaktivität: " + (scoringbewegung()+bewegungsaktivitätberuf) + "\n" +
+                                "Bewegungsaktivität: " + (scoringbewegung()+ bewegungberuf()) + "\n" +
                                 "Sportaktivität: " + scoringsport()+ " Minuten pro Woche  " + "\n" +
                                 "Scoring Gesamt: " + scoringgesamt()
                         ,Toast.LENGTH_LONG).show();

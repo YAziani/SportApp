@@ -1,213 +1,219 @@
 <?xml version="1.0" encoding="utf-8"?>
-<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<ScrollView xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
     xmlns:app="http://schemas.android.com/apk/res-auto"
-    android:id="@+id/activity_setting_initializer"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    android:paddingBottom="@dimen/activity_vertical_margin"
-    android:paddingLeft="@dimen/activity_horizontal_margin"
-    android:paddingRight="@dimen/activity_horizontal_margin"
-    android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context="com.example.mb7.sportappbp.Activity.ActivitySettingInitializer">
+    android:fillViewport="true">
+
+    <RelativeLayout
+        android:id="@+id/activity_setting_initializer"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:paddingBottom="@dimen/activity_vertical_margin"
+        android:paddingLeft="@dimen/activity_horizontal_margin"
+        android:paddingRight="@dimen/activity_horizontal_margin"
+        android:paddingTop="@dimen/activity_vertical_margin">
 
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/circle"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        android:id="@+id/imgButtonDo"
-        android:layout_below="@+id/imgButtonMo"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="18dp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/circle"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:id="@+id/imgButtonDo"
+            android:layout_below="@+id/imgButtonMo"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="18dp" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/circle"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        android:id="@+id/imgButtonFr"
-        android:layout_alignTop="@+id/imgButtonDo"
-        android:layout_alignStart="@+id/imgButtonDi" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/circle"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:id="@+id/imgButtonFr"
+            android:layout_alignTop="@+id/imgButtonDo"
+            android:layout_alignStart="@+id/imgButtonDi" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/circle"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        android:id="@+id/imgButtonSa"
-        android:layout_alignTop="@+id/imgButtonFr"
-        android:layout_alignParentEnd="true" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/circle"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:id="@+id/imgButtonSa"
+            android:layout_alignTop="@+id/imgButtonFr"
+            android:layout_alignParentEnd="true" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/circle"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        android:id="@+id/imgButtonSo"
-        android:layout_marginTop="14dp"
-        android:layout_below="@+id/imgButtonFr"
-        android:layout_alignStart="@+id/imgButtonFr" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/circle"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:id="@+id/imgButtonSo"
+            android:layout_marginTop="14dp"
+            android:layout_below="@+id/imgButtonFr"
+            android:layout_alignStart="@+id/imgButtonFr" />
 
-    <TextView
-        android:text="Mo\n00:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:gravity="center"
-        android:id="@+id/textViewMo"
-        android:layout_alignBottom="@+id/imgButtonMo"
-        android:layout_alignEnd="@+id/imgButtonMo"
-        android:layout_alignTop="@+id/imgButtonMo" />
+        <TextView
+            android:text="Mo\n00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentStart="true"
+            android:gravity="center"
+            android:id="@+id/textViewMo"
+            android:layout_alignBottom="@+id/imgButtonMo"
+            android:layout_alignEnd="@+id/imgButtonMo"
+            android:layout_alignTop="@+id/imgButtonMo" />
 
-    <TextView
-        android:text="Di\n00:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/textViewDi"
-        android:layout_alignStart="@+id/imgButtonDi"
-        android:layout_alignBottom="@+id/imgButtonDi"
-        android:layout_alignEnd="@+id/imgButtonDi"
-        android:layout_alignTop="@+id/imgButtonDi" />
+        <TextView
+            android:text="Di\n00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textViewDi"
+            android:layout_alignStart="@+id/imgButtonDi"
+            android:layout_alignBottom="@+id/imgButtonDi"
+            android:layout_alignEnd="@+id/imgButtonDi"
+            android:layout_alignTop="@+id/imgButtonDi" />
 
-    <TextView
-        android:text="Mi\n00:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/textViewMi"
-        android:layout_alignBottom="@+id/imgButtonMi"
-        android:layout_alignParentEnd="true"
-        android:layout_alignStart="@+id/imgButtonMi"
-        android:layout_alignTop="@+id/imgButtonMi" />
+        <TextView
+            android:text="Mi\n00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textViewMi"
+            android:layout_alignBottom="@+id/imgButtonMi"
+            android:layout_alignParentEnd="true"
+            android:layout_alignStart="@+id/imgButtonMi"
+            android:layout_alignTop="@+id/imgButtonMi" />
 
-    <TextView
-        android:text="Do\n00:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/textViewDo"
-        android:layout_alignTop="@+id/imgButtonDo"
-        android:layout_alignParentStart="true"
-        android:layout_alignBottom="@+id/imgButtonDo"
-        android:layout_alignEnd="@+id/imgButtonDo" />
+        <TextView
+            android:text="Do\n00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textViewDo"
+            android:layout_alignTop="@+id/imgButtonDo"
+            android:layout_alignParentStart="true"
+            android:layout_alignBottom="@+id/imgButtonDo"
+            android:layout_alignEnd="@+id/imgButtonDo" />
 
-    <TextView
-        android:text="Sa\n00:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/textViewSa"
-        android:layout_alignParentEnd="true"
-        android:layout_toEndOf="@+id/textViewFr"
-        android:layout_alignTop="@+id/imgButtonSa"
-        android:layout_alignStart="@+id/imgButtonSa"
-        android:layout_alignBottom="@+id/imgButtonSa" />
+        <TextView
+            android:text="Sa\n00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textViewSa"
+            android:layout_alignParentEnd="true"
+            android:layout_toEndOf="@+id/textViewFr"
+            android:layout_alignTop="@+id/imgButtonSa"
+            android:layout_alignStart="@+id/imgButtonSa"
+            android:layout_alignBottom="@+id/imgButtonSa" />
 
-    <TextView
-        android:text="So\n00:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/textViewSo"
-        android:layout_alignTop="@+id/imgButtonSo"
-        android:layout_alignStart="@+id/imgButtonSo"
-        android:layout_alignBottom="@+id/imgButtonSo"
-        android:layout_alignEnd="@+id/imgButtonSo" />
+        <TextView
+            android:text="Fr\n00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textViewFr"
+            android:layout_alignStart="@+id/imgButtonSo"
+            android:layout_alignEnd="@+id/imgButtonSo"
+            android:layout_alignTop="@+id/imgButtonFr"
+            android:layout_above="@+id/imgButtonSo" />
 
-    <TextView
-        android:text="Fr\n00:00"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/textViewFr"
-        android:layout_alignStart="@+id/imgButtonSo"
-        android:layout_alignEnd="@+id/imgButtonSo"
-        android:layout_alignTop="@+id/imgButtonFr"
-        android:layout_above="@+id/imgButtonSo" />
+        <TextView
+            android:text="Bitte tragen Sie Ihre Trainingszeiten und die Adresse ihres Fitnessstudios ein."
+            android:textSize="20dp"
+            android:gravity="center"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentTop="true"
+            android:layout_alignParentStart="true"
+            android:id="@+id/textView2"
+            android:layout_alignParentEnd="true" />
 
-    <TextView
-        android:text="Bitte tragen Sie Ihre Trainingszeiten und die Adresse ihres Fitnessstudios ein."
-        android:textSize="20dp"
-        android:gravity="center"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentTop="true"
-        android:layout_alignParentStart="true"
-        android:id="@+id/textView2"
-        android:layout_alignParentEnd="true" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/circle"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:id="@+id/imgButtonMo"
+            android:layout_below="@+id/textView2"
+            android:layout_alignParentStart="true"
+            android:layout_marginTop="23dp" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/circle"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        android:id="@+id/imgButtonMo"
-        android:layout_below="@+id/textView2"
-        android:layout_alignParentStart="true"
-        android:layout_marginTop="23dp" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/circle"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:id="@+id/imgButtonDi"
+            android:layout_alignTop="@+id/imgButtonMo"
+            android:layout_centerHorizontal="true" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/circle"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        android:id="@+id/imgButtonDi"
-        android:layout_alignTop="@+id/imgButtonMo"
-        android:layout_centerHorizontal="true" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/circle"
+            android:scaleType="fitCenter"
+            android:background="@null"
+            android:id="@+id/imgButtonMi"
+            android:layout_alignTop="@+id/imgButtonDi"
+            android:layout_alignParentEnd="true" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/circle"
-        android:scaleType="fitCenter"
-        android:background="@null"
-        android:id="@+id/imgButtonMi"
-        android:layout_alignTop="@+id/imgButtonDi"
-        android:layout_alignParentEnd="true" />
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/location_icon"
+            android:id="@+id/imageViewStudio"
+            android:scaleY="0.75"
+            android:scaleX="0.75"
+            android:layout_alignStart="@+id/imgButtonStudio"
+            android:layout_alignBottom="@+id/imgButtonStudio"
+            android:layout_toStartOf="@+id/imgButtonSo"
+            android:layout_alignTop="@+id/imgButtonStudio"
+            android:layout_alignEnd="@+id/imgButtonDo" />
 
-    <ImageButton
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/box"
-        android:scaleType="fitXY"
-        android:background="@null"
-        android:id="@+id/imgButtonStudio"
-        android:layout_alignParentStart="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignParentBottom="true"
-        android:layout_marginTop="20dp"
-        android:layout_below="@+id/imgButtonSo" />
+        <ImageButton
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            app:srcCompat="@drawable/box"
+            android:scaleType="fitXY"
+            android:background="@null"
+            android:id="@+id/imgButtonStudio"
+            android:layout_alignParentEnd="true"
+            android:layout_alignParentStart="true"
+            android:layout_below="@+id/imgButtonSo"
+            android:layout_marginTop="9dp" />
 
-    <TextView
-        android:text="Studioadresse\n\nAdressstraße 40, Stadt"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:gravity="center"
-        android:id="@+id/textViewStudio"
-        android:layout_alignParentBottom="true"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/imgButtonStudio"
-        android:layout_alignStart="@+id/imgButtonSo" />
+        <TextView
+            android:text="Studioadresse\n\nAdressstraße 40, Stadt"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textViewStudio"
+            android:paddingRight="12dp"
+            android:layout_alignStart="@+id/imgButtonSo"
+            android:layout_alignParentEnd="true"
+            android:layout_alignBottom="@+id/imgButtonStudio"
+            android:layout_alignTop="@+id/imgButtonStudio" />
 
-    <ImageView
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        app:srcCompat="@drawable/location_icon"
-        android:layout_alignParentStart="true"
-        android:id="@+id/imageViewStudio"
-        android:scaleY="0.75"
-        android:scaleX="0.75"
-        android:layout_toStartOf="@+id/textViewStudio"
-        android:layout_alignTop="@+id/imgButtonStudio"
-        android:layout_alignParentBottom="true" />
+        <TextView
+            android:text="So\n00:00"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:gravity="center"
+            android:id="@+id/textViewSo"
+            android:layout_alignTop="@+id/imgButtonSo"
+            android:layout_alignStart="@+id/imgButtonSo"
+            android:layout_above="@+id/imgButtonStudio"
+            android:layout_alignEnd="@+id/imgButtonSo" />
 
-</RelativeLayout>
+    </RelativeLayout>
+</ScrollView>

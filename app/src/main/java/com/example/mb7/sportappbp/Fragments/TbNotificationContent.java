@@ -79,8 +79,6 @@ public class TbNotificationContent extends TabFragment {
                     Intent open = new Intent(getActivity(), ActivityFragebogen.class);
                     startActivity(open);
                 }
-                // TODO remove test
-
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Schon gewusst?")
                 {
                     Intent open = new Intent(getActivity(), ActivityMotivationMessage.class);

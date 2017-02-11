@@ -85,11 +85,13 @@ public class TrainingReminder extends MotivationMethod {
             }
         };
 
-        ActivityCompat.requestPermissions(
-                this.activity,
-                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
-                LOCATION_PERMISSION_REQUEST
-        );
+        if(activity instanceof ActivityMain) {
+            ActivityCompat.requestPermissions(
+                    this.activity,
+                    new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                    LOCATION_PERMISSION_REQUEST
+            );
+        }
     }
 
     @Override

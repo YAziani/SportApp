@@ -22,7 +22,7 @@ public class BackgroundClock{
 
     String trainingStartTime;
     SharedPreferences preferences;
-    Handler h;
+    Handler handler;
     Date date;
     Calendar calendar;
     Random random;
@@ -41,27 +41,44 @@ public class BackgroundClock{
         // get the shared preferences to determine the training time the user handed to the app
         preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         // setup handler to schedule regular actions
-        h = new Handler();
+        handler = new Handler();
         final int delay = 60000;
-        h.postDelayed(new Runnable() {
+        handler.postDelayed(new Runnable() {
             public void run() {
-                trainingStartTime = preferences.getString(getCurrentWeekday(), "");
+
+                // get current time
+                date = new Date();
+                calendar.setTime(date);
+                int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+                int currentMinute = calendar.get(Calendar.MINUTE);
+
+                // get training times
+                String preferenceString = preferences.getString(getCurrentWeekday(), "");
+                trainingStartTime = "";
+                // find next training start time
+                if(preferenceString != "") {
+                    for(String s : preferenceString.split(";")) {
+
+                        int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60 + Integer.valueOf(s.split(":")[1]);
+                        int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
+                        if(trainingMinuteOfDay >= currentMinuteOfDay + 5) {
+                            trainingStartTime = s;
+                            break;
+                        }
+                    }
+                }
+
                 // notify every motivation method about the current time
                 if(!trainingStartTime.equals("")) {
                     for (MotivationMethod m : fixMotivationMethods) {
                         m.run(trainingStartTime);
                     }
-                    // get current time
-                    date = new Date();
-                    calendar.setTime(date);
-                    int trainingHourOfDay = Integer.valueOf(trainingStartTime.split(":")[0]);
-                    int trainingMinuteOfDay = Integer.valueOf(trainingStartTime.split(":")[1]);
-                    int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-                    int currentMinuteOfDay = calendar.get(Calendar.MINUTE);
 
                     // get time until training begins
-                    int timeTillTraining = (trainingHourOfDay * 60 + trainingMinuteOfDay)
-                            - (currentHourOfDay * 60 + currentMinuteOfDay);
+                    int trainingHourOfDay = Integer.valueOf(trainingStartTime.split(":")[0]);
+                    int trainingMinute = Integer.valueOf(trainingStartTime.split(":")[1]);
+                    int timeTillTraining = (trainingHourOfDay * 60 + trainingMinute)
+                            - (currentHourOfDay * 60 + currentMinute);
 
                     if (timeTillTraining >= 5 && timeTillTraining < 5 + delay/60000) {
                        variableMotivationMethods.get(random.nextInt(variableMotivationMethods.size())).run(trainingStartTime);
@@ -69,7 +86,7 @@ public class BackgroundClock{
 
                 }
                 // schedule the next iteration
-                h.postDelayed(this,delay);
+                handler.postDelayed(this,delay);
             }
         },delay);
 

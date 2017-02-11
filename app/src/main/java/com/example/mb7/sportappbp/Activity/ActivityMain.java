@@ -87,8 +87,8 @@ public class ActivityMain extends AppCompatActivity {
         // preferences.edit().putBoolean("initialized", false).apply();
 
         if(!preferences.getBoolean("initialized",false)) {
-            Intent open = new Intent(this, ActivitySettingInitializer.class);
-            startActivity(open);
+            Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
+            startActivity(settingInitializerIntent);
         }
 
         // start background clock
@@ -106,12 +106,6 @@ public class ActivityMain extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         setTabLayout();
-
-        Intent intent = getIntent();
-        int startTab = intent.getIntExtra("startTab",-1);
-        if(startTab != -1 ) {
-            mViewPager.setCurrentItem(startTab);
-        }
     }
 
     // Set all the properties of the main TabLayout in the main page here
@@ -265,6 +259,15 @@ public class ActivityMain extends AppCompatActivity {
         }
         for(int i = 0; i < variableMotivationMethods.size(); i++) {
             variableMotivationMethods.get(i).evaluatePermissionResults(requestCode, permissions, grantResults);
+        }
+    }
+
+    @Override
+    public void onNewIntent(Intent intent) {
+        // open new activity at the specified tab
+        int startTab = intent.getIntExtra("startTab",-1);
+        if(startTab != -1 ) {
+            mViewPager.setCurrentItem(startTab);
         }
     }
 }

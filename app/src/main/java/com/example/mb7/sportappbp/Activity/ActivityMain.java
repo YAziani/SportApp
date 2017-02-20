@@ -85,11 +85,14 @@ public class ActivityMain extends AppCompatActivity {
 
         // TODO activate line below for init settings every start
         // preferences.edit().putBoolean("initialized", false).apply();
-
+        /*
+        Intent i = new Intent(this, ActivityMotivationMessage.class);
+        startActivity(i);
         if(!preferences.getBoolean("initialized",false)) {
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);
         }
+        */
 
         // start background clock
         BackgroundClock backgroundClock = new BackgroundClock();

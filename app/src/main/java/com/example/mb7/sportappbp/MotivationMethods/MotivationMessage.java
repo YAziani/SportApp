@@ -9,15 +9,13 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
-
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.R;
+
 /**
  * shows the user a motivation message before or after training
  * Created by Aziani on 27.01.2017.
  */
-
 public class MotivationMessage extends MotivationMethod{
 
     private Activity activity;
@@ -28,9 +26,13 @@ public class MotivationMessage extends MotivationMethod{
 
     @Override
     public void run(String trainingStartTime) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
-        preferences.edit().putBoolean("motivationMessage",true).apply();
-        notifyUser();
+        System.out.println(trainingStartTime);
+        System.out.println(timeTillTraining(trainingStartTime));
+        if(timeTillTraining(trainingStartTime) == 5) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+            preferences.edit().putBoolean("motivationMessage", true).apply();
+            notifyUser();
+        }
     }
 
     @Override

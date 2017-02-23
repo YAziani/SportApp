@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp.MotivationMethods;
 
 import android.Manifest;
+import android.app.Activity;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
 import android.content.Context;
@@ -46,12 +47,13 @@ public class TrainingReminder extends MotivationMethod {
     private Address studioAddress;
     private Location userLocation;
     private Location studioLocation;
-    private AppCompatActivity activity;
+    // TODO Activity or AppCompatActivity
+    private Activity activity;
 
     /**
      * initialize the reminder and collect the address of the users fitness studio
      */
-    public TrainingReminder(AppCompatActivity activity) {
+    public TrainingReminder(Activity activity) {
 
         this.activity = activity;
 
@@ -127,7 +129,7 @@ public class TrainingReminder extends MotivationMethod {
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
         } catch(IOException e) {
             e.printStackTrace();
-            System.out.println("ATTENTION: Address could not be determined.");
+            System.out.println("ATTENTION: user address could not be determined.");
         }
 
         // check if address is valid
@@ -163,7 +165,7 @@ public class TrainingReminder extends MotivationMethod {
             studioLocation.setLongitude(studioAddress.getLongitude());
             return determinedAddresses.get(0).getAddressLine(0) + ", " + determinedAddresses.get(0).getLocality();
         }else {
-            System.err.println("ATTENTION: address could not be determined");
+            System.err.println("ATTENTION: studio address could not be determined");
             return null;
         }
     }
@@ -226,29 +228,17 @@ public class TrainingReminder extends MotivationMethod {
      * checks if the time has come to remember the user to go to the studio
      * @return boolean, which is true if user has to be reminded and false if not
      */
-    private boolean checkNecessityOfNotification(String time) {
+    private boolean checkNecessityOfNotification(String trainingStrartTime) {
 
         // interval of time between checks in minute
         int period = 1;
-
-        // start of the training
-        int trainingHour = Integer.valueOf(time.split(":")[0]);
-        int trainingMinute = Integer.valueOf(time.split(":")[1]);
-        int trainingMinuteOfDay = trainingHour * 60 + trainingMinute;
-
-        // current time
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        int currentHour = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-        int currentMinuteOfDay = currentHour * 60 + currentMinute;
         // time needed to get to the studio
         int timeNeeded = getTimeToStudio();
+        int timeTillTraining = timeTillTraining(trainingStrartTime);
 
         // check if one could wait another period before user has to go
-        return trainingMinuteOfDay - currentMinuteOfDay - timeNeeded >= 0
-                && trainingMinuteOfDay - currentMinuteOfDay - timeNeeded < period;
+        return timeTillTraining - timeNeeded >= 0
+                && timeTillTraining - timeNeeded < period;
     }
 
     /**

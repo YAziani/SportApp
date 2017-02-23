@@ -22,6 +22,7 @@ import android.widget.TextView;
 
 
 import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
@@ -32,7 +33,6 @@ import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
 import com.example.mb7.sportappbp.Fragments.TbReportContent;
 import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
-import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -68,7 +68,7 @@ public class ActivityMain extends AppCompatActivity {
         setContentView(R.layout.activity_main);
 
         // set the main URL
-        DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/players/";
+        DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/";
 
         // create the current User
         mainUser = User.Create("TestUser");
@@ -80,19 +80,25 @@ public class ActivityMain extends AppCompatActivity {
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
 
-        // initialize the settings activity
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        // choose motivation methods depending on administrator settings
+        DAL_Allocation.getAllocation(
+                this,
+                fixMotivationMethods,
+                variableMotivationMethods);
 
-        // TODO activate line below for init settings every start
-        // preferences.edit().putBoolean("initialized", false).apply();
         /*
         Intent i = new Intent(this, ActivityMotivationMessage.class);
         startActivity(i);
+        */
+
+        // check settings for initialization
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        // TODO activate line below for init settings every start
+        // preferences.edit().putBoolean("initialized", false).apply();
         if(!preferences.getBoolean("initialized",false)) {
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);
         }
-        */
 
         // start background clock
         BackgroundClock backgroundClock = new BackgroundClock();

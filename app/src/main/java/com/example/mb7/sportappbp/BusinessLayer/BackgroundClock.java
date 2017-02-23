@@ -20,12 +20,13 @@ import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 
 public class BackgroundClock{
 
-    String trainingStartTime;
-    SharedPreferences preferences;
-    Handler handler;
-    Date date;
-    Calendar calendar;
-    Random random;
+    private String trainingStartTime;
+    private SharedPreferences preferences;
+    private Handler handler;
+    private Date date;
+    private Calendar calendar;
+    private Random random;
+    private MotivationMethod nextRandomMethode = null;
 
     /**
      * start the clock to perform regular checks to determine the moment of motivation
@@ -58,11 +59,18 @@ public class BackgroundClock{
                 // find next training start time
                 if(preferenceString != "") {
                     for(String s : preferenceString.split(";")) {
-
-                        int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60 + Integer.valueOf(s.split(":")[1]);
+                        int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
+                                + Integer.valueOf(s.split(":")[1]);
                         int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
                         if(trainingMinuteOfDay >= currentMinuteOfDay + 5) {
-                            trainingStartTime = s;
+                            if(!trainingStartTime.equals(s)) {
+                                trainingStartTime = s;
+                                // save next random motivation method
+                                if(variableMotivationMethods.size() > 0) {
+                                    nextRandomMethode = variableMotivationMethods
+                                            .get(random.nextInt(variableMotivationMethods.size()));
+                                }
+                            }
                             break;
                         }
                     }
@@ -73,17 +81,9 @@ public class BackgroundClock{
                     for (MotivationMethod m : fixMotivationMethods) {
                         m.run(trainingStartTime);
                     }
-
-                    // get time until training begins
-                    int trainingHourOfDay = Integer.valueOf(trainingStartTime.split(":")[0]);
-                    int trainingMinute = Integer.valueOf(trainingStartTime.split(":")[1]);
-                    int timeTillTraining = (trainingHourOfDay * 60 + trainingMinute)
-                            - (currentHourOfDay * 60 + currentMinute);
-
-                    if (timeTillTraining >= 5 && timeTillTraining < 5 + delay/60000) {
-                       variableMotivationMethods.get(random.nextInt(variableMotivationMethods.size())).run(trainingStartTime);
+                    if(nextRandomMethode != null) {
+                        nextRandomMethode.run(trainingStartTime);
                     }
-
                 }
                 // schedule the next iteration
                 handler.postDelayed(this,delay);

@@ -17,7 +17,7 @@ public class DAL_User {
         try
         {
 
-            URL url = new URL(DAL_Utilities.DatabaseURL  + user.getName() + "/Stimmungsabfrage_" + stimmungAbfrage.Date + (stimmungAbfrage.Vor?"_V":"_N") + "/"  );
+            URL url = new URL(DAL_Utilities.DatabaseURL + "players/" + user.getName() + "/Stimmungsabfrage_" + stimmungAbfrage.Date + (stimmungAbfrage.Vor?"_V":"_N") + "/"  );
             Firebase root = new Firebase(url.toString());
             if (stimmungAbfrage.Angespannt >= 0) {
                 Firebase childAngespannt = root.child("Angespannt");

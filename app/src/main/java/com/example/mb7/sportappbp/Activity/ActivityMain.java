@@ -1,6 +1,8 @@
 package com.example.mb7.sportappbp.Activity;
 
 import android.app.Activity;
+import android.app.NotificationManager;
+import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
@@ -10,6 +12,7 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
+import android.support.v4.app.RemoteInput;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -87,7 +90,7 @@ public class ActivityMain extends AppCompatActivity {
                 variableMotivationMethods);
 
         /*
-        Intent i = new Intent(this, ActivityMotivationMessage.class);
+        Intent i = new Intent(this, ActivityTrainNo.class);
         startActivity(i);
         */
 
@@ -275,6 +278,14 @@ public class ActivityMain extends AppCompatActivity {
     public void onNewIntent(Intent intent) {
         // open new activity at the specified tab
         int startTab = intent.getIntExtra("startTab",-1);
+        int notificationId = intent.getIntExtra("notificationId",-1);
+
+        // close notification
+        if(notificationId != -1) {
+            ((NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(notificationId);
+        }
+
+        // open tab
         if(startTab != -1 ) {
             mViewPager.setCurrentItem(startTab);
         }

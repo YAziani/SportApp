@@ -19,8 +19,8 @@
         <activity
             android:name=".Activity.ActivityMain"
             android:label="@string/app_name"
-            android:theme="@style/AppTheme.NoActionBar"
-            android:launchMode="singleInstance">
+            android:launchMode="singleInstance"
+            android:theme="@style/AppTheme.NoActionBar">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
 
@@ -48,7 +48,8 @@
             android:parentActivityName=".Activity.ActivityCategories" />
         <activity android:name=".Activity.ActivityExerciseOverview" />
         <activity android:name=".Activity.ActivityFragebogen" />
-        <activity android:name=".Activity.ActivityMotivationMessage"></activity>
+        <activity android:name=".Activity.ActivityMotivationMessage" />
+        <activity android:name=".Activity.ActivityTrainNo"></activity>
     </application>
 
 </manifest>

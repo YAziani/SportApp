@@ -26,8 +26,6 @@ public class MotivationMessage extends MotivationMethod{
 
     @Override
     public void run(String trainingStartTime) {
-        System.out.println(trainingStartTime);
-        System.out.println(timeTillTraining(trainingStartTime));
         if(timeTillTraining(trainingStartTime) == 5) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
             preferences.edit().putBoolean("motivationMessage", true).apply();
@@ -56,6 +54,7 @@ public class MotivationMessage extends MotivationMethod{
         // specify which activity should be started upon clicking on the notification
         Intent notificationIntent = new Intent(activity,ActivityMain.class);
         notificationIntent.putExtra("startTab",1);
+        notificationIntent.putExtra("notificationId",notificationId);
         notificationIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         PendingIntent intent = PendingIntent.getActivity(activity,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(intent);

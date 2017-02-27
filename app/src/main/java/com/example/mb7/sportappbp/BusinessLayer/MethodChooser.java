@@ -37,6 +37,10 @@ public class MethodChooser {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
+        if(dataSnapshot == null) {
+            return;
+        }
+
         // iterate through the setting options
         for(DataSnapshot d : dataSnapshot.getChildren()){
             // check if current date is part of this setting option
@@ -80,6 +84,9 @@ public class MethodChooser {
         String start = parseTimeEntry((String)dataSnapshot.child("from").getValue());
         String end = parseTimeEntry((String)dataSnapshot.child("to").getValue());
 
+        if(start == null || end == null) {
+            return false;
+        }
         return Integer.valueOf(start) <= Integer.valueOf(currentTime) && Integer.valueOf(currentTime) <= Integer.valueOf(end);
     }
 
@@ -89,6 +96,11 @@ public class MethodChooser {
      * @return number representing date
      */
     private static String parseTimeEntry(String s) {
+
+        if(s == null) {
+            return null;
+        }
+
         String[] splitString = s.split(" ");
         String month;
 

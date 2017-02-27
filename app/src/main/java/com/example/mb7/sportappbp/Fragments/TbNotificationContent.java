@@ -46,7 +46,7 @@ public class TbNotificationContent extends TabFragment {
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?");
         Notification n5 = new Notification("Fragebogen zur Aktivität", "Wie aktiv sind Sie?");
 
-        notifList = new ArrayList<Notification>();
+        notifList = new ArrayList<>();
         notifList.add(n1);
         notifList.add(n2);
         notifList.add(n5);

@@ -13,6 +13,7 @@ import java.net.URL;
 import java.util.List;
 
 /**
+ * access allocation of motivation methods from database
  * Created by Aziani on 22.02.2017.
  */
 
@@ -22,10 +23,11 @@ public class DAL_Allocation {
             final Activity activity,
             final List<MotivationMethod> fixMotivationMethods,
             final List<MotivationMethod> variableMotivationMethods) {
+
+        // access data in database and hand it to MethodChooser
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/Zuweisung/");
             Firebase root = new Firebase(url.toString());
-            System.out.println(root.getRef());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {

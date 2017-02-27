@@ -18,11 +18,12 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.TaskStackBuilder;
+import android.support.v4.app.RemoteInput;
 import android.support.v4.content.ContextCompat;
-import android.support.v7.app.AppCompatActivity;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
+import com.example.mb7.sportappbp.Activity.ActivityTrainNo;
+import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.R;
 
 import java.io.IOException;
@@ -263,24 +264,39 @@ public class TrainingReminder extends MotivationMethod {
         // setup notification builder
         final NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(activity)
+                        .setStyle(new NotificationCompat.BigTextStyle())
                         .setSmallIcon(R.drawable.weight_icon)
                         .setContentTitle("Trainingserinnerung")
-                        .setContentText("Zeit sich fertig zu machen");
+                        .setContentText("Ihr Training beginnt in etwa " + timeTillTraining + " Minuten"
+                                +"\nWerden Sie teilnehmen?");
         // specify which activity should be started upon clicking on the notification
-        Intent notificationIntent = new Intent(activity,ActivityMain.class);
-        notificationIntent.putExtra("startTab",1);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        PendingIntent intent = PendingIntent.getActivity(activity,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.setContentIntent(intent);
+        Intent intent = new Intent(activity,ActivityMain.class);
+        intent.putExtra("startTab",1);
+        intent.putExtra("notificationId", notificationId);
+        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        PendingIntent pendingIntent = PendingIntent.getActivity(activity,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.setContentIntent(pendingIntent);
+
+        // setting up buttons for question (will you go to training?)
+        Intent intentYes = new Intent(activity,ActivityMain.class);
+        intentYes.setAction("YES_ACTION");
+        intentYes.putExtra("startTab",1);
+        intentYes.putExtra("notificationId", notificationId);
+        intentYes.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        PendingIntent pendingIntentYes = PendingIntent.getActivity(activity,0,intentYes,PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.addAction(R.drawable.box,"Ja",pendingIntentYes);
+
+        Intent intentNo = new Intent(activity,ActivityTrainNo.class);
+        intentNo.setAction("NO_ACTION");
+        intentNo.putExtra("notificationId", notificationId);
+        PendingIntent pendingIntentNo = PendingIntent.getActivity(activity,0,intentNo,PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.addAction(R.drawable.box,"Nein",pendingIntentNo);
+
         // setup notification manager
         final NotificationManager notificationManager =
                 (NotificationManager) activity.getSystemService(Context.NOTIFICATION_SERVICE);
         // send notification
-        notificationManager.notify(
-                notificationId,
-                notificationBuilder.setContentText(
-                        "Ihr Training beginnt in etwa " + timeTillTraining + " Minuten").build()
-        );
+        notificationManager.notify(notificationId,notificationBuilder.build());
     }
 
     /**

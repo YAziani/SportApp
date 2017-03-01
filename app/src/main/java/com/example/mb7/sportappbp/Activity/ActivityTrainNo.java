@@ -1,8 +1,10 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.app.DialogFragment;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
+import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -11,10 +13,21 @@ import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
+import android.widget.ImageView;
 import android.widget.TextView;
+
+import com.bumptech.glide.Glide;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_TrainNoTexts;
+import com.example.mb7.sportappbp.Fragments.RadioButtonFragment;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
+import com.firebase.ui.storage.images.FirebaseImageLoader;
+import com.google.firebase.storage.FirebaseStorage;
+import com.google.firebase.storage.StorageReference;
+
 import java.util.Iterator;
 
 /**
@@ -35,8 +48,39 @@ public class ActivityTrainNo extends AppCompatActivity {
             ((NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(notificationId);
         }
 
+
+        // reference for the firebase storage image
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("trainNo.jpg");
+        ImageView imageView = (ImageView)findViewById(R.id.imageViewTrainNo);
+
+        // Load the image using Glide
+        Glide.with(this)
+                .using(new FirebaseImageLoader())
+                .load(storageRef)
+                .into(imageView);
+
+        // set alpha and color
+        imageView.setColorFilter(Color.argb(100, 117, 66, 20));
+        imageView.setAlpha(0.4f);
+
+
         // access texts in data base
         DAL_TrainNoTexts.getTrainNoTexts(this);
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        // set up save button
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_save, menu);
+        return true;
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        // close activity
+        finish();
+        return true;
     }
 
     /**

@@ -18,12 +18,10 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.app.RemoteInput;
 import android.support.v4.content.ContextCompat;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityTrainNo;
-import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.R;
 
 import java.io.IOException;
@@ -48,15 +46,12 @@ public class TrainingReminder extends MotivationMethod {
     private Address studioAddress;
     private Location userLocation;
     private Location studioLocation;
-    // TODO Activity or AppCompatActivity
-    private Activity activity;
 
     /**
      * initialize the reminder and collect the address of the users fitness studio
      */
     public TrainingReminder(Activity activity) {
-
-        this.activity = activity;
+        super(activity);
 
         locationManager = (LocationManager) activity.getSystemService(Context.LOCATION_SERVICE) ;
         locationListener = new LocationListener() {
@@ -98,7 +93,7 @@ public class TrainingReminder extends MotivationMethod {
     }
 
     @Override
-    public void run(String trainingStartTime) {
+    public boolean run(String trainingStartTime) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         // update studio location
         compareStudioPosition(preferences.getString("Studioadresse", ""));
@@ -106,13 +101,10 @@ public class TrainingReminder extends MotivationMethod {
             // if necessary, notify user
             if (checkNecessityOfNotification(trainingStartTime)) {
                 notifyUser(trainingStartTime);
+                return true;
             }
         }
-    }
-
-    @Override
-    public void rate() {
-
+        return false;
     }
 
     /**

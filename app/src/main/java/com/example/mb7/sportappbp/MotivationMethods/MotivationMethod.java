@@ -1,5 +1,9 @@
 package com.example.mb7.sportappbp.MotivationMethods;
 
+import android.app.Activity;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import java.util.Calendar;
 import java.util.Date;
 
@@ -10,25 +14,52 @@ import java.util.Date;
  */
 
 public abstract class MotivationMethod {
+    Activity activity;
+
+    public MotivationMethod(Activity activity){
+        this.activity = activity;
+    }
 
     /**
      * runs the motivation method
      * has to be individually implemented by each concrete motivation method
+     * @param trainingStartTime string representing the next training time
+     * @return true if method will fire, false else
      */
-    public abstract void run(String trainingStartTime);
+    public abstract boolean run(String trainingStartTime);
 
     /**
      * initiates the rating of a motivation method
      * collects data about the efficiency of the used method
+     * @param didTrain boolean representing if user trained or not
+     * @return string representing the amount of successful motivations and total motivations
      */
-    public abstract void rate();
+    public String rate(boolean didTrain) {
+        // get rating from preferences
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+        String rating = preferences.getString(this.getClass().getSimpleName() + "Rating", "0:0");
+        int successCount = Integer.valueOf(rating.split(":")[0]);
+        int totalCount = Integer.valueOf(rating.split(":")[1]);
+
+        // accumulate count
+        if(didTrain) {
+            successCount++;
+        }
+        totalCount++;
+
+        // save rating into preferences
+        rating = String.valueOf(successCount) + ":" + String.valueOf(totalCount);
+        preferences.edit().putString(this.getClass().getSimpleName() + "Rating", rating).apply();
+
+        return rating;
+    }
 
     /**
      * determine the time in minutes needed until the training begins
      * @param trainingStartTime string, representing the training start time
      * @return time in minutes until training starts
      */
-    public int timeTillTraining(String trainingStartTime) {
+    int timeTillTraining(String trainingStartTime) {
         // start of the training
         int trainingHour = Integer.valueOf(trainingStartTime.split(":")[0]);
         int trainingMinute = Integer.valueOf(trainingStartTime.split(":")[1]);

@@ -10,6 +10,7 @@ import java.util.Date;
 import java.util.LinkedList;
 import java.util.Random;
 
+import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 
 
@@ -26,7 +27,8 @@ public class BackgroundClock{
     private Date date;
     private Calendar calendar;
     private Random random;
-    private MotivationMethod nextRandomMethode = null;
+    private MotivationMethod nextRandomMethod = null;
+    private static LinkedList<MotivationMethod> runningMethods;
 
     /**
      * start the clock to perform regular checks to determine the moment of motivation
@@ -37,6 +39,7 @@ public class BackgroundClock{
     public void startClock(final Activity activity,
                            final LinkedList<MotivationMethod> fixMotivationMethods,
                            final LinkedList<MotivationMethod> variableMotivationMethods) {
+        runningMethods = new LinkedList<>();
         random = new Random();
         calendar = Calendar.getInstance();
         // get the shared preferences to determine the training time the user handed to the app
@@ -57,7 +60,7 @@ public class BackgroundClock{
                 String preferenceString = preferences.getString(getCurrentWeekday(), "");
                 trainingStartTime = "";
                 // find next training start time
-                if(preferenceString != "") {
+                if(!preferenceString.equals("")) {
                     for(String s : preferenceString.split(";")) {
                         int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
                                 + Integer.valueOf(s.split(":")[1]);
@@ -67,7 +70,7 @@ public class BackgroundClock{
                                 trainingStartTime = s;
                                 // save next random motivation method
                                 if(variableMotivationMethods.size() > 0) {
-                                    nextRandomMethode = variableMotivationMethods
+                                    nextRandomMethod = variableMotivationMethods
                                             .get(random.nextInt(variableMotivationMethods.size()));
                                 }
                             }
@@ -76,19 +79,46 @@ public class BackgroundClock{
                     }
                 }
 
-                // notify every motivation method about the current time
+                // TODO test rating
+                //BackgroundClock.startRating(true);
+
+                // notify every motivation method about the current time and save it if it fires
                 if(!trainingStartTime.equals("")) {
                     for (MotivationMethod m : fixMotivationMethods) {
-                        m.run(trainingStartTime);
+                        if(m.run(trainingStartTime)){
+                            runningMethods.add(m);
+                        }
                     }
-                    if(nextRandomMethode != null) {
-                        nextRandomMethode.run(trainingStartTime);
+                    if(nextRandomMethod != null) {
+                        if(nextRandomMethod.run(trainingStartTime)){
+                            runningMethods.add(nextRandomMethod);
+                        }
                     }
                 }
                 // schedule the next iteration
                 handler.postDelayed(this,delay);
             }
         },delay);
+
+    }
+
+    /**
+     * let methods rate themself and hand the rating over to be saved into the data base
+     * @param didTrain boolean representing if user did train or not
+     */
+    public static void startRating(boolean didTrain) {
+
+        LinkedList<String> listMethod = new LinkedList<>();
+        LinkedList<String> listRating = new LinkedList<>();
+        // let every running method rate themself
+        for(MotivationMethod m : runningMethods) {
+            listMethod.add(m.getClass().getSimpleName());
+            listRating.add(m.rate(didTrain));
+        }
+        runningMethods.clear();
+
+        // hand the ratings to the user object
+        ActivityMain.mainUser.saveRating(listMethod,listRating);
 
     }
 

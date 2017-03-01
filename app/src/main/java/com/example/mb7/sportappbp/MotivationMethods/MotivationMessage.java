@@ -18,24 +18,19 @@ import com.example.mb7.sportappbp.R;
  */
 public class MotivationMessage extends MotivationMethod{
 
-    private Activity activity;
-
     public MotivationMessage(Activity activity) {
-        this.activity = activity;
+        super(activity);
     }
 
     @Override
-    public void run(String trainingStartTime) {
+    public boolean run(String trainingStartTime) {
         if(timeTillTraining(trainingStartTime) == 5) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
             preferences.edit().putBoolean("motivationMessage", true).apply();
             notifyUser();
+            return true;
         }
-    }
-
-    @Override
-    public void rate() {
-
+        return false;
     }
 
     /**

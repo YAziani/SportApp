@@ -11,6 +11,7 @@ import android.widget.AdapterView;
 import android.widget.ListView;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
+import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
@@ -45,11 +46,14 @@ public class TbNotificationContent extends TabFragment {
         Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?");
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?");
         Notification n5 = new Notification("Fragebogen zur Aktivität", "Wie aktiv sind Sie?");
+        Notification n6 = new Notification("Fragebogen zu Ihrem Fitnessstand", "Wie ist ihr aktueller Fitnessstand?");
+
 
         notifList = new ArrayList<>();
         notifList.add(n1);
         notifList.add(n2);
         notifList.add(n5);
+        notifList.add(n6);
 
         final Notification nMotivationMessage = new Notification(
                 "Schon gewusst?",
@@ -74,11 +78,17 @@ public class TbNotificationContent extends TabFragment {
                     Intent open = new Intent(getActivity(), ActivityStimmungsAbgabe.class);
                     startActivity(open);
                 }
+                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Fragebogen zu Ihrem Fitnessstand")
+                {
+                    Intent open = new Intent(getActivity(), ActivityFitnessFragebogen.class);
+                    startActivity(open);
+                }
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Fragebogen zur Aktivität")
                 {
                     Intent open = new Intent(getActivity(), ActivityFragebogen.class);
                     startActivity(open);
                 }
+
                 else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Schon gewusst?")
                 {
                     Intent open = new Intent(getActivity(), ActivityMotivationMessage.class);

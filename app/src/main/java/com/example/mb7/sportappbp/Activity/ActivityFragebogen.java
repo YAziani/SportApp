@@ -53,8 +53,9 @@ public class ActivityFragebogen extends AppCompatActivity{
         setContentView(R.layout.activity_bsaquestions);
         this.SetControlCaptions();
         this.InitializeControlls();
-        super.onStart();
         this.SetLayoutVisibility();
+        super.onStart();
+
 
     }
 

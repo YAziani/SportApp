@@ -1,0 +1,884 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:orientation="vertical" android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+
+    <ScrollView
+        android:id="@+id/scrollViewfitnessquestions"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="2">
+        <LinearLayout
+            xmlns:android="http://schemas.android.com/apk/res/android"
+            xmlns:tools="http://schemas.android.com/tools"
+            android:orientation="vertical"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:weightSum="1">
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtFitnessFragebogenausfüllen"
+            android:text="Wie gut können Sie folgende Tätigkeiten bewältigen? \n"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="normal|bold"
+            android:textSize="22sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:id="@+id/txtFitnessFragebogenausfüllenanmerkungen"
+            android:text=" Bitte geben Sie zu den nächsten 28 Fragen eine spontane Einschätzung ab. Kreuzen Sie bitte das Kästchen an, das Ihrer Einschätzung am besten entspricht.
+Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheidend ist, was Sie sich wirklich zutrauen. \n"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="normal|bold"
+            android:textSize="18sp" />
+
+        <TextView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent"
+            android:gravity="center"
+            android:id="@+id/txtcanyou"
+            android:text="Können Sie... \n"
+            android:textSize="18sp"
+            android:textColor="@android:color/black"
+            android:textAlignment="center"
+            android:layout_marginTop="10dp"
+            android:layout_marginRight="20dp"
+            android:layout_marginLeft="20dp"
+            android:textStyle="normal|bold"
+            android:fontFamily="casual"
+            />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtstuhlaufstehen"
+                android:text="1. auf einem Stuhl sitzend ohne Hilfe aufstehen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvstuhlaufstehen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txteinkaufskorb"
+                android:text="2. einen schweren Einkaufskorb (8 kg) über mehrere Etagen tragen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lveinkaufskorb"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtkistetragen"
+                android:text="3. eine volle Bierkiste in den Keller tragen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvkistetragen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtsitup"
+                android:text="4. aus der Rückenlage ohne Hilfe der Arme den Oberkörper ufrichten (Situp)"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvsitup"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtkofferheben"
+                android:text="5. einen schweren Koffer über Kopfhöhe heben (z.B. im Zug auf die Gepäckablage)"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvkofferheben"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtkoffertragen"
+                android:text="6. zwei schwere Koffer über mehrere Etagen tragen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvkoffertragen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txthantelstemmen"
+                android:text="7. eine Hantel mit mehr als Ihrem Körpergewicht hochstemmen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvhantelstemmen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtflottgehen"
+                android:text="8. um mehrere Blocks flott gehen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvflottgehen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txttreppengehen"
+                android:text="9. mehrere Treppen hochgehen ohne auszuruhen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvtreppengehen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txt2kmgehen"
+                android:text="10. zwei Kilometer schnell gehen (walken) ohne auszuruhen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lv2kmgehen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txt1kmjoggen"
+                android:text="11. einen Kilometer ohne Pause joggen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lv1kmjoggen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txt30minjoggen"
+                android:text="12. 30 Minuten ohne Pause joggen (ca.5 km)"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lv30minjoggen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txt60minjoggen"
+                android:text="13. eine Stunde ohne Pause joggen (ca. 10km)"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lv60minjoggen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtmarathon"
+                android:text="14. einen Marathon (42 km) laufen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvmarathon"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtanziehen"
+                android:text="15. einen engen Pulli und Socken alleine aus- und anziehen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvanziehen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtsitzendboden"
+                android:text="16. auf einem Stuhl sitzend mit den Händen den Boden erreichen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvsitzendboden"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtschuhebinden"
+                android:text="17. im Stehen Schuhe binden"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvschuhebinden"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtrueckenberuehren"
+                android:text="18. mit der Hand von unten auf dem Rücken ein Schulterblatt berühren"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvrueckenberuehren"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtstehendboden"
+                android:text="19. aus dem Stand (Knie gestreckt) mit den Händen den Boden erreichen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvstehendboden"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtkopfknie"
+                android:text="20. im Stehen mit dem kopf die gestreckten Knie berühren"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvkopfknie"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtbruecke"
+                android:text="21. rückwärts bis in die Brücke abbeugen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvbruecke"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txttrepperunter"
+                android:text="22. eine Treppe hinab gehen, ohne sich festzuhalten"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvtrepperunter"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txteinbeinstand"
+                android:text="23. auf einem Bein stehen, ohne sich festzuhalten (mindestens 15 Sekunden)"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lveinbeinstand"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtpurzelbaum"
+                android:text="24. einen Purzelbaum"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvpurzelbaum"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtballprellen"
+                android:text="25. im schnellen Gehen einen Ball prellen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvballprellen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtzaunsprung"
+                android:text="26. mit Abstützen über einen 1 Meter hohen Zaun springen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvzaunsprung"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtkurveohnehand"
+                android:text="27. freihändig mit dem Fahrrad um eine Kurve fahren"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvkurveohnehand"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtradschlagen"
+                android:text="28. ein Rad schlagen"
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+
+            <com.example.mb7.sportappbp.UI_Controls.FragebogenListview
+                android:id="@+id/lvradschlagen"
+                android:layout_width="match_parent"
+                android:divider="#00279a"
+                android:entries="@array/str_fitnessantworten"
+                android:dividerHeight="2dp"
+                tools:listitem="@layout/lstnotificationcell"
+                android:headerDividersEnabled="true"
+                android:footerDividersEnabled="true"
+                android:layout_weight="1.08"
+                android:listSelector="@drawable/bkg"
+                android:layout_height="250dp" />
+
+
+        </LinearLayout>
+
+    </ScrollView>
+
+
+</LinearLayout>

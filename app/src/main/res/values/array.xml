@@ -52,5 +52,12 @@
         <item>eher mehr</item>
         <item>viel</item>
     </string-array>
+    <string-array name="str_fitnessantworten">
+        <item>Ich kann diese Tätigkeit nicht</item>
+        <item>Ich habe große Porbleme</item>
+        <item>Ich habe mäßige Probleme</item>
+        <item>Ich habe leichte Probleme</item>
+        <item>Ich habe keine Probleme</item>
+    </string-array>
     
 </resources>

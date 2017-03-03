@@ -48,8 +48,12 @@
             android:parentActivityName=".Activity.ActivityCategories" />
         <activity android:name=".Activity.ActivityExerciseOverview" />
         <activity android:name=".Activity.ActivityFragebogen" />
+        <activity android:name=".Activity.ActivityFitnessFragebogen" />
         <activity android:name=".Activity.ActivityMotivationMessage" />
-        <activity android:name=".Activity.ActivityTrainNo"></activity>
+        <activity android:name=".Activity.ActivityTrainNo">
+
+
+        </activity>
     </application>
 
 </manifest>

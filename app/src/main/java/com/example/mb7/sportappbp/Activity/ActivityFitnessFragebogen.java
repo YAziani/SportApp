@@ -53,13 +53,18 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     FragebogenListview lstradschlagen;
 
 
-
+    int kraftscore;
+    int ausdauerscore;
+    int beweglichkeitsscore;
+    int koordinationsscore;
+    int gesamtscore;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitnessquestions);
         this.InitializeControlls();
+        this.scoringwert();
         super.onStart();
 
     }
@@ -87,7 +92,12 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
                 //SaveData();
                 finish();
                 Toast.makeText(ActivityMain.activityMain,
-                        "Erfolgreich gespeichert" ,Toast.LENGTH_LONG).show();
+                                "Erfolgreich gespeichert \n" +
+                                "Score Kraft:" + kraftscore+"\n"+
+                                "Score Ausdauer:" + ausdauerscore+"\n"+
+                                "Score Beweglichkeit:" + beweglichkeitsscore+"\n"+
+                                "Score Koordination:" + koordinationsscore+"\n"+
+                                "Gesamtscore:" + scoringwert()  ,Toast.LENGTH_LONG).show();
                 return true;
 
             default:
@@ -208,5 +218,29 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
                 lstradschlagen.Initialize();
 
 
-}}
+}
+
+private int scoringrechnung(int index){
+    switch(index){
+        case 4: return 5;
+        case 3: return 4;
+        case 2: return 3;
+        case 1: return 2;
+        case 0: return 1;
+        default: return 0;
+    }
+}
+
+    private int scoringwert(){
+        kraftscore=scoringrechnung(lststuhlaufstehen.getIndex())+scoringrechnung(lsteinkaufskorb.getIndex())+scoringrechnung(lstkistetragen.getIndex())+scoringrechnung(lstsitup.getIndex())+scoringrechnung(lstkofferheben.getIndex())+scoringrechnung(lstkoffertragen.getIndex())+scoringrechnung(lsthantelstemmen.getIndex());
+        ausdauerscore=scoringrechnung(lstflottgehen.getIndex())+scoringrechnung(lsttreppengehen.getIndex())+scoringrechnung(lst2kmgehen.getIndex())+scoringrechnung(lst1kmjoggen.getIndex())+scoringrechnung(lst30minjoggen.getIndex())+scoringrechnung(lst60minjoggen.getIndex())+scoringrechnung(lstmarathon.getIndex());
+        beweglichkeitsscore=scoringrechnung(lstanziehen.getIndex())+scoringrechnung(lstsitzendboden.getIndex())+scoringrechnung(lstschuhebinden.getIndex())+scoringrechnung(lstrueckenberuehren.getIndex())+scoringrechnung(lststehendboden.getIndex())+scoringrechnung(lstkopfknie.getIndex())+scoringrechnung(lstbruecke.getIndex());
+        koordinationsscore=scoringrechnung(lsttrepperunter.getIndex())+scoringrechnung(lsteinbeinstand.getIndex())+scoringrechnung(lstpurzelbaum.getIndex())+scoringrechnung(lstballprellen.getIndex())+scoringrechnung(lstzaunsprung.getIndex())+scoringrechnung(lstkurveohnehand.getIndex())+scoringrechnung(lstradschlagen.getIndex());
+
+        gesamtscore=kraftscore+ausdauerscore+beweglichkeitsscore+koordinationsscore;
+
+        return gesamtscore;
+    }
+
+}
 

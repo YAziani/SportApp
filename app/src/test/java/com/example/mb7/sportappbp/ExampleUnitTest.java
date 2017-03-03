@@ -49,11 +49,7 @@ public class ExampleUnitTest {
         teststimmung.Zerstreut=0;
         Testperson1.SaveStimmung(teststimmung);
 
-        FirebaseDatabase.getInstance().getReference().child("players").child("Testperson1").child("Stimmungsabfrage").addListenerForSingleValueEvent(
-        });
-
-
-
+        //FirebaseDatabase.getInstance().getReference().child("players").child("Testperson1").child("Stimmungsabfrage").addListenerForSingleValueEvent( });
 
     }
 

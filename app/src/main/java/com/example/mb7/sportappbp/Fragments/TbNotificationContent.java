@@ -46,7 +46,7 @@ public class TbNotificationContent extends TabFragment {
         Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?");
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?");
         Notification n5 = new Notification("Fragebogen zur Aktivität", "Wie aktiv sind Sie?");
-        Notification n6 = new Notification("Fragebogen zu Ihrem Fitnessstand", "Wie ist ihr aktueller Fitnessstand?");
+        Notification n6 = new Notification("Fitnessfragebogen", "Wie ist ihr aktueller Fitnessstand?");
 
 
         notifList = new ArrayList<>();
@@ -78,7 +78,7 @@ public class TbNotificationContent extends TabFragment {
                     Intent open = new Intent(getActivity(), ActivityStimmungsAbgabe.class);
                     startActivity(open);
                 }
-                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Fragebogen zu Ihrem Fitnessstand")
+                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Fitnessfragebogen")
                 {
                     Intent open = new Intent(getActivity(), ActivityFitnessFragebogen.class);
                     startActivity(open);

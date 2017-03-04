@@ -1,23 +1,31 @@
 <?xml version="1.0" encoding="utf-8"?>
-<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:orientation="vertical" android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:focusableInTouchMode="true">
 
 
     <ScrollView
         android:id="@+id/scrollViewfitnessquestions"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_weight="2">
+        android:layout_weight="1"
+        android:focusableInTouchMode="true">
+
         <LinearLayout
             xmlns:android="http://schemas.android.com/apk/res/android"
             xmlns:tools="http://schemas.android.com/tools"
             android:orientation="vertical"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
-            android:weightSum="1">
+            android:id="@+id/llfitnessquestions"
+            android:weightSum="2"
+            android:focusableInTouchMode="true">
+
 
         <TextView
             android:layout_width="match_parent"
@@ -30,11 +38,12 @@
             android:layout_marginRight="20dp"
             android:layout_marginLeft="20dp"
             android:textStyle="normal|bold"
-            android:textSize="22sp" />
+            android:textSize="22sp"
+            android:layout_weight="0.8"/>
 
         <TextView
             android:layout_width="match_parent"
-            android:layout_height="wrap_content"
+            android:layout_height="match_parent"
             android:id="@+id/txtFitnessFragebogenausfüllenanmerkungen"
             android:text=" Bitte geben Sie zu den nächsten 28 Fragen eine spontane Einschätzung ab. Kreuzen Sie bitte das Kästchen an, das Ihrer Einschätzung am besten entspricht.
 Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheidend ist, was Sie sich wirklich zutrauen. \n"
@@ -87,7 +96,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -116,7 +124,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -145,7 +152,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -174,7 +180,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -203,7 +208,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -233,7 +237,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -262,7 +265,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -291,7 +293,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -320,7 +321,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -349,7 +349,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -378,7 +377,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -407,7 +405,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -436,7 +433,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -465,7 +461,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -494,7 +489,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -523,7 +517,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -552,7 +545,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -581,7 +573,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -610,7 +601,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -639,7 +629,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -668,7 +657,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -697,7 +685,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -726,7 +713,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -755,7 +741,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -784,7 +769,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -813,7 +797,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -842,7 +825,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 
@@ -871,7 +853,6 @@ Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheiden
                 tools:listitem="@layout/lstnotificationcell"
                 android:headerDividersEnabled="true"
                 android:footerDividersEnabled="true"
-                android:layout_weight="1.08"
                 android:listSelector="@drawable/bkg"
                 android:layout_height="250dp" />
 

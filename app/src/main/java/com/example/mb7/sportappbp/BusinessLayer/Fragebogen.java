@@ -9,7 +9,6 @@ public class Fragebogen {
     public Integer sitzendetätigkeiten;
     public Integer mäßigebewegung;
     public Integer intensivebewegung;
-    public Integer Berufstätig;
     public Integer sportlichaktiv;
     public Integer bewegungscoring;
     public Integer sportscoring;

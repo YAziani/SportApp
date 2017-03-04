@@ -17,7 +17,6 @@ import java.util.ArrayList;
 public class FitnessFragebogenViewAdapter extends BaseAdapter {
     private Activity _context;
     private ArrayList<String > antworten;
-    private int ImageId;
 
     public FitnessFragebogenViewAdapter(Activity context)
     {

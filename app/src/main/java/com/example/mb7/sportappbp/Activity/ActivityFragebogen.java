@@ -53,7 +53,7 @@ public class ActivityFragebogen extends AppCompatActivity{
         setContentView(R.layout.activity_bsaquestions);
         this.SetControlCaptions();
         this.InitializeControlls();
-        this.SetLayoutVisibility();
+        this.bewegungberuf();
         super.onStart();
 
 
@@ -134,6 +134,7 @@ public class ActivityFragebogen extends AppCompatActivity{
         return fragebogen;
     }
 
+    //TODO In Datenbank speichern
     private boolean SaveData(){
         Fragebogen fragebogen = getData();
         //ActivityMain.mainUser.SaveFragebogen(fragebogen);
@@ -148,6 +149,8 @@ public class ActivityFragebogen extends AppCompatActivity{
      */
     private void InitializeControlls(){
 
+        LinearLayout beruflayout=(LinearLayout)findViewById(R.id.layoutberuf);
+        LinearLayout sportlayout=(LinearLayout)findViewById(R.id.layoutsport);
         // set the listivew
         // first create the adapters
         adapter = new FragebogenViewAdapter(this);
@@ -166,11 +169,14 @@ public class ActivityFragebogen extends AppCompatActivity{
 
 
         // set the onTouch Event to disable scrolling
-        lstberufstätig.Initialize();
+        //lstberufstätig.Initialize();
         lstsitzendetätigkeiten.Initialize();
         lstmäßigebewegung.Initialize();
         lstintensivebewegung.Initialize();
-        lstsportlichaktiv.Initialize();
+        //lstsportlichaktiv.Initialize();
+
+        lstberufstätig.visibility(beruflayout);
+        lstsportlichaktiv.visibility(sportlayout);
     }
 
     /**
@@ -185,19 +191,7 @@ public class ActivityFragebogen extends AppCompatActivity{
         ((TextView)findViewById(R.id.txtaktivitätcanzahl)).setText("Wie oft haben Sie Aktivität A in den letzten " + wochenzeitraum + " Wochen ausgeübt");
     }
 
-    /**
-     * Setzt gewählte Linearlayout vom Typ Fragebogenlistview unsichtbar
-     * Falls Berufstätig auf "Nein" (Index 1) gesetzt wird -> Linearlayout "beruflayout" unsichtbar machen
-     * Falls sportlichaktiv auf "Nein" (Index 1) gesetzt wird -> Linearlayout "sportlayout" unsichtbar machen
-     * visivality in Fragebogenlistview
-     */
-    private void SetLayoutVisibility(){
-        LinearLayout beruflayout=(LinearLayout)findViewById(R.id.layoutberuf);
-        LinearLayout sportlayout=(LinearLayout)findViewById(R.id.layoutsport);
 
-        lstberufstätig.visibility(beruflayout);
-        lstsportlichaktiv.visibility(sportlayout);
-        }
 
 
 

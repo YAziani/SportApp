@@ -57,7 +57,16 @@ public class FragebogenListview extends ListView {
     }
 
     public void visibility(final LinearLayout llayout){
+        this.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    return true; // Indicates that this has been handled by you and will not be forwarded further.
+                }
+                return false;
+            }
 
+        });
 
         this.setOnItemClickListener(new AdapterView.OnItemClickListener(){
             @Override

@@ -5,16 +5,16 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
+import android.widget.ScrollView;
 import android.widget.Toast;
 
-
-
 import com.example.mb7.sportappbp.Adapters.FitnessFragebogenViewAdapter;
+import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 
 /**
- * Created by Felix on 03.03.2017.
+ * Created by Felix on 01.03.2017.
  */
 
 public class ActivityFitnessFragebogen extends AppCompatActivity {
@@ -63,8 +63,8 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitnessquestions);
+
         this.InitializeControlls();
-        this.scoringwert();
         super.onStart();
 
     }
@@ -93,17 +93,34 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
                 finish();
                 Toast.makeText(ActivityMain.activityMain,
                                 "Erfolgreich gespeichert \n" +
-                                "Score Kraft:" + kraftscore+"\n"+
-                                "Score Ausdauer:" + ausdauerscore+"\n"+
-                                "Score Beweglichkeit:" + beweglichkeitsscore+"\n"+
-                                "Score Koordination:" + koordinationsscore+"\n"+
-                                "Gesamtscore:" + scoringwert()  ,Toast.LENGTH_LONG).show();
+                                "               Score:" + scoringwert()  ,Toast.LENGTH_LONG).show();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    private FitnessFragebogen getData(){
+        FitnessFragebogen fragebogen=new FitnessFragebogen();
+
+        fragebogen.scorekraft=kraftscore;
+        fragebogen.scoreausdauer=ausdauerscore;
+        fragebogen.scorebeweglichkeit=beweglichkeitsscore;
+        fragebogen.scorekoordination=koordinationsscore;
+        fragebogen.scoregesamt=gesamtscore;
+
+        return fragebogen;
+    }
+
+    //TODO In Datenbank speichern
+    private boolean SaveData() {
+        FitnessFragebogen fragebogen = getData();
+        //ActivityMain.mainUser.SaveFitnessFragebogen(fragebogen);
+
+        return true;
+    }
+
 
     /**
      * Initialisiert die Listviews -> Über Funktionen aus Fragebogenlistview
@@ -216,9 +233,8 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
                 lstzaunsprung.Initialize();
         lstkurveohnehand.Initialize();
                 lstradschlagen.Initialize();
-
-
 }
+
 
 private int scoringrechnung(int index){
     switch(index){

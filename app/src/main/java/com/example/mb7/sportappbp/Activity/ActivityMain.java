@@ -38,6 +38,7 @@ import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -66,7 +67,6 @@ public class ActivityMain extends AppCompatActivity {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
-
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
@@ -83,12 +83,6 @@ public class ActivityMain extends AppCompatActivity {
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
 
-        // choose motivation methods depending on administrator settings
-        DAL_Allocation.getAllocation(
-                this,
-                fixMotivationMethods,
-                variableMotivationMethods);
-
         /*
         Intent i = new Intent(this, ActivityTrainNo.class);
         startActivity(i);
@@ -97,10 +91,15 @@ public class ActivityMain extends AppCompatActivity {
         // check settings for initialization
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         // TODO activate line below for init settings every start
-        // preferences.edit().putBoolean("initialized", false).apply();
+        //preferences.edit().putBoolean("initialized", false).apply();
         if(!preferences.getBoolean("initialized",false)) {
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);
+            // choose motivation methods depending on administrator settings
+            DAL_Allocation.getAllocation(
+                    this,
+                    fixMotivationMethods,
+                    variableMotivationMethods);
         }
 
         // start background clock
@@ -287,7 +286,12 @@ public class ActivityMain extends AppCompatActivity {
 
         // open tab
         if(startTab != -1 ) {
+            System.out.println(this);
             mViewPager.setCurrentItem(startTab);
+            // refresh page
+            if(mSectionsPagerAdapter.getItem(startTab) instanceof TbNotificationContent) {
+                mSectionsPagerAdapter.getItem(startTab).onStart();
+            }
         }
     }
 }

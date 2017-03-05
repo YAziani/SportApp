@@ -38,7 +38,17 @@ public class User {
      * @param listMethod list containing the rated methods
      * @param listRating list containing the ratings
      */
-    public void saveRating(List<String> listMethod, List<String> listRating){
+    void saveRating(List<String> listMethod, List<String> listRating){
         DAL_User.insertRating(this,listMethod,listRating);
+    }
+
+    /**
+     * save updated group values for alternating group assignment
+     * @param currentActiveGroup the currently active group
+     * @param nextActiveGroup the next group to be active
+     * @param alternGroup the set of groups currently used
+     */
+    void saveAlternGroupUpdate(String currentActiveGroup, String nextActiveGroup, String alternGroup) {
+        DAL_User.insertAlternGroupUpdate(this,currentActiveGroup,nextActiveGroup,alternGroup);
     }
 }

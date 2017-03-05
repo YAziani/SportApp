@@ -2,6 +2,7 @@ package com.example.mb7.sportappbp.BusinessLayer;
 
 import android.app.Activity;
 
+import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
@@ -42,20 +43,28 @@ public class MethodChooser {
         }
 
         // iterate through the setting options
-        for(DataSnapshot d : dataSnapshot.getChildren()){
-            // check if current date is part of this setting option
-            if(checkTimeSpan(d,calendar) && (boolean)d.child("active").getValue()) {
-                // determine the scheme of distribution is wanted
-                switch(d.getKey()) {
-                    case "sameForAll":
-                        sameForAll(d,fixMotivationMethods,variableMotivationMethods,activity);
-                        break;
-                    case "randomised":
-                        randomised(d,fixMotivationMethods,variableMotivationMethods,activity);
-                        break;
-                    case "alternating":
-                        alternating(d,fixMotivationMethods,variableMotivationMethods,activity);
-                        break;
+        String allocationType;
+        for(DataSnapshot abstractSet : dataSnapshot.getChildren()){
+            // save type of assignment
+            allocationType = abstractSet.getKey();
+
+            // go through concrete sets of assignment
+            for(DataSnapshot concreteSet : abstractSet.getChildren()) {
+                // check if current date is part of this setting option
+                if(checkTimeSpan(concreteSet,calendar)) {
+                    // determine the scheme of distribution wanted
+                    switch(allocationType) {
+                        case "same":
+                            sameForAll(concreteSet.child("activities"),fixMotivationMethods,variableMotivationMethods,activity);
+                            break;
+                        case "random":
+                            randomised(concreteSet.child("activities"),fixMotivationMethods,variableMotivationMethods,activity);
+                            break;
+                        case "altern":
+                            alternating(concreteSet,fixMotivationMethods,variableMotivationMethods,activity);
+                            break;
+                    }
+                    return;
                 }
             }
         }
@@ -68,7 +77,6 @@ public class MethodChooser {
      * @return true if date is within time span, else false
      */
     private static boolean checkTimeSpan(DataSnapshot dataSnapshot, Calendar calendar) {
-
         // parse current date into comparable number
         String currentTime = String.valueOf(calendar.get(Calendar.YEAR));
         if(calendar.get(Calendar.MONTH) + 1 < 10) {
@@ -81,8 +89,8 @@ public class MethodChooser {
         currentTime += String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
 
         // get the start and end of the time span
-        String start = parseTimeEntry((String)dataSnapshot.child("from").getValue());
-        String end = parseTimeEntry((String)dataSnapshot.child("to").getValue());
+        String start = parseTimeEntry((String)dataSnapshot.child("datefrom").getValue());
+        String end = parseTimeEntry((String)dataSnapshot.child("dateto").getValue());
 
         if(start == null || end == null) {
             return false;
@@ -97,7 +105,7 @@ public class MethodChooser {
      */
     private static String parseTimeEntry(String s) {
 
-        if(s == null) {
+        if(s == null || s.equals("")) {
             return null;
         }
 
@@ -224,8 +232,44 @@ public class MethodChooser {
             List<MotivationMethod> fixMotivationMethods,
             List<MotivationMethod> variableMotivationMethods,
             Activity activity) {
-        // TODO: 23.02.2017
-        // alternating distribution
+        DataSnapshot currentActiveGroup = null;
+        DataSnapshot nextActiveGroup = null;
+        DataSnapshot firstGroup = null;
+        boolean foundActiveGroup = false;
+
+        //find active group
+        for(DataSnapshot group : dataSnapshot.getChildren()) {
+            // if found active group, save next active group
+            if(foundActiveGroup) {
+                nextActiveGroup = group;
+                break;
+            }
+            // save first group
+            if(firstGroup == null && group.getKey().substring(0,5).equals("group")) {
+                firstGroup = group;
+            }
+            if(group.getKey().substring(0,5).equals("group")
+                    && group.child("groupactive").getValue() instanceof Boolean
+                    && (boolean)group.child("groupactive").getValue()) {
+                currentActiveGroup = group;
+                foundActiveGroup = true;
+            }
+        }
+
+        // if active group is last one, next group is first group
+        if(foundActiveGroup && nextActiveGroup == null) {
+            nextActiveGroup = firstGroup;
+        }
+
+        // save methods into list
+        for(DataSnapshot d : currentActiveGroup.getChildren()) {
+            if(d.getValue() instanceof Boolean && (boolean) d.getValue()) {
+                putMethodInList(d.getKey(),fixMotivationMethods,variableMotivationMethods,activity);
+            }
+        }
+
+        // update alternating groups
+        ActivityMain.mainUser.saveAlternGroupUpdate(currentActiveGroup.getKey(),nextActiveGroup.getKey(),dataSnapshot.getKey());
     }
 
     /**

@@ -26,7 +26,7 @@ public class DAL_Allocation {
 
         // access data in database and hand it to MethodChooser
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/Zuweisung/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/assignment/");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

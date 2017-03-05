@@ -88,4 +88,25 @@ public class DAL_User {
             e.printStackTrace();
         }
     }
+
+    /**
+     * update groups of alternating group assignment
+     * @param user the active user
+     * @param currentActiveGroup the currently active group
+     * @param nextActiveGroup the next group to be active
+     * @param alternGroup the set of groups currently used
+     */
+    static public void insertAlternGroupUpdate(User user, String currentActiveGroup, String nextActiveGroup, String alternGroup) {
+        try
+        {
+            // setting up url for the database
+            URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/assignment/altern/" + alternGroup);
+            Firebase root = new Firebase(url.toString());
+            // update group values
+            root.child(currentActiveGroup).child("groupactive").setValue(false);
+            root.child(nextActiveGroup).child("groupactive").setValue(true);
+        }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
 }

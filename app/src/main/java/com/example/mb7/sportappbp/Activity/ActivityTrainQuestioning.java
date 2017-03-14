@@ -1,10 +1,8 @@
 package com.example.mb7.sportappbp.Activity;
 
-import android.app.DialogFragment;
 import android.app.NotificationManager;
 import android.content.Context;
 import android.content.SharedPreferences;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
@@ -19,14 +17,10 @@ import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.bumptech.glide.Glide;
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_TrainNoTexts;
-import com.example.mb7.sportappbp.Fragments.RadioButtonFragment;
+import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_TrainQuestioningTexts;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
-import com.firebase.ui.storage.images.FirebaseImageLoader;
-import com.google.firebase.storage.FirebaseStorage;
-import com.google.firebase.storage.StorageReference;
 
 import java.util.Iterator;
 
@@ -34,24 +28,49 @@ import java.util.Iterator;
  * activity that displays text if user does not want to train
  * Created by Aziani on 26.02.2017.
  */
-public class ActivityTrainNo extends AppCompatActivity {
+public class ActivityTrainQuestioning extends AppCompatActivity {
+
+    int praiseOrWarn = -1;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_train_no);
-
-        int notificationId = getIntent().getIntExtra("notificationId",-1);
+        setContentView(R.layout.activity_train_questioning);
 
         // close notification
+        int notificationId = getIntent().getIntExtra("notificationId",-1);
         if(notificationId != -1) {
             ((NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(notificationId);
         }
 
+        ImageView imageView = (ImageView)findViewById(R.id.imageViewTrainNo);
+        praiseOrWarn = getIntent().getIntExtra("praiseOrWarn", -1);
 
+        // act depending on whether the user trained or not
+        if(praiseOrWarn == 1) {
+            // access texts in data base
+            DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
+            // put background image
+            imageView.setImageResource(R.drawable.train_no);
+            if(getIntent().getBooleanExtra("preTrain",false)) {
+                // save information that user won't train
+                PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext())
+                        .edit()
+                        .putBoolean("willTrain",false)
+                        .apply();
+            }
+            // notify BackgroundClock about user activity
+            BackgroundClock.startRating(false);
+        }else {
+            DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
+            imageView.setImageResource(R.drawable.train_yes);
+            BackgroundClock.startRating(true);
+        }
+        imageView.setAlpha(0.5f);
+
+        /*
         // reference for the firebase storage image
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("trainNo.jpg");
-        ImageView imageView = (ImageView)findViewById(R.id.imageViewTrainNo);
 
         // Load the image using Glide
         Glide.with(this)
@@ -62,10 +81,9 @@ public class ActivityTrainNo extends AppCompatActivity {
         // set alpha and color
         imageView.setColorFilter(Color.argb(100, 117, 66, 20));
         imageView.setAlpha(0.4f);
+         */
 
 
-        // access texts in data base
-        DAL_TrainNoTexts.getTrainNoTexts(this);
     }
 
     @Override
@@ -88,11 +106,11 @@ public class ActivityTrainNo extends AppCompatActivity {
      * @param dataSnapshot the snapshot from the database
      */
     public void returnTexts(DataSnapshot dataSnapshot) {
-        if(dataSnapshot.getChildrenCount() > 0){
+        if(dataSnapshot != null && dataSnapshot.getChildrenCount() > 0){
             int textIndex;
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            textIndex = preferences.getInt("trainNoTextIndex",0);
-            preferences.edit().putInt("trainNoTextIndex", (textIndex+1)%((int)dataSnapshot.getChildrenCount())).apply();
+            textIndex = preferences.getInt("trainNoTextIndex",0) % ((int)dataSnapshot.getChildrenCount());
+            preferences.edit().putInt("trainNoTextIndex", (textIndex+1) % ((int)dataSnapshot.getChildrenCount())).apply();
             // get the text with the index textIndex
             Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
             for(int i = 0; i < dataSnapshot.getChildrenCount(); i++) {

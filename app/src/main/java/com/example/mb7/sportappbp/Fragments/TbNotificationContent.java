@@ -55,48 +55,49 @@ public class TbNotificationContent extends TabFragment {
         notifList.add(n5);
         notifList.add(n6);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+        // setup notifications that appear only on specific occasions
         final Notification nMotivationMessage = new Notification(
                 "Schon gewusst?",
                 "Wissenswertes über Sport");
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         if(preferences.getBoolean("motivationMessage",false)) {
             notifList.add(nMotivationMessage);
-            preferences.edit().putBoolean("motivationMessage",false).commit();
+            preferences.edit().remove("motivationMessage").commit();
         }
+
         adapter = new NotificationViewAdapter(getActivity(),notifList, android.R.drawable.ic_menu_edit);
         lst = (ListView)view.findViewById(R.id.lstNotifications);
         lst.setAdapter(adapter);
         lst.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                if( ((Notification)parent.getAdapter().getItem(position)).getTitle() == "Trainingeintrag") {
+                if( ((Notification)parent.getAdapter().getItem(position)).getTitle().equals("Trainingeintrag")) {
                     Intent open = new Intent(getActivity(), ActivityDiaryEntry.class);
                     startActivity(open);
                 }
-                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Stimmungsabfrage")
+                else if (((Notification)parent.getAdapter().getItem(position)).getTitle().equals("Stimmungsabfrage"))
                 {
                     Intent open = new Intent(getActivity(), ActivityStimmungsAbgabe.class);
                     startActivity(open);
                 }
-                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Fitnessfragebogen")
+                else if (((Notification)parent.getAdapter().getItem(position)).getTitle().equals("Fitnessfragebogen"))
                 {
                     Intent open = new Intent(getActivity(), ActivityFitnessFragebogen.class);
                     startActivity(open);
                 }
-                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Fragebogen zur Aktivität")
+                else if (((Notification)parent.getAdapter().getItem(position)).getTitle().equals("Fragebogen zur Aktivität"))
                 {
                     Intent open = new Intent(getActivity(), ActivityFragebogen.class);
                     startActivity(open);
                 }
 
-                else if (((Notification)parent.getAdapter().getItem(position)).getTitle() == "Schon gewusst?")
+                else if (((Notification)parent.getAdapter().getItem(position)).getTitle().equals("Schon gewusst?"))
                 {
                     Intent open = new Intent(getActivity(), ActivityMotivationMessage.class);
                     startActivity(open);
                     notifList.remove(nMotivationMessage);
                     lst.setAdapter(adapter);
                 }
-
             }
         });
         super.onStart();

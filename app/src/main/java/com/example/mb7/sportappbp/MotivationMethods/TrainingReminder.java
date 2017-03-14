@@ -21,7 +21,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
-import com.example.mb7.sportappbp.Activity.ActivityTrainNo;
+import com.example.mb7.sportappbp.Activity.ActivityTrainQuestioning;
 import com.example.mb7.sportappbp.R;
 
 import java.io.IOException;
@@ -270,17 +270,20 @@ public class TrainingReminder extends MotivationMethod {
         notificationBuilder.setContentIntent(pendingIntent);
 
         // setting up buttons for question (will you go to training?)
-        Intent intentYes = new Intent(activity,ActivityMain.class);
+        Intent intentYes = new Intent(activity,ActivityTrainQuestioning.class);
         intentYes.setAction("YES_ACTION");
-        intentYes.putExtra("startTab",1);
         intentYes.putExtra("notificationId", notificationId);
-        intentYes.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        intentYes.putExtra("praiseOrWarn", 0);
+        intentYes.putExtra("preTrain", true);
+        //intentYes.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         PendingIntent pendingIntentYes = PendingIntent.getActivity(activity,0,intentYes,PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.addAction(R.drawable.box,"Ja",pendingIntentYes);
 
-        Intent intentNo = new Intent(activity,ActivityTrainNo.class);
+        Intent intentNo = new Intent(activity,ActivityTrainQuestioning.class);
         intentNo.setAction("NO_ACTION");
         intentNo.putExtra("notificationId", notificationId);
+        intentNo.putExtra("praiseOrWarn", 1);
+        intentYes.putExtra("preTrain", true);
         PendingIntent pendingIntentNo = PendingIntent.getActivity(activity,0,intentNo,PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.addAction(R.drawable.box,"Nein",pendingIntentNo);
 

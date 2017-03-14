@@ -12,7 +12,6 @@ import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
-import android.support.v4.app.RemoteInput;
 import android.support.v4.view.ViewPager;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
@@ -29,6 +28,7 @@ import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
+import com.example.mb7.sportappbp.MotivationMethods.TrainQuestioning;
 import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
@@ -38,7 +38,6 @@ import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -80,13 +79,15 @@ public class ActivityMain extends AppCompatActivity {
         // create a new motivation method and add it to the list of methods
         TrainingReminder t = new TrainingReminder(this);
         fixMotivationMethods.add(t);
+        TrainQuestioning p = new TrainQuestioning(this);
+        fixMotivationMethods.add(p);
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
 
-        /*
-        Intent i = new Intent(this, ActivityTrainNo.class);
+
+        Intent i = new Intent(this, ActivityMotivationMessage.class);
         startActivity(i);
-        */
+
 
         // check settings for initialization
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -286,7 +287,6 @@ public class ActivityMain extends AppCompatActivity {
 
         // open tab
         if(startTab != -1 ) {
-            System.out.println(this);
             mViewPager.setCurrentItem(startTab);
             // refresh page
             if(mSectionsPagerAdapter.getItem(startTab) instanceof TbNotificationContent) {

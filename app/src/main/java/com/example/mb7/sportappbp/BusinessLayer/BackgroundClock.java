@@ -21,7 +21,7 @@ import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 
 public class BackgroundClock{
 
-    private String trainingStartTime;
+    private String trainingStartTime = "";
     private SharedPreferences preferences;
     private Handler handler;
     private Date date;
@@ -49,24 +49,24 @@ public class BackgroundClock{
         final int delay = 60000;
         handler.postDelayed(new Runnable() {
             public void run() {
-
                 // get current time
                 date = new Date();
                 calendar.setTime(date);
                 int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
-
                 // get training times
                 String preferenceString = preferences.getString(getCurrentWeekday(), "");
-                trainingStartTime = "";
                 // find next training start time
                 if(!preferenceString.equals("")) {
-                    for(String s : preferenceString.split(";")) {
+                    for(final String s : preferenceString.split(";")) {
                         int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
                                 + Integer.valueOf(s.split(":")[1]);
                         int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
-                        if(trainingMinuteOfDay >= currentMinuteOfDay + 5) {
+
+                        // check if training is still noteworthy
+                        if(currentMinuteOfDay <= trainingMinuteOfDay) {
                             if(!trainingStartTime.equals(s)) {
+                                // save next training start time
                                 trainingStartTime = s;
                                 // save next random motivation method
                                 if(variableMotivationMethods.size() > 0) {
@@ -78,9 +78,6 @@ public class BackgroundClock{
                         }
                     }
                 }
-
-                // TODO test rating
-                //BackgroundClock.startRating(true);
 
                 // notify every motivation method about the current time and save it if it fires
                 if(!trainingStartTime.equals("")) {
@@ -135,30 +132,27 @@ public class BackgroundClock{
         calendar.setTime(date);
 
         // determine the day of the week
-        switch(calendar.get(Calendar.DAY_OF_WEEK)) {
-            case Calendar.MONDAY:
-                dayOfWeek = "Montag";
-                break;
-            case Calendar.TUESDAY:
-                dayOfWeek = "Dienstag";
-                break;
-            case Calendar.WEDNESDAY:
-                dayOfWeek = "Mittwoch";
-                break;
-            case Calendar.THURSDAY:
-                dayOfWeek = "Donnerstag";
-                break;
-            case Calendar.FRIDAY:
-                dayOfWeek = "Freitag";
-                break;
-            case Calendar.SATURDAY:
-                dayOfWeek = "Samstag";
-                break;
-            case Calendar.SUNDAY:
-                dayOfWeek = "Sonntag";
-                break;
-            default:
-                dayOfWeek = "Montag";
+        int currentWeekday = calendar.get(Calendar.DAY_OF_WEEK);
+        if(currentWeekday == Calendar.MONDAY){
+            dayOfWeek = "Montag";
+        }
+        else if(currentWeekday == Calendar.TUESDAY){
+            dayOfWeek = "Dienstag";
+        }
+        else if(currentWeekday == Calendar.WEDNESDAY){
+            dayOfWeek = "Mittwoch";
+        }
+        else if(currentWeekday == Calendar.THURSDAY){
+            dayOfWeek = "Donnerstag";
+        }
+        else if(currentWeekday == Calendar.FRIDAY){
+            dayOfWeek = "Freitag";
+        }
+        else if(currentWeekday == Calendar.SATURDAY){
+            dayOfWeek = "Samstag";
+        }
+        else{
+            dayOfWeek = "Sonntag";
         }
         return dayOfWeek;
     }

@@ -84,10 +84,10 @@ public class ActivityMain extends AppCompatActivity {
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
 
-
+        /*
         Intent i = new Intent(this, ActivityMotivationMessage.class);
         startActivity(i);
-
+        */
 
         // check settings for initialization
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

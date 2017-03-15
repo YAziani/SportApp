@@ -66,7 +66,7 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
             imageView.setImageResource(R.drawable.train_yes);
             BackgroundClock.startRating(true);
         }
-        imageView.setAlpha(0.5f);
+        imageView.setAlpha(1f);
 
         /*
         // reference for the firebase storage image
@@ -109,8 +109,8 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
         if(dataSnapshot != null && dataSnapshot.getChildrenCount() > 0){
             int textIndex;
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            textIndex = preferences.getInt("trainNoTextIndex",0) % ((int)dataSnapshot.getChildrenCount());
-            preferences.edit().putInt("trainNoTextIndex", (textIndex+1) % ((int)dataSnapshot.getChildrenCount())).apply();
+            textIndex = preferences.getInt("trainQuestioningTextIndex",0) % ((int)dataSnapshot.getChildrenCount());
+            preferences.edit().putInt("trainQuestioningTextIndex", (textIndex+1) % ((int)dataSnapshot.getChildrenCount())).apply();
             // get the text with the index textIndex
             Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
             for(int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
@@ -123,7 +123,7 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
                 }
             }
         }else {
-            this.finish();
+            finish();
         }
     }
 

@@ -49,6 +49,8 @@ public class BackgroundClock{
         final int delay = 60000;
         handler.postDelayed(new Runnable() {
             public void run() {
+                // TODO remove debug output
+                //System.out.println("CLOCK TICK");
                 // get current time
                 date = new Date();
                 calendar.setTime(date);
@@ -68,6 +70,7 @@ public class BackgroundClock{
                             if(!trainingStartTime.equals(s)) {
                                 // save next training start time
                                 trainingStartTime = s;
+                                preferences.edit().putString("nextTrainingTime", trainingStartTime).apply();
                                 // save next random motivation method
                                 if(variableMotivationMethods.size() > 0) {
                                     nextRandomMethod = variableMotivationMethods

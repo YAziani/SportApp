@@ -11,6 +11,7 @@ import android.widget.TextView;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
+import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.ClientIF;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.Firebase;
@@ -21,6 +22,7 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Date;
 
 
 /**
@@ -46,14 +48,31 @@ public class TbReportContent extends TabFragment{
         Firebase.setAndroidContext(this.getActivity());
         firebase = new Firebase("https://sportapp-cbd6b.firebaseio.com/");
         txtRequest = (TextView) view.findViewById(R.id.txtRequestTest);
-        testBasti(view);
+        testMo(view);
         testBasti2(view);
 
         return view;
     }
 
+    private void Btn1_Clic(){
+
+    }
+
+    private void testMo(View view){
+        testBtn = (Button)view.findViewById(R.id.btnTest1);
+        testBtn.setOnClickListener(new View.OnClickListener () {
+            @Override
+            public void onClick(View v) {
+
+
+                ActivityMain.mainUser.GetLastTodayStimmungsabfrage(new Date());
+            }
+        });
+
+    }
+
     private void testBasti(View view){
-        testBtn = (Button) view.findViewById(R.id.testbutton);
+        testBtn = (Button) view.findViewById(R.id.btnTest1);
         testBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -129,7 +148,7 @@ public class TbReportContent extends TabFragment{
     }
 
     private void testBasti2(View view){
-        testBtn2 = (Button) view.findViewById(R.id.testbutton2);
+        testBtn2 = (Button) view.findViewById(R.id.btnTest2);
         testBtn2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){

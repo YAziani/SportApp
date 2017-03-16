@@ -23,27 +23,40 @@ public class ActivityMotivationMessage extends AppCompatActivity {
         setContentView(R.layout.activity_motivation_message);
 
         // reference for the firebase storage image
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("lift1.jpg");
-        final ImageView imageView = (ImageView)findViewById(R.id.imageView3);
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("lift.jpg");
+        final ImageView imageView0 = (ImageView)findViewById(R.id.imageMotivationMessage0);
+        final ImageView imageView1 = (ImageView)findViewById(R.id.imageMotivationMessage1);
         final Drawable drawable = getDrawable(R.drawable.failure_motivation_message);
 
+        imageView0.setImageDrawable(drawable);
         // Load the image using Glide
         Glide.with(this)
                 .using(new FirebaseImageLoader())
                 .load(storageRef)
                 .listener(new RequestListener<StorageReference, GlideDrawable>() {
                     @Override
-                    public boolean onException(Exception e, StorageReference model, Target<GlideDrawable> target, boolean isFirstResource) {
-                        imageView.setImageDrawable(drawable);
-                        return false;
+                    public boolean onException(Exception e,
+                                               StorageReference model,
+                                               Target<GlideDrawable> target,
+                                               boolean isFirstResource) {
+                        imageView0.setImageDrawable(drawable);
+                        imageView1.setImageDrawable(drawable);
+                        imageView1.setAlpha(0.8f);
+                        return true;
                     }
 
                     @Override
-                    public boolean onResourceReady(GlideDrawable resource, StorageReference model, Target<GlideDrawable> target, boolean isFromMemoryCache, boolean isFirstResource) {
+                    public boolean onResourceReady(GlideDrawable resource,
+                                                   StorageReference model,
+                                                   Target<GlideDrawable> target,
+                                                   boolean isFromMemoryCache,
+                                                   boolean isFirstResource) {
+                        imageView1.setImageDrawable(resource);
+                        imageView1.setAlpha(0.8f);
                         return false;
                     }
                 })
-                .into(imageView);
+                .into(imageView0);
     }
 
     @Override

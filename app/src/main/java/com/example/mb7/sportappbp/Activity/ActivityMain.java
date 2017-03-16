@@ -55,8 +55,8 @@ public class ActivityMain extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     // list which consists of all used motivation methods
-    private LinkedList<MotivationMethod> fixMotivationMethods = new LinkedList<MotivationMethod>();
-    private LinkedList<MotivationMethod> variableMotivationMethods = new LinkedList<MotivationMethod>();
+    private LinkedList<MotivationMethod> fixMotivationMethods = new LinkedList<>();
+    private LinkedList<MotivationMethod> variableMotivationMethods = new LinkedList<>();
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private TabLayout tabLayout;
@@ -84,8 +84,10 @@ public class ActivityMain extends AppCompatActivity {
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
 
+        // TODO comment out
         /*
         Intent i = new Intent(this, ActivityMotivationMessage.class);
+        i.putExtra("praiseOrWarn",1);
         startActivity(i);
         */
 

@@ -59,7 +59,7 @@ public abstract class MotivationMethod {
      * @param trainingStartTime string, representing the training start time
      * @return time in minutes until training starts
      */
-    int timeTillTraining(String trainingStartTime) {
+    public static int timeTillTraining(String trainingStartTime) {
         // start of the training
         int trainingHour = Integer.valueOf(trainingStartTime.split(":")[0]);
         int trainingMinute = Integer.valueOf(trainingStartTime.split(":")[1]);

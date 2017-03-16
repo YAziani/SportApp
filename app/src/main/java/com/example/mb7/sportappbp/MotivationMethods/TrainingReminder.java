@@ -92,6 +92,8 @@ public class TrainingReminder extends MotivationMethod {
         }
     }
 
+    SharedPreferences preferences;
+
     @Override
     public boolean run(String trainingStartTime) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
@@ -100,10 +102,15 @@ public class TrainingReminder extends MotivationMethod {
         if(!(studioAddress == null) && !(userAddress == null)) {
             // if necessary, notify user
             if (checkNecessityOfNotification(trainingStartTime)) {
-                notifyUser(trainingStartTime);
-                return true;
+                if(!preferences.getBoolean("reminderNotified", false)) {
+                    notifyUser(trainingStartTime);
+                    preferences.edit().putBoolean("reminderNotified", true).apply();
+                    return true;
+                }
+                return false;
             }
         }
+        preferences.edit().putBoolean("reminderNotified",false).apply();
         return false;
     }
 
@@ -191,7 +198,7 @@ public class TrainingReminder extends MotivationMethod {
         // distance to studio in meter
         float distance = getDistanceToStudio();
 
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+        preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         String meansOfTransportation = preferences.getString("lstVerkehrsmittel","");
 
         // speed in meter/minutes
@@ -223,15 +230,12 @@ public class TrainingReminder extends MotivationMethod {
      */
     private boolean checkNecessityOfNotification(String trainingStrartTime) {
 
-        // interval of time between checks in minute
-        int period = 1;
         // time needed to get to the studio
         int timeNeeded = getTimeToStudio();
         int timeTillTraining = timeTillTraining(trainingStrartTime);
 
         // check if one could wait another period before user has to go
-        return timeTillTraining - timeNeeded >= 0
-                && timeTillTraining - timeNeeded < period;
+        return timeTillTraining > 1 && timeTillTraining <= timeNeeded;
     }
 
     /**

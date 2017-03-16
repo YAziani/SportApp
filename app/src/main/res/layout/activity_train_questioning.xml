@@ -41,6 +41,9 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:layout_centerInParent="true"
+                android:paddingStart="12dp"
+                android:paddingEnd="12dp"
                 android:id="@+id/textViewTrainNo" />
 
         </RelativeLayout>

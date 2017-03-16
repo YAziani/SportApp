@@ -147,7 +147,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
         System.out.print("war hier loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooool");
         //StimmungAbfrage stimmungAbfrage  = getData();
-        ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
+        //ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
 
         return true;
     }

@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/activity_activity_overview"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mb7.sportappbp.Activity.ActivityExerciseOverview">
+
+    <ListView
+        android:id="@+id/listviewCategories"
+        android:layout_width="match_parent"
+        android:paddingTop="8dp"
+        android:paddingBottom="8dp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true"
+        android:layout_height="350dp">
+
+    </ListView>
+
+    <ListView
+        android:id="@+id/listviewCategoriesSelected"
+        android:layout_width="match_parent"
+        android:layout_height="10dp"
+        android:layout_below="@+id/textView"
+        android:layout_alignParentBottom="true" />
+
+    <TextView
+        android:text="Auswahl"
+        android:layout_width="match_parent"
+        android:id="@+id/textView"
+        android:layout_height="35dp"
+        android:background="#9fa8da"
+        android:textAlignment="viewStart"
+        android:textSize="18sp"
+        android:paddingTop="5dp"
+        android:textColor="@color/buttonTextColor"
+        android:paddingLeft="16dp"
+        android:layout_below="@+id/listviewCategories"
+        android:layout_alignParentStart="true" />
+
+</RelativeLayout>

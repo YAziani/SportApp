@@ -1,10 +1,16 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
+import android.util.Log;
+
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
 import com.example.mb7.sportappbp.BusinessLayer.User;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import java.net.URL;
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -12,13 +18,42 @@ import java.util.List;
  */
 
 public class DAL_User {
+    static public void GetLastTodayStimmungsabfrage(User user, Date date)
+    {
+        try {
+            String sDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
+            URL url = new URL(DAL_Utilities.DatabaseURL  +  "players/" + user.getName() + "/Stimmungsabfrage/" + sDate + "/");
+            Firebase root = new Firebase(url.toString());
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    for(DataSnapshot ds: dataSnapshot.getChildren())
+                    {
+                       StimmungAbfrage st = ds.getValue(StimmungAbfrage.class);
+                        st.Zerstreut = st.Zerstreut;
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    Log.d("DAL_User.GetLTSabfrage",firebaseError.getMessage());
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
 
     static public void InsertStimmung(User user, StimmungAbfrage stimmungAbfrage)
     {
         try
         {
 
-            URL url = new URL(DAL_Utilities.DatabaseURL + "players/" + user.getName() + "/Stimmungsabfrage_" + stimmungAbfrage.Date + (stimmungAbfrage.Vor?"_V":"_N") + "/"  );
+            URL url = new URL(DAL_Utilities.DatabaseURL + "players/" + user.getName() + "/Stimmungsabfrage/" + stimmungAbfrage.Date + (stimmungAbfrage.Vor?"/V":"/N") + "/"  );
             Firebase root = new Firebase(url.toString());
             if (stimmungAbfrage.Angespannt >= 0) {
                 Firebase childAngespannt = root.child("Angespannt");

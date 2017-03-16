@@ -2,6 +2,7 @@ package com.example.mb7.sportappbp.BusinessLayer;
 
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 
+import java.util.Date;
 import java.util.List;
 
 /**
@@ -27,6 +28,10 @@ public class User {
         return name;
     }
 
+    public void GetLastTodayStimmungsabfrage(Date date)
+    {
+        DAL_User.GetLastTodayStimmungsabfrage(this,date);
+    }
     public boolean SaveStimmung(StimmungAbfrage stimmungAbfrage)
     {
         DAL_User.InsertStimmung(this,stimmungAbfrage);

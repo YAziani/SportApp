@@ -9,6 +9,7 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
 import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.R;
 
@@ -21,22 +22,32 @@ public class ActivityCategories extends AppCompatActivity {
     ListView listView;
     ArrayAdapter<String> arrayAdapter;
     String[] listOfCategories = {"Leistungstests", "Training", "Wellness", "Reiner Aufenthalt"};
-    Intent open;
 
-    ArrayList<Exercise> exercisesList;
+    ListView listViewSelected;
+    ExerciseViewAdapter exerciseViewAdapter;
+
+    ArrayList<Exercise> exerciseList;
     String activity;
+
+    private Boolean finalResult = false;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_diary_categories);
+        setContentView(R.layout.activity_categories);
+
+        exerciseList = receiveExerciseList();
 
         listView = (ListView) findViewById(R.id.listviewCategories);
         arrayAdapter = new ArrayAdapter<String>(ActivityCategories.this, android.R.layout.simple_list_item_1, listOfCategories);
         listView.setAdapter(arrayAdapter);
 
-        exercisesList = receiveExerciseList();
+        listViewSelected = (ListView) findViewById(R.id.listviewCategoriesSelected);
+        exerciseViewAdapter = new ExerciseViewAdapter(ActivityCategories.this, exerciseList);
+        listViewSelected.setAdapter(exerciseViewAdapter);
+
+
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -46,16 +57,16 @@ public class ActivityCategories extends AppCompatActivity {
 
                 switch (category){
                     case "Leistungstests":
-                        forwardOldExerciseList(category, exercisesList);
+                        forwardOldExerciseList(category, exerciseList);
                         break;
                     case "Training":
-                        forwardOldExerciseList(category, exercisesList);
+                        forwardOldExerciseList(category, exerciseList);
                         break;
                     case "Wellness":
-                        forwardOldExerciseList(category, exercisesList);
+                        forwardOldExerciseList(category, exerciseList);
                         break;
                     case "Reiner Aufenthalt":
-                        forwardOldExerciseList(category, exercisesList);
+                        forwardOldExerciseList(category, exerciseList);
                         break;
                     default:
 
@@ -73,7 +84,16 @@ public class ActivityCategories extends AppCompatActivity {
 
         if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
             ArrayList<Exercise> result = data.getParcelableArrayListExtra("newExercises");
-            forwardResult(result);
+            finalResult = data.getBooleanExtra("finalResult", false);
+
+            if(finalResult)
+                forwardResult(result);
+            else {
+                setNewList(exerciseList, result);
+                exerciseViewAdapter.notifyDataSetChanged();
+            }
+
+
         }
     }
 
@@ -122,5 +142,16 @@ public class ActivityCategories extends AppCompatActivity {
         }
         else
             return result = new ArrayList<Exercise>();
+    }
+
+    private void setNewList(ArrayList<Exercise> oldLst, ArrayList<Exercise> newLst){
+
+        Toast.makeText(ActivityCategories.this, String.valueOf(newLst.size()) , Toast.LENGTH_SHORT).show();
+
+        //To clear the already selected items (no duplicates)
+        oldLst.clear();
+
+        for(Exercise i : newLst)
+            oldLst.add(i);
     }
 }

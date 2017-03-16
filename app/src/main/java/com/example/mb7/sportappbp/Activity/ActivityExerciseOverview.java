@@ -23,19 +23,19 @@ public class ActivityExerciseOverview extends AppCompatActivity {
 
     ListView listView;
     ExerciseViewAdapter exerciseViewAdapter;
-    ArrayAdapter<String> arrayAdapter;
-    ArrayList<Exercise> actLst;
+    ArrayList<Exercise> exerciseList;
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity_overview);
+        setContentView(R.layout.activity_exerciseoverview);
 
-        actLst = receiveExerciseList();
+        //receive exercise list
+        exerciseList = receiveExerciseList();
 
         listView = (ListView)findViewById(R.id.listviewActivityOverview);
-        exerciseViewAdapter = new ExerciseViewAdapter(ActivityExerciseOverview.this, actLst);
+        exerciseViewAdapter = new ExerciseViewAdapter(ActivityExerciseOverview.this, exerciseList);
         listView.setAdapter(exerciseViewAdapter);
 
     }
@@ -55,7 +55,7 @@ public class ActivityExerciseOverview extends AppCompatActivity {
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_add:
-                sendOldAndRequestNewExerciseList(actLst);
+                sendOldAndRequestNewExerciseList(exerciseList);
                 return true;
             case R.id.icon_save:
                 returnResult();
@@ -72,11 +72,10 @@ public class ActivityExerciseOverview extends AppCompatActivity {
 
         if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
             ArrayList<Exercise> result = data.getParcelableArrayListExtra("newExercises");
-                //this.actLst = result;
 
             Integer test = result.size();
 
-            setnewList(actLst, result);
+            setnewList(exerciseList, result);
             exerciseViewAdapter.notifyDataSetChanged();
 
             Toast.makeText(ActivityExerciseOverview.this, test.toString(), Toast.LENGTH_SHORT).show();
@@ -101,7 +100,7 @@ public class ActivityExerciseOverview extends AppCompatActivity {
     private void sendOldAndRequestNewExerciseList(ArrayList<Exercise> oldList){
         Intent pickExerciseIntent = new Intent(this, ActivityCategories.class);
         //Optional, wenn bereits ausgewehlte makiert werden sollen
-        //pickExerciseIntent.putParcelableArrayListExtra("oldExercises", oldList);
+        pickExerciseIntent.putParcelableArrayListExtra("oldExercises", oldList);
         startActivityForResult(pickExerciseIntent, REQUEST_ID);
     }
 
@@ -113,7 +112,7 @@ public class ActivityExerciseOverview extends AppCompatActivity {
     private void returnResult(){
 
         Intent intent = new Intent();
-        intent.putParcelableArrayListExtra("newExercises",actLst);
+        intent.putParcelableArrayListExtra("newExercises", exerciseList);
         setResult(RESULT_OK, intent);
         finish();
 

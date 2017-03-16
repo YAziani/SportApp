@@ -6,19 +6,18 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
+import android.widget.GridView;
 import android.widget.ListView;
-import android.widget.RadioButton;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Adapters.DiaryEntryViewAdapter;
 import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.R;
-import com.fasterxml.jackson.core.io.CharacterEscapes;
+import com.firebase.client.Firebase;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -27,14 +26,7 @@ import java.util.Calendar;
 public class ActivityDiaryEntry extends AppCompatActivity {
 
     //request id for the activitiy request
-    static final int REQUEST_ID = 1;
-
-    private Button btnExerciseLst;
-    private Button btnSave;
-    private Button btnAdd;
-
-    //private RadioGroup radioGroup;
-    //private RadioButton radioButton;
+    final static int REQUEST_ID = 1;
 
     private DiaryEntry diaryEntry;
     private AllDiaryEntries allDiaryEntries;
@@ -48,6 +40,17 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     private String activity;
     private Menu menu;
 
+    private GridView gridView;
+    private DiaryEntryViewAdapter diaryEntryViewAdapter;
+
+    private Firebase mRootRef;
+
+
+    ArrayList<String> listCategories = new ArrayList<String>();
+    ArrayList<Integer> listIcons = new ArrayList<Integer>();
+
+
+
 
 
 
@@ -56,27 +59,37 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diaryentry);
 
-        diaryEntry = new DiaryEntry(getCurrentDate());
+        //Create Firebase reference
+        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
+
+        //Create Diary Entry Object to safe all data
+        diaryEntry = new DiaryEntry(getID(), getCurrentDate(), getCurrentTime());
+
         exerciseList = diaryEntry.getExerciseList();
 
-        //radioGroup = (RadioGroup) findViewById(R.id.RadioGroupTraining);
+        //set all categories for the viewadapter
+        listCategories.add("Leistungstests");
+        listCategories.add("Training");
+        listCategories.add("Wellness");
+        listCategories.add("Reiner Aufenthalt");
 
-        //totalDuration = (TextView)findViewById(R.id.textViewTotalTime);
-        //totalDuration.setText(String.valueOf(diaryEntry.getTotalDuration()));
+        //set all icons for the viewadapter
+        listIcons.add(R.drawable.ic_fitnesscheck);
+        listIcons.add(R.drawable.ic_sport);
+        listIcons.add(R.drawable.ic_wellness);
+        listIcons.add(R.drawable.ic_aufenthalt);
 
-        //activate the back button on the toolbar
-        //getSupportActionBar().setDisplayHomeAsUpEnabled(true);
 
-        //listOfActivities = new ArrayList<String>();
-
-        //listView.setAdapter(arrayAdapter);
+        diaryEntryViewAdapter = new DiaryEntryViewAdapter(ActivityDiaryEntry.this, listCategories, diaryEntry, listIcons);
+        gridView = (GridView) findViewById(R.id.gridViewExercise);
+        gridView.setAdapter(diaryEntryViewAdapter);
 
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-        //set an other menu xml
+        //set the menu with add and save icon
         inflater.inflate(R.menu.menu_add, menu);
 
         return super.onCreateOptionsMenu(menu);
@@ -101,30 +114,14 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     private void btnSaveAction() {
 
-        /*
-        int selectedID = radioGroup.getCheckedRadioButtonId();
-        radioButton = (RadioButton) findViewById(selectedID);
+        //todo Save object to the database
 
-        //check if a button is selected, if not give a message to the user
-        if (radioButton == null)
-            Toast.makeText(DiaryEntryActivity.this, "Button nicht gewaehlt!", Toast.LENGTH_SHORT).show();
-        else {
+        SaveData();
 
-            //Create the diary object with the input of the user
-            diaryEntry.setSuccessful(radioButtonYesOrNo(radioButton));
-            diaryEntry.setExerciseList(exerciseList);
-            //add the entry to the diary list
-            allDiaryEntries.getInstance().getDiaryList().add(diaryEntry);
+        //Display answer
+        Toast.makeText(ActivityDiaryEntry.this, getID() , Toast.LENGTH_SHORT).show();
 
-            //todo Save object to the database
-
-            //Display answer
-            //Toast.makeText(DiaryEntryActivity.this, strDate, Toast.LENGTH_SHORT).show();
-
-            finish();
-
-        }
-        */
+        finish();
     }
 
     @Override
@@ -140,45 +137,19 @@ public class ActivityDiaryEntry extends AppCompatActivity {
             exerciseList = result;
             diaryEntry.setExerciseList(result);
 
-            //Leistungstests
-            setTextFieldTime((TextView)findViewById(R.id.txtTimeLeistungstests), diaryEntry.getTotalTimeHoursLeistungstests(), diaryEntry.getTotalTimeMinutesLeistungstests());
-            //Training
-            setTextFieldTime((TextView)findViewById(R.id.txtTimeTraining), diaryEntry.getTotalTimeHoursTraining(), diaryEntry.getTotalTimeMinutesTraining());
-            //Wellness
-            setTextFieldTime((TextView)findViewById(R.id.txtTimeWellness), diaryEntry.getTotalTimeHoursWellness(), diaryEntry.getTotalTimeMinutesWellness());
-            //Aufenhalt
-            setTextFieldTime((TextView)findViewById(R.id.txtTimeAufenthalt), diaryEntry.getTotalTimeHoursReinerAufenthalt(), diaryEntry.getTotalTimeMinutesReinerAufenthalt());
-            //Total
-            setTextFieldTime((TextView)findViewById(R.id.txtTotalTime), diaryEntry.getTotalTimeHours(), diaryEntry.getTotalTimeMinutes());
-            //Toast.makeText(ActivityDiaryEntry.this,h, Toast.LENGTH_SHORT).show();
-
-
-
-
+            diaryEntryViewAdapter.notifyDataSetChanged();
 
         }
     }
 
-    private void setTextFieldTime(TextView textView, int hours, int min){
+    private boolean SaveData()
+    {
 
-        String m = String.valueOf(min);
-        String h = String.valueOf(hours);
-        textView.setText(h+":"+m+" h");
+        System.out.print("war hier loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooool");
+        //StimmungAbfrage stimmungAbfrage  = getData();
+        ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
 
-    }
-
-
-    /**
-     * This method evaluates the radio button of a radio button group, if the user selected yes or no.
-     * When the text of the button called "Ja" the method returns true, if it's "Nein" it returns false.
-     * @param radioBtn the selected radio button of a radio button group
-     * @return true or false
-     */
-    private boolean radioButtonYesOrNo(RadioButton radioBtn){
-        if(radioBtn.getText() == "Ja")
-            return true;
-        else
-            return false;
+        return true;
     }
 
     /**
@@ -187,9 +158,23 @@ public class ActivityDiaryEntry extends AppCompatActivity {
      */
     private String getCurrentDate(){
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
         String strDate = sdf.format(c.getTime());
         return strDate;
+    }
+
+    private String getCurrentTime(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
+        String strTime = sdf.format(c.getTime());
+        return strTime;
+    }
+
+    private String getID(){
+        Calendar c = Calendar.getInstance();
+        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_HHmmss");
+        String strID = sdf.format(c.getTime());
+        return strID;
     }
 
     /**

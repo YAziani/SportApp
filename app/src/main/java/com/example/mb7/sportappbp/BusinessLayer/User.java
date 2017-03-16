@@ -32,9 +32,9 @@ public class User {
     {
         DAL_User.GetLastTodayStimmungsabfrage(this,date);
     }
-    public boolean SaveStimmung(StimmungAbfrage stimmungAbfrage)
+    public boolean SaveStimmung(StimmungAbfrage stimmungAbfrage, Date date)
     {
-        DAL_User.InsertStimmung(this,stimmungAbfrage);
+        DAL_User.InsertStimmung(this,stimmungAbfrage, date);
         return true;
     }
 

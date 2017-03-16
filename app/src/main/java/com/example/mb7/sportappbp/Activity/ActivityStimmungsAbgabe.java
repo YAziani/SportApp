@@ -90,7 +90,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
     private boolean SaveData()
     {
         StimmungAbfrage stimmungAbfrage  = getData();
-        ActivityMain.mainUser.SaveStimmung(stimmungAbfrage);
+        ActivityMain.mainUser.SaveStimmung(stimmungAbfrage, new Date());
 
         return true;
     }

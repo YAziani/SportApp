@@ -1,11 +1,13 @@
 package com.example.mb7.sportappbp.Activity;
 
-import android.app.AlertDialog;
 import android.app.Dialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.Toolbar;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
@@ -14,7 +16,7 @@ import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Toast;
 
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
+import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
 import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.Objects.LeistungstestsExercise;
 import com.example.mb7.sportappbp.Objects.ReinerAufenthaltExercise;
@@ -31,78 +33,81 @@ public class ActivityExercises extends AppCompatActivity {
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> exLst;
     private ArrayList<Exercise> exerciseList;
-    private String[] activities;
 
-    private int newValue;
-    //object values
-    private DiaryEntry diaryEntry;
+    private ListView listViewSelected;
+    private ExerciseViewAdapter exerciseViewAdapter;
+
     private int timeMinutes;
     private int timeHours;
 
     private String chosenExercise;
-    private String chosenCategory;
+    private String selectedCategory;
+
+    private boolean finalResult = false;
 
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_activity_category);
+        setContentView(R.layout.activity_exercises);
 
-        chosenCategory = receiveCategory();
+        selectedCategory = receiveCategory();
         exerciseList = receiveExerciseList();
 
         //Set title of the label
-        setTitle(chosenCategory);
+        setTitle(selectedCategory);
         //get the list of the activity for the chosen category
-        exLst = getListOfActivities(chosenCategory);
+        exLst = getListOfActivities(selectedCategory);
 
-        listview = (ListView) findViewById(R.id.listviewTraining);
+        listview = (ListView) findViewById(R.id.listviewExercises);
         arrayAdapter = new ArrayAdapter<String>(ActivityExercises.this, android.R.layout.simple_list_item_1, exLst);
         listview.setAdapter(arrayAdapter);
+
+        listViewSelected = (ListView) findViewById(R.id.listviewExercisesSelected);
+        exerciseViewAdapter = new ExerciseViewAdapter(ActivityExercises.this, exerciseList);
+        listViewSelected.setAdapter(exerciseViewAdapter);
+
 
         listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 chosenExercise = (String) adapterView.getItemAtPosition(position);
-                NumberPicker();
-                //numberPicker();
+                numberPicker();
             }
         });
     }
 
-    private void oldnumberPicker(){
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        //set the menu with a save icon
+        inflater.inflate(R.menu.menu_save, menu);
 
-        NumberPicker numberPicker = new NumberPicker(ActivityExercises.this);
-        numberPicker.setMaxValue(60);
-        numberPicker.setMinValue(0);
-        numberPicker.setFormatter(new NumberPicker.Formatter() {
-            @Override
-            public String format(int i) {
-                return String.format("%02d", i);
-            }
-        });
+        return super.onCreateOptionsMenu(menu);
+    }
 
-        NumberPicker.OnValueChangeListener valueChangeListener = new NumberPicker.OnValueChangeListener() {
-            @Override
-            public void onValueChange(NumberPicker numberPicker, int oldVal, int newVal) {
-                int test = newVal;
-            }
-        };
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item){
 
-        numberPicker.setOnValueChangedListener(valueChangeListener);
-        AlertDialog.Builder builder = new AlertDialog.Builder(ActivityExercises.this).setView(numberPicker);
+        //check which icon was hidden in the toolbar
+        switch (item.getItemId()){
+            case android.R.id.home:
+                //save the selected items and send them to the previous activity
+                //returnResult();
+                //close the activity
+                finish();
+                return true;
+            case R.id.icon_save:
+                finalResult = true;
+                returnFinalResult();
+                finish();
+                return true;
 
-        builder.setTitle("Wähle die Minuten");
-        builder.setPositiveButton("OK", new DialogInterface.OnClickListener() {
-            @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-
-               returnResult();
-            }
-        });
-        builder.show();
+            default:
+                return super.onOptionsItemSelected(item);
+        }
     }
 
     private ArrayList getListOfActivities(String category){
@@ -174,7 +179,7 @@ public class ActivityExercises extends AppCompatActivity {
      */
     private void returnResult(){
 
-        Exercise result = chosenExerciseCategory();
+        Exercise result = selectedExerciseCategory();
 
         if(result != null) {
             result.setActivity(chosenExercise);
@@ -184,26 +189,42 @@ public class ActivityExercises extends AppCompatActivity {
 
             Intent intent = new Intent();
             intent.putParcelableArrayListExtra("newExercises", exerciseList);
+            intent.putExtra("finalResult", finalResult);
             setResult(RESULT_OK, intent);
-            finish();
+            exerciseViewAdapter.notifyDataSetChanged();
         }
         else
             Toast.makeText(ActivityExercises.this, "Kategorie wurde nicht richtig gewählt!", Toast.LENGTH_SHORT).show();
 
     }
 
-    private Exercise chosenExerciseCategory(){
+    private void returnFinalResult(){
 
-        if(chosenCategory.equals("Leistungstests")){
+        if(exerciseList != null) {
+
+            Intent intent = new Intent();
+            intent.putParcelableArrayListExtra("newExercises", exerciseList);
+            intent.putExtra("finalResult", finalResult);
+            setResult(RESULT_OK, intent);
+            exerciseViewAdapter.notifyDataSetChanged();
+        }
+        else
+            Toast.makeText(ActivityExercises.this, "Kategorie wurde nicht richtig gewählt!", Toast.LENGTH_SHORT).show();
+
+    }
+
+    private Exercise selectedExerciseCategory(){
+
+        if(selectedCategory.equals("Leistungstests")){
             return new LeistungstestsExercise();
         }
-        else if(chosenCategory.equals("Training")){
+        else if(selectedCategory.equals("Training")){
             return new TrainingExercise();
         }
-        else if(chosenCategory.equals("Wellness")){
+        else if(selectedCategory.equals("Wellness")){
             return new WellnessExercise();
         }
-        else if(chosenCategory.equals("Reiner Aufenthalt")){
+        else if(selectedCategory.equals("Reiner Aufenthalt")){
             return new ReinerAufenthaltExercise();
         }//todo overthink else case
         else return null;
@@ -211,18 +232,26 @@ public class ActivityExercises extends AppCompatActivity {
     }
 
 
-    private void NumberPicker(){
+    /**
+     * Creates a dialog window with two number pickers for hours and minutes. When the ok button
+     * will be pressed, the data will be saved. The cancel button is going to close the dialog
+     * window
+     */
+    private void numberPicker(){
 
+        //create dialog window
         final Dialog dialog = new Dialog(ActivityExercises.this);
 
-        //dialog.requestWindowFeature(Window.FEATURE_NO_TITLE);
+        //set the layout for the dialog window
         dialog.setContentView(R.layout.dialog_two_numberpicker);
+
 
         final String[] nums = new String[30];
         for(int i=0; i<nums.length; i++) {
             nums[i] = Integer.toString(i);
         }
 
+        //create the number picker for hours und set the possible values
         final NumberPicker npHoures = (NumberPicker)dialog.findViewById(R.id.numberPickerHours);
         npHoures.setMaxValue(24);
         npHoures.setMinValue(0);
@@ -233,6 +262,7 @@ public class ActivityExercises extends AppCompatActivity {
             }
         });
 
+        //create the number picker for minutes und set the possible values
         final NumberPicker npMinutes = (NumberPicker)dialog.findViewById(R.id.numberPickerMinutes);
         npMinutes.setMaxValue(59);
         npMinutes.setMinValue(0);
@@ -243,11 +273,13 @@ public class ActivityExercises extends AppCompatActivity {
             }
         });
 
-        Button button = (Button)dialog.findViewById(R.id.npOk);
-        button.setOnClickListener(new View.OnClickListener() {
+        //set the action for ok button
+        Button btnOk = (Button)dialog.findViewById(R.id.npOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
+                //save the picked numbers
                 timeHours = npHoures.getValue();
                 timeMinutes = npMinutes.getValue();
                 dialog.dismiss();
@@ -255,10 +287,19 @@ public class ActivityExercises extends AppCompatActivity {
             }
         });
 
+        //set the action for cancel button
+        Button btnCancel = (Button) dialog.findViewById(R.id.npCancle);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                //close the dialog windows without doing anything
+                dialog.dismiss();
+            }
+        });
+
+        //show the dialog window
         dialog.show();
 
     }
-
-
-
 }

@@ -38,9 +38,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     private TextView textView;
 
-    private String activity;
-    private Menu menu;
-
     private GridView gridView;
     private DiaryEntryViewAdapter diaryEntryViewAdapter;
 

@@ -47,7 +47,7 @@ public class ExampleUnitTest {
         teststimmung.Traurig=0;
         teststimmung.Wuetend=0;
         teststimmung.Zerstreut=0;
-        Testperson1.SaveStimmung(teststimmung);
+        //Testperson1.SaveStimmung(teststimmung);
 
         //FirebaseDatabase.getInstance().getReference().child("players").child("Testperson1").child("Stimmungsabfrage").addListenerForSingleValueEvent( });
 

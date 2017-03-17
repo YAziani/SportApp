@@ -2,6 +2,7 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.app.NotificationManager;
 import android.content.Context;
+import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Typeface;
 import android.preference.PreferenceManager;
@@ -123,7 +124,9 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
                 }
             }
         }else {
+            Intent i = new Intent(this, ActivityMain.class);
             finish();
+            startActivity(i);
         }
     }
 

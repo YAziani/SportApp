@@ -22,7 +22,7 @@ public class FitnessFragebogenViewAdapter extends BaseAdapter {
     {
         antworten = new ArrayList<String>();
         antworten.add("Ich kann diese Tätigkeit nicht");
-        antworten.add("Ich habe große Porbleme");
+        antworten.add("Ich habe große Probleme");
         antworten.add("Ich habe mäßige Probleme");
         antworten.add("Ich habe leichte Probleme");
         antworten.add("Ich habe keine Probleme");

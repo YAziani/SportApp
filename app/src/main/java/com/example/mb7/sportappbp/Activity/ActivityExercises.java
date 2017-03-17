@@ -4,7 +4,6 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.Toolbar;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -129,6 +128,13 @@ public class ActivityExercises extends AppCompatActivity {
                 result.add("Cycling");
                 result.add("Beweglichkeit/Flexibilität");
                 result.add("Yoga");
+                result.add("Rückentraining");
+                result.add("Progressive");
+                result.add("Muskelentspannung");
+                result.add("Autogenes Training");
+                result.add("Meditation");
+                result.add("Anderes Training");
+
             return result;
 
             case "Wellness":
@@ -182,7 +188,7 @@ public class ActivityExercises extends AppCompatActivity {
         Exercise result = selectedExerciseCategory();
 
         if(result != null) {
-            result.setActivity(chosenExercise);
+            result.setExercise(chosenExercise);
             result.setTimeMinutes(timeMinutes);
             result.setTimeHours(timeHours);
             exerciseList.add(result);

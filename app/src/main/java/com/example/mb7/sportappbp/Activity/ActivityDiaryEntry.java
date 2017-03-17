@@ -22,6 +22,7 @@ import com.firebase.client.Firebase;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ActivityDiaryEntry extends AppCompatActivity {
 
@@ -115,11 +116,11 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     private void btnSaveAction() {
 
         //todo Save object to the database
+        if(diaryEntry.getExerciseList().size() > 0)
+            SaveData();
 
-        SaveData();
-
-        //Display answer
-        Toast.makeText(ActivityDiaryEntry.this, getID() , Toast.LENGTH_SHORT).show();
+        else//Display answer
+        Toast.makeText(ActivityDiaryEntry.this, "Es wurden keine Einträge registriert!" , Toast.LENGTH_SHORT).show();
 
         finish();
     }
@@ -142,12 +143,11 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         }
     }
 
-    private boolean SaveData()
-    {
+    private boolean SaveData(){
 
-        System.out.print("war hier loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooool");
-        //StimmungAbfrage stimmungAbfrage  = getData();
-        //ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
+        ActivityMain.mainUser.GetLastTodayDiaryEntry(new Date());
+        ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
+        Toast.makeText(ActivityDiaryEntry.this, "Eintrag gespeichert!" , Toast.LENGTH_SHORT).show();
 
         return true;
     }
@@ -172,7 +172,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     private String getID(){
         Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("ddMMyyyy_HHmmss");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String strID = sdf.format(c.getTime());
         return strID;
     }

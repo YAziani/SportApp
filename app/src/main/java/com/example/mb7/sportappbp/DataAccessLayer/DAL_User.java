@@ -4,10 +4,11 @@ import android.util.Log;
 
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
 import com.example.mb7.sportappbp.BusinessLayer.User;
+import com.example.mb7.sportappbp.Objects.DiaryEntry;
+import com.example.mb7.sportappbp.Objects.Exercise;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
-import com.firebase.client.GenericTypeIndicator;
 import com.firebase.client.ValueEventListener;
 
 import java.net.URL;
@@ -44,6 +45,7 @@ public class DAL_User {
         }
 
     }
+
 
     static public void InsertStimmung(User user, StimmungAbfrage stimmungAbfrage, Date date)
     {
@@ -93,6 +95,75 @@ public class DAL_User {
             String s = ex.getMessage();
         }
             finally
+        {
+
+        }
+
+    }
+
+
+    static public void GetLastTodayDiaryEntry(User user, Date date)
+    {
+        try {
+            final String sDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
+            URL url = new URL(DAL_Utilities.DatabaseURL  +  "players/" + user.getName() + "/DiaryEntry/" + sDate + "/");
+            Firebase root = new Firebase(url.toString());
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    gcounter = dataSnapshot.getChildrenCount();
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    Log.d("DAL_User.GetLTSabfrage",firebaseError.getMessage());
+                }
+            });
+        }
+        catch (Exception e)
+        {
+            e.printStackTrace();
+        }
+
+    }
+
+    static public void InsertDiaryEntry(User user, DiaryEntry diaryEntry)
+    {
+        try
+        {
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/DiaryEntry/" + diaryEntry.getID() + "/");
+            System.out.println("war hier2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+            //String V_N = stimmungAbfrage.Vor?"/V":"/N";
+            Firebase newChildRef = ref.push();
+
+            Firebase childDate = newChildRef.child("Date");
+            childDate.setValue(diaryEntry.getDate());
+
+            Firebase childTime = newChildRef.child("Time");
+            childTime.setValue(diaryEntry.getTime());
+
+
+            int i = 0;
+            for(Exercise ex : diaryEntry.getExerciseList()){
+
+                Firebase exerciseChild = newChildRef.child("Exercise " + String.valueOf(i) + " :");
+                Firebase childExercise = exerciseChild.child("Exercise");
+                childExercise.setValue(ex.getExercise());
+                Firebase childMinutes = exerciseChild.child("Minutes");
+                childMinutes.setValue(ex.getTimeMunites());
+                Firebase childHours = exerciseChild.child("Hours");
+                childHours.setValue(ex.getTimeHours());
+                i++;
+            }
+
+        }
+        catch (Exception ex)
+        {
+            String s = ex.getMessage();
+            System.out.println(s);
+            System.out.println("war hier2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
+        }
+        finally
         {
 
         }

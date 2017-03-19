@@ -49,7 +49,9 @@ public class User {
         return true;
     }
 
-
+    public void GetStimmnungsabfrage(Date date){
+        DAL_User.GetStimmnungsabfrage(this,date);
+    }
     public void GetLastTodayDiaryEntry(Date date)
     {
         DAL_User.GetLastTodayDiaryEntry(this,date);

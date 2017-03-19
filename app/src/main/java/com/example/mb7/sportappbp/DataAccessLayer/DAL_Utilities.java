@@ -13,7 +13,7 @@ public class DAL_Utilities {
     public static String ConvertDateToFirebaseDate(Date date)
     {
         String dateString = null;
-        SimpleDateFormat sdfr = new SimpleDateFormat("ddMMyyyy");
+        SimpleDateFormat sdfr = new SimpleDateFormat("yyyyMMdd");
         try{
             dateString = sdfr.format( date );
         }catch (Exception ex ){

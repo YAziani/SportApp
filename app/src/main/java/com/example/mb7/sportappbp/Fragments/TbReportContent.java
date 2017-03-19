@@ -65,7 +65,7 @@ public class TbReportContent extends TabFragment{
             public void onClick(View v) {
 
 
-                ActivityMain.mainUser.GetLastTodayStimmungsabfrage(new Date());
+                ActivityMain.mainUser.GetStimmnungsabfrage(new Date(2017,3,16 ));
             }
         });
 

@@ -23,6 +23,37 @@ import java.util.List;
 
 public class DAL_User {
     static  private long gcounter ;
+
+    static public void GetStimmnungsabfrage(User user, Date date)
+    {
+        try
+        {
+            final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/Stimmungsabfrage/" + fDate);
+            Firebase root = new Firebase(url.toString());
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // ((ChildrenNode) dataSnapshot.node.node).children.iterator().next().getValue()
+                    //
+
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+
+
+        }
+        catch (Exception e)
+        {
+            Log.d("ERROR", e.getMessage());
+        }
+    }
+
     static public void GetLastTodayStimmungsabfrage(User user, Date date)
     {
         try {

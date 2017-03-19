@@ -142,15 +142,12 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     private boolean SaveData(){
 
-<<<<<<< HEAD
         System.out.print("war hier loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooool");
         //StimmungAbfrage stimmungAbfrage  = getData();
         //ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
-=======
         ActivityMain.mainUser.GetLastTodayDiaryEntry(new Date());
         ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
         Toast.makeText(ActivityDiaryEntry.this, "Eintrag gespeichert!" , Toast.LENGTH_SHORT).show();
->>>>>>> 34f800794e7fc3ea74955457b6c9bd7623a876c9
 
         return true;
     }

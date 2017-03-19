@@ -323,7 +323,7 @@ public class DAL_User {
         try
         {
             // setting up url for the database
-            URL url = new URL(DAL_Utilities.DatabaseURL + "players/" + user.getName() + "/methodRatings");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/methodRatings");
             Firebase root = new Firebase(url.toString());
             Firebase child;
             // insert ratings for each method

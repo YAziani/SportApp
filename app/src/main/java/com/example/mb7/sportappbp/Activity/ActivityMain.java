@@ -85,17 +85,8 @@ public class ActivityMain extends AppCompatActivity {
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
 
-        // TODO debug function
-        /*
-        Intent i = new Intent(this, ActivityMotivationMessage.class);
-        i.putExtra("praiseOrWarn",1);
-        startActivity(i);
-        */
-
         // check settings for initialization
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        // TODO debug function
-        //preferences.edit().putBoolean("initialized", false).apply();
         if(!preferences.getBoolean("initialized",false)) {
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);

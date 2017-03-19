@@ -23,10 +23,10 @@ public class ActivityMotivationMessage extends AppCompatActivity {
         setContentView(R.layout.activity_motivation_message);
 
         // reference for the firebase storage image
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("lift.jpg");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("lift_text.jpg");
         final ImageView imageView0 = (ImageView)findViewById(R.id.imageMotivationMessage0);
         final ImageView imageView1 = (ImageView)findViewById(R.id.imageMotivationMessage1);
-        final Drawable drawable = getDrawable(R.drawable.failure_motivation_message);
+        final Drawable drawable = getDrawable(R.drawable.lift_text);
 
         imageView0.setImageDrawable(drawable);
         // Load the image using Glide
@@ -41,7 +41,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
                                                boolean isFirstResource) {
                         imageView0.setImageDrawable(drawable);
                         imageView1.setImageDrawable(drawable);
-                        imageView1.setAlpha(0.8f);
+                        imageView1.setAlpha(0.5f);
                         return true;
                     }
 
@@ -52,7 +52,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
                                                    boolean isFromMemoryCache,
                                                    boolean isFirstResource) {
                         imageView1.setImageDrawable(resource);
-                        imageView1.setAlpha(0.8f);
+                        imageView1.setAlpha(0.5f);
                         return false;
                     }
                 })

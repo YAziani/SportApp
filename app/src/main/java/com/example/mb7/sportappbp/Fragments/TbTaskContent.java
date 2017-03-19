@@ -56,7 +56,7 @@ public class TbTaskContent extends TabFragment {
         final Notification nPendingTraining = new Notification(
                 "nächstes Training",
                 "Ihr nächstes Training beginnt um "
-                        + preferences.getString("nextTrainingTime", "00:00"));
+                        + preferences.getString("nextTrainingTime", "00:00"), R.drawable.trainingseinheit);
         if(preferences.getBoolean("reminderNotified", false)) {
             notificationList.add(nPendingTraining);
         }

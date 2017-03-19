@@ -48,7 +48,7 @@ public class NotificationViewAdapter extends BaseAdapter{
             txtTitle.setText(nt.getTitle());
 
             TextView txtText = (TextView) view.findViewById(R.id.txtText);
-            txtText.setText(nt.getText());
+            txtText.setText(nt.getSubText());
 
             return view;
     }

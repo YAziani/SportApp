@@ -13,6 +13,8 @@ import com.google.firebase.database.ValueEventListener;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
+import java.util.Date;
+
 import static org.junit.Assert.*;
 
 /**
@@ -47,7 +49,7 @@ public class ExampleUnitTest {
         teststimmung.Traurig=0;
         teststimmung.Wuetend=0;
         teststimmung.Zerstreut=0;
-        Testperson1.SaveStimmung(teststimmung);
+        Testperson1.SaveStimmung(teststimmung, new Date());
 
         //FirebaseDatabase.getInstance().getReference().child("players").child("Testperson1").child("Stimmungsabfrage").addListenerForSingleValueEvent( });
 

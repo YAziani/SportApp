@@ -159,7 +159,6 @@ public class TbReportContent extends TabFragment{
                     @Override
                     public void onResponseReceived(String result) {
                         // set the control in the caller
-                        txtRequest.setText(result.toString());
 
                     }
                 };

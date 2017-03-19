@@ -4,7 +4,6 @@ import android.app.Activity;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
-
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -49,8 +48,6 @@ public class BackgroundClock{
         final int delay = 60000;
         handler.postDelayed(new Runnable() {
             public void run() {
-                // TODO remove debug output
-                //System.out.println("CLOCK TICK");
                 // get current time
                 date = new Date();
                 calendar.setTime(date);

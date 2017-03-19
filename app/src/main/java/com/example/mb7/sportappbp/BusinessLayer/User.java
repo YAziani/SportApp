@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
+import com.example.mb7.sportappbp.Objects.DiaryEntry;
 
 import java.util.Date;
 import java.util.List;
@@ -35,6 +36,28 @@ public class User {
     public boolean SaveStimmung(StimmungAbfrage stimmungAbfrage, Date date)
     {
         DAL_User.InsertStimmung(this,stimmungAbfrage, date);
+        return true;
+    }
+    public boolean SaveFitnessFragebogen(FitnessFragebogen fitnessfragebogen)
+    {
+        DAL_User.InsertFitnessFragebogen(this,fitnessfragebogen);
+        return true;
+    }
+    public boolean SaveFragebogen(Fragebogen fragebogen)
+    {
+        DAL_User.InsertFragebogen(this,fragebogen);
+        return true;
+    }
+
+
+    public void GetLastTodayDiaryEntry(Date date)
+    {
+        DAL_User.GetLastTodayDiaryEntry(this,date);
+    }
+
+    public boolean SaveDiaryEntry(DiaryEntry diaryEntry)
+    {
+        DAL_User.InsertDiaryEntry(this,diaryEntry);
         return true;
     }
 

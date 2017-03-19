@@ -77,24 +77,16 @@ public class ActivityMain extends AppCompatActivity {
         activityMain = this;
 
         // create a new motivation method and add it to the list of methods
-        TrainingReminder t = new TrainingReminder(this);
-        fixMotivationMethods.add(t);
         TrainQuestioning p = new TrainQuestioning(this);
         fixMotivationMethods.add(p);
+
+        TrainingReminder t = new TrainingReminder(this);
+        fixMotivationMethods.add(t);
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
 
-        // TODO comment out
-        /*
-        Intent i = new Intent(this, ActivityMotivationMessage.class);
-        i.putExtra("praiseOrWarn",1);
-        startActivity(i);
-        */
-
         // check settings for initialization
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-        // TODO activate line below for init settings every start
-        //preferences.edit().putBoolean("initialized", false).apply();
         if(!preferences.getBoolean("initialized",false)) {
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);

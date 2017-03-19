@@ -19,7 +19,7 @@ public class LeistungstestsExercise extends Exercise {
         @Override
         public Exercise createFromParcel(Parcel parcel) {
             Exercise leistungstests = new LeistungstestsExercise();
-            leistungstests.activity = parcel.readString();
+            leistungstests.exercise = parcel.readString();
             leistungstests.weighting = parcel.readDouble();
             leistungstests.timeMinutes = parcel.readInt();
             leistungstests.timeHours = parcel.readInt();

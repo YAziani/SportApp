@@ -10,9 +10,7 @@ public class Fragebogen {
     public Integer mäßigebewegung;
     public Integer intensivebewegung;
     public Integer sportlichaktiv;
-    public Integer bewegungscoring;
-    public Integer sportscoring;
-    public Integer gesamtscoring;
+
     public Integer zufußzurarbeit;
     public Integer zufußeinkaufen;
     public Integer radzurarbeit;
@@ -30,5 +28,7 @@ public class Fragebogen {
     public String aktivitätcname;
     public Integer aktivitätc;
 
-
+    public Integer bewegungscoring;
+    public Integer sportscoring;
+    public Integer gesamtscoring;
 }

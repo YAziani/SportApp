@@ -18,7 +18,7 @@ public class ReinerAufenthaltExercise extends Exercise {
         public Exercise createFromParcel(Parcel parcel) {
             Exercise ReinerAufenthalt = new ReinerAufenthaltExercise() {
             };
-            ReinerAufenthalt.activity = parcel.readString();
+            ReinerAufenthalt.exercise = parcel.readString();
             ReinerAufenthalt.weighting = parcel.readDouble();
             ReinerAufenthalt.timeMinutes = parcel.readInt();
             ReinerAufenthalt.timeHours = parcel.readInt();

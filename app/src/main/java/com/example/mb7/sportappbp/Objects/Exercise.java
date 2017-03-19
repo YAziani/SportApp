@@ -3,15 +3,13 @@ package com.example.mb7.sportappbp.Objects;
 import android.os.Parcel;
 import android.os.Parcelable;
 
-import java.io.Serializable;
-
 /**
  * Created by Basti on 28.01.2017.
  */
 
 public abstract class Exercise implements Parcelable {
 
-    String activity;
+    String exercise;
     double weighting;
     int timeMinutes;
     int timeHours;
@@ -21,8 +19,8 @@ public abstract class Exercise implements Parcelable {
         return this.weighting;
     }
 
-    public String getActivity() {
-        return this.activity;
+    public String getExercise() {
+        return this.exercise;
     }
 
     public int getTimeMunites() {
@@ -33,8 +31,8 @@ public abstract class Exercise implements Parcelable {
         return this.timeHours;
     }
 
-    public void setActivity(String activity) {
-        this.activity = activity;
+    public void setExercise(String exercise) {
+        this.exercise = exercise;
     }
 
     public void setTimeMinutes(int timeMinutes) {
@@ -52,7 +50,7 @@ public abstract class Exercise implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(activity);
+        parcel.writeString(exercise);
         parcel.writeDouble(weighting);
         parcel.writeInt(timeMinutes);
         parcel.writeInt(timeHours);

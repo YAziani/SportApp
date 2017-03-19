@@ -18,7 +18,7 @@ public class WellnessExercise extends Exercise {
         public Exercise createFromParcel(Parcel parcel) {
             Exercise wellness = new WellnessExercise() {
             };
-            wellness.activity = parcel.readString();
+            wellness.exercise = parcel.readString();
             wellness.weighting = parcel.readDouble();
             wellness.timeMinutes = parcel.readInt();
             wellness.timeHours = parcel.readInt();

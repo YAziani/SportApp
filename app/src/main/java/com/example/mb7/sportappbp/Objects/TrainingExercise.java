@@ -18,7 +18,7 @@ public class TrainingExercise extends Exercise {
         public Exercise createFromParcel(Parcel parcel) {
             Exercise training = new TrainingExercise() {
             };
-            training.activity = parcel.readString();
+            training.exercise = parcel.readString();
             training.weighting = parcel.readDouble();
             training.timeMinutes = parcel.readInt();
             training.timeHours = parcel.readInt();

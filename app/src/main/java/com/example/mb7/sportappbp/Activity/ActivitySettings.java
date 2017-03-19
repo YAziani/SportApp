@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp.Activity;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
 
@@ -29,6 +30,13 @@ public class ActivitySettings extends Activity {
             addPreferencesFromResource(R.xml.preferences);
         }
 
+    }
+
+    @Override
+    public void onBackPressed() {
+        Intent i = new Intent(this, ActivityMain.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        startActivity(i);
     }
 }
 

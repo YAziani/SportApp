@@ -26,7 +26,7 @@ public class MotivationMessage extends MotivationMethod{
     public boolean run(String trainingStartTime) {
         if(timeTillTraining(trainingStartTime) == 5) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
-            preferences.edit().putBoolean("motivationMessage", true).apply();
+            preferences.edit().putBoolean("motivationMessage", true).commit();
             notifyUser();
             return true;
         }

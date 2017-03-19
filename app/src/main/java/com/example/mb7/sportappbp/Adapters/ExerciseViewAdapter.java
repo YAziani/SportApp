@@ -6,7 +6,6 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.R;
 
@@ -46,7 +45,7 @@ public class ExerciseViewAdapter extends BaseAdapter{
             view = _context.getLayoutInflater().inflate(R.layout.lst_exercisecell, null);
 
         TextView txtTitle =(TextView) view.findViewById(R.id.txtExercise);
-        txtTitle.setText(exercise.getActivity());
+        txtTitle.setText(exercise.getExercise());
 
         TextView txtText = (TextView) view.findViewById(R.id.txtDuration);
         txtText.setText(String.valueOf(exercise.getTimeHours()) + " Stunden " + exercise.getTimeMunites() + " Minuten");

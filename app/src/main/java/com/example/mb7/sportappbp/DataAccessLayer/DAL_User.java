@@ -2,6 +2,8 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 
 import android.util.Log;
 
+import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
+import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
@@ -171,6 +173,147 @@ public class DAL_User {
     }
 
     /**
+     * Speichert die Scorings des Fitnessfragbogens in der Datenbank.
+     * @param user
+     * @param finessfragebogen
+     */
+    static public void InsertFitnessFragebogen(User user, FitnessFragebogen finessfragebogen)
+    {
+        try
+        {
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/FitnessFragebogen/" );
+            Firebase newChildRef = ref.push();
+
+                Firebase childscorekraft = newChildRef.child("Score Kraft");
+                childscorekraft.setValue(finessfragebogen.scorekraft);
+
+                Firebase childscoreausdauer = newChildRef.child("Score Ausdauer");
+                childscoreausdauer.setValue(finessfragebogen.scoreausdauer);
+
+                Firebase childscorekoordination = newChildRef.child("Score Koordination");
+                childscorekoordination.setValue(finessfragebogen.scorekoordination);
+
+                Firebase childscorebewglichkeit = newChildRef.child("Score Beweglichkeit");
+                childscorebewglichkeit.setValue(finessfragebogen.scorebeweglichkeit);
+
+                Firebase childscoregesamt = newChildRef.child("Gesamtscore");
+                childscoregesamt.setValue(finessfragebogen.scoregesamt);
+
+        }
+        catch (Exception exception)
+        {
+            String s = exception.getMessage();
+            System.out.println(s);
+        }
+        finally
+        {
+
+        }
+
+    }
+
+    /**
+     * Speichert Antworten und Scoring des BSA Fragebogens.
+     * @param user
+     * @param fragebogen
+     */
+    static public void InsertFragebogen(User user, Fragebogen fragebogen)
+    {
+        try
+        {
+
+
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" );
+
+            Firebase newChildRef = ref.push();
+
+            Firebase childberufstätig = newChildRef.child("Berufstätig");
+            childberufstätig.setValue(fragebogen.berufstätig);
+
+            Firebase childsitzendetätigkeiten = newChildRef.child("Sitzende Tätigkeiten");
+            childsitzendetätigkeiten.setValue(fragebogen.sitzendetätigkeiten);
+
+            Firebase childmäßigebewegung = newChildRef.child("Mäßige Bewegung");
+            childmäßigebewegung.setValue(fragebogen.mäßigebewegung);
+
+            Firebase childintensivebewegung = newChildRef.child("Intensive Bewegung");
+            childintensivebewegung.setValue(fragebogen.intensivebewegung);
+
+            Firebase childsportlichaktiv = newChildRef.child("Sportlich Aktiv");
+            childsportlichaktiv.setValue(fragebogen.sportlichaktiv);
+
+            Firebase childzufußzurarbeit = newChildRef.child("Zu Fuß zur Arbeit");
+            childzufußzurarbeit.setValue(fragebogen.zufußzurarbeit);
+
+            Firebase childzufußeinkaufen = newChildRef.child("Zu Fuß einkaufen");
+            childzufußeinkaufen.setValue(fragebogen.zufußeinkaufen);
+
+            Firebase childradzurarbeit = newChildRef.child("Mit dem Rad zur Arbeit");
+            childradzurarbeit.setValue(fragebogen.radzurarbeit);
+
+            Firebase childradfahren = newChildRef.child("Radfahren");
+            childradfahren.setValue(fragebogen.radfahren);
+
+            Firebase childspazieren = newChildRef.child("Spazieren");
+            childspazieren.setValue(fragebogen.spazieren);
+
+            Firebase childgartenarbeit = newChildRef.child("Gartenarbeit");
+            childgartenarbeit.setValue(fragebogen.gartenarbeit);
+
+            Firebase childhausarbeit = newChildRef.child("Hausarbeit");
+            childhausarbeit.setValue(fragebogen.hausarbeit);
+
+            Firebase childpflegearbeit = newChildRef.child("Pflegearbeit");
+            childpflegearbeit.setValue(fragebogen.pflegearbeit);
+
+            Firebase childtreppensteigen = newChildRef.child("Treppensteigen");
+            childtreppensteigen.setValue(fragebogen.treppensteigen);
+
+            Firebase childaktaname = newChildRef.child("Aktivität A Name");
+            childaktaname.setValue(fragebogen.aktivitätaname);
+
+            Firebase childaktaanzahl = newChildRef.child("Aktivität A Zeit");
+            childaktaanzahl.setValue(fragebogen.aktivitäta);
+
+            Firebase childaktbname = newChildRef.child("Aktivität B Name");
+            childaktbname.setValue(fragebogen.aktivitätbname);
+
+            Firebase childaktbanzahl = newChildRef.child("Aktivität B Zeit");
+            childaktbanzahl.setValue(fragebogen.aktivitätb);
+
+            Firebase childaktcname = newChildRef.child("Aktivität C Name");
+            childaktcname.setValue(fragebogen.aktivitätcname);
+
+            Firebase childaktcanzahl = newChildRef.child("Aktivität C Zeit");
+            childaktcanzahl.setValue(fragebogen.aktivitätc);
+
+            Firebase childbewegungscore = newChildRef.child("Score Bewegung");
+            childbewegungscore.setValue(fragebogen.bewegungscoring);
+
+            Firebase childsportscore = newChildRef.child("Score Sport");
+            childsportscore.setValue(fragebogen.sportscoring);
+
+            Firebase childscore = newChildRef.child("Gesamtscore");
+            childscore.setValue(fragebogen.gesamtscoring);
+
+        }
+        catch (Exception exception)
+        {
+            String s = exception.getMessage();
+            System.out.println(s);
+        }
+        finally
+        {
+
+        }
+
+    }
+
+
+
+
+
+    /**
      * inserts ratings into the database
      * @param user the current user
      * @param listMethod list containing the rated methods
@@ -214,3 +357,5 @@ public class DAL_User {
         }
     }
 }
+
+

@@ -16,6 +16,7 @@ import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter2;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
+import com.firebase.client.Firebase;
 
 
 /**
@@ -47,10 +48,13 @@ public class ActivityFragebogen extends AppCompatActivity{
     int itemmäßigebewegung;
     int itemintensivebewegung;
 
+    private Firebase mRootRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bsaquestions);
+        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
         this.SetControlCaptions();
         this.InitializeControlls();
         this.bewegungberuf();
@@ -80,7 +84,7 @@ public class ActivityFragebogen extends AppCompatActivity{
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_save:
-                //SaveData();
+                SaveData();
                 finish();
                 Toast.makeText(ActivityMain.activityMain,
                         "Erfolgreich gespeichert" + "\n" +
@@ -134,10 +138,9 @@ public class ActivityFragebogen extends AppCompatActivity{
         return fragebogen;
     }
 
-    //TODO In Datenbank speichern
     private boolean SaveData(){
         Fragebogen fragebogen = getData();
-        //ActivityMain.mainUser.SaveFragebogen(fragebogen);
+        ActivityMain.mainUser.SaveFragebogen(fragebogen);
 
         return true;
 

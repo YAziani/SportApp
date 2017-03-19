@@ -12,6 +12,10 @@ import com.example.mb7.sportappbp.Adapters.FitnessFragebogenViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
+import com.firebase.client.Firebase;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
 
 /**
  * Created by Felix on 01.03.2017.
@@ -59,11 +63,14 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     int koordinationsscore;
     int gesamtscore;
 
+    private Firebase mRootRef;
+
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitnessquestions);
 
+        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
         this.InitializeControlls();
         super.onStart();
 
@@ -89,7 +96,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_save:
-                //SaveData();
+                SaveData();
                 finish();
                 Toast.makeText(ActivityMain.activityMain,
                                 "Erfolgreich gespeichert \n" +
@@ -102,21 +109,20 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     }
 
     private FitnessFragebogen getData(){
-        FitnessFragebogen fragebogen=new FitnessFragebogen();
+        FitnessFragebogen fitnessfragebogen=new FitnessFragebogen();
 
-        fragebogen.scorekraft=kraftscore;
-        fragebogen.scoreausdauer=ausdauerscore;
-        fragebogen.scorebeweglichkeit=beweglichkeitsscore;
-        fragebogen.scorekoordination=koordinationsscore;
-        fragebogen.scoregesamt=gesamtscore;
+        fitnessfragebogen.scorekraft=kraftscoring();
+        fitnessfragebogen.scoreausdauer=ausdauerscoring();
+        fitnessfragebogen.scorebeweglichkeit=bewglichkeitsscoring();
+        fitnessfragebogen.scorekoordination=koordinationscoring();
+        fitnessfragebogen.scoregesamt=scoringwert();
 
-        return fragebogen;
+        return fitnessfragebogen;
     }
 
-    //TODO In Datenbank speichern
     private boolean SaveData() {
-        FitnessFragebogen fragebogen = getData();
-        //ActivityMain.mainUser.SaveFitnessFragebogen(fragebogen);
+        FitnessFragebogen fitnessfragebogen = getData();
+        ActivityMain.mainUser.SaveFitnessFragebogen(fitnessfragebogen);
 
         return true;
     }
@@ -247,13 +253,28 @@ private int scoringrechnung(int index){
     }
 }
 
-    private int scoringwert(){
-        kraftscore=scoringrechnung(lststuhlaufstehen.getIndex())+scoringrechnung(lsteinkaufskorb.getIndex())+scoringrechnung(lstkistetragen.getIndex())+scoringrechnung(lstsitup.getIndex())+scoringrechnung(lstkofferheben.getIndex())+scoringrechnung(lstkoffertragen.getIndex())+scoringrechnung(lsthantelstemmen.getIndex());
-        ausdauerscore=scoringrechnung(lstflottgehen.getIndex())+scoringrechnung(lsttreppengehen.getIndex())+scoringrechnung(lst2kmgehen.getIndex())+scoringrechnung(lst1kmjoggen.getIndex())+scoringrechnung(lst30minjoggen.getIndex())+scoringrechnung(lst60minjoggen.getIndex())+scoringrechnung(lstmarathon.getIndex());
-        beweglichkeitsscore=scoringrechnung(lstanziehen.getIndex())+scoringrechnung(lstsitzendboden.getIndex())+scoringrechnung(lstschuhebinden.getIndex())+scoringrechnung(lstrueckenberuehren.getIndex())+scoringrechnung(lststehendboden.getIndex())+scoringrechnung(lstkopfknie.getIndex())+scoringrechnung(lstbruecke.getIndex());
-        koordinationsscore=scoringrechnung(lsttrepperunter.getIndex())+scoringrechnung(lsteinbeinstand.getIndex())+scoringrechnung(lstpurzelbaum.getIndex())+scoringrechnung(lstballprellen.getIndex())+scoringrechnung(lstzaunsprung.getIndex())+scoringrechnung(lstkurveohnehand.getIndex())+scoringrechnung(lstradschlagen.getIndex());
+private int kraftscoring(){
+    kraftscore=scoringrechnung(lststuhlaufstehen.getIndex())+scoringrechnung(lsteinkaufskorb.getIndex())+scoringrechnung(lstkistetragen.getIndex())+scoringrechnung(lstsitup.getIndex())+scoringrechnung(lstkofferheben.getIndex())+scoringrechnung(lstkoffertragen.getIndex())+scoringrechnung(lsthantelstemmen.getIndex());
+    return kraftscore;
+}
 
-        gesamtscore=kraftscore+ausdauerscore+beweglichkeitsscore+koordinationsscore;
+private int ausdauerscoring(){
+    ausdauerscore=scoringrechnung(lstflottgehen.getIndex())+scoringrechnung(lsttreppengehen.getIndex())+scoringrechnung(lst2kmgehen.getIndex())+scoringrechnung(lst1kmjoggen.getIndex())+scoringrechnung(lst30minjoggen.getIndex())+scoringrechnung(lst60minjoggen.getIndex())+scoringrechnung(lstmarathon.getIndex());
+    return ausdauerscore;
+    }
+
+    private int bewglichkeitsscoring(){
+        beweglichkeitsscore=scoringrechnung(lstanziehen.getIndex())+scoringrechnung(lstsitzendboden.getIndex())+scoringrechnung(lstschuhebinden.getIndex())+scoringrechnung(lstrueckenberuehren.getIndex())+scoringrechnung(lststehendboden.getIndex())+scoringrechnung(lstkopfknie.getIndex())+scoringrechnung(lstbruecke.getIndex());
+        return beweglichkeitsscore;
+    }
+
+    private int koordinationscoring(){
+        koordinationsscore=scoringrechnung(lsttrepperunter.getIndex())+scoringrechnung(lsteinbeinstand.getIndex())+scoringrechnung(lstpurzelbaum.getIndex())+scoringrechnung(lstballprellen.getIndex())+scoringrechnung(lstzaunsprung.getIndex())+scoringrechnung(lstkurveohnehand.getIndex())+scoringrechnung(lstradschlagen.getIndex());
+        return koordinationsscore;
+    }
+
+    private int scoringwert(){
+               gesamtscore=kraftscoring()+ausdauerscoring()+bewglichkeitsscoring()+koordinationscoring();
 
         return gesamtscore;
     }

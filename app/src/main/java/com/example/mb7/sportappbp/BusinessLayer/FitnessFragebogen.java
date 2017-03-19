@@ -5,6 +5,7 @@ package com.example.mb7.sportappbp.BusinessLayer;
  */
 
 public class FitnessFragebogen {
+    public String Date;
     public Integer scorekraft;
     public Integer scoreausdauer;
     public Integer scorekoordination;

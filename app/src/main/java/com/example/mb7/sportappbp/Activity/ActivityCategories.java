@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -36,6 +37,13 @@ public class ActivityCategories extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
+
+        ActionBar actionbar = getActionBar();
+        if(actionbar != null){
+            actionbar.setHomeButtonEnabled(false);
+            actionbar.setDisplayHomeAsUpEnabled(false);
+            actionbar.setDisplayShowHomeEnabled(false);
+        }
 
         exerciseList = receiveExerciseList();
 

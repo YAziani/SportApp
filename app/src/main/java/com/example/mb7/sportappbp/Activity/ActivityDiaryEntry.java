@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -81,7 +82,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         diaryEntryViewAdapter = new DiaryEntryViewAdapter(ActivityDiaryEntry.this, listCategories, diaryEntry, listIcons);
         gridView = (GridView) findViewById(R.id.gridViewExercise);
         gridView.setAdapter(diaryEntryViewAdapter);
-
     }
 
     @Override

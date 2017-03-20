@@ -39,7 +39,7 @@ public class ActivityExercises extends AppCompatActivity {
     private int timeMinutes;
     private int timeHours;
 
-    private String chosenExercise;
+    //private String chosenExercise;
     private String selectedCategory;
 
     private boolean finalResult = false;
@@ -76,11 +76,13 @@ public class ActivityExercises extends AppCompatActivity {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
-                chosenExercise = (String) adapterView.getItemAtPosition(position);
+                String selectedExercise = (String) adapterView.getItemAtPosition(position);
                 Exercise exercise = createSelectedCategoryExercise();
-                exercise.setExercise(chosenExercise);
+
+                exercise.setExercise(selectedExercise);
                 exercise.setTimeHours(00);
                 exercise.setTimeMinutes(00);
+
                 numberPicker(exercise);
             }
         });
@@ -90,8 +92,10 @@ public class ActivityExercises extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 Exercise selectedExercise = (Exercise) adapterView.getItemAtPosition(position);
+
                 //exerciseList.remove(selectedExercise);
                 //selectedExercise.setExercise(selectedExercise.getExercise());
+
                 numberPicker(selectedExercise);
             }
         });
@@ -128,53 +132,7 @@ public class ActivityExercises extends AppCompatActivity {
         }
     }
 
-    private ArrayList getListOfActivities(String category){
 
-        ArrayList<String> result = new ArrayList<>();
-
-        switch(category){
-            case "Leistungstests":
-                result.add("Spiroergometrie");
-                result.add("Laktattest");
-                result.add("Beweglichkeitstest");
-                result.add("Krafttest");
-                result.add("Anderer Leistungstest");
-                return result;
-
-            case "Training":
-                result.add("Krafttraining");
-                result.add("Laufen");
-                result.add("Cycling");
-                result.add("Beweglichkeit/Flexibilität");
-                result.add("Yoga");
-                result.add("Rückentraining");
-                result.add("Progressive");
-                result.add("Muskelentspannung");
-                result.add("Autogenes Training");
-                result.add("Meditation");
-                result.add("Anderes Training");
-
-                return result;
-
-            case "Wellness":
-                result.add("Sauna");
-                result.add("Dampfbad");
-                result.add("Massage");
-                result.add("Solarium");
-                result.add("Andere Wellnessaktivität");
-                return result;
-
-            case "Reiner Aufenthalt":
-                result.add("Soziale Kontakte");
-                result.add("Bistro");
-                result.add("Andere");
-                return result;
-            default:
-                result.add("Kategorie falsch ausgeählt");
-                return result;
-        }
-
-    }
 
     private String receiveCategory(){
         String category = "";
@@ -307,13 +265,19 @@ public class ActivityExercises extends AppCompatActivity {
             @Override
             public void onClick(View v) {
 
-                //save the picked numbers
-                //exercise.setExercise(selectedCategory);
-                exerciseList.remove(exercise);
-                exercise.setTimeHours(npHoures.getValue());
-                exercise.setTimeMinutes(npMinutes.getValue());
-                dialog.dismiss();
-                returnResult(exercise);
+                int m = npMinutes.getValue();
+                int h = npHoures.getValue();
+
+                if(m != 0 || h != 0) {
+                    //save the picked numbers
+                    exerciseList.remove(exercise);
+                    exercise.setTimeHours(h);
+                    exercise.setTimeMinutes(m);
+                    dialog.dismiss();
+                    returnResult(exercise);
+                }
+                else
+                    Toast.makeText(ActivityExercises.this, "Es wurde keine Zeit gesetzt!", Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -322,7 +286,7 @@ public class ActivityExercises extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                exerciseList.add(exercise);
+                //exerciseList.add(exercise);
                 //close the dialog windows without doing anything
                 dialog.dismiss();
             }
@@ -330,6 +294,55 @@ public class ActivityExercises extends AppCompatActivity {
 
         //show the dialog window
         dialog.show();
+
+    }
+
+
+    private ArrayList getListOfActivities(String category){
+
+        ArrayList<String> result = new ArrayList<>();
+
+        switch(category){
+            case "Leistungstests":
+                result.add("Spiroergometrie");
+                result.add("Laktattest");
+                result.add("Beweglichkeitstest");
+                result.add("Krafttest");
+                result.add("Anderer Leistungstest");
+                return result;
+
+            case "Training":
+                result.add("Krafttraining");
+                result.add("Laufen");
+                result.add("Cycling");
+                result.add("Beweglichkeit/Flexibilität");
+                result.add("Yoga");
+                result.add("Rückentraining");
+                result.add("Progressive");
+                result.add("Muskelentspannung");
+                result.add("Autogenes Training");
+                result.add("Meditation");
+                result.add("Anderes Training");
+
+                return result;
+
+            case "Wellness":
+                result.add("Sauna");
+                result.add("Dampfbad");
+                result.add("Massage");
+                result.add("Solarium");
+                result.add("Andere Wellnessaktivität");
+                return result;
+
+            case "Reiner Aufenthalt":
+                result.add("Soziale Kontakte");
+                result.add("Bistro");
+                result.add("Andere");
+                return result;
+            default:
+                result.add("Kategorie falsch ausgeählt");
+                return result;
+        }
 
     }
 }

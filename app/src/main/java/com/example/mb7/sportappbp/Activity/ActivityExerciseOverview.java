@@ -220,7 +220,7 @@ public class ActivityExerciseOverview extends AppCompatActivity {
         });
 
         //set the action for cancel button
-        Button btnCancel = (Button) dialog.findViewById(R.id.npCancle);
+        Button btnCancel = (Button) dialog.findViewById(R.id.npCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

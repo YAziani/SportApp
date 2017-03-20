@@ -77,10 +77,10 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="Cancle"
+            android:text="Cancel"
             android:layout_width="128dp"
             android:layout_height="36dp"
-            android:id="@+id/npCancle"
+            android:id="@+id/npCancel"
             android:layout_weight="1"
             android:paddingBottom="8dp"
             android:paddingLeft="8dp"

@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -89,18 +90,7 @@ public class ActivityExercises extends AppCompatActivity {
             }
         });
 
-        listViewSelected.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-
-                Exercise selectedExercise = (Exercise) adapterView.getItemAtPosition(position);
-
-                //exerciseList.remove(selectedExercise);
-                //selectedExercise.setExercise(selectedExercise.getExercise());
-
-                numberPicker(selectedExercise);
-            }
-        });
+        registerForContextMenu(listViewSelected);
     }
 
     @Override
@@ -134,6 +124,33 @@ public class ActivityExercises extends AppCompatActivity {
         }
     }
 
+    @Override
+    public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
+        super.onCreateContextMenu(menu, v, menuInfo);
+
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_context_menu, menu);
+    }
+
+
+    @Override
+    public boolean onContextItemSelected(MenuItem item) {
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+
+            case R.id.delete_id:
+                exerciseList.remove(info.position);
+                exerciseViewAdapter.notifyDataSetChanged();
+                return true;
+            case R.id.edit_id:
+                numberPicker(exerciseList.get(info.position));
+                return true;
+            default:
+                return super.onContextItemSelected(item);
+        }
+    }
 
 
     private String receiveCategory(){
@@ -164,12 +181,8 @@ public class ActivityExercises extends AppCompatActivity {
      */
     private void returnResult(Exercise result){
 
-        //Exercise result = createSelectedCategoryExercise();
-
         if(result != null) {
-            //result.setExercise(chosenExercise);
-            //result.setTimeMinutes(timeMinutes);
-            //result.setTimeHours(timeHours);
+
             exerciseList.add(result);
 
             Intent intent = new Intent();
@@ -284,7 +297,7 @@ public class ActivityExercises extends AppCompatActivity {
         });
 
         //set the action for cancel button
-        Button btnCancel = (Button) dialog.findViewById(R.id.npCancle);
+        Button btnCancel = (Button) dialog.findViewById(R.id.npCancel);
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {

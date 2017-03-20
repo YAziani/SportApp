@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -11,8 +12,10 @@ import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ArrayAdapter;
+import android.widget.Button;
 import android.widget.ExpandableListView;
 import android.widget.ListView;
+import android.widget.NumberPicker;
 import android.widget.Toast;
 
 
@@ -68,6 +71,9 @@ public class ActivityExerciseOverview extends AppCompatActivity {
             case R.id.delete_id:
                 exerciseList.remove(info.position);
                 exerciseViewAdapter.notifyDataSetChanged();
+                return true;
+            case R.id.edit_id:
+                numberPicker(exerciseList.get(info.position));
                 return true;
             default:
                 return super.onContextItemSelected(item);
@@ -152,4 +158,80 @@ public class ActivityExerciseOverview extends AppCompatActivity {
         finish();
 
     }
+
+    private void numberPicker(final Exercise exercise){
+
+        //create dialog window
+        final Dialog dialog = new Dialog(ActivityExerciseOverview.this);
+
+        //set the layout for the dialog window
+        dialog.setContentView(R.layout.dialog_two_numberpicker);
+
+
+        final String[] nums = new String[30];
+        for(int i=0; i<nums.length; i++) {
+            nums[i] = Integer.toString(i);
+        }
+
+        //create the number picker for hours und set the possible values
+        final NumberPicker npHoures = (NumberPicker)dialog.findViewById(R.id.numberPickerHours);
+        npHoures.setMaxValue(24);
+        npHoures.setMinValue(0);
+        npHoures.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int i) {
+                return String.format("%02d", i);
+            }
+        });
+        npHoures.setValue(exercise.getTimeHours());
+
+        //create the number picker for minutes und set the possible values
+        final NumberPicker npMinutes = (NumberPicker)dialog.findViewById(R.id.numberPickerMinutes);
+        npMinutes.setMaxValue(59);
+        npMinutes.setMinValue(0);
+        npMinutes.setFormatter(new NumberPicker.Formatter() {
+            @Override
+            public String format(int i) {
+                return String.format("%02d", i);
+            }
+        });
+        npMinutes.setValue(exercise.getTimeMunites());
+
+        //set the action for ok button
+        Button btnOk = (Button)dialog.findViewById(R.id.npOk);
+        btnOk.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
+                int m = npMinutes.getValue();
+                int h = npHoures.getValue();
+
+                if(m != 0 || h != 0) {
+                    //save the picked numbers
+                    exercise.setTimeHours(h);
+                    exercise.setTimeMinutes(m);
+                    dialog.dismiss();
+                    exerciseViewAdapter.notifyDataSetChanged();
+
+                }
+                else
+                    Toast.makeText(ActivityExerciseOverview.this, "Es wurde keine Zeit gesetzt!", Toast.LENGTH_SHORT).show();
+            }
+        });
+
+        //set the action for cancel button
+        Button btnCancel = (Button) dialog.findViewById(R.id.npCancle);
+        btnCancel.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                //close the dialog windows without doing anything
+                dialog.dismiss();
+            }
+        });
+
+        //show the dialog window
+        dialog.show();
+
+    }
+
 }

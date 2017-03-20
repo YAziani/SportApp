@@ -84,6 +84,8 @@ public class ActivityExercises extends AppCompatActivity {
                 exercise.setTimeMinutes(00);
 
                 numberPicker(exercise);
+
+
             }
         });
 

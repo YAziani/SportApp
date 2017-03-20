@@ -117,7 +117,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
             SaveData();
 
         else//Display answer
-        Toast.makeText(ActivityDiaryEntry.this, "Es wurden keine Einträge registriert!" , Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityDiaryEntry.this, "Es wurden keine Einträge registriert!" , Toast.LENGTH_SHORT).show();
 
         finish();
     }
@@ -142,9 +142,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     private boolean SaveData(){
 
-        System.out.print("war hier loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooool");
-        //StimmungAbfrage stimmungAbfrage  = getData();
-        //ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
         ActivityMain.mainUser.GetLastTodayDiaryEntry(new Date());
         ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
         Toast.makeText(ActivityDiaryEntry.this, "Eintrag gespeichert!" , Toast.LENGTH_SHORT).show();

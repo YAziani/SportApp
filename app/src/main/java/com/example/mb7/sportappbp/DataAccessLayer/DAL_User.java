@@ -30,13 +30,36 @@ public class DAL_User {
         {
             final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
             URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/Stimmungsabfrage/" + fDate);
-            Firebase root = new Firebase(url.toString());
+            final Firebase root = new Firebase(url.toString());
+
             root.addListenerForSingleValueEvent(new ValueEventListener() {
 
+                // Hier kriegst du den Knoten -KfNx5TBo4yQpfN07Ekh
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    // ((ChildrenNode) dataSnapshot.node.node).children.iterator().next().getValue()
-                    //
+                    String  strKey = "";
+
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        // Hier bekommst du den Knoten V oder N
+                        strKey = child.getKey();
+                        root.child(strKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                                           @Override
+                                                                           public void onDataChange(DataSnapshot dataSnapshot) {
+                                                                               for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                                                                   // Hier bekommst du dann letztlich die Stimmungsabfrage
+                                                                                   StimmungAbfrage stimmungAbfrage = child.getValue(StimmungAbfrage.class);
+                                                                                   stimmungAbfrage.Angespannt = stimmungAbfrage.Angespannt;
+
+                                                                               }
+                                                                          }
+
+                                                                          @Override
+                                                                          public void onCancelled(FirebaseError firebaseError) {
+
+                                                                          }
+                                                                      });
+                }
+
 
                 }
 

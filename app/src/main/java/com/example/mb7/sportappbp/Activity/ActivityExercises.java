@@ -28,7 +28,7 @@ import java.util.ArrayList;
 public class ActivityExercises extends AppCompatActivity {
 
 
-    private ListView listview;
+    private ListView listviewExercises;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<String> exLst;
     private ArrayList<Exercise> exerciseList;
@@ -51,29 +51,48 @@ public class ActivityExercises extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises);
 
+        //get the selected category of the previous activity (categories)
         selectedCategory = receiveCategory();
+        //get the already selected exercises
         exerciseList = receiveExerciseList();
 
         //Set title of the label
         setTitle(selectedCategory);
-        //get the list of the activity for the chosen category
+        //get the list of the activity for the selected category
         exLst = getListOfActivities(selectedCategory);
 
-        listview = (ListView) findViewById(R.id.listviewExercises);
+        //get the listviewExercises and set the adapter for the list of exercises
+        listviewExercises = (ListView) findViewById(R.id.listviewExercises);
         arrayAdapter = new ArrayAdapter<String>(ActivityExercises.this, android.R.layout.simple_list_item_1, exLst);
-        listview.setAdapter(arrayAdapter);
+        listviewExercises.setAdapter(arrayAdapter);
 
+        //get the listviewExercises and set the adapter for the select4ed exercises
         listViewSelected = (ListView) findViewById(R.id.listviewExercisesSelected);
         exerciseViewAdapter = new ExerciseViewAdapter(ActivityExercises.this, exerciseList);
         listViewSelected.setAdapter(exerciseViewAdapter);
 
-
-        listview.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+        //set action when an exercise has been selected
+        listviewExercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 chosenExercise = (String) adapterView.getItemAtPosition(position);
-                numberPicker();
+                Exercise exercise = createSelectedCategoryExercise();
+                exercise.setExercise(chosenExercise);
+                exercise.setTimeHours(00);
+                exercise.setTimeMinutes(00);
+                numberPicker(exercise);
+            }
+        });
+
+        listViewSelected.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+
+                Exercise selectedExercise = (Exercise) adapterView.getItemAtPosition(position);
+                //exerciseList.remove(selectedExercise);
+                //selectedExercise.setExercise(selectedExercise.getExercise());
+                numberPicker(selectedExercise);
             }
         });
     }
@@ -135,7 +154,7 @@ public class ActivityExercises extends AppCompatActivity {
                 result.add("Meditation");
                 result.add("Anderes Training");
 
-            return result;
+                return result;
 
             case "Wellness":
                 result.add("Sauna");
@@ -183,14 +202,14 @@ public class ActivityExercises extends AppCompatActivity {
     /**
      * This method returns the result of the request. The result is the chosen activity
      */
-    private void returnResult(){
+    private void returnResult(Exercise result){
 
-        Exercise result = selectedExerciseCategory();
+        //Exercise result = createSelectedCategoryExercise();
 
         if(result != null) {
-            result.setExercise(chosenExercise);
-            result.setTimeMinutes(timeMinutes);
-            result.setTimeHours(timeHours);
+            //result.setExercise(chosenExercise);
+            //result.setTimeMinutes(timeMinutes);
+            //result.setTimeHours(timeHours);
             exerciseList.add(result);
 
             Intent intent = new Intent();
@@ -219,7 +238,8 @@ public class ActivityExercises extends AppCompatActivity {
 
     }
 
-    private Exercise selectedExerciseCategory(){
+
+    private Exercise createSelectedCategoryExercise(){
 
         if(selectedCategory.equals("Leistungstests")){
             return new LeistungstestsExercise();
@@ -243,7 +263,7 @@ public class ActivityExercises extends AppCompatActivity {
      * will be pressed, the data will be saved. The cancel button is going to close the dialog
      * window
      */
-    private void numberPicker(){
+    private void numberPicker(final Exercise exercise){
 
         //create dialog window
         final Dialog dialog = new Dialog(ActivityExercises.this);
@@ -267,6 +287,7 @@ public class ActivityExercises extends AppCompatActivity {
                 return String.format("%02d", i);
             }
         });
+        npHoures.setValue(exercise.getTimeHours());
 
         //create the number picker for minutes und set the possible values
         final NumberPicker npMinutes = (NumberPicker)dialog.findViewById(R.id.numberPickerMinutes);
@@ -278,6 +299,7 @@ public class ActivityExercises extends AppCompatActivity {
                 return String.format("%02d", i);
             }
         });
+        npMinutes.setValue(exercise.getTimeMunites());
 
         //set the action for ok button
         Button btnOk = (Button)dialog.findViewById(R.id.npOk);
@@ -286,10 +308,12 @@ public class ActivityExercises extends AppCompatActivity {
             public void onClick(View v) {
 
                 //save the picked numbers
-                timeHours = npHoures.getValue();
-                timeMinutes = npMinutes.getValue();
+                //exercise.setExercise(selectedCategory);
+                exerciseList.remove(exercise);
+                exercise.setTimeHours(npHoures.getValue());
+                exercise.setTimeMinutes(npMinutes.getValue());
                 dialog.dismiss();
-                returnResult();
+                returnResult(exercise);
             }
         });
 
@@ -298,7 +322,7 @@ public class ActivityExercises extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-
+                exerciseList.add(exercise);
                 //close the dialog windows without doing anything
                 dialog.dismiss();
             }

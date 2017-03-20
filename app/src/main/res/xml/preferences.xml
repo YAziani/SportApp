@@ -39,4 +39,16 @@
                 android:targetClass="com.example.mb7.sportappbp.Activity.ActivitySettingInitializer" />
         </Preference>
     </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title="Präsentationsfunktionen"
+        android:key="pref_key_storage_settings">
+        <Preference
+            android:title="Präsentationsfunktionen">
+            <intent
+                android:action="android.intent.action.VIEW"
+                android:targetPackage="com.example.mb7.sportappbp"
+                android:targetClass="com.example.mb7.sportappbp.Activity.ActivityPresentationFunctions" />
+        </Preference>
+    </PreferenceCategory>
 </PreferenceScreen>

@@ -80,6 +80,18 @@ public class TbNotificationContent extends TabFragment {
 
     @Override
     public void onStart() {
+        if(rv != null && notifications != null) {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+            // setup notifications that appear only on specific occasions
+            final Notification nMotivationMessage = new Notification(
+                    "Schon gewusst?",
+                    "Wissenswertes über Sport",R.drawable.trainingseinheit);
+            if(preferences.getBoolean("motivationMessage",false)) {
+                notifications.add(nMotivationMessage);
+                preferences.edit().remove("motivationMessage").commit();
+            }
+            rv.setAdapter(new NotificationAdapter(notifications, this));
+        }
 
 //        NotificationAdapter temp;
 /*

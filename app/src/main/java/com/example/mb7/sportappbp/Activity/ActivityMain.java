@@ -190,11 +190,11 @@ public class ActivityMain extends AppCompatActivity {
             {
                 case 1:
                     tabFragment = new TbTaskContent();
-                    tabFragment.Initialize(activity,"Tasks");
+                    tabFragment.Initialize(activity,"Aufgaben");
                     return tabFragment;
                 case 2:
                     tabFragment = new TbNotificationContent();
-                    tabFragment.Initialize(activity,"Notfikation");
+                    tabFragment.Initialize(activity,"Notifikationen");
                     return tabFragment;
                 case 3:
                     tabFragment = new TbReportContent();
@@ -202,7 +202,7 @@ public class ActivityMain extends AppCompatActivity {
                     return tabFragment;
                 default:
                     tabFragment = new TbNotificationContent();
-                    tabFragment.Initialize(activity,"Notfikation");
+                    tabFragment.Initialize(activity,"Notifikationen");
                     return tabFragment;
             }
         }
@@ -284,7 +284,7 @@ public class ActivityMain extends AppCompatActivity {
             mViewPager.setCurrentItem(startTab);
             // refresh page
             if(mSectionsPagerAdapter.getItem(startTab) instanceof TbNotificationContent) {
-                mSectionsPagerAdapter.getItem(startTab).onStart();
+                ((TbNotificationContent) mSectionsPagerAdapter.getItem(startTab)).onStart();
             }
         }
     }

@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.content.Intent;
 import android.graphics.drawable.Drawable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -16,6 +17,9 @@ import com.firebase.ui.storage.images.FirebaseImageLoader;
 import com.google.firebase.storage.FirebaseStorage;
 import com.google.firebase.storage.StorageReference;
 
+/**
+ * activity showing motivation pictures from the database
+ */
 public class ActivityMotivationMessage extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -70,7 +74,16 @@ public class ActivityMotivationMessage extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // close activity
+        Intent i = new Intent(this,ActivityMain.class);
+        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+        i.putExtra("startTab",1);
+        startActivity(i);
         finish();
         return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        onOptionsItemSelected(null);
     }
 }

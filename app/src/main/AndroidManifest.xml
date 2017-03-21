@@ -50,7 +50,6 @@
         <activity android:name=".Activity.ActivityFitnessFragebogen" />
         <activity android:name=".Activity.ActivityMotivationMessage" />
         <activity android:name=".Activity.ActivityTrainQuestioning" />
-        <activity android:name=".Activity.ActivityPresentationFunctions"></activity>
     </application>
 
 </manifest>

@@ -36,7 +36,7 @@ public class ActivityDiary extends AppCompatActivity {
 
         allDiaryEntries = allDiaryEntries.getInstance();
 
-        //ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
+        ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
         //arrayAdapter.notifyDataSetChanged();
 
         //get the listView of the layout

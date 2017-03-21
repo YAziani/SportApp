@@ -200,7 +200,7 @@ public class DAL_User {
                                             diaryEntry.getExerciseList().add(exercise);
                                         }
                                         */
-
+                                        /*
                                         else if(child.getKey().equals("Taining")){
                                             TrainingExercise exercise = child.getValue(TrainingExercise.class);
                                             exercise.setCategory("Training");
@@ -221,9 +221,10 @@ public class DAL_User {
                                             exercise.setCategory("Wellness");
                                             diaryEntry.getExerciseList().add(exercise);
                                         }
+                                        */
 
                                     }
-                                    allDiaryEntries.getDiaryList().add(diaryEntry);
+                                    allDiaryEntries.getInstance().add(diaryEntry);
 
                                 }
 

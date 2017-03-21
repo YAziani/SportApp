@@ -8,10 +8,6 @@
     tools:context="com.example.mb7.sportappbp.Activity.ActivityChallenge">
 
     <ListView
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
-
-    <ListView
         android:id="@+id/listViewChallenge"
         android:layout_width="match_parent"
         android:layout_height="450dp"
@@ -30,7 +26,8 @@
         android:paddingLeft="16dp"
         android:paddingRight="16dp"
         android:paddingTop="20dp"
-        tools:background="@android:color/holo_blue_dark">
+        tools:background="@android:color/holo_blue_dark"
+        android:layout_above="@+id/listViewChallenge">
 
         <TextView
             android:id="@+id/textView5"

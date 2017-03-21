@@ -16,12 +16,12 @@ import java.util.ArrayList;
  * Created by Basti on 21.03.2017.
  */
 
-public class DiaryAdapter extends BaseAdapter {
+public class DiaryViewAdapter extends BaseAdapter {
 
     private Activity _context;
     private ArrayList<DiaryEntry> _diaryEntries;
 
-    public DiaryAdapter (Activity context, ArrayList<DiaryEntry> diaryEntries)
+    public DiaryViewAdapter(Activity context, ArrayList<DiaryEntry> diaryEntries)
     {
         _diaryEntries = diaryEntries;
         _context = context;
@@ -43,13 +43,14 @@ public class DiaryAdapter extends BaseAdapter {
         View view = convertView;
         DiaryEntry diaryEntry = _diaryEntries.get(position);
         if (view == null)
-            view = _context.getLayoutInflater().inflate(R.layout.lst_exercisecell, null);
+            view = _context.getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
 
-        TextView txtTitle =(TextView) view.findViewById(R.id.txtExercise);
-        txtTitle.setText(diaryEntry.getDate());
-
+        TextView txtTitle =(TextView) view.findViewById(android.R.id.text1);
+        txtTitle.setText("Vom " + diaryEntry.getDate() + ", um " + diaryEntry.getTime() + " Uhr");
+        /*
         TextView txtText = (TextView) view.findViewById(R.id.txtDuration);
         txtText.setText(diaryEntry.getTime() + " Uhr");
+        */
         return view;
     }
 

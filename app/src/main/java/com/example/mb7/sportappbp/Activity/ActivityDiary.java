@@ -5,24 +5,23 @@ import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
-import com.example.mb7.sportappbp.Adapters.DiaryAdapter;
+import com.example.mb7.sportappbp.Adapters.DiaryViewAdapter;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.Exercise;
+import com.example.mb7.sportappbp.Objects.TrainingExercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ActivityDiary extends AppCompatActivity {
 
     final static int REQUEST_ID = 555;
     //ArrayAdapter<String> arrayAdapter;
-    DiaryAdapter diaryAdapter;
+    DiaryViewAdapter diaryAdapter;
     ListView listView;
     AllDiaryEntries allDiaryEntries;
     DiaryEntry diaryEntry;
@@ -37,13 +36,15 @@ public class ActivityDiary extends AppCompatActivity {
 
         allDiaryEntries = allDiaryEntries.getInstance();
 
+
+        //todo Daten von Datenbank laden
         //ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
         //arrayAdapter.notifyDataSetChanged();
 
         //get the listView of the layout
         listView = (ListView) findViewById(R.id.listviewDiary);
         //create the new adapter with the list of all diary entries
-        diaryAdapter = new DiaryAdapter(ActivityDiary.this, allDiaryEntries.getDiaryList());
+        diaryAdapter = new DiaryViewAdapter(ActivityDiary.this, allDiaryEntries.getDiaryList());
         //set the adapter for the listview
         listView.setAdapter(diaryAdapter);
 

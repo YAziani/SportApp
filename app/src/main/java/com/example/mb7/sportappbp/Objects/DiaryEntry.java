@@ -18,7 +18,8 @@ public class DiaryEntry {
      * Constructor to create a diary entry
      * @param date : date of the training
      */
-    public DiaryEntry(String id, String date, String time){
+    //String id, String date, String time
+    public DiaryEntry(){
         this.id = id;
         this.date = date;
         this.time = time;
@@ -255,6 +256,9 @@ public class DiaryEntry {
         return this.exerciseList;
     }
 
+    public void setId(String id){
+        this.id = id;
+    }
     public void setDate(String date){
         this.date = date;
     }

@@ -61,10 +61,17 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         //Create Firebase reference
         mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
 
+        allDiaryEntries = AllDiaryEntries.getInstance();
+
         //Create Diary Entry Object to safe all data
-        diaryEntry = new DiaryEntry(getID(), getCurrentDate(), getCurrentTime());
+
+        diaryEntry = new DiaryEntry();
+        diaryEntry.setId(getID());
+        diaryEntry.setDate(getCurrentDate());
+        diaryEntry.setTime(getCurrentTime());
 
         exerciseList = diaryEntry.getExerciseList();
+
 
         //set all categories for the viewadapter
         listCategories.add("Leistungstests");
@@ -90,6 +97,8 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         //set the menu with add and save icon
         inflater.inflate(R.menu.menu_add, menu);
 
+
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -113,8 +122,10 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     private void btnSaveAction() {
 
         //todo Save object to the database
-        if(diaryEntry.getExerciseList().size() > 0)
+        if(diaryEntry.getExerciseList().size() > 0) {
             SaveData();
+            allDiaryEntries.getDiaryList().add(diaryEntry);
+        }
 
         else//Display answer
             Toast.makeText(ActivityDiaryEntry.this, "Es wurden keine Einträge registriert!" , Toast.LENGTH_SHORT).show();

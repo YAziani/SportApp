@@ -80,7 +80,7 @@ public class ActivityExercises extends AppCompatActivity {
                 String selectedExercise = (String) adapterView.getItemAtPosition(position);
                 Exercise exercise = createSelectedCategoryExercise();
 
-                exercise.setExercise(selectedExercise);
+                exercise.setName(selectedExercise);
                 exercise.setTimeHours(00);
                 exercise.setTimeMinutes(00);
 

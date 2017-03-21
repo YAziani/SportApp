@@ -11,6 +11,7 @@ public class LeistungstestsExercise extends Exercise {
 
     public LeistungstestsExercise(){
         this.weighting = 3.0;
+        this.category = "Leistungstests";
     }
 
 
@@ -19,10 +20,11 @@ public class LeistungstestsExercise extends Exercise {
         @Override
         public Exercise createFromParcel(Parcel parcel) {
             Exercise leistungstests = new LeistungstestsExercise();
-            leistungstests.exercise = parcel.readString();
+            leistungstests.name = parcel.readString();
             leistungstests.weighting = parcel.readDouble();
             leistungstests.timeMinutes = parcel.readInt();
             leistungstests.timeHours = parcel.readInt();
+            leistungstests.category = parcel.readString();
             return leistungstests;
         }
 

@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
 import android.view.View;
@@ -8,15 +9,24 @@ import android.widget.ArrayAdapter;
 import android.widget.ListView;
 import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Adapters.DiaryAdapter;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
+import com.example.mb7.sportappbp.Objects.DiaryEntry;
+import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.R;
+
+import java.util.ArrayList;
+import java.util.Date;
 
 public class ActivityDiary extends AppCompatActivity {
 
-
-    ArrayAdapter<String> arrayAdapter;
+    final static int REQUEST_ID = 555;
+    //ArrayAdapter<String> arrayAdapter;
+    DiaryAdapter diaryAdapter;
     ListView listView;
     AllDiaryEntries allDiaryEntries;
+    ArrayList<DiaryEntry> list;
+    DiaryEntry diaryEntry;
 
 
     @Override
@@ -24,21 +34,28 @@ public class ActivityDiary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
+        allDiaryEntries = allDiaryEntries.getInstance();
+
+        //ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
+        //arrayAdapter.notifyDataSetChanged();
+
         //get the listView of the layout
         listView = (ListView) findViewById(R.id.listviewDiary);
         //create the new adapter with the list of all diary entries
-        arrayAdapter = new ArrayAdapter<String>(ActivityDiary.this, android.R.layout.simple_list_item_1, allDiaryEntries.getInstance().getAllDates());
+        diaryAdapter = new DiaryAdapter(ActivityDiary.this, allDiaryEntries.getDiaryList());
         //set the adapter for the listview
-        listView.setAdapter(arrayAdapter);
+        listView.setAdapter(diaryAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                String date = (String) adapterView.getItemAtPosition(position);
+                diaryEntry = (DiaryEntry) adapterView.getItemAtPosition(position);
 
-                Toast.makeText(ActivityDiary.this, date, Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityDiary.this, diaryEntry.getDate() , Toast.LENGTH_SHORT).show();
             }
         });
 
+        //diaryAdapter.notifyDataSetChanged();
     }
+
 }

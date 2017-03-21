@@ -62,6 +62,10 @@ public class User {
         DAL_User.InsertDiaryEntry(this,diaryEntry);
         return true;
     }
+    public boolean GetDiaryEntry(Date date){
+        DAL_User.GetDiaryEntry(this,date);
+        return true;
+    }
 
     /**
      * hand ratings to DAL_User to save them into database

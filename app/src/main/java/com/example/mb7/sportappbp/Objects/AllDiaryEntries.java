@@ -28,6 +28,10 @@ public class AllDiaryEntries {
         return allDiaryEntries;
     }
 
+    public void add(DiaryEntry diaryEntry){
+        allDiaryEntries.add(diaryEntry);
+    }
+
     /**
      * This method returns the list with all diary entries.
      * @return ArrayList with all diary entries

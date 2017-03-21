@@ -271,7 +271,7 @@ public class DiaryEntry {
 
 
 
-    public void addActivity(Exercise activity){
+    public void addExercise(Exercise activity){
         exerciseList.add(activity);
     }
 

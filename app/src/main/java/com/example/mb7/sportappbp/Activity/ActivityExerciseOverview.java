@@ -4,16 +4,13 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.support.v7.widget.RecyclerView;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
 import android.widget.Button;
-import android.widget.ExpandableListView;
 import android.widget.ListView;
 import android.widget.NumberPicker;
 import android.widget.Toast;
@@ -114,13 +111,8 @@ public class ActivityExerciseOverview extends AppCompatActivity {
         if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
             ArrayList<Exercise> result = data.getParcelableArrayListExtra("newExercises");
 
-            Integer test = result.size();
-
-            setnewList(exerciseList, result);
+            setNewList(exerciseList, result);
             exerciseViewAdapter.notifyDataSetChanged();
-
-            Toast.makeText(ActivityExerciseOverview.this, test.toString(), Toast.LENGTH_SHORT).show();
-
         }
 
     }
@@ -145,7 +137,10 @@ public class ActivityExerciseOverview extends AppCompatActivity {
         startActivityForResult(pickExerciseIntent, REQUEST_ID);
     }
 
-    private void setnewList(ArrayList<Exercise> oldLst, ArrayList<Exercise> newLst){
+    private void setNewList(ArrayList<Exercise> oldLst, ArrayList<Exercise> newLst){
+
+        oldLst.clear();
+
         for(Exercise i : newLst)
             oldLst.add(i);
     }

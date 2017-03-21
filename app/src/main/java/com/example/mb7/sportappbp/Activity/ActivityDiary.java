@@ -25,8 +25,9 @@ public class ActivityDiary extends AppCompatActivity {
     DiaryAdapter diaryAdapter;
     ListView listView;
     AllDiaryEntries allDiaryEntries;
-    ArrayList<DiaryEntry> list;
     DiaryEntry diaryEntry;
+
+    ArrayList<Exercise> exerciseList;
 
 
     @Override
@@ -36,7 +37,7 @@ public class ActivityDiary extends AppCompatActivity {
 
         allDiaryEntries = allDiaryEntries.getInstance();
 
-        ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
+        //ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
         //arrayAdapter.notifyDataSetChanged();
 
         //get the listView of the layout
@@ -51,11 +52,38 @@ public class ActivityDiary extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
                 diaryEntry = (DiaryEntry) adapterView.getItemAtPosition(position);
 
+                exerciseList = diaryEntry.getExerciseList();
+                sendOldAndRequestNewExerciseList();
+
                 Toast.makeText(ActivityDiary.this, diaryEntry.getDate() , Toast.LENGTH_SHORT).show();
             }
         });
 
-        //diaryAdapter.notifyDataSetChanged();
+    }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ArrayList<Exercise> result;
+
+        //check if the request was successful
+        if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
+
+            //get the new list
+            result = data.getParcelableArrayListExtra("newExercises");
+            exerciseList = result;
+            diaryEntry.setExerciseList(result);
+
+        }
+    }
+
+
+    public void sendOldAndRequestNewExerciseList(){
+        ArrayList<Exercise> oldList = exerciseList;
+        Intent pickExerciseIntent = new Intent(this, ActivityDiaryEntry.class);
+        pickExerciseIntent.putParcelableArrayListExtra("oldExercises", oldList);
+        startActivityForResult(pickExerciseIntent, REQUEST_ID);
     }
 
 }

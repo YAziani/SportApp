@@ -29,6 +29,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     //request id for the activitiy request
     final static int REQUEST_ID = 1;
+    private boolean newData = true;
 
     private DiaryEntry diaryEntry;
     private AllDiaryEntries allDiaryEntries;
@@ -70,7 +71,10 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         diaryEntry.setDate(getCurrentDate());
         diaryEntry.setTime(getCurrentTime());
 
-        exerciseList = diaryEntry.getExerciseList();
+        //exerciseList = diaryEntry.getExerciseList();
+        exerciseList = receiveExerciseList();
+
+        diaryEntry.setExerciseList(exerciseList);
 
 
         //set all categories for the viewadapter
@@ -94,10 +98,9 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+
         //set the menu with add and save icon
         inflater.inflate(R.menu.menu_add, menu);
-
-
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -111,13 +114,40 @@ public class ActivityDiaryEntry extends AppCompatActivity {
                 sendOldAndRequestNewExerciseList();
                 return true;
             case R.id.icon_save:
-                btnSaveAction();
+                if(!newData) {
+                    returnResult();
+                    //reset flag
+                    newData = false;
+                }
+                else
+                    btnSaveAction();
                 return true;
 
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
+
+    @Override
+    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
+        super.onActivityResult(requestCode, resultCode, data);
+
+        ArrayList<Exercise> result;
+
+        //check if the request was successful
+        if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
+
+            //get the new list
+            result = data.getParcelableArrayListExtra("newExercises");
+            exerciseList = result;
+            diaryEntry.setExerciseList(result);
+
+            //update listview
+            diaryEntryViewAdapter.notifyDataSetChanged();
+
+        }
+    }
+
 
     private void btnSaveAction() {
 
@@ -133,24 +163,10 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         finish();
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        ArrayList<Exercise> result;
-        //check if the request was successful
-        if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
-
-            //add the new exercises to
-            result = data.getParcelableArrayListExtra("newExercises");
-            exerciseList = result;
-            diaryEntry.setExerciseList(result);
-
-            diaryEntryViewAdapter.notifyDataSetChanged();
-
-        }
-    }
-
+    /**
+     * Save diaryEntry to Firebase
+     * @return
+     */
     private boolean SaveData(){
 
         ActivityMain.mainUser.GetLastTodayDiaryEntry(new Date());
@@ -183,6 +199,29 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String strID = sdf.format(c.getTime());
         return strID;
+    }
+
+    private ArrayList<Exercise> receiveExerciseList(){
+
+        ArrayList<Exercise> result;
+        final Bundle extra = getIntent().getExtras();
+
+        if (extra != null) {
+            result = extra.getParcelableArrayList("oldExercises");
+            //set flag for saving data later
+            newData = false;
+            return result;
+        }
+        else
+            return result = diaryEntry.getExerciseList();
+    }
+
+    private void returnResult(){
+
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra("newExercises", exerciseList);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     /**

@@ -77,17 +77,17 @@
         android:layout_height="wrap_content">
 
         <Button
-            android:text="Cancel"
+            android:id="@+id/npCancel"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="128dp"
             android:layout_height="36dp"
-            android:id="@+id/npCancel"
             android:layout_weight="1"
             android:paddingBottom="8dp"
-            android:paddingLeft="8dp"
-            android:paddingTop="8dp"
             android:paddingEnd="8dp"
+            android:paddingLeft="8dp"
             android:paddingStart="8dp"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
+            android:paddingTop="8dp"
+            android:text="Abbrechen" />
 
         <Button
             android:text="OK"

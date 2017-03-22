@@ -1,0 +1,18 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mb7.sportappbp.Activity.ActivityMain">
+
+    <item
+        android:id="@+id/icon_info"
+        android:icon="@drawable/ic_info_outline_black_24dp"
+        android:title="info"
+        app:showAsAction="always"/>
+
+    <item
+        android:id="@+id/icon_save"
+        android:icon="@drawable/ic_save"
+        android:title="save"
+        app:showAsAction="always"/>
+
+</menu>

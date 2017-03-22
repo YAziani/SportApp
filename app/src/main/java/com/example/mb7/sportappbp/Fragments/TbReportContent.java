@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -14,6 +15,7 @@ import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityKompass;
 import com.example.mb7.sportappbp.Activity.ActivityMain;
+import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.ClientIF;
 import com.example.mb7.sportappbp.R;
@@ -51,8 +53,31 @@ public class TbReportContent extends TabFragment{
         Firebase.setAndroidContext(this.getActivity());
         firebase = new Firebase("https://sportapp-cbd6b.firebaseio.com/");
         txtRequest = (TextView) view.findViewById(R.id.txtRequestTest);
-        testMo(view);
-        testBasti2(view);
+
+        testBtn2 = (Button) view.findViewById(R.id.neu1);
+        testBtn2.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                Intent open = new Intent(getActivity(), ActivityDiary.class);
+                startActivity(open);
+
+            }
+        });
+
+        Button testBtn4 = (Button) view.findViewById(R.id.btnTest4);
+        testBtn4.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+                Intent open = new Intent(getActivity(), ActivityNewChallenge.class);
+                startActivity(open);
+
+            }
+        });
+
+        //testMo(view);
+        //testBasti2(view);
         testBastiChellenge(view);
 
 
@@ -64,7 +89,7 @@ public class TbReportContent extends TabFragment{
     }
 
     private void testMo(View view){
-        testBtn = (Button)view.findViewById(R.id.btnTest1);
+        testBtn = (Button)view.findViewById(R.id.neu1);
         testBtn.setOnClickListener(new View.OnClickListener () {
             @Override
             public void onClick(View v) {
@@ -78,7 +103,7 @@ public class TbReportContent extends TabFragment{
     }
 
     private void testBasti(View view){
-        testBtn = (Button) view.findViewById(R.id.btnTest1);
+        testBtn = (Button) view.findViewById(R.id.neu1);
         testBtn.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -154,29 +179,7 @@ public class TbReportContent extends TabFragment{
     }
 
     private void testBasti2(View view){
-        testBtn2 = (Button) view.findViewById(R.id.btnTest3);
-        testBtn2.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                /*
-                MyDownloadTask asyncTask = new MyDownloadTask("https://sportapp-cbd6b.firebaseio.com/MyChildTest.json?print=pretty")
 
-                {
-                    @Override
-                    public void onResponseReceived(String result) {
-                        // set the control in the caller
-
-                    }
-                };
-                // run the background task to read from the database
-                asyncTask.execute();
-                */
-
-                Intent open = new Intent(getActivity(), ActivityDiary.class);
-                startActivity(open);
-
-            }
-        });
     }
 
     private void testBastiChellenge (View view){

@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
+import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
@@ -30,8 +31,9 @@ import java.util.List;
 public class DAL_User {
     static  private long gcounter ;
 
-    static public void GetStimmnungsabfrage(User user, Date date)
-    {
+    static public StimmungAbfrage GetStimmnungsabfrage(User user, Date date){
+    final StimmungAbfrage stimmunga=new StimmungAbfrage();
+
         try
         {
             final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
@@ -54,7 +56,7 @@ public class DAL_User {
                                                                                for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                                                    // Hier bekommst du dann letztlich die Stimmungsabfrage
                                                                                    StimmungAbfrage stimmungAbfrage = child.getValue(StimmungAbfrage.class);
-                                                                                   stimmungAbfrage.Angespannt = stimmungAbfrage.Angespannt;
+                                                                                   stimmungAbfrage=stimmunga;
 
                                                                                }
                                                                           }
@@ -75,11 +77,13 @@ public class DAL_User {
                 }
             });
 
+            return stimmunga;
 
         }
         catch (Exception e)
         {
             Log.d("ERROR", e.getMessage());
+            return stimmunga;
         }
     }
 
@@ -167,7 +171,7 @@ public class DAL_User {
         try
         {
             final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/DiaryEntry/" + "20170321");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/DiaryEntry/" + "20170322");
             final Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -187,45 +191,95 @@ public class DAL_User {
 
 
                                     AllDiaryEntries allDiaryEntries = AllDiaryEntries.getInstance();
-                                    DiaryEntry diaryEntry = new DiaryEntry();
+                                    final DiaryEntry diaryEntry = new DiaryEntry();
+                                    //final Exercise exercise;
+                                    String strExercise = "";
+
+                                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                        if (child.getKey().equals("date"))
+                                            diaryEntry.setDate(child.getValue().toString());
+                                        else if (child.getKey().equals("time"))
+                                            diaryEntry.setTime(child.getValue().toString());
+
+
+                                        else if(child.getKey().startsWith("exercise")){
+
+                                            strExercise = child.getKey();
+                                            //child.getValue();
+
+                                            root.child(strExercise).addListenerForSingleValueEvent(new ValueEventListener() {
+                                                @Override
+                                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                    Exercise exercise = null;
+
+                                                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+
+                                                        if(child.getKey().equals("category")){
+
+                                                            String category = child.getValue().toString();
+                                                            if(category.equals("Taining")){
+                                                            exercise = new TrainingExercise();
+                                                            //TrainingExercise exercise = child.getValue(TrainingExercise.class);
+                                                            }
+                                                            else if(category.equals("Leistungstests")){
+                                                                exercise = new LeistungstestsExercise();
+                                                                //LeistungstestsExercise exercise = child.getValue(LeistungstestsExercise.class);
+                                                            }
+                                                            else if(category.equals("ReinerAufenthalt")){
+                                                                exercise = new ReinerAufenthaltExercise();
+                                                                //ReinerAufenthaltExercise exercise = child.getValue(ReinerAufenthaltExercise.class);
+                                                            }
+                                                            else if(category.equals("Wellness")){
+                                                                exercise = new WellnessExercise();
+                                                                // WellnessExercise exercise = child.getValue(WellnessExercise.class);
+                                                            }
+                                                        }
+                                                    }
+
+                                                    if(exercise != null) {
+                                                        for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                                            if (child.getKey().equals("name")) {
+                                                                exercise.setName(child.getValue().toString());
+                                                            } else if (child.getKey().equals("timeHours"))
+                                                                exercise.setTimeHours(0);
+                                                            else if (child.getKey().equals("timeMinutes"))
+                                                                exercise.setTimeMinutes(100);
+                                                        }
+                                                        diaryEntry.addExercise(exercise);
+                                                    }
+                                                    else
+                                                        System.out.println("Whaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaaat");
+
+                                                }
+
+                                        @Override
+                                        public void onCancelled(FirebaseError firebaseError) {
+
+                                        }
+                                    });
+
+                                        }
+                                    }
+                                    /*
                                     for (DataSnapshot child : dataSnapshot.getChildren()) {
 
                                         if(child.getKey().equals("date"))
                                             diaryEntry.setDate(child.getValue().toString());
                                         else if(child.getKey().equals("time"))
                                             diaryEntry.setTime(child.getValue().toString());
-                                        /*
-                                        else{
-                                            TrainingExercise exercise = child.getValue(TrainingExercise.class);
-                                            diaryEntry.getExerciseList().add(exercise);
+                                        else {
+                                            exercise = child.getValue(Exercise.class);
                                         }
-                                        */
-                                        /*
-                                        else if(child.getKey().equals("Taining")){
-                                            TrainingExercise exercise = child.getValue(TrainingExercise.class);
-                                            exercise.setCategory("Training");
-                                            diaryEntry.getExerciseList().add(exercise);
-                                        }
-                                        else if(child.getKey().equals("Leistungstests")){
-                                            LeistungstestsExercise exercise = child.getValue(LeistungstestsExercise.class);
-                                            exercise.setCategory("Leistungstests");
-                                            diaryEntry.getExerciseList().add(exercise);
-                                        }
-                                        else if(child.getKey().equals("ReinerAufenthalt")){
-                                            ReinerAufenthaltExercise exercise = child.getValue(ReinerAufenthaltExercise.class);
-                                            exercise.setCategory("ReinerAufenthalt");
-                                            diaryEntry.getExerciseList().add(exercise);
-                                        }
-                                        else if(child.getKey().equals("Wellness")){
-                                            WellnessExercise exercise = child.getValue(WellnessExercise.class);
-                                            exercise.setCategory("Wellness");
-                                            diaryEntry.getExerciseList().add(exercise);
-                                        }
+
                                         */
 
-                                    }
+
+
+                                    //}
                                     allDiaryEntries.getInstance().add(diaryEntry);
-
+                                    ActivityDiary.notifyDataChanged();
                                 }
 
                                 @Override
@@ -295,11 +349,12 @@ public class DAL_User {
 
             int i = 0;
             for(Exercise ex : diaryEntry.getExerciseList()){
+                // 1. Ebene
+                Firebase exerciseChild = newChildRef.child("exercise " + String.valueOf(i) + " :");
 
-                Firebase exerciseChild = newChildRef.child("Exercise " + String.valueOf(i) + " :");
-                //Firebase exerciseChild = newChildRef.child(ex.getCategory());
-                Firebase childCategory= exerciseChild.child("category");
-                childCategory.setValue(ex.getCategory());
+                // 2. Ebene
+                Firebase categoryChild = exerciseChild.child("category");
+                categoryChild.setValue(ex.getCategory());
                 Firebase childExercise = exerciseChild.child("name");
                 childExercise.setValue(ex.getName());
                 Firebase childMinutes = exerciseChild.child("timeMinutes");

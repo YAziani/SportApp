@@ -1,6 +1,9 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
 import android.app.Activity;
+import android.app.backup.SharedPreferencesBackupHelper;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
@@ -21,6 +24,8 @@ import java.util.Random;
 
 public class MethodChooser {
 
+    static SharedPreferences preferences;
+
     /**
      * choose methods depending on the settings in the database
      * @param dataSnapshot snapshot representing entries in database
@@ -33,6 +38,7 @@ public class MethodChooser {
             List<MotivationMethod> fixMotivationMethods,
             List<MotivationMethod> variableMotivationMethods,
             Activity activity) {
+        preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         // get current time
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
@@ -176,6 +182,10 @@ public class MethodChooser {
         // iterate through all methods and put them into the list
         for(DataSnapshot d : dataSnapshot.getChildren()) {
             if(d.getValue() instanceof Boolean && (boolean)d.getValue()) {
+                preferences.edit().putString(
+                        "allocatedMethods",
+                        (preferences.getString("allocatedMethods","") + d.getKey() + ";")
+                ).apply();
                 putMethodInList(d.getKey(),
                         fixMotivationMethods,
                         variableMotivationMethods,
@@ -211,6 +221,10 @@ public class MethodChooser {
         for(int i = 0; i < noOfUsedMethods; i++) {
             // get random index
             listIndex = random.nextInt(list.size());
+            preferences.edit().putString(
+                    "allocatedMethods",
+                    (preferences.getString("allocatedMethods","") + list.get(listIndex) + ";")
+            ).apply();
             putMethodInList(list.get(listIndex),
                     fixMotivationMethods,
                     variableMotivationMethods,
@@ -264,12 +278,32 @@ public class MethodChooser {
         // save methods into list
         for(DataSnapshot d : currentActiveGroup.getChildren()) {
             if(d.getValue() instanceof Boolean && (boolean) d.getValue()) {
+                preferences.edit().putString(
+                        "allocatedMethods",
+                        (preferences.getString("allocatedMethods","") + d.getKey() + ";")
+                ).apply();
                 putMethodInList(d.getKey(),fixMotivationMethods,variableMotivationMethods,activity);
             }
         }
 
         // update alternating groups
         ActivityMain.mainUser.saveAlternGroupUpdate(currentActiveGroup.getKey(),nextActiveGroup.getKey(),dataSnapshot.getKey());
+    }
+
+    /**
+     * reinsert methods into the lists
+     * @param fixMotivationMethods list for fix motivation methods
+     * @param variableMotivationMethods list for random choosen motivation methods
+     * @param activity the calling activity
+     */
+    public static void reputMethodsInList(
+            List<MotivationMethod> fixMotivationMethods,
+            List<MotivationMethod> variableMotivationMethods,
+            Activity activity) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+        for(String s : preferences.getString("allocatedMethods","").split(";")) {
+            putMethodInList(s,fixMotivationMethods,variableMotivationMethods,activity);
+        }
     }
 
     /**

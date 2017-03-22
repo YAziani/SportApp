@@ -18,7 +18,7 @@
         android:layout_height="wrap_content"
         android:layout_centerVertical="true"
         android:layout_centerHorizontal="true"
-        android:id="@+id/btnTest1" />
+        android:id="@+id/neu1" />
 
     <Button
         android:id="@+id/btnTest3"
@@ -32,9 +32,9 @@
         android:id="@+id/button2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/btnTest1"
-        android:layout_centerHorizontal="true"
-        android:text="test2" />
+        android:text="test2"
+        android:layout_below="@+id/neu1"
+        android:layout_alignStart="@+id/neu1" />
 
     <TextView
         android:text="TextView"
@@ -44,4 +44,12 @@
         android:layout_marginBottom="22dp"
         android:id="@+id/txtRequestTest"
         android:layout_height="100dp" />
+
+    <Button
+        android:id="@+id/btnTest4"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignStart="@+id/btnTest3"
+        android:layout_below="@+id/btnTest3"
+        android:text="newCh" />
 </RelativeLayout>

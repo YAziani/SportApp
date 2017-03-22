@@ -24,6 +24,7 @@ import android.widget.TextView;
 
 
 import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
+import com.example.mb7.sportappbp.BusinessLayer.MethodChooser;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
@@ -63,6 +64,7 @@ public class ActivityMain extends AppCompatActivity {
     private final String mainColor = "#2648FF";
     public  static  User mainUser ;
     public static ActivityMain activityMain;
+    private SharedPreferences preferences;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -86,7 +88,7 @@ public class ActivityMain extends AppCompatActivity {
         variableMotivationMethods.add(m);
 
         // check settings for initialization
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         if(!preferences.getBoolean("initialized",false)) {
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);
@@ -95,6 +97,8 @@ public class ActivityMain extends AppCompatActivity {
                     this,
                     fixMotivationMethods,
                     variableMotivationMethods);
+        } else {
+            MethodChooser.reputMethodsInList(fixMotivationMethods,variableMotivationMethods,this);
         }
 
         // start background clock
@@ -284,8 +288,14 @@ public class ActivityMain extends AppCompatActivity {
             mViewPager.setCurrentItem(startTab);
             // refresh page
             if(mSectionsPagerAdapter.getItem(startTab) instanceof TbNotificationContent) {
-                ((TbNotificationContent) mSectionsPagerAdapter.getItem(startTab)).onStart();
+                mSectionsPagerAdapter.getItem(startTab).onStart();
             }
         }
+    }
+
+    @Override
+    public void onDestroy(){
+        // TODO close all notifications
+        super.onDestroy();
     }
 }

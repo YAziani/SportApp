@@ -12,16 +12,16 @@ import com.example.mb7.sportappbp.Adapters.DiaryViewAdapter;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.Exercise;
-import com.example.mb7.sportappbp.Objects.TrainingExercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 public class ActivityDiary extends AppCompatActivity {
 
     final static int REQUEST_ID = 555;
     //ArrayAdapter<String> arrayAdapter;
-    DiaryViewAdapter diaryAdapter;
+    static DiaryViewAdapter diaryViewAdapter;
     ListView listView;
     AllDiaryEntries allDiaryEntries;
     DiaryEntry diaryEntry;
@@ -38,15 +38,14 @@ public class ActivityDiary extends AppCompatActivity {
 
 
         //todo Daten von Datenbank laden
-        //ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
-        //arrayAdapter.notifyDataSetChanged();
+
 
         //get the listView of the layout
         listView = (ListView) findViewById(R.id.listviewDiary);
         //create the new adapter with the list of all diary entries
-        diaryAdapter = new DiaryViewAdapter(ActivityDiary.this, allDiaryEntries.getDiaryList());
+        diaryViewAdapter = new DiaryViewAdapter(ActivityDiary.this, allDiaryEntries.getDiaryList());
         //set the adapter for the listview
-        listView.setAdapter(diaryAdapter);
+        listView.setAdapter(diaryViewAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
@@ -59,6 +58,9 @@ public class ActivityDiary extends AppCompatActivity {
                 Toast.makeText(ActivityDiary.this, diaryEntry.getDate() , Toast.LENGTH_SHORT).show();
             }
         });
+
+
+        ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
 
     }
 
@@ -77,6 +79,10 @@ public class ActivityDiary extends AppCompatActivity {
             diaryEntry.setExerciseList(result);
 
         }
+    }
+
+    public static void notifyDataChanged(){
+        diaryViewAdapter.notifyDataSetChanged();
     }
 
 

@@ -29,6 +29,7 @@ import android.widget.ImageButton;
 import android.widget.ImageView;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Fragments.RadioButtonFragment;
 import com.example.mb7.sportappbp.Fragments.TimePickerFragment;
@@ -271,25 +272,26 @@ public class ActivitySettingInitializer extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+        Toast.makeText(ActivitySettingInitializer.this,"Einstellungen gespeichert.",Toast.LENGTH_SHORT).show();
         // handle menu item selection
-        switch (item.getItemId()) {
-            case R.id.icon_save:
-                if(sharedPreferences.getBoolean("initialized",false)) {
-                    // close the activity
-                    finish();
-                }else {
-                    // show dialog for choosing means of transportation
-                    DialogFragment radioButtonFragment = new RadioButtonFragment();
-                    radioButtonFragment.show(getFragmentManager(), "radiobutton");
+        if(sharedPreferences.getBoolean("initialized",false)) {
+            // close the activity
+            finish();
+        }else {
+            // show dialog for choosing means of transportation
+            DialogFragment radioButtonFragment = new RadioButtonFragment();
+            radioButtonFragment.show(getFragmentManager(), "radiobutton");
 
-                    // set initialized flag
-                    editor.putBoolean("initialized", true);
-                    editor.commit();
-                }
-                return true;
-            default:
-                return super.onOptionsItemSelected(item);
+            // set initialized flag
+            editor.putBoolean("initialized", true);
+            editor.commit();
         }
+        return true;
+    }
+
+    @Override
+    public void onBackPressed() {
+        onOptionsItemSelected(null);
     }
 
     /**
@@ -308,9 +310,20 @@ public class ActivitySettingInitializer extends AppCompatActivity {
             if(address != null) {
                 studioAddress = address;
                 editor.putString(textArray[userChoiceIndex], address);
+                Toast.makeText(
+                        ActivitySettingInitializer.this,
+                        "Addresse gespeichert.",
+                        Toast.LENGTH_SHORT
+                ).show();
+
             }else {
                 studioAddress = "";
                 editor.remove(textArray[userChoiceIndex]);
+                Toast.makeText(
+                        ActivitySettingInitializer.this,
+                        "Addresse konnte nicht bestimmt werden.",
+                        Toast.LENGTH_SHORT
+                ).show();
             }
         }
         // commit changes to the preferences file

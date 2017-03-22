@@ -7,10 +7,13 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.mb7.sportappbp.BusinessLayer.User;
+import com.example.mb7.sportappbp.Comparator.UserSortPoints;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Collections;
 
 /**
  * Created by Basti on 21.03.2017.
@@ -24,6 +27,7 @@ public class ChallengeViewAdapter extends BaseAdapter {
     public ChallengeViewAdapter(Activity context, ArrayList<User> users)
     {
         _users = users;
+        Collections.sort(users, new UserSortPoints());
         _context = context;
     }
 
@@ -45,13 +49,13 @@ public class ChallengeViewAdapter extends BaseAdapter {
             view = _context.getLayoutInflater().inflate(R.layout.lst_challenge_cell, null);
 
         TextView txtPos = (TextView) view.findViewById(R.id.textViewChallengePos);
-        txtPos.setText(String.valueOf(position + 1));
+        txtPos.setText(String.valueOf(position + 1)+ ".");
 
         TextView txtName = (TextView) view.findViewById(R.id.textViewChallengeName);
         txtName.setText(user.getName());
 
         TextView txtPoints = (TextView) view.findViewById(R.id.textViewChallengePoints);
-        txtPoints.setText(user.getPoints());
+        txtPoints.setText(String.valueOf(user.getPoints()));
 
         return view;
     }

@@ -30,7 +30,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
         StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("lift_text.jpg");
         final ImageView imageView0 = (ImageView)findViewById(R.id.imageMotivationMessage0);
         final ImageView imageView1 = (ImageView)findViewById(R.id.imageMotivationMessage1);
-        final Drawable drawable = getDrawable(R.drawable.lift_text);
+        final Drawable drawable = getDrawable(R.drawable.sport_icon);
 
         imageView0.setImageDrawable(drawable);
         // Load the image using Glide

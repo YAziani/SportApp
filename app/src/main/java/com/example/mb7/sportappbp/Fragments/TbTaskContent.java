@@ -45,8 +45,7 @@ public class TbTaskContent extends TabFragment {
 
     @Override
     public void onStart() {
-
-
+        /*
         final SharedPreferences preferences = PreferenceManager
                 .getDefaultSharedPreferences(getActivity()
                 .getApplicationContext());
@@ -54,9 +53,9 @@ public class TbTaskContent extends TabFragment {
 
         // setup notifications that appear only on specific occasions
         final Notification nPendingTraining = new Notification(
-                "nächstes Training",
+                "Nächstes Training",
                 "Ihr nächstes Training beginnt um "
-                        + preferences.getString("nextTrainingTime", "00:00"), R.drawable.trainingseinheit);
+                        + preferences.getString("nextTrainingTime", ""), R.drawable.trainingseinheit);
         if(preferences.getBoolean("reminderNotified", false)) {
             notificationList.add(nPendingTraining);
         }
@@ -83,6 +82,7 @@ public class TbTaskContent extends TabFragment {
                 }
             }
         });
+        */
         super.onStart();
 
     }

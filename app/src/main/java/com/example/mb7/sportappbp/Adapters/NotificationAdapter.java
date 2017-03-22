@@ -1,6 +1,8 @@
 package com.example.mb7.sportappbp.Adapters;
 
 import android.content.Intent;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -8,14 +10,17 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
+import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
+import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
 import java.util.List;
@@ -57,9 +62,23 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             } else if (notifications.get(getAdapterPosition()).getTitle().equals("Aktivitätsfragebogen")) {
                 Intent open = new Intent(context.getActivity(), ActivityFragebogen.class);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Schon gewusst?")) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Bewegen Sie sich!")) {
                 Intent open = new Intent(context.getActivity(), ActivityMotivationMessage.class);
                 context.startActivity(open);
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Nächstes Training")) {
+                String nextTrainingTime = PreferenceManager
+                        .getDefaultSharedPreferences(ActivityMain.activityMain
+                                .getApplicationContext()).getString("nextTrainingTime","");
+                if(!nextTrainingTime.equals("")) {
+                    Toast.makeText(
+                            ActivityMain.activityMain,
+                            "Ihr Training beginnt in "
+                                    + MotivationMethod.timeTillTraining(nextTrainingTime)
+                                    + " Minuten.",
+                            Toast.LENGTH_SHORT
+                    ).show();
+                }
+
             }
 
             // remove the notification that has been read

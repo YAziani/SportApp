@@ -29,7 +29,7 @@ public class AllDiaryEntries {
     }
 
     public void add(DiaryEntry diaryEntry){
-        allDiaryEntries.add(diaryEntry);
+        diaryList.add(diaryEntry);
     }
 
     /**

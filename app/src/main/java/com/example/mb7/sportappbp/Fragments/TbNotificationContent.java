@@ -60,11 +60,29 @@ public class TbNotificationContent extends TabFragment {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         // setup notifications that appear only on specific occasions
         final Notification nMotivationMessage = new Notification(
-                "Schon gewusst?",
-                "Wissenswertes über Sport",R.drawable.trainingseinheit);
+                "Bewegen Sie sich!",
+                "Ihr Körper wird's Ihnen danken.",R.drawable.trainingseinheit);
         if(preferences.getBoolean("motivationMessage",false)) {
             notifications.add(nMotivationMessage);
             preferences.edit().remove("motivationMessage").commit();
+        }
+
+        String nextTrainingTime = preferences.getString("nextTrainingTime", "");
+        final Notification nPendingTraining = new Notification(
+                "Nächstes Training",
+                "Ihr nächstes Training beginnt um "
+                        + nextTrainingTime, R.drawable.trainingseinheit);
+        if(preferences.getBoolean("reminderNotified", false) && !nextTrainingTime.equals("")){
+            boolean notify = true;
+            for(Notification n : notifications) {
+                if(n.getTitle().equals("Nächstes Training")) {
+                    notify = false;
+                    break;
+                }
+            }
+            if(notify) {
+                notifications.add(nPendingTraining);
+            }
         }
 
         // fill the recycler
@@ -84,12 +102,31 @@ public class TbNotificationContent extends TabFragment {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
             // setup notifications that appear only on specific occasions
             final Notification nMotivationMessage = new Notification(
-                    "Schon gewusst?",
-                    "Wissenswertes über Sport",R.drawable.trainingseinheit);
+                    "Bewegen Sie sich!",
+                    "Ihr Körper wird's Ihnen danken.",R.drawable.trainingseinheit);
             if(preferences.getBoolean("motivationMessage",false)) {
                 notifications.add(nMotivationMessage);
                 preferences.edit().remove("motivationMessage").commit();
             }
+
+            String nextTrainingTime = preferences.getString("nextTrainingTime", "");
+            final Notification nPendingTraining = new Notification(
+                    "Nächstes Training",
+                    "Ihr nächstes Training beginnt um "
+                            + nextTrainingTime, R.drawable.trainingseinheit);
+            if(preferences.getBoolean("reminderNotified", false) && !nextTrainingTime.equals("")){
+                boolean notify = true;
+                for(Notification n : notifications) {
+                    if(n.getTitle().equals("Nächstes Training")) {
+                        notify = false;
+                        break;
+                    }
+                }
+                if(notify) {
+                    notifications.add(nPendingTraining);
+                }
+            }
+
             rv.setAdapter(new NotificationAdapter(notifications, this));
         }
 

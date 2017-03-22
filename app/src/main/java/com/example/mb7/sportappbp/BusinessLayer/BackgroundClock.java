@@ -53,8 +53,11 @@ public class BackgroundClock{
                 calendar.setTime(date);
                 int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
+                //TODO
+                System.out.println("CLOCK TICK " + currentHourOfDay +":"+ currentMinute);
                 // get training times
                 String preferenceString = preferences.getString(getCurrentWeekday(), "");
+                preferences.edit().remove("nextTrainingTime").commit();
                 // find next training start time
                 if(!preferenceString.equals("")) {
                     for(final String s : preferenceString.split(";")) {
@@ -64,6 +67,7 @@ public class BackgroundClock{
 
                         // check if training is still noteworthy
                         if(currentMinuteOfDay <= trainingMinuteOfDay) {
+                            preferences.edit().putString("nextTrainingTime", s).apply();
                             if(!trainingStartTime.equals(s)) {
                                 // save next training start time
                                 trainingStartTime = s;

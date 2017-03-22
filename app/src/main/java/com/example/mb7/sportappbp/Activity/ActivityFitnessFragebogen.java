@@ -98,9 +98,14 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
             case R.id.icon_save:
                 SaveData();
                 finish();
-                Toast.makeText(ActivityMain.activityMain,
-                                "Erfolgreich gespeichert \n" +
-                                "               Score:" + scoringwert()  ,Toast.LENGTH_LONG).show();
+                Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
+                        "Erfolgreich gespeichert \n" +
+                                "Kraftscore: " + kraftscoring() +"\n"+
+                                "Ausdauerscore: " + ausdauerscoring() + "\n"+
+                                "Bewglichkeitsscore: " + bewglichkeitsscoring() + "\n"+
+                                "Koordinationsscore: " + koordinationscoring() + "\n"+
+                                "Gesamtscore:" + scoringwert()  ,Toast.LENGTH_LONG);
+                ausgabe.show();
                 return true;
 
             default:
@@ -126,6 +131,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
 
         return true;
     }
+
 
 
     /**
@@ -253,7 +259,7 @@ private int scoringrechnung(int index){
     }
 }
 
-private int kraftscoring(){
+public int kraftscoring(){
     kraftscore=scoringrechnung(lststuhlaufstehen.getIndex())+scoringrechnung(lsteinkaufskorb.getIndex())+scoringrechnung(lstkistetragen.getIndex())+scoringrechnung(lstsitup.getIndex())+scoringrechnung(lstkofferheben.getIndex())+scoringrechnung(lstkoffertragen.getIndex())+scoringrechnung(lsthantelstemmen.getIndex());
     return kraftscore;
 }

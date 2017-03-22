@@ -51,8 +51,8 @@ public class TbNotificationContent extends TabFragment {
         view = inflater.inflate(R.layout.tbnotificationcontent, container, false);
         Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?", R.drawable.trainingseinheit);
         Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?", R.drawable.stimmungsabgabe);
-        Notification n3 = new Notification("Fragebogen zur Aktivität", "Wie aktiv sind Sie?",R.drawable.aktivitaet_fragebogen);
-        Notification n4 = new Notification("Fitnessfragebogen", "Wie ist ihr aktueller Fitnessstand?",R.drawable.fitness_fragebogen);
+        Notification n3 = new Notification("Aktivitätsfragebogen", "Wie aktiv sind Sie?",R.drawable.aktivitaet_fragebogen);
+        Notification n4 = new Notification("Fitnessfragebogen", "Wie ist Ihr Fitnessstand?",R.drawable.fitness_fragebogen);
 
 
         notifications =new LinkedList<Notification>(Arrays.asList(n1,n2,n3,n4));

@@ -54,7 +54,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             } else if (notifications.get(getAdapterPosition()).getTitle().equals("Fitnessfragebogen")) {
                 Intent open = new Intent(context.getActivity(), ActivityFitnessFragebogen.class);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Fragebogen zur Aktivität")) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Aktivitätsfragebogen")) {
                 Intent open = new Intent(context.getActivity(), ActivityFragebogen.class);
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals("Schon gewusst?")) {

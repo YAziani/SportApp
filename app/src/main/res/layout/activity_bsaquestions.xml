@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtFragebogenausfüllen"
-                android:text="Füllen Sie bitte den Fragebogen aus! \n"
+                android:text="Füllen Sie bitte den folgenden Fragebogen aus! \n"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -75,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtsitzendetätigkeiten"
-                android:text="Ihre berufstätigkeit bzw. Ausbildung umfasst sitzende Tätigkeiten"
+                android:text="Umfasst Ihre Berufstätigkeit bzw. Ausbildung sitzende Tätigkeiten?"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -103,7 +103,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtmäßigebewegung"
-                android:text="Ihre berufstätigkeit bzw. Ausbildung umfasst mäßige Bewegung"
+                android:text="Umfasst Ihre Berufstätigkeit bzw. Ausbildung mäßige Bewegung?"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -131,7 +131,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtintensivebewegung"
-                android:text="Ihre berufstätigkeit bzw. Ausbildung umfasst intensive Bewegung"
+                android:text="Umfasst Ihre Berufstätigkeit bzw. Ausbildung intensive Bewegung?"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -197,7 +197,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtzufußzurarbeit"
-                android:text="\n Zu Fuß zur Arbeit gehen (auch längere Teilstrecken)"
+                android:text="\n Zu Fuß zur Arbeit gehen (auch längere Teilstrecken)."
                 android:textColor="@android:color/black"
                 android:textAlignment="gravity"
                 android:layout_marginTop="10dp"
@@ -805,8 +805,25 @@
                     android:gravity="center"/>
 
                 </LinearLayout>
+
+
             </LinearLayout>
 
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
+                android:id="@+id/txtfragebogenende"
+                android:text="\n Fragebogen ist beendet. \n Bitte speichern Sie Ihre Antworten."
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
 
         </LinearLayout>
 

@@ -50,10 +50,8 @@
         <activity android:name=".Activity.ActivityFragebogen" />
         <activity android:name=".Activity.ActivityFitnessFragebogen" />
         <activity android:name=".Activity.ActivityMotivationMessage" />
-        <activity android:name=".Activity.ActivityTrainQuestioning">
-
-
-        </activity>
+        <activity android:name=".Activity.ActivityTrainQuestioning"></activity>
+        <activity android:name=".Activity.ActivityKompass"></activity>
     </application>
 
 </manifest>

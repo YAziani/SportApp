@@ -4,13 +4,7 @@
         android:title="Stimmungsabfrage"
         android:key="pref_key_storage_settings">
 
-        <ListPreference
-            android:title="Stimmungsabfrage vor oder nach dem Training"
-            android:key="lstStimmnungsAbfrage"
-            android:defaultValue="1"
-            android:summary="%s"
-            android:entries="@array/ArrrayStgsAbfrage"
-            android:entryValues="@array/ArrrayStgsAbfrageValue" />
+
         <ListPreference
             android:title="Abstand der Stimmungsabfrage"
             android:key="lstStmabfrageAbstand"
@@ -31,12 +25,20 @@
             android:entries="@array/ArrrayVerkehrsmittel"
             android:entryValues="@array/ArrrayVerkehrsmittelValue" />
         <Preference
-            android:title="Trainingszeiten und Studioadresse"
-            android:summary="Wann und wo findet Ihr Training statt?">
+        android:title="Trainingszeiten und Studioadresse"
+        android:summary="Wann und wo findet Ihr Training statt?">
+        <intent
+            android:action="android.intent.action.VIEW"
+            android:targetPackage="com.example.mb7.sportappbp"
+            android:targetClass="com.example.mb7.sportappbp.Activity.ActivitySettingInitializer" />
+    </Preference>
+        <Preference
+            android:title="Kompass"
+            android:summary="Zum Bearbeiten deiner Angaben im Kompass">
             <intent
                 android:action="android.intent.action.VIEW"
                 android:targetPackage="com.example.mb7.sportappbp"
-                android:targetClass="com.example.mb7.sportappbp.Activity.ActivitySettingInitializer" />
+                android:targetClass="com.example.mb7.sportappbp.Activity.ActivityKompass" />
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

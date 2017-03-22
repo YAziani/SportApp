@@ -12,6 +12,7 @@ import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.FitnessFragebogenViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
+import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.Firebase;

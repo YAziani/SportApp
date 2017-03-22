@@ -31,8 +31,9 @@ import java.util.List;
 public class DAL_User {
     static  private long gcounter ;
 
-    static public void GetStimmnungsabfrage(User user, Date date)
-    {
+    static public StimmungAbfrage GetStimmnungsabfrage(User user, Date date){
+    final StimmungAbfrage stimmunga=new StimmungAbfrage();
+
         try
         {
             final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
@@ -55,7 +56,7 @@ public class DAL_User {
                                                                                for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                                                    // Hier bekommst du dann letztlich die Stimmungsabfrage
                                                                                    StimmungAbfrage stimmungAbfrage = child.getValue(StimmungAbfrage.class);
-                                                                                   stimmungAbfrage.Angespannt = stimmungAbfrage.Angespannt;
+                                                                                   stimmungAbfrage=stimmunga;
 
                                                                                }
                                                                           }
@@ -76,11 +77,13 @@ public class DAL_User {
                 }
             });
 
+            return stimmunga;
 
         }
         catch (Exception e)
         {
             Log.d("ERROR", e.getMessage());
+            return stimmunga;
         }
     }
 

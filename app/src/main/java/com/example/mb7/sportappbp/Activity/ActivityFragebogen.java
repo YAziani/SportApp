@@ -1,7 +1,9 @@
 package com.example.mb7.sportappbp.Activity;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -85,13 +87,7 @@ public class ActivityFragebogen extends AppCompatActivity{
         switch (item.getItemId()){
             case R.id.icon_save:
                 SaveData();
-                finish();
-                Toast.makeText(ActivityMain.activityMain,
-                        "Erfolgreich gespeichert" + "\n" +
-                                "Scoring Bewegungsaktivität: " + scoringbewegung() + "\n" +
-                                "Scoring Sportaktivität: " + scoringsport()+ "\n" +
-                                "Scoring Gesamt: " + scoringgesamt()
-                        ,Toast.LENGTH_LONG).show();
+                speicheralert();
 
                 return true;
 
@@ -100,6 +96,31 @@ public class ActivityFragebogen extends AppCompatActivity{
         }
     }
 
+    private void speicheralert() {
+        AlertDialog.Builder speicherbuilder=new AlertDialog.Builder(this);
+        speicherbuilder.setTitle("Ergebnis");
+        speicherbuilder.setMessage(
+                "Bewegungsscore: " + scoringbewegung()+"\n" +
+                "Sportscore: " + scoringsport() + "\n" +
+                "Gesamtscore: " + scoringgesamt());
+        speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
+                        "Erfolgreich gespeichert",Toast.LENGTH_LONG);
+                ausgabe.show();
+            }
+
+        });
+        speicherbuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        speicherbuilder.show();
+    }
 
     private Fragebogen getData() {
         Fragebogen fragebogen = new Fragebogen();

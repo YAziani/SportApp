@@ -1,6 +1,8 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -80,7 +82,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         //set an other menu xml
-        inflater.inflate(R.menu.menu_save, menu);
+        inflater.inflate(R.menu.menu_info_save, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -97,20 +99,58 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.icon_save:
                 SaveData();
-                finish();
-                Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
-                        "Erfolgreich gespeichert \n" +
-                                "Kraftscore: " + kraftscoring() +"\n"+
-                                "Ausdauerscore: " + ausdauerscoring() + "\n"+
-                                "Bewglichkeitsscore: " + bewglichkeitsscoring() + "\n"+
-                                "Koordinationsscore: " + koordinationscoring() + "\n"+
-                                "Gesamtscore:" + scoringwert()  ,Toast.LENGTH_LONG);
-                ausgabe.show();
+                speicheralert();
                 return true;
+            case R.id.icon_info:
+                infoalert();
+
 
             default:
                 return super.onOptionsItemSelected(item);
         }
+    }
+
+    private void infoalert() {
+        AlertDialog.Builder infobuilder=new AlertDialog.Builder(this);
+                infobuilder.setTitle("Information");
+                infobuilder.setMessage("Bitte geben Sie zu den nächsten 28 Fragen eine spontane Einschätzung ab. Klicken Sie bitte auf das Feld, welches Ihrer Einschätzung nach am besten auf Sie zutrifft.\n" +
+                        "Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheidend ist, was Sie sich wirklich zutrauen.");
+                infobuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+                    @Override
+                    public void onClick(DialogInterface dialog, int which) {
+
+                    }
+
+                });
+                infobuilder.show();
+    }
+
+    private void speicheralert() {
+        AlertDialog.Builder speicherbuilder=new AlertDialog.Builder(this);
+        speicherbuilder.setTitle("Ergebnis");
+        speicherbuilder.setMessage(
+                "Kraftscore: " + kraftscoring() +"\n" +
+                "Ausdauerscore: " + ausdauerscoring() + "\n" +
+                "Bewglichkeitsscore: " + bewglichkeitsscoring() + "\n" +
+                "Koordinationsscore: " + koordinationscoring() + "\n" +
+                "Gesamtscore: " + scoringwert() );
+        speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
+                        "Erfolgreich gespeichert",Toast.LENGTH_LONG);
+                ausgabe.show();
+            }
+
+        });
+        speicherbuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        speicherbuilder.show();
     }
 
     private FitnessFragebogen getData(){

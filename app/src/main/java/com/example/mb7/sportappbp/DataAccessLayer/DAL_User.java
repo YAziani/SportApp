@@ -168,7 +168,7 @@ public class DAL_User {
         try
         {
             final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/DiaryEntry/" + "20170322");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/Diary/" + "20170322");
             final Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -261,8 +261,7 @@ public class DAL_User {
     {
         try {
             final String sDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
-            //Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/DiaryEntry/" + diaryEntry.getID() + "/");
-            URL url = new URL(DAL_Utilities.DatabaseURL  +  "users/" + user.getName() + "/DiaryEntry/" + sDate + "/");
+            URL url = new URL(DAL_Utilities.DatabaseURL  +  "users/" + user.getName() + "/Diary/" + sDate + "/");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -287,7 +286,7 @@ public class DAL_User {
     {
         try
         {
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/DiaryEntry/" + diaryEntry.getID() + "/");
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Diary/" + diaryEntry.getID() + "/");
             Firebase newChildRef = ref.push();
 
             Firebase childDate = newChildRef.child("date");

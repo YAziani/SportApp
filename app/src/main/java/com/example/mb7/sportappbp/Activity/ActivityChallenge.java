@@ -16,11 +16,14 @@ public class ActivityChallenge extends AppCompatActivity {
     ListView listView;
     ArrayList<User> userList;
 
+    boolean hasChallenge = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge);
+
 
         userList = new ArrayList<User>();
         User u1 = User.Create("Bernd");

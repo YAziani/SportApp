@@ -34,10 +34,9 @@ public class ActivityDiary extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diary);
 
+
+
         allDiaryEntries = allDiaryEntries.getInstance();
-
-
-        //todo Daten von Datenbank laden
 
 
         //get the listView of the layout
@@ -59,7 +58,7 @@ public class ActivityDiary extends AppCompatActivity {
             }
         });
 
-
+        allDiaryEntries.getDiaryList().clear();
         ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
 
     }

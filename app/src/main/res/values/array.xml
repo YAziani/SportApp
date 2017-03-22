@@ -11,6 +11,7 @@
     </string-array>
     <string-array name="ArrrayStmabfrageAbstand">
         <item>0 Minuten</item>
+        <item>10 Minuten</item>
         <item>20 Minuten</item>
         <item>30 Minuten</item>
         <item>40 Minuten</item>

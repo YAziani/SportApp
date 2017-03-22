@@ -12,7 +12,9 @@ import android.widget.TextView;
 import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
+import com.example.mb7.sportappbp.Activity.ActivityKompass;
 import com.example.mb7.sportappbp.Activity.ActivityMain;
+import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.ClientIF;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.Firebase;
@@ -67,8 +69,9 @@ public class TbReportContent extends TabFragment{
             @Override
             public void onClick(View v) {
 
+                Intent open = new Intent(ActivityMain.activityMain, ActivityKompass.class);
+                ActivityMain.activityMain.startActivity(open);
 
-                ActivityMain.mainUser.GetStimmnungsabfrage(new Date(2017,3,16 ));
             }
         });
 

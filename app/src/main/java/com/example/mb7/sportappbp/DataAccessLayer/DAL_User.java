@@ -2,12 +2,18 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 
 import android.util.Log;
 
+import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
 import com.example.mb7.sportappbp.BusinessLayer.User;
+import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.Exercise;
+import com.example.mb7.sportappbp.Objects.LeistungstestsExercise;
+import com.example.mb7.sportappbp.Objects.ReinerAufenthaltExercise;
+import com.example.mb7.sportappbp.Objects.TrainingExercise;
+import com.example.mb7.sportappbp.Objects.WellnessExercise;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -156,13 +162,103 @@ public class DAL_User {
         }
 
     }
+    static public void GetDiaryEntry(User user, Date date)
+    {
+        try
+        {
+            final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/DiaryEntry/" + "20170321");
+            final Firebase root = new Firebase(url.toString());
+
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+
+                // Hier kriegst du den Knoten -KfNx5TBo4yQpfN07Ekh
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    String  strKey = "";
+
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        //Key
+                        strKey = child.getKey();
+
+                            root.child(strKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                                @Override
+                                public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                                    AllDiaryEntries allDiaryEntries = AllDiaryEntries.getInstance();
+                                    DiaryEntry diaryEntry = new DiaryEntry();
+                                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+
+                                        if(child.getKey().equals("date"))
+                                            diaryEntry.setDate(child.getValue().toString());
+                                        else if(child.getKey().equals("time"))
+                                            diaryEntry.setTime(child.getValue().toString());
+                                        /*
+                                        else{
+                                            TrainingExercise exercise = child.getValue(TrainingExercise.class);
+                                            diaryEntry.getExerciseList().add(exercise);
+                                        }
+                                        */
+                                        /*
+                                        else if(child.getKey().equals("Taining")){
+                                            TrainingExercise exercise = child.getValue(TrainingExercise.class);
+                                            exercise.setCategory("Training");
+                                            diaryEntry.getExerciseList().add(exercise);
+                                        }
+                                        else if(child.getKey().equals("Leistungstests")){
+                                            LeistungstestsExercise exercise = child.getValue(LeistungstestsExercise.class);
+                                            exercise.setCategory("Leistungstests");
+                                            diaryEntry.getExerciseList().add(exercise);
+                                        }
+                                        else if(child.getKey().equals("ReinerAufenthalt")){
+                                            ReinerAufenthaltExercise exercise = child.getValue(ReinerAufenthaltExercise.class);
+                                            exercise.setCategory("ReinerAufenthalt");
+                                            diaryEntry.getExerciseList().add(exercise);
+                                        }
+                                        else if(child.getKey().equals("Wellness")){
+                                            WellnessExercise exercise = child.getValue(WellnessExercise.class);
+                                            exercise.setCategory("Wellness");
+                                            diaryEntry.getExerciseList().add(exercise);
+                                        }
+                                        */
+
+                                    }
+                                    allDiaryEntries.getInstance().add(diaryEntry);
+
+                                }
+
+                                @Override
+                                public void onCancelled(FirebaseError firebaseError) {
+
+                                }
+                            });
+                    }
+
+
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+
+
+        }
+        catch (Exception e)
+        {
+            Log.d("ERROR", e.getMessage());
+        }
+    }
 
 
     static public void GetLastTodayDiaryEntry(User user, Date date)
     {
         try {
             final String sDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
-            URL url = new URL(DAL_Utilities.DatabaseURL  +  "players/" + user.getName() + "/DiaryEntry/" + sDate + "/");
+            //Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/DiaryEntry/" + diaryEntry.getID() + "/");
+            URL url = new URL(DAL_Utilities.DatabaseURL  +  "users/" + user.getName() + "/DiaryEntry/" + sDate + "/");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -188,14 +284,12 @@ public class DAL_User {
         try
         {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/DiaryEntry/" + diaryEntry.getID() + "/");
-            System.out.println("war hier2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-            //String V_N = stimmungAbfrage.Vor?"/V":"/N";
             Firebase newChildRef = ref.push();
 
-            Firebase childDate = newChildRef.child("Date");
+            Firebase childDate = newChildRef.child("date");
             childDate.setValue(diaryEntry.getDate());
 
-            Firebase childTime = newChildRef.child("Time");
+            Firebase childTime = newChildRef.child("time");
             childTime.setValue(diaryEntry.getTime());
 
 
@@ -203,12 +297,16 @@ public class DAL_User {
             for(Exercise ex : diaryEntry.getExerciseList()){
 
                 Firebase exerciseChild = newChildRef.child("Exercise " + String.valueOf(i) + " :");
-                Firebase childExercise = exerciseChild.child("Exercise");
-                childExercise.setValue(ex.getExercise());
-                Firebase childMinutes = exerciseChild.child("Minutes");
+                //Firebase exerciseChild = newChildRef.child(ex.getCategory());
+                Firebase childCategory= exerciseChild.child("category");
+                childCategory.setValue(ex.getCategory());
+                Firebase childExercise = exerciseChild.child("name");
+                childExercise.setValue(ex.getName());
+                Firebase childMinutes = exerciseChild.child("timeMinutes");
                 childMinutes.setValue(ex.getTimeMunites());
-                Firebase childHours = exerciseChild.child("Hours");
+                Firebase childHours = exerciseChild.child("timeHours");
                 childHours.setValue(ex.getTimeHours());
+
                 i++;
             }
 
@@ -216,8 +314,6 @@ public class DAL_User {
         catch (Exception ex)
         {
             String s = ex.getMessage();
-            System.out.println(s);
-            System.out.println("war hier2!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
         }
         finally
         {

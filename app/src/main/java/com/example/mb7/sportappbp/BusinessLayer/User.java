@@ -13,6 +13,11 @@ import java.util.List;
 public class User {
 
     private String name;
+
+
+
+    private String points;
+
     private User (String Name)
     {
         name =Name;
@@ -27,6 +32,14 @@ public class User {
     public String getName()
     {
         return name;
+    }
+
+    public String getPoints() {
+        return points;
+    }
+
+    public void setPoints(String points) {
+        this.points = points;
     }
 
     public void GetLastTodayStimmungsabfrage(Date date)
@@ -60,6 +73,15 @@ public class User {
     public boolean SaveDiaryEntry(DiaryEntry diaryEntry)
     {
         DAL_User.InsertDiaryEntry(this,diaryEntry);
+        return true;
+    }
+    public boolean GetDiaryEntry(Date date){
+        DAL_User.GetDiaryEntry(this,date);
+        return true;
+    }
+
+    public boolean getTotalPointsFromTo(Date from, Date to){
+            //todo implement the firebase method
         return true;
     }
 

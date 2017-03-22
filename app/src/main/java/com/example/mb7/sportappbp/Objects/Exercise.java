@@ -9,18 +9,19 @@ import android.os.Parcelable;
 
 public abstract class Exercise implements Parcelable {
 
-    String exercise;
+    String name;
     double weighting;
     int timeMinutes;
     int timeHours;
+    String category;
 
 
     public double getWeighting() {
         return this.weighting;
     }
 
-    public String getExercise() {
-        return this.exercise;
+    public String getName() {
+        return this.name;
     }
 
     public int getTimeMunites() {
@@ -31,8 +32,12 @@ public abstract class Exercise implements Parcelable {
         return this.timeHours;
     }
 
-    public void setExercise(String exercise) {
-        this.exercise = exercise;
+    public String getCategory(){
+        return this.category;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setTimeMinutes(int timeMinutes) {
@@ -43,6 +48,8 @@ public abstract class Exercise implements Parcelable {
         this.timeHours = timeHours;
     }
 
+    public void setCategory(String category){this.category = category; }
+
     @Override
     public int describeContents() {
         return 0;
@@ -50,10 +57,11 @@ public abstract class Exercise implements Parcelable {
 
     @Override
     public void writeToParcel(Parcel parcel, int i) {
-        parcel.writeString(exercise);
+        parcel.writeString(name);
         parcel.writeDouble(weighting);
         parcel.writeInt(timeMinutes);
         parcel.writeInt(timeHours);
+        parcel.writeString(category);
     }
 
 }

@@ -9,6 +9,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityKompass;
@@ -52,6 +53,8 @@ public class TbReportContent extends TabFragment{
         txtRequest = (TextView) view.findViewById(R.id.txtRequestTest);
         testMo(view);
         testBasti2(view);
+        testBastiChellenge(view);
+
 
         return view;
     }
@@ -151,7 +154,7 @@ public class TbReportContent extends TabFragment{
     }
 
     private void testBasti2(View view){
-        testBtn2 = (Button) view.findViewById(R.id.btnTest2);
+        testBtn2 = (Button) view.findViewById(R.id.btnTest3);
         testBtn2.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
@@ -172,6 +175,19 @@ public class TbReportContent extends TabFragment{
                 Intent open = new Intent(getActivity(), ActivityDiary.class);
                 startActivity(open);
 
+            }
+        });
+    }
+
+    private void testBastiChellenge (View view){
+        testBtn = (Button) view.findViewById(R.id.btnTest3);
+        testBtn.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+
+                Intent open = new Intent(getActivity(), ActivityChallenge.class);
+                startActivity(open);
             }
         });
     }

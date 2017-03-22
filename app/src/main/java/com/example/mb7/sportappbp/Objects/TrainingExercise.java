@@ -11,6 +11,7 @@ public class TrainingExercise extends Exercise {
 
     public TrainingExercise(){
         this.weighting = 2.0;
+        this.category = "Training";
     }
 
     public static final Parcelable.Creator<Exercise> CREATOR = new Creator<Exercise>() {
@@ -18,10 +19,11 @@ public class TrainingExercise extends Exercise {
         public Exercise createFromParcel(Parcel parcel) {
             Exercise training = new TrainingExercise() {
             };
-            training.exercise = parcel.readString();
+            training.name = parcel.readString();
             training.weighting = parcel.readDouble();
             training.timeMinutes = parcel.readInt();
             training.timeHours = parcel.readInt();
+            training.category = parcel.readString();
             return training;
         }
 

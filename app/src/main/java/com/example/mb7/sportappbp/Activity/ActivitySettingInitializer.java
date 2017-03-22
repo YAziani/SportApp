@@ -181,11 +181,11 @@ public class ActivitySettingInitializer extends AppCompatActivity {
                         // adapter to fill the list view of the weekday with
                         ArrayAdapter<String> adapter =
                                 new ArrayAdapter<>(
-                                        getApplicationContext(),
+                                        ActivitySettingInitializer.this,
                                         android.R.layout.simple_list_item_1, 0,displayValues);
 
                         // setup list view for the weekday
-                        listViewArray[userChoiceIndex] = new ListView(getApplicationContext());
+                        listViewArray[userChoiceIndex] = new ListView(ActivitySettingInitializer.this);
                         listViewArray[userChoiceIndex].setAdapter(adapter);
                         listViewArray[userChoiceIndex].setOnItemClickListener(new AdapterView.OnItemClickListener() {
                             @Override
@@ -226,7 +226,7 @@ public class ActivitySettingInitializer extends AppCompatActivity {
                         builder.setTitle("Tragen Sie die Adresse Ihres Fitnessstudios ein.");
                         builder.setCancelable(true);
                         // set up the input
-                        final EditText input = new EditText(getApplicationContext());
+                        final EditText input = new EditText(ActivitySettingInitializer.this);
                         input.setTextColor(Color.argb(255,0,0,0));
                         // specify the type of input
                         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -373,7 +373,7 @@ public class ActivitySettingInitializer extends AppCompatActivity {
             for(int i = 0; i < displayValues.size(); i++) {
                 displayValues.set(i,displayValues.get(i) + " Uhr");
             }
-            listViewArray[userChoiceIndex].setAdapter(new ArrayAdapter<>(getApplicationContext(),
+            listViewArray[userChoiceIndex].setAdapter(new ArrayAdapter<>(ActivitySettingInitializer.this,
                     android.R.layout.simple_list_item_1,0,displayValues));
             // set text on buttons
             String numberOfDates = String.valueOf(inputList.get(userChoiceIndex).size())+ " Termin";

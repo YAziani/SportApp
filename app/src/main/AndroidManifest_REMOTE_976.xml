@@ -49,12 +49,7 @@
         <activity android:name=".Activity.ActivityFragebogen" />
         <activity android:name=".Activity.ActivityFitnessFragebogen" />
         <activity android:name=".Activity.ActivityMotivationMessage" />
-<<<<<<< HEAD
-        <activity android:name=".Activity.ActivityTrainQuestioning"></activity>
-        <activity android:name=".Activity.ActivityKompass"></activity>
-=======
         <activity android:name=".Activity.ActivityTrainQuestioning" />
->>>>>>> e0a2aad84e914c993034381455fafe3d82475016
     </application>
 
 </manifest>

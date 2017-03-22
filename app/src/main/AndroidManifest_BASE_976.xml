@@ -41,7 +41,8 @@
         <activity android:name=".Activity.ActivityChallenge" />
         <activity
             android:name=".Activity.ActivityCategories"
-            android:label="Kategorie auswählen..." />
+            android:label="Kategorie auswählen..."
+            android:parentActivityName=".Activity.ActivityExerciseOverview" />
         <activity
             android:name=".Activity.ActivityExercises"
             android:parentActivityName=".Activity.ActivityCategories" />
@@ -49,12 +50,10 @@
         <activity android:name=".Activity.ActivityFragebogen" />
         <activity android:name=".Activity.ActivityFitnessFragebogen" />
         <activity android:name=".Activity.ActivityMotivationMessage" />
-<<<<<<< HEAD
-        <activity android:name=".Activity.ActivityTrainQuestioning"></activity>
-        <activity android:name=".Activity.ActivityKompass"></activity>
-=======
-        <activity android:name=".Activity.ActivityTrainQuestioning" />
->>>>>>> e0a2aad84e914c993034381455fafe3d82475016
+        <activity android:name=".Activity.ActivityTrainQuestioning">
+
+
+        </activity>
     </application>
 
 </manifest>

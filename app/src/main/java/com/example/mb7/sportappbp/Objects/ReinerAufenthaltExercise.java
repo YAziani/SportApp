@@ -11,18 +11,21 @@ public class ReinerAufenthaltExercise extends Exercise {
 
     public ReinerAufenthaltExercise(){
         this.weighting = 2.0;
+        this.category = "ReinerAufenthalt";
     }
 
     public static final Parcelable.Creator<Exercise> CREATOR = new Creator<Exercise>() {
         @Override
         public Exercise createFromParcel(Parcel parcel) {
-            Exercise ReinerAufenthalt = new ReinerAufenthaltExercise() {
+            Exercise reinerAufenthalt = new ReinerAufenthaltExercise() {
             };
-            ReinerAufenthalt.exercise = parcel.readString();
-            ReinerAufenthalt.weighting = parcel.readDouble();
-            ReinerAufenthalt.timeMinutes = parcel.readInt();
-            ReinerAufenthalt.timeHours = parcel.readInt();
-            return ReinerAufenthalt;
+            reinerAufenthalt.name = parcel.readString();
+            reinerAufenthalt.weighting = parcel.readDouble();
+            reinerAufenthalt.timeMinutes = parcel.readInt();
+            reinerAufenthalt.timeHours = parcel.readInt();
+            reinerAufenthalt.category = parcel.readString();
+
+            return reinerAufenthalt;
         }
 
         @Override

@@ -6,29 +6,30 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
 
 /**
- * Created by Basti on 29.01.2017.
+ * Created by Basti on 21.03.2017.
  */
 
-public class ExerciseViewAdapter extends BaseAdapter{
+public class DiaryViewAdapter extends BaseAdapter {
 
     private Activity _context;
-    private ArrayList<Exercise> _exercises;
+    private ArrayList<DiaryEntry> _diaryEntries;
 
-    public ExerciseViewAdapter(Activity context, ArrayList<Exercise> notifications)
+    public DiaryViewAdapter(Activity context, ArrayList<DiaryEntry> diaryEntries)
     {
-        _exercises = notifications;
+        _diaryEntries = diaryEntries;
         _context = context;
     }
 
     @Override
     public Object getItem(int position) {
-        return _exercises.get(position);
+        return _diaryEntries.get(position);
     }
 
     @Override
@@ -40,21 +41,21 @@ public class ExerciseViewAdapter extends BaseAdapter{
     public View getView(int position, View convertView, ViewGroup parent) {
 
         View view = convertView;
-        Exercise exercise = _exercises.get(position);
+        DiaryEntry diaryEntry = _diaryEntries.get(position);
         if (view == null)
-            view = _context.getLayoutInflater().inflate(R.layout.lst_exercisecell, null);
+            view = _context.getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
 
-        TextView txtTitle =(TextView) view.findViewById(R.id.txtExercise);
-        txtTitle.setText(exercise.getName());
-
+        TextView txtTitle =(TextView) view.findViewById(android.R.id.text1);
+        txtTitle.setText("Vom " + diaryEntry.getDate() + ", um " + diaryEntry.getTime() + " Uhr");
+        /*
         TextView txtText = (TextView) view.findViewById(R.id.txtDuration);
-        txtText.setText(String.valueOf(exercise.getTimeHours()) + " Stunden " + exercise.getTimeMunites() + " Minuten");
+        txtText.setText(diaryEntry.getTime() + " Uhr");
+        */
         return view;
     }
 
     @Override
     public int getCount() {
-        return _exercises.size();
+        return _diaryEntries.size();
     }
 }
-

@@ -38,7 +38,6 @@ public class TrainQuestioning extends MotivationMethod {
                     String trainingTime = trainingStartTime;
                     @Override
                     public void run() {
-                        System.out.println("POST DELAYED RUN " + trainingTime);
                         // setup notification builder
                         final int notificationId = 824243;
                         final NotificationCompat.Builder notificationBuilder =

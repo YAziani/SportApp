@@ -23,7 +23,7 @@
             app:layout_scrollFlags="scroll|enterAlways"
             app:popupTheme="@style/AppTheme.PopupOverlay"
             app:titleTextColor="?attr/colorPrimary"
-            app:title="SPORT APP">
+            app:title="FIT UP">
             <!--app:popupTheme="@style/AppTheme.PopupOverlay"-->
 
 

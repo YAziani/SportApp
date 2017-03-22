@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -28,6 +29,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     //request id for the activitiy request
     final static int REQUEST_ID = 1;
+    private boolean newData = true;
 
     private DiaryEntry diaryEntry;
     private AllDiaryEntries allDiaryEntries;
@@ -60,10 +62,20 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         //Create Firebase reference
         mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
 
-        //Create Diary Entry Object to safe all data
-        diaryEntry = new DiaryEntry(getID(), getCurrentDate(), getCurrentTime());
+        allDiaryEntries = AllDiaryEntries.getInstance();
 
-        exerciseList = diaryEntry.getExerciseList();
+        //Create Diary Entry Object to safe all data
+
+        diaryEntry = new DiaryEntry();
+        diaryEntry.setId(getID());
+        diaryEntry.setDate(getCurrentDate());
+        diaryEntry.setTime(getCurrentTime());
+
+        //exerciseList = diaryEntry.getExerciseList();
+        exerciseList = receiveExerciseList();
+
+        diaryEntry.setExerciseList(exerciseList);
+
 
         //set all categories for the viewadapter
         listCategories.add("Leistungstests");
@@ -81,12 +93,12 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         diaryEntryViewAdapter = new DiaryEntryViewAdapter(ActivityDiaryEntry.this, listCategories, diaryEntry, listIcons);
         gridView = (GridView) findViewById(R.id.gridViewExercise);
         gridView.setAdapter(diaryEntryViewAdapter);
-
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+
         //set the menu with add and save icon
         inflater.inflate(R.menu.menu_add, menu);
 
@@ -102,7 +114,13 @@ public class ActivityDiaryEntry extends AppCompatActivity {
                 sendOldAndRequestNewExerciseList();
                 return true;
             case R.id.icon_save:
-                btnSaveAction();
+                if(!newData) {
+                    returnResult();
+                    //reset flag
+                    newData = false;
+                }
+                else
+                    btnSaveAction();
                 return true;
 
             default:
@@ -110,41 +128,47 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         }
     }
 
-    private void btnSaveAction() {
-
-        //todo Save object to the database
-        if(diaryEntry.getExerciseList().size() > 0)
-            SaveData();
-
-        else//Display answer
-        Toast.makeText(ActivityDiaryEntry.this, "Es wurden keine Einträge registriert!" , Toast.LENGTH_SHORT).show();
-
-        finish();
-    }
-
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
         ArrayList<Exercise> result;
+
         //check if the request was successful
         if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
 
-            //add the new exercises to
+            //get the new list
             result = data.getParcelableArrayListExtra("newExercises");
             exerciseList = result;
             diaryEntry.setExerciseList(result);
 
+            //update listview
             diaryEntryViewAdapter.notifyDataSetChanged();
 
         }
     }
 
+
+    private void btnSaveAction() {
+
+        //todo Save object to the database
+        if(diaryEntry.getExerciseList().size() > 0) {
+            SaveData();
+            allDiaryEntries.getDiaryList().add(diaryEntry);
+        }
+
+        else//Display answer
+            Toast.makeText(ActivityDiaryEntry.this, "Es wurden keine Einträge registriert!" , Toast.LENGTH_SHORT).show();
+
+        finish();
+    }
+
+    /**
+     * Save diaryEntry to Firebase
+     * @return
+     */
     private boolean SaveData(){
 
-        System.out.print("war hier loooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooooool");
-        //StimmungAbfrage stimmungAbfrage  = getData();
-        //ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
         ActivityMain.mainUser.GetLastTodayDiaryEntry(new Date());
         ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
         Toast.makeText(ActivityDiaryEntry.this, "Eintrag gespeichert!" , Toast.LENGTH_SHORT).show();
@@ -175,6 +199,29 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         String strID = sdf.format(c.getTime());
         return strID;
+    }
+
+    private ArrayList<Exercise> receiveExerciseList(){
+
+        ArrayList<Exercise> result;
+        final Bundle extra = getIntent().getExtras();
+
+        if (extra != null) {
+            result = extra.getParcelableArrayList("oldExercises");
+            //set flag for saving data later
+            newData = false;
+            return result;
+        }
+        else
+            return result = diaryEntry.getExerciseList();
+    }
+
+    private void returnResult(){
+
+        Intent intent = new Intent();
+        intent.putParcelableArrayListExtra("newExercises", exerciseList);
+        setResult(RESULT_OK, intent);
+        finish();
     }
 
     /**

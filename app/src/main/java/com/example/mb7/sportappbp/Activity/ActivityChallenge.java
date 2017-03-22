@@ -24,11 +24,11 @@ public class ActivityChallenge extends AppCompatActivity {
 
         userList = new ArrayList<User>();
         User u1 = User.Create("Bernd");
-        u1.setPoints("500");
+        u1.setPoints(250);
         User u2 = User.Create("Peter");
-        u1.setPoints("250");
+        u2.setPoints(40);
         User u3 = User.Create("Hans");
-        u1.setPoints("40");
+        u3.setPoints(500);
 
         userList.add(u1);
         userList.add(u2);

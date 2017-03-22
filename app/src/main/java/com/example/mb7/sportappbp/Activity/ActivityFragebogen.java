@@ -3,6 +3,7 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
@@ -213,6 +214,7 @@ public class ActivityFragebogen extends AppCompatActivity{
         ((TextView)findViewById(R.id.txtaktivitätaanzahl)).setText("Wie oft haben Sie Aktivität A in den letzten " + wochenzeitraum + " Wochen ausgeübt");
         ((TextView)findViewById(R.id.txtaktivitätbanzahl)).setText("Wie oft haben Sie Aktivität B in den letzten " + wochenzeitraum + " Wochen ausgeübt");
         ((TextView)findViewById(R.id.txtaktivitätcanzahl)).setText("Wie oft haben Sie Aktivität C in den letzten " + wochenzeitraum + " Wochen ausgeübt");
+
     }
 
 

@@ -87,8 +87,15 @@ public class ActivityMain extends AppCompatActivity {
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
 
+
+
         // check settings for initialization
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+        // TODO remove debug functions
+        /*
+        preferences.edit().remove("initialized").commit();
+        preferences.edit().remove("logedIn").commit();
+        */
         if(!preferences.getBoolean("initialized",false)) {
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);
@@ -99,6 +106,14 @@ public class ActivityMain extends AppCompatActivity {
                     variableMotivationMethods);
         } else {
             MethodChooser.reputMethodsInList(fixMotivationMethods,variableMotivationMethods,this);
+        }
+
+        // login
+        if(preferences.getString("logedIn","").equals("")) {
+            Intent loginIntent = new Intent(this,ActivityLogin.class);
+            startActivity(loginIntent);
+        }else {
+            mainUser = User.Create(preferences.getString("logedIn",""));
         }
 
         // start background clock
@@ -297,5 +312,14 @@ public class ActivityMain extends AppCompatActivity {
     public void onDestroy(){
         // TODO close all notifications
         super.onDestroy();
+    }
+
+    /**
+     * create a new user
+     * @param username the users username
+     */
+    public User createUser(String username) {
+        mainUser = User.Create(username);
+        return mainUser;
     }
 }

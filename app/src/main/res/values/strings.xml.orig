@@ -2,8 +2,8 @@
     <string name="app_name">Fit Up</string>
     <string name="action_settings">Einstellungen</string>
     <string name="section_format">Hello World from section: %1$d</string>
+<<<<<<< HEAD
     <string name ="notifikationen">Notifikationen</string>
-    <string name="title_activity_login">Anmeldung</string>
 
     <string name="trainingseintrag">Trainingeintrag</string>
     <string name="nun_ist_es_soweit">Nun ist es soweit. Haben Sie heute trainert?</string>
@@ -16,17 +16,6 @@
     <string name="naechstes_training">Nächstes Training</string>
     <string name="ihr_naechstes_train_begin_um">Ihr nächstes Training beginnt um </string>
     <string name="aktivitaetsfragebogen">Aktivitätsfragebogen</string>
-    <!-- Strings related to login -->
-    <string name="prompt_email">E-mail</string>
-    <string name="prompt_password">Passwort</string>
-    <string name="action_sign_in">Anmelden oder Registrieren</string>
-    <string name="action_sign_in_short">Anmelden</string>
-    <string name="error_invalid_email">E-Mail ungültig</string>
-    <string name="error_invalid_password">Passwort zu kurz</string>
-    <string name="error_incorrect_password">Passwort inkorrekt</string>
-    <string name="error_field_required">Dieses Feld wird benötigt</string>
-    <string name="permission_rationale">"Kontaktberechtigung für Autokompletierung benötigt"
-    </string>
     <string name="fitnessfragebogen">Fitnessfragebogen</string>
     <string name="erfolgreichgespeichert">Erfolgreich gespeichert</string>
     <string name="bitte_geben_sie_moment_fuhlen">Bitte geben Sie an, wie Sie sich jetzt d.h. in diesem Moment fühlen</string>
@@ -48,4 +37,19 @@
     <string name="extrem">Extrem</string>
     <string name="taetigkeiten">Tätigkeiten</string>
 
+=======
+    <string name="title_activity_login">Anmeldung</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_password">Passwort</string>
+    <string name="action_sign_in">Anmelden oder Registrieren</string>
+    <string name="action_sign_in_short">Anmelden</string>
+    <string name="error_invalid_email">E-Mail ungültig</string>
+    <string name="error_invalid_password">Passwort zu kurz</string>
+    <string name="error_incorrect_password">Passwort inkorrekt</string>
+    <string name="error_field_required">Dieses Feld wird benötigt</string>
+    <string name="permission_rationale">"Kontaktberechtigung für Autokompletierung benötigt"
+    </string>
+>>>>>>> c44dba00f934222fea6ae169ada9b4c4e58cafcc
 </resources>

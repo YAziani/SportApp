@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
 
@@ -103,5 +104,9 @@ public class User {
      */
     void saveAlternGroupUpdate(String currentActiveGroup, String nextActiveGroup, String alternGroup) {
         DAL_User.insertAlternGroupUpdate(this,currentActiveGroup,nextActiveGroup,alternGroup);
+    }
+
+    public void saveRegistration(String username, String email, String password) {
+        DAL_RegisteredUsers.insertRegistration(username, email, password);
     }
 }

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
     android:id="@+id/activity_challenge"
     android:layout_width="match_parent"
@@ -11,20 +12,20 @@
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_centerHorizontal="true"
         android:text="Starten sie jetzt eine Challenge gegen Freunde und Bekannte!"
-        android:textSize="25sp" />
+        android:textSize="25sp"
+        android:layout_alignParentTop="true"
+        android:layout_alignParentStart="true" />
 
     <EditText
-        android:id="@+id/editTextChallengeName"
+        android:id="@+id/editTextNewChallengeName"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_alignParentStart="true"
         android:layout_below="@+id/textView11"
-        android:layout_marginTop="46dp"
         android:ems="10"
-        android:inputType="textPersonName"
-        android:text="Name" />
+        android:hint="Gruppennamen"
+        android:inputType="textPersonName" />
 
     <ListView
         android:id="@+id/listViewChallengeUser"
@@ -32,25 +33,6 @@
         android:layout_height="250dp"
         android:layout_alignParentBottom="true"
         android:layout_alignParentStart="true" />
-
-    <EditText
-        android:id="@+id/editTextChallengeEmail"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentStart="true"
-        android:layout_below="@+id/editTextChallengeName"
-        android:layout_marginTop="14dp"
-        android:ems="10"
-        android:inputType="textEmailAddress"
-        android:text="user@mail.com" />
-
-    <Button
-        android:id="@+id/btnChallengeAddUser"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_alignParentEnd="true"
-        android:layout_alignTop="@+id/editTextChallengeEmail"
-        android:text="User hinzufuegen" />
 
     <TextView
         android:id="@+id/textView24"
@@ -60,4 +42,41 @@
         android:textSize="24sp"
         android:layout_above="@+id/listViewChallengeUser"
         android:layout_alignParentStart="true" />
+
+    <ImageButton
+        android:id="@+id/btnChallengeAddUser"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_above="@+id/listViewChallengeUser"
+        android:layout_alignParentEnd="true"
+        app:srcCompat="@drawable/ic_add_black_24dp" />
+
+    <TextView
+        android:id="@+id/textViewNewChallengeStartDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="24dp"
+        android:text="TextView"
+        android:textSize="17sp"
+        android:layout_below="@+id/editTextNewChallengeName"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
+    <TextView
+        android:id="@+id/textViewNewChallengeEndDate"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:paddingBottom="20dp"
+        android:paddingLeft="24dp"
+        android:paddingRight="24dp"
+        android:paddingTop="24dp"
+        android:text="TextView"
+        android:textSize="17sp"
+        android:layout_above="@+id/textView24"
+        android:layout_alignParentStart="true"
+        android:layout_alignParentEnd="true" />
+
 </RelativeLayout>

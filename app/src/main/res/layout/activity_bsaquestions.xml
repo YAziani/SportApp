@@ -25,7 +25,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content"
                 android:id="@+id/txtFragebogenausfüllen"
-                android:text="Füllen Sie bitte den folgenden Fragebogen aus! \n"
+                android:text="@string/Füllen_Sie_bitte_den_folgenden_Fragebogen_aus"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -39,7 +39,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtberufstätig"
-                android:text="Sind Sie berufstätig oder in Ausbildung?"
+                android:text="@string/Sind_Sie_berufstätig_oder_in_Ausbildung"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
@@ -75,7 +75,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtsitzendetätigkeiten"
-                android:text="Umfasst Ihre Berufstätigkeit bzw. Ausbildung sitzende Tätigkeiten?"
+                android:text="@string/Umfasst_Ihre_Berufstätigkeit_sitzende_Tätigkeiten"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -103,7 +103,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtmäßigebewegung"
-                android:text="Umfasst Ihre Berufstätigkeit bzw. Ausbildung mäßige Bewegung?"
+                android:text="@string/Umfasst_Ihre_Berufstätigkeit_Ausbildung_mäßige_Bewegung"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -131,7 +131,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtintensivebewegung"
-                android:text="Umfasst Ihre Berufstätigkeit bzw. Ausbildung intensive Bewegung?"
+                android:text="@string/Umfasst_Ihre_Berufstätigkeit_Ausbildung_intensive_Bewegung"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -162,7 +162,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtzeitraum"
-                android:text="Folgende Fragen beziehen sich auf den Zeitraum von Wochen! \n "
+                android:text="@string/Folgende_Fragen_beziehen_sich_auf_den_Zeitraum_von_Wochen"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -197,7 +197,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtzufußzurarbeit"
-                android:text="\n Zu Fuß zur Arbeit gehen (auch längere Teilstrecken)."
+                android:text="@string/Zu_Fuß_zur_Arbeit_gehen"
                 android:textColor="@android:color/black"
                 android:textAlignment="gravity"
                 android:layout_marginTop="10dp"
@@ -217,7 +217,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:hint="Anzahl der Tage"
+                        android:hint="@string/Anzahl_Tage"
                         android:gravity="center"
                         android:textColor="@color/primary_text_default_material_light" />
 
@@ -233,7 +233,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Tag"
+                        android:hint="@string/Minuten_pro_Tag"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center"/>
 
@@ -253,7 +253,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtzufußzumeinkaufen"
-                    android:text="\n Zu Fuß zum Einkaufen gehen"
+                    android:text="@string/Zu_Fuß_zum_Einkaufen_gehen"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -273,7 +273,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:hint="Anzahl der Tage"
+                        android:hint="@string/Anzahl_Tage"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center"/>
 
@@ -289,7 +289,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Tag"
+                        android:hint="@string/Minuten_pro_Tag"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center"/>
 
@@ -310,7 +310,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtradzurarbeit"
-                    android:text="\n Radfahren zur Arbeit"
+                    android:text="@string/Radfahren_zur_Arbeit"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -330,7 +330,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:hint="Anzahl der Tage"
+                        android:hint="@string/Anzahl_Tage"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center"/>
 
@@ -346,7 +346,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Tag"
+                        android:hint="@string/Minuten_pro_Tag"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -366,7 +366,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtradfahren"
-                    android:text="\n Radfahren zu sonstigen Fortbewegungszwecken"
+                    android:text="@string/Radfahren_zu_sonstigen_Fortbewegungszwecken"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -386,7 +386,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:hint="Anzahl der Tage"
+                        android:hint="@string/Anzahl_Tage"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -402,7 +402,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Tag"
+                        android:hint="@string/Minuten_pro_Tag"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -421,7 +421,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtspazieren"
-                    android:text="\n Spazierengehen"
+                    android:text="@string/Spazierengehen"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -440,7 +440,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:hint="Anzahl der Tage"
+                        android:hint="@string/Anzahl_Tage"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -456,7 +456,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Tag"
+                        android:hint="@string/Minuten_pro_Tag"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center"/>
 
@@ -475,7 +475,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtgartenarbeit"
-                    android:text="\n Gartenarbeit (z.B. Rasen mähen, Hecke schneiden)"
+                    android:text="@string/Gartenarbeit"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -494,7 +494,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:hint="Anzahl der Tage"
+                        android:hint="@string/Anzahl_Tage"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -510,7 +510,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Tag"
+                        android:hint="@string/Minuten_pro_Tag"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -529,7 +529,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txthausarbeit"
-                    android:text="\n Körperlich anstrengende Hausarbeit (z.B. Putzen, Aufräumen)"
+                    android:text="@string/Körperlich_anstrengende_Hausarbeit"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -548,7 +548,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:hint="Anzahl der Tage"
+                        android:hint="@string/Anzahl_Tage"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -564,7 +564,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Tag"
+                        android:hint="@string/Minuten_pro_Tag"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -583,7 +583,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtpflegearbeit"
-                    android:text="\n Körperlich anstrengende Pflegearbeit (z.B. Kinder betreuen, Kranke pflegen)"
+                    android:text="@string/Körperlich_anstrengende_Pflegearbeit"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -602,7 +602,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:hint="Anzahl der Tage"
+                        android:hint="@string/Anzahl_Tage"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -618,7 +618,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Tag"
+                        android:hint="@string/Minuten_pro_Tag"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -637,7 +637,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txttreppensteigen"
-                    android:text="\n Treppensteigen"
+                    android:text="@string/Treppensteigen"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -656,7 +656,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="number"
-                        android:hint="Anzahl der Tage"
+                        android:hint="@string/Anzahl_Tage"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -672,7 +672,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Stockwerke pro Tag"
+                        android:hint="@string/Stockwerke_pro_Tag"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -687,7 +687,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtsportlichaktiv"
-                android:text="\n \n \n Haben Sie im angegebenen Zeitraum regelmäßig sportliche Aktivität betrieben? Hierzu zählen Aktivitäten, die größere Muskelgruppen beanspruchen und zur Verbesserung der Ausdauer, Kraft und/oder Beweglichkeit führen, wie z.B. Fahrradfahren, Joggen, Fußball spielen und Reiten. Ausgeschlossen werden dabei Aktivitäten wie z.B. Schach, Billiard und Angeln. \n"
+                android:text="@string/Sportlichakitv_Aktivitäten"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -723,7 +723,7 @@
                 android:layout_height="match_parent"
                 android:gravity="center"
                 android:id="@+id/txtsportlicheaktivitäten"
-                android:text="Um welche sportliche(n) Aktivitäte(en) handelt es sich dabei? \n"
+                android:text="@string/Um_welche_sportliche_Aktivität_handelt_es_sich_dabei"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"
                 android:layout_marginTop="10dp"
@@ -744,7 +744,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitäta"
-                    android:text="Aktivität A"
+                    android:text="@string/Aktivität_A"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -760,7 +760,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:inputType="text"
-                        android:hint="Bitte tragen Sie die Sportart hier ein!"
+                        android:hint="@string/Bitte_tragen_Sie_hier_die_Sportart_ein"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -771,7 +771,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätaanzahl"
-                    android:text="Wie oft haben Sie Aktivität A ausgeübt?"
+                    android:text="@string/Wie_oft_haben_Sie_ausgeübt"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -791,7 +791,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Anzahl der Trainingseinheiten"
+                        android:hint="@string/Anzahl_der_Trainingseinheiten"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -802,7 +802,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätaminuten"
-                    android:text="Für wie viele Minuten haben Sie diese Aktivität jedes Mal ausgeführt?"
+                    android:text="@string/Für_wie_viele_Minuten_haben_Sie_diese_Aktivität_jedes_Mal_ausgeführt"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -822,7 +822,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Einheit"
+                        android:hint="@string/Minuten_pro_Einheit"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -842,7 +842,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätb"
-                    android:text="\n Aktivität B"
+                    android:text="@string/Aktivität_B"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -856,7 +856,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:hint="Bitte tragen Sie die Sportart hier ein!"
+                    android:hint="@string/Bitte_tragen_Sie_hier_die_Sportart_ein"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center"/>
                 <TextView
@@ -864,7 +864,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätbanzahl"
-                    android:text="Wie oft haben Sie Aktivität B ausgeübt?"
+                    android:text="@string/Wie_oft_haben_Sie_ausgeübt"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -884,7 +884,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Anzahl der Trainingseinheiten"
+                        android:hint="@string/Anzahl_der_Trainingseinheiten"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -894,7 +894,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätbminuten"
-                    android:text="Für wie viele Minuten haben Sie diese Aktivität jedes Mal ausgeführt?"
+                    android:text="@string/Für_wie_viele_Minuten_haben_Sie_diese_Aktivität_jedes_Mal_ausgeführt"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -914,7 +914,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Einheit"
+                        android:hint="@string/Minuten_pro_Einheit"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -933,7 +933,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätc"
-                    android:text="\n Aktivität C"
+                    android:text="@string/Aktivität_C"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -947,7 +947,7 @@
                     android:layout_width="match_parent"
                     android:layout_height="match_parent"
                     android:inputType="text"
-                    android:hint="Bitte tragen Sie die Sportart hier ein!"
+                    android:hint="@string/Bitte_tragen_Sie_hier_die_Sportart_ein"
                     android:textColor="@color/primary_text_default_material_light"
                     android:gravity="center" />
                 <TextView
@@ -955,7 +955,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätcanzahl"
-                    android:text="Wie oft haben Sie Aktivität C ausgeübt?"
+                    android:text="@string/Wie_oft_haben_Sie_ausgeübt"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -975,7 +975,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Anzahl der Trainingseinheiten"
+                        android:hint="@string/Anzahl_der_Trainingseinheiten"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -985,7 +985,7 @@
                     android:layout_height="match_parent"
                     android:gravity="center"
                     android:id="@+id/txtaktivitätcminuten"
-                    android:text="Für wie viele Minuten haben Sie diese Aktivität jedes Mal ausgeführt?"
+                    android:text="@string/Für_wie_viele_Minuten_haben_Sie_diese_Aktivität_jedes_Mal_ausgeführt"
                     android:textColor="@android:color/black"
                     android:textAlignment="gravity"
                     android:layout_marginTop="10dp"
@@ -1005,7 +1005,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="wrap_content"
                         android:inputType="number"
-                        android:hint="Minuten pro Einheit"
+                        android:hint="@string/Minuten_pro_Einheit"
                         android:textColor="@color/primary_text_default_material_light"
                         android:gravity="center" />
 
@@ -1020,8 +1020,23 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
+                android:id="@+id/txtfragebogenendeleerzzeichen"
+                android:text=""
+                android:textSize="18sp"
+                android:textColor="@android:color/black"
+                android:textAlignment="center"
+                android:layout_marginTop="10dp"
+                android:layout_marginRight="20dp"
+                android:layout_marginLeft="20dp"
+                android:textStyle="normal|bold"
+                android:fontFamily="casual"
+                />
+            <TextView
+                android:layout_width="match_parent"
+                android:layout_height="match_parent"
+                android:gravity="center"
                 android:id="@+id/txtfragebogenende"
-                android:text="\n Fragebogen ist beendet. \n Bitte speichern Sie Ihre Antworten."
+                android:text="@string/Fragebogen_ist_beendet_Bitte_speichern_Sie_Ihre_Antworten"
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
                 android:textAlignment="center"

@@ -24,10 +24,10 @@ public class FragebogenViewAdapter2 extends BaseAdapter{
     public FragebogenViewAdapter2(Activity context)
     {
         antworten = new ArrayList<String>();
-        antworten.add("Keine");
-        antworten.add("eher wenig/etwas");
-        antworten.add("eher mehr");
-        antworten.add("viel");
+        antworten.add(context.getString(R.string.Keine));
+        antworten.add(context.getString(R.string.Eher_wenig));
+        antworten.add(context.getString(R.string.Eher_mehr));
+        antworten.add(context.getString(R.string.Viel));
 
         _context = context;
 

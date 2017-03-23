@@ -47,5 +47,130 @@
     <string name="ziemlich">Ziemlich</string>
     <string name="extrem">Extrem</string>
     <string name="taetigkeiten">Tätigkeiten</string>
+    <!--Fitnessfragebogen xml-->
+    <string name="Wie_gut_können_Sie_folgende_Tätigkeiten_bewältigen">Wie gut können Sie folgende Tätigkeiten bewältigen? \n</string>
+    <string name="Können_Sie">Können Sie... \n</string>
+    <string name="auf_einem_Stuhl_sitzend_ohne_Hilfe_aufstehen">1. ... auf einem Stuhl sitzend ohne Hilfe aufstehen?</string>
+    <string name="einen_schweren_Einkaufskorb_über_mehrere_Etagen_tragen">2. ... einen schweren Einkaufskorb (8 kg) über mehrere Etagen tragen?</string>
+    <string name="eine_volle_Bierkiste_in_den_Keller_tragen">3. ... eine volle Bierkiste in den Keller tragen?</string>
+    <string name="aus_der_Rückenlage_ohne_Hilfe_der_Arme_den_Oberkörper_aufrichten">4. ... aus der Rückenlage ohne Hilfe der Arme den Oberkörper aufrichten (Situp)?</string>
+    <string name="einen_schweren_Koffer_über_Kopfhöhe_heben">5. ... einen schweren Koffer über Kopfhöhe heben (z.B. im Zug auf die Gepäckablage)?</string>
+    <string name="zwei_schwere_Koffer_über_mehrere_Etagen_tragen">6. ... zwei schwere Koffer über mehrere Etagen tragen?</string>
+    <string name="eine_Hantel_mit_mehr_als_Ihrem_Körpergewicht_hochstemmen">7. ... eine Hantel mit mehr als Ihrem Körpergewicht hochstemmen?</string>
+    <string name="um_mehrere_Blocks_flott_gehen">8. ... um mehrere Blocks flott gehen?</string>
+    <string name="mehrere_Treppen_hochgehen_ohne_sich_auszuruhen">9. ... mehrere Treppen hochgehen ohne sich auszuruhen?</string>
+    <string name="zwei_Kilometer_schnell_gehen_ohne_sich_auszuruhen">10. ... zwei Kilometer schnell gehen (walken) ohne sich auszuruhen?</string>
+    <string name="einen_Kilometer_ohne_Pause_joggen">11. ... einen Kilometer ohne Pause joggen?</string>
+    <string name="Minuten_ohne_Pause_joggen">12. ... 30 Minuten ohne Pause joggen (ca. 5 km)?</string>
+    <string name="eine_Stunde_ohne_Pause_joggen">13. ... eine Stunde ohne Pause joggen (ca. 10km)?</string>
+    <string name="einen_Marathon_laufen">14. ... einen Marathon (42 km) laufen?</string>
+    <string name="einen_engen_Pulli_und_Socken_alleine_aus_und_anziehen">15. ... einen engen Pulli und Socken alleine aus- und anziehen?</string>
+    <string name="auf_einem_Stuhl_sitzend_mit_den_Händen_den_Boden_erreichen">16. ... auf einem Stuhl sitzend mit den Händen den Boden erreichen?</string>
+    <string name="im_Stehen_Schuhe_binden">17. ... im Stehen Schuhe binden?</string>
+    <string name="mit_der_Hand_von_unten_auf_dem_Rücken_ein_Schulterblatt_berühren">18. ... mit der Hand von unten auf dem Rücken ein Schulterblatt berühren?</string>
+    <string name="aus_dem_Stand_mit_den_Händen_den_Boden_erreichen">19. ... aus dem Stand (Knie gestreckt) mit den Händen den Boden erreichen?</string>
+    <string name="im_Stehen_mit_dem_Kopf_die_gestreckten_Knie_berühren">20. ... im Stehen mit dem Kopf die gestreckten Knie berühren?</string>
+    <string name="rückwärts_bis_in_die_Brücke_abbeugen">21. ... rückwärts bis in die Brücke abbeugen?</string>
+    <string name="eine_Treppe_hinab_gehen_ohne_sich_festzuhalten">22. ... eine Treppe hinab gehen, ohne sich festzuhalten?</string>
+    <string name="auf_einem_Bein_stehen_ohne_sich_festzuhalten">23. ... auf einem Bein stehen, ohne sich festzuhalten (min. 15 Sekunden)?</string>
+    <string name="einen_Purzelbaum">24. ... einen Purzelbaum?</string>
+    <string name="im_schnellen_Gehen_einen_Ball_prellen">25. ... im schnellen Gehen einen Ball prellen?</string>
+    <string name="mit_Abstützen_über_einen_ein_Meter_hohen_Zaun_springen">26. ... mit Abstützen über einen ein Meter hohen Zaun springen?</string>
+    <string name="freihändig_mit_dem_Fahrrad_um_eine_Kurve_fahren">27. ... freihändig mit dem Fahrrad um eine Kurve fahren?</string>
+    <string name="ein_Rad_schlagen">28. ... ein Rad schlagen?</string>
+
+    <string name="Fragebogen_ist_beendet_Bitte_speichern_Sie_Ihre_Antworten">Fragebogen ist beendet. \n Bitte speichern Sie Ihre Antworten.</string>
+
+    <!--BSA Fragebogen XML-->
+    <string name="Füllen_Sie_bitte_den_folgenden_Fragebogen_aus">Füllen Sie bitte den folgenden Fragebogen aus! \n</string>
+    <string name="Sind_Sie_berufstätig_oder_in_Ausbildung">Sind Sie berufstätig oder in Ausbildung?</string>
+    <string name="Umfasst_Ihre_Berufstätigkeit_sitzende_Tätigkeiten">Umfasst Ihre Berufstätigkeit bzw. Ausbildung sitzende Tätigkeiten?</string>
+    <string name="Umfasst_Ihre_Berufstätigkeit_Ausbildung_mäßige_Bewegung">Umfasst Ihre Berufstätigkeit bzw. Ausbildung mäßige Bewegung?</string>
+    <string name="Umfasst_Ihre_Berufstätigkeit_Ausbildung_intensive_Bewegung">Umfasst Ihre Berufstätigkeit bzw. Ausbildung intensive Bewegung?</string>
+    <string name="Folgende_Fragen_beziehen_sich_auf_den_Zeitraum_von_Wochen">Folgende Fragen beziehen sich auf den Zeitraum von Wochen! \n </string>
+    <string name="Zu_Fuß_zur_Arbeit_gehen">\n Zu Fuß zur Arbeit gehen (auch längere Teilstrecken).</string>
+
+    <string name="Anzahl_Tage">Anzahl der Tage</string>
+    <string name="Minuten_pro_Tag">Minuten pro Tag</string>
+
+    <string name="Zu_Fuß_zum_Einkaufen_gehen">\n Zu Fuß zum Einkaufen gehen</string>
+    <string name="Radfahren_zur_Arbeit">\n Radfahren zur Arbeit</string>
+    <string name="Radfahren_zu_sonstigen_Fortbewegungszwecken">\n Radfahren zu sonstigen Fortbewegungszwecken</string>
+    <string name="Spazierengehen">\n Spazierengehen</string>
+    <string name="Gartenarbeit">\n Gartenarbeit (z.B. Rasen mähen, Hecke schneiden)</string>
+    <string name="Körperlich_anstrengende_Hausarbeit">\n Körperlich anstrengende Hausarbeit (z.B. Putzen, Aufräumen)</string>
+    <string name="Körperlich_anstrengende_Pflegearbeit">\n Körperlich anstrengende Pflegearbeit (z.B. Kinder betreuen, Kranke pflegen)</string>
+    <string name="Treppensteigen">\n Treppensteigen</string>
+    <string name="Stockwerke_pro_Tag">Stockwerke pro Tag</string>
+
+    <string name="Sportlichakitv_Aktivitäten">\n \n \n Haben Sie im angegebenen Zeitraum regelmäßig sportliche Aktivität betrieben? Hierzu zählen Aktivitäten, die größere Muskelgruppen beanspruchen und zur Verbesserung der Ausdauer, Kraft und/oder Beweglichkeit führen, wie z.B. Fahrradfahren, Joggen, Fußball spielen und Reiten. Ausgeschlossen werden dabei Aktivitäten wie z.B. Schach, Billiard und Angeln. \n</string>
+    <string name="Um_welche_sportliche_Aktivität_handelt_es_sich_dabei">Um welche sportliche(n) Aktivitäte(en) handelt es sich dabei? \n</string>
+    <string name="Aktivität_A">Aktivität A</string>
+    <string name="Aktivität_B">\n Aktivität B</string>
+    <string name="Aktivität_C">\n Aktivität C</string>
+    <string name="Bitte_tragen_Sie_hier_die_Sportart_ein">Bitte tragen Sie hier die Sportart ein!</string>
+    <string name="Wie_oft_haben_Sie_ausgeübt">Wie oft haben Sie die Aktivität ausgeübt?</string>
+    <string name="Anzahl_der_Trainingseinheiten">Anzahl der Trainingseinheiten</string>
+    <string name="Für_wie_viele_Minuten_haben_Sie_diese_Aktivität_jedes_Mal_ausgeführt">Für wie viele Minuten haben Sie diese Aktivität jedes Mal ausgeführt?</string>
+    <string name="Minuten_pro_Einheit">Minuten pro Einheit</string>
+
+
+
+    <!--Fragebogen Activities-->
+    <string name="Fitnessfragebogeninfo">Bitte geben Sie zu den nächsten 28 Fragen eine spontane Einschätzung ab. Klicken Sie bitte auf das Feld, welches Ihrer Einschätzung nach am besten auf Sie zutrifft. Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheidend ist, was Sie sich wirklich zutrauen.</string>
+    <string name="Information">Information</string>
+
+    <string name="Ergebnis">Ergebnis</string>
+    <string name="Kraftscore">Kraftscore: </string>
+    <string name="Ausdauerscore">Ausdauerscore: </string>
+    <string name="Bewglichkeitsscore">Bewglichkeitsscore: </string>
+    <string name="Koordinationsscore">Koordinationsscore: </string>
+    <string name="Gesamtscore">Gesamtscore: </string>
+
+    <string name="Erfolgreich_gespeichert">Erfolgreich gespeichert.</string>
+
+    <string name="Bewegungsscore">Bewegungsscore: </string>
+    <string name="Sportsoce">Sportscore: </string>
+
+    <string name="An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitäten_in_den_letzten">An wie vielen Tagen und wie lange haben Sie die folgenden Aktivitäten in den letzten </string>
+    <string name="Wochen_ausgeübt"> Wochen ausgeübt?</string>
+    <string name="Haben_Sie_in_den_letzten">Haben Sie in den letzten </string>
+    <string name="regelmäßig_Sport_betrieben"> Wochen regelmäßig sportliche Aktivität betrieben? Hierzu zählen Aktivitäten, die größere Muskelgruppen beanspruchen und zu einer Verbesserung der Ausdauer, Kraft und/oder Beweglichkeit führen, wie z.B. Fahrradfahren, Joggen, Fußball spielen und Reiten. Ausgeschlossen werden dabei Aktivitäten wie z.B. Schach, Billiard und Angeln.</string>
+    <string name="Folgende_Fragen_beziehen_sich_auf_den_Zeitraum_von">Folgende Fragen beziehen sich auf den Zeitraum von </string>
+    <string name="Wochen"> Wochen!</string>
+    <string name="Wie_oft_haben_Sie_Aktivität_A_in_den_letzten">Wie oft haben Sie Aktivität A in den letzten </string>
+    <string name="Wie_oft_haben_Sie_Aktivität_B_in_den_letzten">Wie oft haben Sie Aktivität B in den letzten </string>
+    <string name="Wie_oft_haben_Sie_Aktivität_C_in_den_letzten">Wie oft haben Sie Aktivität C in den letzten </string>
+
+
+
+
+    <!-- Fragebogen Adapter-->
+    <string name="Ich_kann_diese_Tätigkeit_nicht">Ich kann diese Tätigkeit nicht.</string>
+    <string name="Ich_habe_große_Probleme">Ich habe große Probleme.</string>
+    <string name="Ich_habe_mäßige_Probleme">Ich habe mäßige Probleme.</string>
+    <string name="Ich_habe_leichte_Probleme">Ich habe leichte Probleme.</string>
+    <string name="Ich_habe_keine_Probleme">Ich habe keine Probleme.</string>
+
+    <string name="Ja">Ja</string>
+    <string name="Nein">Nein</string>
+    <string name="Keine">Keine</string>
+    <string name="Eher_wenig">Eher wenig/etwas</string>
+    <string name="Eher_mehr">Eher mehr</string>
+    <string name="Viel">viel</string>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 
 </resources>

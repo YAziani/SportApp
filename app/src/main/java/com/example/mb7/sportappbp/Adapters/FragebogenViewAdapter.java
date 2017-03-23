@@ -24,8 +24,8 @@ public class FragebogenViewAdapter extends BaseAdapter{
     public FragebogenViewAdapter(Activity context)
     {
         antworten = new ArrayList<String>();
-        antworten.add("Ja");
-        antworten.add("Nein");
+        antworten.add(context.getString(R.string.Ja));
+        antworten.add(context.getString(R.string.Nein));
 
         _context = context;
 

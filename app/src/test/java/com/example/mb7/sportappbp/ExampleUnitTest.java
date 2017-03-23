@@ -31,6 +31,7 @@ import com.firebase.client.snapshot.ChildrenNode;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+import java.lang.Object;
 
 
 import static java.security.AccessController.getContext;
@@ -45,30 +46,14 @@ import static org.junit.Assert.*;
 
 
 
-public class ExampleUnitTest extends ApplicationTestCase<FireApp> {
+public class ExampleUnitTest   {
 
     private static FireApp application;
 
-    public ExampleUnitTest() {
-        super(FireApp.class);
-    }
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        if (application == null) {
-            application = getApplication();
-        }
-        if (application == null) {
-            application = (FireApp) getContext().getApplicationContext();
-            assertNotNull(application);
-            long start = System.currentTimeMillis();
-            while (!application.isInitialized){
-                Thread.sleep(300);  //wait until FireBase is totally initialized
-                if ( (System.currentTimeMillis() - start ) >= 1000 )
-                    throw new TimeoutException(this.getClass().getName() +"Setup timeOut");
-            }
-        }
+    @Test
+    public void SampleTrueTest(){
+        assertTrue(true);
     }
 
 
@@ -98,26 +83,18 @@ public class ExampleUnitTest extends ApplicationTestCase<FireApp> {
 
                                                                         StimmungAbfrage stimmungAbfrage = child.getValue(StimmungAbfrage.class);
                                                                         stimmungAbfrage=sti;
-
-
-
-
                                                                     }
                                                                 }
-
                                                                 @Override
                                                                 public void onCancelled(FirebaseError firebaseError) {
-
                                                                 }
                                                             });
                                                         }
                                                     }
-
                                                     @Override
                                                     public void onCancelled(FirebaseError firebaseError) {
                                                     }
                                                 }
-
             );
             return sti;
         }

@@ -113,9 +113,8 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
 
     private void infoalert() {
         AlertDialog.Builder infobuilder=new AlertDialog.Builder(this);
-                infobuilder.setTitle("Information");
-                infobuilder.setMessage("Bitte geben Sie zu den nächsten 28 Fragen eine spontane Einschätzung ab. Klicken Sie bitte auf das Feld, welches Ihrer Einschätzung nach am besten auf Sie zutrifft.\n" +
-                        "Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheidend ist, was Sie sich wirklich zutrauen.");
+                infobuilder.setTitle(getString( R.string.Information));
+                infobuilder.setMessage(getString( R.string.Fitnessfragebogeninfo));
                 infobuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
                     @Override
                     public void onClick(DialogInterface dialog, int which) {
@@ -128,19 +127,19 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
 
     private void speicheralert() {
         AlertDialog.Builder speicherbuilder=new AlertDialog.Builder(this);
-        speicherbuilder.setTitle("Ergebnis");
+        speicherbuilder.setTitle("@string/Ergebnis");
         speicherbuilder.setMessage(
-                "Kraftscore: " + kraftscoring() +"\n" +
-                "Ausdauerscore: " + ausdauerscoring() + "\n" +
-                "Bewglichkeitsscore: " + bewglichkeitsscoring() + "\n" +
-                "Koordinationsscore: " + koordinationscoring() + "\n" +
-                "Gesamtscore: " + scoringwert() );
+                getString( R.string.Kraftscore) + kraftscoring() +"\n" +
+                        getString( R.string.Ausdauerscore) + ausdauerscoring() + "\n" +
+                        getString( R.string.Bewglichkeitsscore) + bewglichkeitsscoring() + "\n" +
+                        getString( R.string.Koordinationsscore) + koordinationscoring() + "\n" +
+                        getString( R.string.Gesamtscore) + scoringwert() );
         speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
                 Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
-                        "Erfolgreich gespeichert",Toast.LENGTH_LONG);
+                        getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
                 ausgabe.show();
             }
 

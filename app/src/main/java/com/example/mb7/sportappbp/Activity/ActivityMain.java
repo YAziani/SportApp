@@ -37,6 +37,7 @@ import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
 import com.example.mb7.sportappbp.Fragments.TbReportContent;
 import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
+import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 import java.util.LinkedList;
@@ -71,6 +72,8 @@ public class ActivityMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
+        //Initialize Firebase(context)
+        Firebase.setAndroidContext(this);
         // set the main URL
         DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/";
 

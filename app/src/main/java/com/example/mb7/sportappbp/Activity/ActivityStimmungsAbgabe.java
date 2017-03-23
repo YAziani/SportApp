@@ -60,7 +60,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
             case R.id.icon_save:
                 SaveData();
                 finish();
-                Toast.makeText(ActivityMain.activityMain,"Erfolgreich gespeichert",Toast.LENGTH_SHORT);
+                Toast.makeText(ActivityMain.activityMain,getString( R.string.erfolgreichgespeichert),Toast.LENGTH_SHORT);
 
                 return true;
 
@@ -130,9 +130,9 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
     }
 
     private void SetControlCaptions(){
-        ((TextView)findViewById(R.id.txtMainQuestion)).setText("Bitte geben Sie an, wie Sie sich jetzt d.h. in diesem Moment fühlen");
-        ((TextView)findViewById(R.id.txtAngespannt)).setText("Angespannt");
-        ((TextView)findViewById(R.id.txtTraurig)).setText("Traurig");
+        ((TextView)findViewById(R.id.txtMainQuestion)).setText(getString( R.string.bitte_geben_sie_moment_fuhlen));
+        ((TextView)findViewById(R.id.txtAngespannt)).setText(getString( R.string.angespannt));
+        ((TextView)findViewById(R.id.txtTraurig)).setText(getString( R.string.traurig));
 
 
     }

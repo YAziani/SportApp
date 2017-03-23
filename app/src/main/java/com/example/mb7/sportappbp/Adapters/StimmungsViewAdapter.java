@@ -22,11 +22,11 @@ public class StimmungsViewAdapter extends BaseAdapter {
     public StimmungsViewAdapter(Activity context)
     {
         stimmungen = new ArrayList<String>();
-        stimmungen.add("Überhaupt nicht");
-        stimmungen.add("Wenig");
-        stimmungen.add("Mittelmäßig");
-        stimmungen.add("Ziemlich");
-        stimmungen.add("Extrem");
+        stimmungen.add(context.getString(R.string.ueberhaupt_nicht));
+        stimmungen.add(context.getString(R.string.wenig));
+        stimmungen.add(context.getString(R.string.mittelmaessig));
+        stimmungen.add(context.getString(R.string.ziemlich));
+        stimmungen.add(context.getString(R.string.extrem));
 
         _context = context;
     }

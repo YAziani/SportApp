@@ -47,12 +47,15 @@ public class TbNotificationContent extends TabFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        setTitle("Notifikationen");
+        // Set the title of
+        setTitle(getString( R.string.notifikationen));
+
+
         view = inflater.inflate(R.layout.tbnotificationcontent, container, false);
-        Notification n1 = new Notification("Trainingeintrag","Nun ist es soweit. Haben Sie heute trainert?", R.drawable.trainingseinheit);
-        Notification n2 = new Notification("Stimmungsabfrage", "Wie fühlen Sie sich in dem Moment?", R.drawable.stimmungsabgabe);
-        Notification n3 = new Notification("Aktivitätsfragebogen", "Wie aktiv sind Sie?",R.drawable.aktivitaet_fragebogen);
-        Notification n4 = new Notification("Fitnessfragebogen", "Wie ist Ihr Fitnessstand?",R.drawable.fitness_fragebogen);
+        Notification n1 = new Notification(getString( R.string.trainingseintrag),getString(R.string.nun_ist_es_soweit), R.mipmap.ic_trainingseinheit);
+        Notification n2 = new Notification(getString( R.string.stimmungsabfrage), getString( R.string.wie_fuhlen_sie_moment), R.mipmap.ic_stimmungsabgabe);
+        Notification n3 = new Notification(getString( R.string.aktivitaetsfragebogen), getString( R.string.wie_aktiv),R.mipmap.ic_aktivitaetfragebogen);
+        Notification n4 = new Notification(getString( R.string.fitnessfragebogen), getString( R.string.wie_ist_fitnesstand),R.mipmap.ic_fitness_fragebogen);
 
 
         notifications =new LinkedList<Notification>(Arrays.asList(n1,n2,n3,n4));
@@ -60,8 +63,8 @@ public class TbNotificationContent extends TabFragment {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
         // setup notifications that appear only on specific occasions
         final Notification nMotivationMessage = new Notification(
-                "Bewegen Sie sich!",
-                "Ihr Körper wird's Ihnen danken.",R.drawable.trainingseinheit);
+                getString( R.string.bewegen_sie_sich),
+                getString( R.string.ihr_korper_ihnen_danken),R.drawable.trainingseinheit);
         if(preferences.getBoolean("motivationMessage",false)) {
             notifications.add(nMotivationMessage);
             preferences.edit().remove("motivationMessage").commit();
@@ -69,13 +72,13 @@ public class TbNotificationContent extends TabFragment {
 
         String nextTrainingTime = preferences.getString("nextTrainingTime", "");
         final Notification nPendingTraining = new Notification(
-                "Nächstes Training",
-                "Ihr nächstes Training beginnt um "
+                getString( R.string.naechstes_training),
+                getString( R.string.ihr_naechstes_train_begin_um)
                         + nextTrainingTime, R.drawable.trainingseinheit);
         if(preferences.getBoolean("reminderNotified", false) && !nextTrainingTime.equals("")){
             boolean notify = true;
             for(Notification n : notifications) {
-                if(n.getTitle().equals("Nächstes Training")) {
+                if(n.getTitle().equals(getString( R.string.naechstes_training))) {
                     notify = false;
                     break;
                 }
@@ -102,8 +105,8 @@ public class TbNotificationContent extends TabFragment {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
             // setup notifications that appear only on specific occasions
             final Notification nMotivationMessage = new Notification(
-                    "Bewegen Sie sich!",
-                    "Ihr Körper wird's Ihnen danken.",R.drawable.trainingseinheit);
+                    getString( R.string.bewegen_sie_sich),
+                    getString( R.string.ihr_korper_ihnen_danken),R.drawable.trainingseinheit);
             if(preferences.getBoolean("motivationMessage",false)) {
                 notifications.add(nMotivationMessage);
                 preferences.edit().remove("motivationMessage").commit();
@@ -111,13 +114,13 @@ public class TbNotificationContent extends TabFragment {
 
             String nextTrainingTime = preferences.getString("nextTrainingTime", "");
             final Notification nPendingTraining = new Notification(
-                    "Nächstes Training",
-                    "Ihr nächstes Training beginnt um "
+                    getString( R.string.naechstes_training),
+                    getString( R.string.ihr_naechstes_train_begin_um)
                             + nextTrainingTime, R.drawable.trainingseinheit);
             if(preferences.getBoolean("reminderNotified", false) && !nextTrainingTime.equals("")){
                 boolean notify = true;
                 for(Notification n : notifications) {
-                    if(n.getTitle().equals("Nächstes Training")) {
+                    if(n.getTitle().equals(getString( R.string.naechstes_training))) {
                         notify = false;
                         break;
                     }

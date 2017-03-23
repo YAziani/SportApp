@@ -38,7 +38,7 @@ public class ActivityKompass extends AppCompatActivity {
         webViewkompass.measure(100, 100);
         webViewkompass.getSettings().setUseWideViewPort(true);
         webViewkompass.getSettings().setLoadWithOverviewMode(true);
-        progressBar = ProgressDialog.show(this, "Kompass", "Loading...");
+        progressBar = ProgressDialog.show(this, getString(R.string.kompass), getString(R.string.wird_geladen));
 
         webViewkompass.setWebViewClient(new WebViewClient() {
             public boolean shouldOverrideUrlLoading(WebView view,WebResourceRequest request) {

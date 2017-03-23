@@ -2,4 +2,17 @@
     <string name="app_name">Fit Up</string>
     <string name="action_settings">Einstellungen</string>
     <string name="section_format">Hello World from section: %1$d</string>
+    <string name="title_activity_login">Anmeldung</string>
+
+    <!-- Strings related to login -->
+    <string name="prompt_email">E-mail</string>
+    <string name="prompt_password">Passwort</string>
+    <string name="action_sign_in">Anmelden oder Registrieren</string>
+    <string name="action_sign_in_short">Anmelden</string>
+    <string name="error_invalid_email">E-Mail ungültig</string>
+    <string name="error_invalid_password">Passwort zu kurz</string>
+    <string name="error_incorrect_password">Passwort inkorrekt</string>
+    <string name="error_field_required">Dieses Feld wird benötigt</string>
+    <string name="permission_rationale">"Kontaktberechtigung für Autokompletierung benötigt"
+    </string>
 </resources>

@@ -9,6 +9,11 @@
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.location.network" />
 
+    <!-- To auto-complete the email text field in the login form with the user's emails -->
+    <uses-permission android:name="android.permission.GET_ACCOUNTS" />
+    <uses-permission android:name="android.permission.READ_PROFILE" />
+    <uses-permission android:name="android.permission.READ_CONTACTS" />
+
     <application
         android:name=".Activity.FireApp"
         android:allowBackup="true"
@@ -50,11 +55,12 @@
         <activity android:name=".Activity.ActivityFragebogen" />
         <activity android:name=".Activity.ActivityFitnessFragebogen" />
         <activity android:name=".Activity.ActivityMotivationMessage" />
-        <activity android:name=".Activity.ActivityTrainQuestioning"/>
-        <activity android:name=".Activity.ActivityKompass"/>
-        <activity android:name=".Activity.ActivityNewChallenge">
-
-        </activity>
+        <activity android:name=".Activity.ActivityTrainQuestioning" />
+        <activity android:name=".Activity.ActivityKompass" />
+        <activity android:name=".Activity.ActivityNewChallenge"></activity>
+        <activity
+            android:name=".Activity.ActivityLogin"
+            android:label="@string/title_activity_login"></activity>
     </application>
 
 </manifest>

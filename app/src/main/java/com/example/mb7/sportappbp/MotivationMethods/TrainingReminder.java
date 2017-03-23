@@ -149,17 +149,14 @@ public class TrainingReminder extends MotivationMethod {
         Geocoder geocoder = new Geocoder(activity, Locale.getDefault());
 
         // determine the address matching the given address the most
-        try {// TODO
+        try {
             determinedAddresses = geocoder.getFromLocationName(givenPosition, 1);
-            for(Address a : determinedAddresses) {
-                System.out.println(a.getAddressLine(0) + ", " + a.getLocality());
-            }
         }catch(Exception e){
             e.printStackTrace();
         }
 
         // set the studio position to the determined address
-        if(determinedAddresses.size() > 0 && determinedAddresses.get(0) != null) {
+        if(determinedAddresses != null && determinedAddresses.size() > 0 && determinedAddresses.get(0) != null) {
             studioAddress = determinedAddresses.get(0);
             studioLocation = new Location("studioLocation");
             studioLocation.setLatitude(studioAddress.getLatitude());

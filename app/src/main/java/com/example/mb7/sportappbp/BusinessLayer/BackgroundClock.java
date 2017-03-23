@@ -54,7 +54,7 @@ public class BackgroundClock{
                 int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
                 int currentMinute = calendar.get(Calendar.MINUTE);
                 //TODO
-                System.out.println("CLOCK TICK " + currentHourOfDay +":"+ currentMinute);
+                //System.out.println("CLOCK TICK " + currentHourOfDay +":"+ currentMinute);
                 // get training times
                 String preferenceString = preferences.getString(getCurrentWeekday(), "");
                 preferences.edit().remove("nextTrainingTime").commit();

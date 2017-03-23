@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * Created by Basti on 21.03.2017.
@@ -12,8 +13,8 @@ public class Challenge {
 
     String name;
     ArrayList<User> UserList;
-    String startDate;
-    String endDate;
+    Date startDate;
+    Date endDate;
 
     public String getName() {
         return name;
@@ -31,19 +32,19 @@ public class Challenge {
         UserList = userList;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 

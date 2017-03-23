@@ -50,7 +50,6 @@ public class TrainQuestioning extends MotivationMethod {
                         Intent intent = new Intent(activity,ActivityMain.class);
                         intent.putExtra("startTab",1);
                         intent.putExtra("notificationId", notificationId);
-                        intent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
                         PendingIntent pendingIntent = PendingIntent.getActivity(activity,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
                         notificationBuilder.setContentIntent(pendingIntent);
 

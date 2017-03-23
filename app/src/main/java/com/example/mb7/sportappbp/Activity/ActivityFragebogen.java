@@ -1,7 +1,10 @@
 package com.example.mb7.sportappbp.Activity;
 
 
+import android.content.DialogInterface;
 import android.os.Bundle;
+import android.support.design.widget.TextInputLayout;
+import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -57,7 +60,6 @@ public class ActivityFragebogen extends AppCompatActivity{
         mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
         this.SetControlCaptions();
         this.InitializeControlls();
-        this.bewegungberuf();
         super.onStart();
 
 
@@ -85,13 +87,7 @@ public class ActivityFragebogen extends AppCompatActivity{
         switch (item.getItemId()){
             case R.id.icon_save:
                 SaveData();
-                finish();
-                Toast.makeText(ActivityMain.activityMain,
-                        "Erfolgreich gespeichert" + "\n" +
-                                "Scoring Bewegungsaktivität: " + scoringbewegung() + "\n" +
-                                "Scoring Sportaktivität: " + scoringsport()+ "\n" +
-                                "Scoring Gesamt: " + scoringgesamt()
-                        ,Toast.LENGTH_LONG).show();
+                speicheralert();
 
                 return true;
 
@@ -100,6 +96,31 @@ public class ActivityFragebogen extends AppCompatActivity{
         }
     }
 
+    private void speicheralert() {
+        AlertDialog.Builder speicherbuilder=new AlertDialog.Builder(this);
+        speicherbuilder.setTitle("Ergebnis");
+        speicherbuilder.setMessage(
+                "Bewegungsscore: " + scoringbewegung()+"\n" +
+                "Sportscore: " + scoringsport() + "\n" +
+                "Gesamtscore: " + scoringgesamt());
+        speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
+            @Override
+            public void onClick(DialogInterface dialog, int which) {
+                finish();
+                Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
+                        "Erfolgreich gespeichert",Toast.LENGTH_LONG);
+                ausgabe.show();
+            }
+
+        });
+        speicherbuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
+            public void onClick(DialogInterface dialog, int id) {
+
+            }
+        });
+
+        speicherbuilder.show();
+    }
 
     private Fragebogen getData() {
         Fragebogen fragebogen = new Fragebogen();
@@ -187,11 +208,11 @@ public class ActivityFragebogen extends AppCompatActivity{
      */
     private void SetControlCaptions(){
         ((TextView)findViewById(R.id.txtwieoftsport)).setText("An wie vielen Tagen und wie lange haben Sie die folgenen Aktivitäten in den letzten " + wochenzeitraum +  " Wochen ausgeübt?");
-        ((TextView)findViewById(R.id.txtsportlichaktiv)).setText("Haben Sie in den letzten "+ wochenzeitraum + " Wochen regelmäßig sportliche Aktivität betrieben? Hierzu zählen Aktivitäten, die größere Muskelgruppen beanspruchen und zur Verbesserung der Ausdauer, Kraft und/oder Beweglichkeit führen, wie z.B. Fahrradfahren, Joggen, Fußball spielen und Reiten. Ausgeschlossen werden dabei Aktivitäten wie z.B. Schach, Billiard und Angeln.");
+        ((TextView)findViewById(R.id.txtsportlichaktiv)).setText("Haben Sie in den letzten "+ wochenzeitraum + " Wochen regelmäßig sportliche Aktivität betrieben? Hierzu zählen Aktivitäten, die größere Muskelgruppen beanspruchen und zu einer Verbesserung der Ausdauer, Kraft und/oder Beweglichkeit führen, wie z.B. Fahrradfahren, Joggen, Fußball spielen und Reiten. Ausgeschlossen werden dabei Aktivitäten wie z.B. Schach, Billiard und Angeln.");
         ((TextView)findViewById(R.id.txtzeitraum)).setText("Folgende Fragen beziehen sich auf den Zeitraum von " + wochenzeitraum +" Wochen! \n ");
-        ((TextView)findViewById(R.id.txtaktivitätaanzahl)).setText("Wie oft haben Sie Aktivität A in den letzten " + wochenzeitraum + " Wochen ausgeübt");
-        ((TextView)findViewById(R.id.txtaktivitätbanzahl)).setText("Wie oft haben Sie Aktivität A in den letzten " + wochenzeitraum + " Wochen ausgeübt");
-        ((TextView)findViewById(R.id.txtaktivitätcanzahl)).setText("Wie oft haben Sie Aktivität A in den letzten " + wochenzeitraum + " Wochen ausgeübt");
+        ((TextView)findViewById(R.id.txtaktivitätaanzahl)).setText("Wie oft haben Sie Aktivität A in den letzten " + wochenzeitraum + " Wochen ausgeübt?");
+        ((TextView)findViewById(R.id.txtaktivitätbanzahl)).setText("Wie oft haben Sie Aktivität B in den letzten " + wochenzeitraum + " Wochen ausgeübt?");
+        ((TextView)findViewById(R.id.txtaktivitätcanzahl)).setText("Wie oft haben Sie Aktivität C in den letzten " + wochenzeitraum + " Wochen ausgeübt?");
     }
 
 

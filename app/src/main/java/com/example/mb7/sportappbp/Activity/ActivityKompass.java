@@ -4,6 +4,7 @@ import android.app.ProgressDialog;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.webkit.WebResourceRequest;
 import android.webkit.WebView;
 import android.webkit.WebViewClient;
 import android.widget.ProgressBar;
@@ -40,8 +41,8 @@ public class ActivityKompass extends AppCompatActivity {
         progressBar = ProgressDialog.show(this, "Kompass", "Loading...");
 
         webViewkompass.setWebViewClient(new WebViewClient() {
-            public boolean shouldOverrideUrlLoading(WebView view, String url) {
-                view.loadUrl(url);
+            public boolean shouldOverrideUrlLoading(WebView view,WebResourceRequest request) {
+                view.loadUrl(request.getUrl().toString());
                 return true;
             }
 

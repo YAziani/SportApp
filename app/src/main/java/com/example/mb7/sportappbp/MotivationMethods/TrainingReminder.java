@@ -92,8 +92,6 @@ public class TrainingReminder extends MotivationMethod {
         }
     }
 
-    SharedPreferences preferences;
-
     @Override
     public boolean run(String trainingStartTime) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
@@ -198,7 +196,7 @@ public class TrainingReminder extends MotivationMethod {
         // distance to studio in meter
         float distance = getDistanceToStudio();
 
-        preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         String meansOfTransportation = preferences.getString("lstVerkehrsmittel","");
 
         // speed in meter/minutes

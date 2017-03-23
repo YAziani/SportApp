@@ -38,9 +38,10 @@ public class ActivitySettings extends Activity {
 
     @Override
     public void onBackPressed() {
-        Intent i = new Intent(this, ActivityMain.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-        startActivity(i);
+//        Intent i = new Intent(this, ActivityMain.class);
+//        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
+//        startActivity(i);
+        super.onBackPressed();
         finish();
         Toast.makeText(ActivityMain.activityMain,
                 "Erfolgreich gespeichert" ,Toast.LENGTH_SHORT).show();

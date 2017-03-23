@@ -50,7 +50,6 @@ public class MotivationMessage extends MotivationMethod{
         Intent notificationIntent = new Intent(activity,ActivityMain.class);
         notificationIntent.putExtra("startTab",1);
         notificationIntent.putExtra("notificationId",notificationId);
-        notificationIntent.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         PendingIntent intent = PendingIntent.getActivity(activity,0,notificationIntent,PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(intent);
         // setup notification manager

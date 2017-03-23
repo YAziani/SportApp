@@ -2,6 +2,10 @@ package com.example.mb7.sportappbp;
 
 
 
+import android.test.ApplicationTestCase;
+
+import com.example.mb7.sportappbp.Activity.ActivityMain;
+import com.example.mb7.sportappbp.Activity.FireApp;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
@@ -12,6 +16,8 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import java.net.URL;
 
+import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -24,9 +30,10 @@ import com.firebase.client.snapshot.ChildrenNode;
 
 import java.util.Date;
 import java.util.List;
+import java.util.concurrent.TimeoutException;
 
 
-
+import static java.security.AccessController.getContext;
 import static org.junit.Assert.*;
 
 /**
@@ -38,21 +45,31 @@ import static org.junit.Assert.*;
 
 
 
-public class ExampleUnitTest {
+public class ExampleUnitTest extends ApplicationTestCase<FireApp> {
 
+    private static FireApp application;
 
-
-
-
-
-    @Test
-    public void addition_isCorrect() throws Exception {
-        assertEquals(4, 2 + 2);
+    public ExampleUnitTest() {
+        super(FireApp.class);
     }
 
-
-
-
+    @Override
+    public void setUp() throws Exception {
+        super.setUp();
+        if (application == null) {
+            application = getApplication();
+        }
+        if (application == null) {
+            application = (FireApp) getContext().getApplicationContext();
+            assertNotNull(application);
+            long start = System.currentTimeMillis();
+            while (!application.isInitialized){
+                Thread.sleep(300);  //wait until FireBase is totally initialized
+                if ( (System.currentTimeMillis() - start ) >= 1000 )
+                    throw new TimeoutException(this.getClass().getName() +"Setup timeOut");
+            }
+        }
+    }
 
 
     static public StimmungAbfrage getStimmungsabfrageFromDb(Date date){
@@ -115,7 +132,8 @@ public class ExampleUnitTest {
 
 
 
-    public StimmungAbfrage stimmung1(User testuser1, Date testdate1) throws Exception{
+    public static StimmungAbfrage stimmung1(Date testdate1) throws Exception{
+        User Testperson1=User.Create("Testperson1");
         StimmungAbfrage teststimmung = new StimmungAbfrage();
         //teststimmung.Date=testdate;
         teststimmung.Vor=true;
@@ -127,10 +145,35 @@ public class ExampleUnitTest {
         teststimmung.Traurig=0;
         teststimmung.Wuetend=0;
         teststimmung.Zerstreut=0;
-        DAL_User.InsertStimmung(testuser1, teststimmung, testdate1);
+        DAL_User.InsertStimmung(Testperson1, teststimmung, testdate1);
         return teststimmung;
 
 
+    }
+
+        public boolean stimmung2(){
+        User Testperson1=User.Create("Testperson1");
+        Date testdate=new Date();
+        StimmungAbfrage teststimmung = new StimmungAbfrage();
+        String fdate = DAL_Utilities.ConvertDateToFirebaseDate(testdate);
+        teststimmung.Date=fdate;
+        teststimmung.Vor=true;
+        teststimmung.Angespannt=0;
+        teststimmung.Mitteilsam=0;
+        teststimmung.Muede=0;
+        teststimmung.Selbstsicher=0;
+        teststimmung.Tatkraeftig=0;
+        teststimmung.Traurig=0;
+        teststimmung.Wuetend=0;
+        teststimmung.Zerstreut=0;
+        DAL_User.InsertStimmung(Testperson1, teststimmung, testdate);
+        return true;
+    }
+
+    //Stimmung2 auf Firebase uploaden
+    @Test
+    public void uploadstimmung() throws Exception {
+        assertTrue(stimmung2());
     }
 
 
@@ -138,9 +181,9 @@ public class ExampleUnitTest {
     //Test mit Get Methode aus DAL_User
     @Test
     public void stimmungstest2() throws Exception {
-        User Testperson1=User.Create("Testperson1");
         Date testdate= new Date();
-        assertEquals(stimmung1(Testperson1, testdate), DAL_User.GetStimmnungsabfrage(Testperson1,testdate));
+        //assertEquals(stimmung1(Testperson1, testdate), DAL_User.GetStimmnungsabfrage(Testperson1,testdate));
+        //(assertEquals(stimmung1(Testperson1,testdate).Angespannt, DAL_User.GetStimmnungsabfrage(Testperson1, testdate).Angespannt));
     }
 
     //Test mit Get Methode aus Testperson1(User)

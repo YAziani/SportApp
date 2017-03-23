@@ -38,7 +38,7 @@ public class TbTaskContent extends TabFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        this.setTitle("Tätigkeiten");
+        this.setTitle(getString(R.string.taetigkeiten));
         view = inflater.inflate(R.layout.tbtaskcontent, container, false);
         return view;
     }

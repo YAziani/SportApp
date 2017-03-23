@@ -44,7 +44,7 @@ public class ActivitySettings extends Activity {
         super.onBackPressed();
         finish();
         Toast.makeText(ActivityMain.activityMain,
-                "Erfolgreich gespeichert" ,Toast.LENGTH_SHORT).show();
+                getString(R.string.erfolgreichgespeichert) ,Toast.LENGTH_SHORT).show();
     }
 
 

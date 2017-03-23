@@ -14,20 +14,28 @@ import java.util.List;
 public class User {
 
     private String name;
-
     private int points;
+    private Challenge challenge = null;
 
 
 
-    private User (String Name)
-    {
-        name =Name;
+    public Challenge getChallenge() {
+        return challenge;
     }
+
+    public void setChallenge(Challenge challenge) {
+        this.challenge = challenge;
+    }
+
 
     public static User Create(String Name)
     {
         User user = new User(Name);
         return user;
+    }
+    private User (String Name)
+    {
+        name =Name;
     }
 
     public String getName()

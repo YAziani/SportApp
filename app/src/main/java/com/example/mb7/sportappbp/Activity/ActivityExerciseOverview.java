@@ -82,7 +82,7 @@ public class ActivityExerciseOverview extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         //set an other menu xml
-        inflater.inflate(R.menu.menu_add, menu);
+        inflater.inflate(R.menu.menu_add_and_save, menu);
 
         return super.onCreateOptionsMenu(menu);
     }

@@ -1,6 +1,5 @@
 package com.example.mb7.sportappbp.Activity;
 
-import android.app.ActionBar;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -100,7 +99,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
 
         //set the menu with add and save icon
-        inflater.inflate(R.menu.menu_add, menu);
+        inflater.inflate(R.menu.menu_add_and_save, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
@@ -116,6 +115,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
             case R.id.icon_save:
                 if(!newData) {
                     returnResult();
+                    SaveData();
                     //reset flag
                     newData = false;
                 }
@@ -151,7 +151,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     private void btnSaveAction() {
 
-        //todo Save object to the database
         if(diaryEntry.getExerciseList().size() > 0) {
             SaveData();
             allDiaryEntries.getDiaryList().add(diaryEntry);

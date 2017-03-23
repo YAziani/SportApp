@@ -2,9 +2,13 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.widget.ListView;
 
 import com.example.mb7.sportappbp.Adapters.ChallengeViewAdapter;
+import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.R;
 
@@ -15,8 +19,6 @@ public class ActivityChallenge extends AppCompatActivity {
     ChallengeViewAdapter challengeViewAdapter;
     ListView listView;
     ArrayList<User> userList;
-
-    boolean hasChallenge = false;
 
 
     @Override

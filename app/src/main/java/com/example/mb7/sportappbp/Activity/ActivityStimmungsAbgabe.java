@@ -289,14 +289,8 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         return EnergieIndexScore;
     }
 
-    //TODO In Berichte übernehmen und für ersten StimmungsbarometerScore Stimmungsabgabe nach Training verwenden; für zweiten StimmungsbarometerScore Stimmungsbagabe vor dem Training verwenden.
-    public int Differenzwert(){
-    int Differnzscore=
-                StimmungsbarometerScore() //Stimmungswert NACH dem Training
-                -
-                StimmungsbarometerScore(); //Stimmungswert VOR dem Training
-        return Differnzscore;
-    }
+    //TODO Differenzwert berechnen -> Erst in Berichte/Diagramme: (StimmungsbarometerScore NACH Training - StimmungsbarometerScore VOR Training)
+
 }
 
 

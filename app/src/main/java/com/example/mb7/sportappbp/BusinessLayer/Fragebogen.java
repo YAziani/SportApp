@@ -5,6 +5,7 @@ package com.example.mb7.sportappbp.BusinessLayer;
  */
 
 public class Fragebogen {
+    public String Date;
     public Integer berufstätig;
     public Integer sitzendetätigkeiten;
     public Integer mäßigebewegung;

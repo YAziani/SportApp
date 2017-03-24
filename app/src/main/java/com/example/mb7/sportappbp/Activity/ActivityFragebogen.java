@@ -21,6 +21,9 @@ import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.Firebase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by Felix on 19.01.2017.
@@ -86,7 +89,6 @@ public class ActivityFragebogen extends AppCompatActivity{
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_save:
-                SaveData();
                 speicheralert();
 
                 return true;
@@ -106,6 +108,7 @@ public class ActivityFragebogen extends AppCompatActivity{
         speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                SaveData();
                 finish();
                 Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
                         getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
@@ -156,12 +159,15 @@ public class ActivityFragebogen extends AppCompatActivity{
         fragebogen.aktivitätcname=aktivitätcname();
         fragebogen.aktivitätc=aktivitätc();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        fragebogen.Date = sdf.format(new Date());
+
         return fragebogen;
     }
 
     private boolean SaveData(){
         Fragebogen fragebogen = getData();
-        ActivityMain.mainUser.SaveFragebogen(fragebogen);
+        ActivityMain.mainUser.SaveFragebogen(fragebogen, new Date());
 
         return true;
 

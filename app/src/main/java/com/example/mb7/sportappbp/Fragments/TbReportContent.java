@@ -1,6 +1,5 @@
 package com.example.mb7.sportappbp.Fragments;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,7 +15,6 @@ import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityKompass;
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
-import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.ClientIF;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.Firebase;
@@ -27,7 +25,6 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
-import java.util.Date;
 
 
 /**
@@ -37,8 +34,8 @@ import java.util.Date;
 public class TbReportContent extends TabFragment{
 
 
-    Button testBtn;
-    Button testBtn2;
+    Button btnChallenge;
+    Button btnDiary;
     View view;
     public TextView txtRequest;
     private Firebase firebase;
@@ -54,8 +51,8 @@ public class TbReportContent extends TabFragment{
         firebase = new Firebase("https://sportapp-cbd6b.firebaseio.com/");
         txtRequest = (TextView) view.findViewById(R.id.txtRequestTest);
 
-        testBtn2 = (Button) view.findViewById(R.id.neu1);
-        testBtn2.setOnClickListener(new View.OnClickListener(){
+        btnDiary = (Button) view.findViewById(R.id.btndiary);
+        btnDiary.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
@@ -65,8 +62,17 @@ public class TbReportContent extends TabFragment{
             }
         });
 
-        Button testBtn4 = (Button) view.findViewById(R.id.btnTest4);
-        testBtn4.setOnClickListener(new View.OnClickListener(){
+        Button btnDiaryEntry = (Button) view.findViewById(R.id.btnDiaryEntry);
+        btnDiaryEntry.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent open = new Intent(getActivity(), ActivityDiaryEntry.class);
+                startActivity(open);
+            }
+        });
+
+        Button btnNewChallenge = (Button) view.findViewById(R.id.btnNewChallenge1);
+        btnNewChallenge.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
@@ -76,11 +82,18 @@ public class TbReportContent extends TabFragment{
             }
         });
 
+        btnChallenge = (Button) view.findViewById(R.id.btnNewChallenge);
+        btnChallenge.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View view){
+
+
+                Intent open = new Intent(getActivity(), ActivityChallenge.class);
+                startActivity(open);
+            }
+        });
+
         //testMo(view);
-        //testBasti2(view);
-        testBastiChellenge(view);
-
-
         return view;
     }
 
@@ -89,8 +102,8 @@ public class TbReportContent extends TabFragment{
     }
 
     private void testMo(View view){
-        testBtn = (Button)view.findViewById(R.id.neu1);
-        testBtn.setOnClickListener(new View.OnClickListener () {
+        btnChallenge = (Button)view.findViewById(R.id.btndiary);
+        btnChallenge.setOnClickListener(new View.OnClickListener () {
             @Override
             public void onClick(View v) {
 
@@ -103,8 +116,8 @@ public class TbReportContent extends TabFragment{
     }
 
     private void testBasti(View view){
-        testBtn = (Button) view.findViewById(R.id.neu1);
-        testBtn.setOnClickListener(new View.OnClickListener(){
+        btnChallenge = (Button) view.findViewById(R.id.btndiary);
+        btnChallenge.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
 
@@ -176,23 +189,6 @@ public class TbReportContent extends TabFragment{
             }
             return  s;
         }
-    }
-
-    private void testBasti2(View view){
-
-    }
-
-    private void testBastiChellenge (View view){
-        testBtn = (Button) view.findViewById(R.id.btnTest3);
-        testBtn.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-
-
-                Intent open = new Intent(getActivity(), ActivityChallenge.class);
-                startActivity(open);
-            }
-        });
     }
 
 }

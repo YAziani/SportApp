@@ -4,6 +4,8 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
+ * When you add a new attribute and you want to save it to the database, you have to add these
+ * in class DAL_USER in the method InsertDiaryEntry()
  * Created by Basti on 16.01.2017.
  */
 
@@ -12,11 +14,15 @@ public class DiaryEntry {
     private String id;
     private String date;
     private String time;
+    private int totalpoints;
     private ArrayList<Exercise> exerciseList;
+
+
+
+
 
     /**
      * Constructor to create a diary entry
-     * @param date : date of the training
      */
     //String id, String date, String time
     public DiaryEntry(){
@@ -58,6 +64,11 @@ public class DiaryEntry {
         }
         return result;
     }
+    public int getTotalpoints() {
+        return totalpoints;
+    }
+
+
 
     public int getTotalTimeHours(){
         int result = 0;
@@ -136,9 +147,9 @@ public class DiaryEntry {
         return result;
     }
 
-    public String[] getTotalTimePointsAsArrayLeistungstests(){
+    public int[] getTotalTimePointsAsArrayLeistungstests(){
 
-        String[] result = new String[2];
+        int[] result = new int[2];
         int resultMin = 0;
         int resultHours = 0;
 
@@ -160,14 +171,18 @@ public class DiaryEntry {
         //Calculate the points with factor 3
         int points = (int) Math.round(((resultHours * 60) + resultMin) * 3);
 
-        //transform the time and points to a string and get it as an array back
-        return result = totalTimePointsToStringArray(resultHours, resultMin, points);
+        //set results
+        result[0] = resultHours;
+        result[1] = resultMin;
+        result[2] = points;
+
+        return result;
     }
 
 
-    public String[] getTotalTimePointsAsArrayTraining(){
+    public int[] getTotalTimePointsAsArrayTraining(){
 
-        String[] result = new String[2];
+        int[] result = new int[2];
         int resultMin = 0;
         int resultHours = 0;
 
@@ -189,14 +204,18 @@ public class DiaryEntry {
         //Calculate the points with factor 2
         int points = (int) Math.round(((resultHours * 60) + resultMin) * 2);
 
-        //transform the time and points to a string and get it as an array back
-        return result = totalTimePointsToStringArray(resultHours, resultMin, points);
+        //set results
+        result[0] = resultHours;
+        result[1] = resultMin;
+        result[2] = points;
+
+        return result;
     }
 
 
-    public String[] getTotalTimePointsAsArrayWellness(){
+    public int[] getTotalTimePointsAsArrayWellness(){
 
-        String[] result = new String[2];
+        int[] result = new int[2];
         int resultMin = 0;
         int resultHours = 0;
 
@@ -218,14 +237,18 @@ public class DiaryEntry {
         //Calculate the points with factor 1
         int points = (int) Math.round(((resultHours * 60) + resultMin) * 1);
 
-        //transform the time and points to a string and get it as an array back
-        return result = totalTimePointsToStringArray(resultHours, resultMin, points);
+        //set results
+        result[0] = resultHours;
+        result[1] = resultMin;
+        result[2] = points;
+
+        return result;
     }
 
 
-    public String[] getTotalTimePointsAsArrayReinerAufenthalt(){
+    public int[] getTotalTimePointsAsArrayReinerAufenthalt(){
 
-        String[] result = new String[2];
+        int[] result = new int[2];
         int resultMin = 0;
         int resultHours = 0;
 
@@ -247,8 +270,12 @@ public class DiaryEntry {
         //Calculate the points with factor 0.5
         int points = (int) Math.round(((resultHours * 60) + resultMin) * 0.5);
 
-        //transform the time and points to a string and get it as an array back
-        return result = totalTimePointsToStringArray(resultHours, resultMin, points);
+        //set results
+        result[0] = resultHours;
+        result[1] = resultMin;
+        result[2] = points;
+
+        return result;
     }
 
 
@@ -268,6 +295,9 @@ public class DiaryEntry {
     public void setExerciseList(ArrayList<Exercise> newList){
         this.exerciseList = newList;
     }
+    public void setTotalpoints(int totalpoints) {
+        this.totalpoints = totalpoints;
+    }
 
 
 
@@ -281,6 +311,7 @@ public class DiaryEntry {
         }
     }
 
+    /*
     private String[] totalTimePointsToStringArray(int hours, int min, int points){
 
         String[] result = new String[2];
@@ -296,5 +327,6 @@ public class DiaryEntry {
 
         return result;
     }
+    */
 
 }

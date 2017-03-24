@@ -202,7 +202,8 @@ public class DAL_User {
                                             diaryEntry.setDate(child.getValue().toString());
                                         else if (child.getKey().equals("time"))
                                             diaryEntry.setTime(child.getValue().toString());
-
+                                        else if (child.getKey().equals("totalpoints"))
+                                            diaryEntry.setTotalpoints(Integer.getInteger(child.getValue().toString()));
 
                                         else if(child.getKey().startsWith("exercise")){
 
@@ -297,6 +298,9 @@ public class DAL_User {
 
             Firebase childTime = newChildRef.child("time");
             childTime.setValue(diaryEntry.getTime());
+
+            Firebase childPonts = newChildRef.child("totalPoints");
+            childPonts.setValue(diaryEntry.getTotalpoints());
 
 
             int i = 0;

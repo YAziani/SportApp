@@ -21,11 +21,11 @@ public class FitnessFragebogenViewAdapter extends BaseAdapter {
     public FitnessFragebogenViewAdapter(Activity context)
     {
         antworten = new ArrayList<String>();
-        antworten.add("Ich kann diese Tätigkeit nicht.");
-        antworten.add("Ich habe große Probleme.");
-        antworten.add("Ich habe mäßige Probleme.");
-        antworten.add("Ich habe leichte Probleme.");
-        antworten.add("Ich habe keine Probleme.");
+        antworten.add(context.getString(R.string.Ich_kann_diese_Tätigkeit_nicht));
+        antworten.add(context.getString(R.string.Ich_habe_große_Probleme));
+        antworten.add(context.getString(R.string.Ich_habe_mäßige_Probleme));
+        antworten.add(context.getString(R.string.Ich_habe_leichte_Probleme));
+        antworten.add(context.getString(R.string.Ich_habe_keine_Probleme));
 
         _context = context;
 

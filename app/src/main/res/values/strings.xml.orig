@@ -48,9 +48,11 @@
     <string name="ziemlich">Ziemlich</string>
     <string name="extrem">Extrem</string>
     <string name="taetigkeiten">Tätigkeiten</string>
+<<<<<<< HEAD
     <!-- Strings related to alert -->
     <string name="ntf_title">Fit up</string>
     <string name="ntf_stimmungsabfrage">Es ist bald Zeit zum trainiern. Wie fühlen Sie sich?</string>
+=======
     <!--Fitnessfragebogen xml-->
     <string name="Wie_gut_können_Sie_folgende_Tätigkeiten_bewältigen">Wie gut können Sie folgende Tätigkeiten bewältigen? \n</string>
     <string name="Können_Sie">Können Sie... \n</string>
@@ -176,4 +178,6 @@
 
 
 
+
+>>>>>>> 361150edcf6b72530e9218746e9761aea444e2c0
 </resources>

@@ -64,10 +64,11 @@
         <activity android:name=".Activity.ActivityMotivationMessage" />
         <activity android:name=".Activity.ActivityTrainQuestioning" />
         <activity android:name=".Activity.ActivityKompass" />
-        <activity android:name=".Activity.ActivityNewChallenge"></activity>
+        <activity android:name=".Activity.ActivityNewChallenge" />
         <activity
             android:name=".Activity.ActivityLogin"
-            android:label="@string/title_activity_login"></activity>
+            android:label="@string/title_activity_login" />
+        <activity android:name=".Activity.ActivityChallengeInfo"></activity>
         <receiver  android:process=":remote" android:name=".Utilities.AlertReceiver"></receiver>
 
     </application>

@@ -39,7 +39,11 @@ import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
 import com.example.mb7.sportappbp.Fragments.TbReportContent;
 import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
+<<<<<<< HEAD
 import com.example.mb7.sportappbp.Utilities.AlertReceiver;
+=======
+import com.firebase.client.Firebase;
+>>>>>>> 361150edcf6b72530e9218746e9761aea444e2c0
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;

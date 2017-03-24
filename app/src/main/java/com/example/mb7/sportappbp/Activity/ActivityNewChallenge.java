@@ -14,7 +14,6 @@ import android.view.View;
 import android.widget.Button;
 import android.widget.DatePicker;
 import android.widget.EditText;
-import android.widget.ImageButton;
 import android.widget.ListView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -45,7 +44,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
     private ListView listview;
     private NewChallengeViewAdapter newChallengeViewAdapter;
     private CharSequence[] durationItems = {"7 - Tage", "14 - Tage", "28 - Tage" };
-    private ArrayList<User> userArrayList = new ArrayList<User>();
+    private ArrayList<User> userList = new ArrayList<User>();
     private int duration = 6;
 
 
@@ -61,13 +60,13 @@ public class ActivityNewChallenge extends AppCompatActivity {
         User u3 = User.Create("Hans");
         u3.setPoints(500);
 
-        userArrayList.add(u1);
-        userArrayList.add(u2);
-        userArrayList.add(u3);
+        userList.add(u1);
+        userList.add(u2);
+        userList.add(u3);
 
         //Create listview and adapter
         listview = (ListView) findViewById(R.id.listViewNewChallengeUser);
-        newChallengeViewAdapter = new NewChallengeViewAdapter(ActivityNewChallenge.this, userArrayList);
+        newChallengeViewAdapter = new NewChallengeViewAdapter(ActivityNewChallenge.this, userList);
         listview.setAdapter(newChallengeViewAdapter);
 
         //get textview and set action to enter the start date of the challenge
@@ -88,8 +87,9 @@ public class ActivityNewChallenge extends AppCompatActivity {
         textViewStartDate.setText(sdf.format(standardDateStart));
 
         //Set standard text for end textfield
-        standardCalendar.add(Calendar.DATE, duration);
-        Date standardDateEnd = standardCalendar.getTime();
+        // + 1 because the earliest day, when a challenge can start, ist the day after today
+        endCalendar.add(Calendar.DATE, duration + 1);
+        Date standardDateEnd = endCalendar.getTime();
         textViewEndDate.setText(sdf.format(standardDateEnd));
 
     }
@@ -146,15 +146,24 @@ public class ActivityNewChallenge extends AppCompatActivity {
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_add:
+                //Open dialog to enter a user
                 dialogAddUser();
 
                 return true;
             case R.id.icon_save:
 
+                //todo check if this name already exists
+
+                //Create challenge object and set data
+                userList.add(ActivityMain.mainUser);
                 Challenge challenge = new Challenge();
                 challenge.setName(editTextName.getText().toString());
                 challenge.setStartDate(startCalendar.getTime());
                 challenge.setEndDate(endCalendar.getTime());
+                challenge.setUserList(userList);
+
+                //Assign the challenge to the user
+                ActivityMain.mainUser.setChallenge(challenge);
 
                 finish();
             default:

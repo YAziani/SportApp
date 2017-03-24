@@ -131,10 +131,13 @@
     <string name="Koordinationsscore">Koordinationsscore: </string>
     <string name="Gesamtscore">Gesamtscore: </string>
 
+    <string name="von_Punkten">von 35 </string>
+    <string name="von_Gesamtpunkten">von 140 </string>
+
     <string name="Erfolgreich_gespeichert">Erfolgreich gespeichert.</string>
 
     <string name="Bewegungsscore">Bewegungsscore: </string>
-    <string name="Sportsoce">Sportscore: </string>
+    <string name="Sportscore">Sportscore: </string>
 
     <string name="An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitäten_in_den_letzten">An wie vielen Tagen und wie lange haben Sie die folgenden Aktivitäten in den letzten </string>
     <string name="Wochen_ausgeübt"> Wochen ausgeübt?</string>
@@ -159,11 +162,45 @@
     <string name="Ja">Ja</string>
     <string name="Nein">Nein</string>
     <string name="Keine">Keine</string>
-    <string name="Eher_wenig">Eher wenig/etwas</string>
+    <string name="Eher_wenig">Eher wenig</string>
     <string name="Eher_mehr">Eher mehr</string>
     <string name="Viel">viel</string>
 
+    <!-- MotivationMessage-->
+    <string name="mmNotiTitle">Bewegen Sie sich!</string>
+    <string name="mmNotiSmallTitle">Ihr Körper wird\'s Ihnen danken.</string>
 
+
+    <!-- TrainingsReminder-->
+    <string name="trNotiTitle">Trainingserinnerung</string>
+    <string name="trNotiSmallTitle1">Ihr Training beginnt in etwa</string>
+    <string name="trNotiSmallTitle2">Minuten\nWerden Sie teilnehmen?</string>
+
+    <!-- TrainQuestioning-->
+    <string name="tqNotiTitle">Trainiert?</string>
+    <string name="tqNotiSmallTitle">Haben Sie Ihren Trainingstermin wahrgenommen?</string>
+
+    <!-- ActivityLogin-->
+    <string name="allogcomplete">Anmeldung abgeschlossen</string>
+    <string name="alinternetneed">Internetverbingung benötigt</string>
+    <string name="aldberror">Datenbankfehler, versuchen Sie es später erneut</string>
+    <string name="alpwerror">ungültiges Passwort (min. 4 Zeichen)</string>
+    <string name="alallfields">Bitte füllen Sie alle Felder aus.</string>
+    <string name="alunknownusername">Unbekannter Nutzername</string>
+    <string name="alwrongpw">Falsches Passwort</string>
+    <string name="alwrongmail">Ungültige E-Mail.</string>
+    <string name="alusernametaken">Nutzername bereits vergeben</string>
+    <string name="almailtaken">E-Mail bereits genutzt</string>
+
+    <!-- ActivitySettingInitializer-->
+    <string name="sistarttime">Trainingsstartzeiten</string>
+    <string name="siaddtrain">Training hinzufügen</string>
+    <string name="siaddyouraddress">Tragen Sie die Adresse Ihres Fitnessstudios ein.</string>
+    <string name="sihint">z.B. Emilstraße 1, 64289 Darmstadt</string>
+    <string name="sisettingsaved">Einstellungen gespeichert.</string>
+    <string name="siaddresssaved">Addresse gespeichert.</string>
+    <string name="siaddressnotfound">Addresse konnte nicht bestimmt werden.</string>
+    <string name="sitextview">Bitte tragen Sie Ihre Trainingszeiten und die Adresse ihres Fitnessstudios ein.</string>
 
 
 

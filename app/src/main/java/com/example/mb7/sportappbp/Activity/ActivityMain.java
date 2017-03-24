@@ -76,14 +76,15 @@ public class ActivityMain extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        //Initialize Firebase(context)
-        Firebase.setAndroidContext(this);
+
         // set the main URL
         DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/";
 
         // create the current User
         mainUser = User.Create("TestUser");
         activityMain = this;
+
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         // create a new motivation method and add it to the list of methods
         TrainQuestioning p = new TrainQuestioning(this);
@@ -93,11 +94,11 @@ public class ActivityMain extends AppCompatActivity {
         fixMotivationMethods.add(t);
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
+        preferences.edit().putBoolean("showPostTrainMoti",true).apply();
 
 
 
         // check settings for initialization
-        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         // TODO remove debug functions
         /*
         preferences.edit().remove("initialized").commit();

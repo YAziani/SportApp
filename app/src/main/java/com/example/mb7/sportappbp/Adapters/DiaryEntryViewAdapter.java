@@ -11,6 +11,7 @@ import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.R;
 
+import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
@@ -62,33 +63,35 @@ public class DiaryEntryViewAdapter extends BaseAdapter{
         TextView txtTime = (TextView) view.findViewById(R.id.time_total);
         TextView txtPoints = (TextView) view.findViewById(R.id.points_total);
 
-        String[] data;
+        //get and set value for every grid.
+        DecimalFormat df = new DecimalFormat("00");
+        int[] data;
         switch(category){
             case ("Leistungstests"):
                 data = _diaryEntry.getTotalTimePointsAsArrayLeistungstests();
-                txtTime.setText(data[0]);
-                txtPoints.setText(data[1]);
+                txtTime.setText(df.format(data[0]).toString() + ":" + df.format(data[1]).toString() + " h");
+                txtPoints.setText(data[2] + " Pkt.");
                 txtTime.setTextColor(0xFF99CC00); //green
                 txtPoints.setTextColor(0xFF99CC00);
                 break;
             case ("Training"):
                 data = _diaryEntry.getTotalTimePointsAsArrayTraining();
-                txtTime.setText(data[0]);
-                txtPoints.setText(data[1]);
+                txtTime.setText(df.format(data[0]).toString() + ":" + df.format(data[1]).toString() + " h");
+                txtPoints.setText(data[2] + " Pkt.");
                 txtTime.setTextColor(0xFFFFBB33); //orange
                 txtPoints.setTextColor(0xFFFFBB33);
                 break;
             case ("Wellness"):
                 data = _diaryEntry.getTotalTimePointsAsArrayWellness();
-                txtTime.setText(data[0]);
-                txtPoints.setText(data[1]);
+                txtTime.setText(df.format(data[0]).toString() + ":" + df.format(data[1]).toString() + " h");
+                txtPoints.setText(data[2] + " Pkt.");
                 txtTime.setTextColor(0xFFFF4444); //red
                 txtPoints.setTextColor(0xFFFF4444);
                 break;
             case ("Reiner Aufenthalt"):
                 data = _diaryEntry.getTotalTimePointsAsArrayReinerAufenthalt();
-                txtTime.setText(data[0]);
-                txtPoints.setText(data[1]);
+                txtTime.setText(df.format(data[0]).toString() + ":" + df.format(data[1]).toString() + " h");
+                txtPoints.setText(data[2] + " Pkt.");
                 txtTime.setTextColor(0xFF0000FF); //blue
                 txtPoints.setTextColor(0xFF0000FF);
                 break;

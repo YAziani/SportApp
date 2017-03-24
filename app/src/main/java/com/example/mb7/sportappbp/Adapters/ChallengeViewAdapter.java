@@ -27,7 +27,6 @@ public class ChallengeViewAdapter extends BaseAdapter {
     public ChallengeViewAdapter(Activity context, ArrayList<User> users)
     {
         _users = users;
-        Collections.sort(users, new UserSortPoints());
         _context = context;
     }
 

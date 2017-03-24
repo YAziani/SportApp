@@ -113,7 +113,10 @@ public class ActivityDiaryEntry extends AppCompatActivity {
                 sendOldAndRequestNewExerciseList();
                 return true;
             case R.id.icon_save:
+
+                diaryEntry.setTotalpoints(calculateTotalPoints());
                 if(!newData) {
+
                     returnResult();
                     SaveData();
                     //reset flag
@@ -231,6 +234,17 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         Intent pickExerciseIntent = new Intent(this, ActivityExerciseOverview.class);
         pickExerciseIntent.putParcelableArrayListExtra("oldExercises", oldList);
         startActivityForResult(pickExerciseIntent, REQUEST_ID);
+    }
+
+    private int calculateTotalPoints(){
+        int leistungstests = diaryEntry.getTotalTimePointsAsArrayLeistungstests()[2];
+        int training = diaryEntry.getTotalTimePointsAsArrayTraining()[2];
+        int wellness = diaryEntry.getTotalTimePointsAsArrayWellness()[2];
+        int reinerAufenthalt = diaryEntry.getTotalTimePointsAsArrayReinerAufenthalt()[2];
+
+        int totalPoints = leistungstests +training + wellness + reinerAufenthalt;
+
+        return totalPoints;
     }
 
 }

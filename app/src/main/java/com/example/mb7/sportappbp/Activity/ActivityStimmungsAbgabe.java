@@ -108,7 +108,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
             case R.id.icon_save:
                 SaveData();
                 finish();
-                Toast.makeText(ActivityMain.activityMain,getString( R.string.erfolgreichgespeichert),Toast.LENGTH_SHORT);
+                Toast.makeText(ActivityMain.activityMain,getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_SHORT).show();
 
                 return true;
 

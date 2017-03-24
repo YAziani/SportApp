@@ -51,7 +51,7 @@ public class ExampleUnitTest   {
     private static FireApp application;
 
     @Before
-    @Override
+    //@Override
     public void setUp() throws Exception {
         DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/";
         User user = User.Create("TestUniUser");

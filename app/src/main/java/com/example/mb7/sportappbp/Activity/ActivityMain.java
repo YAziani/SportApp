@@ -40,6 +40,7 @@ import com.example.mb7.sportappbp.Fragments.TbReportContent;
 import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Utilities.AlertReceiver;
+import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -92,6 +93,7 @@ public class ActivityMain extends AppCompatActivity {
         fixMotivationMethods.add(t);
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
+        //preferences.edit().putBoolean("showPostTrainMoti",true).apply();
 
 
 

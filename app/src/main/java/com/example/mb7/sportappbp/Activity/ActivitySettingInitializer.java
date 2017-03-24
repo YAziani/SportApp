@@ -168,12 +168,6 @@ public class ActivitySettingInitializer extends AppCompatActivity {
                     // save the index for the preferences file
                     userChoiceIndex = j;
                     if(userChoiceIndex < 7) {
-                        // create a new time picker and show it
-                        /*
-                        DialogFragment pickerFragment = new TimePickerFragment();
-                        pickerFragment.show(getFragmentManager(),"timepicker");
-                        */
-
                         // display the dates
                         LinkedList<String> displayValues = new LinkedList<>(inputList.get(userChoiceIndex));
                         for(int i = 0; i < displayValues.size(); i++) {
@@ -200,11 +194,11 @@ public class ActivitySettingInitializer extends AppCompatActivity {
 
                         // show list of training dates of the chosen weekday
                         AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySettingInitializer.this);
-                        builder.setTitle("Trainingszeiten " + textArray[userChoiceIndex]);
+                        builder.setTitle(getString(R.string.sistarttime) +" "+ textArray[userChoiceIndex]);
                         builder.setView(listViewArray[userChoiceIndex]);
                         builder.setPositiveButton("OK",null);
                         // button for new date
-                        builder.setNeutralButton("Training hinzufügen",null);
+                        builder.setNeutralButton(getString(R.string.siaddtrain),null);
                         final AlertDialog alertDialog = builder.create();
                         alertDialog.setOnShowListener(new DialogInterface.OnShowListener() {
                             @Override
@@ -224,10 +218,11 @@ public class ActivitySettingInitializer extends AppCompatActivity {
                         alertDialog.show();
                     }else {
                         AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySettingInitializer.this);
-                        builder.setTitle("Tragen Sie die Adresse Ihres Fitnessstudios ein.");
+                        builder.setTitle(getString(R.string.siaddyouraddress));
                         builder.setCancelable(true);
                         // set up the input
                         final EditText input = new EditText(ActivitySettingInitializer.this);
+                        input.setHint(getString(R.string.sihint));
                         input.setTextColor(Color.argb(255,0,0,0));
                         // specify the type of input
                         input.setInputType(InputType.TYPE_CLASS_TEXT);
@@ -272,7 +267,7 @@ public class ActivitySettingInitializer extends AppCompatActivity {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
-        Toast.makeText(ActivitySettingInitializer.this,"Einstellungen gespeichert.",Toast.LENGTH_SHORT).show();
+        Toast.makeText(ActivitySettingInitializer.this,getString(R.string.sisettingsaved),Toast.LENGTH_SHORT).show();
         // handle menu item selection
         if(sharedPreferences.getBoolean("initialized",false)) {
             // close the activity
@@ -312,7 +307,7 @@ public class ActivitySettingInitializer extends AppCompatActivity {
                 editor.putString(textArray[userChoiceIndex], address);
                 Toast.makeText(
                         ActivitySettingInitializer.this,
-                        "Addresse gespeichert.",
+                        getString(R.string.siaddresssaved),
                         Toast.LENGTH_SHORT
                 ).show();
 
@@ -321,7 +316,7 @@ public class ActivitySettingInitializer extends AppCompatActivity {
                 editor.remove(textArray[userChoiceIndex]);
                 Toast.makeText(
                         ActivitySettingInitializer.this,
-                        "Addresse konnte nicht bestimmt werden.",
+                        getString(R.string.siaddressnotfound),
                         Toast.LENGTH_SHORT
                 ).show();
             }

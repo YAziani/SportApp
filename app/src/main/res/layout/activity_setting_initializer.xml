@@ -125,7 +125,7 @@
             android:layout_above="@+id/imgButtonSo" />
 
         <TextView
-            android:text="Bitte tragen Sie Ihre Trainingszeiten und die Adresse ihres Fitnessstudios ein."
+            android:text="@string/sitextview"
             android:textSize="20dp"
             android:gravity="center"
             android:layout_width="wrap_content"

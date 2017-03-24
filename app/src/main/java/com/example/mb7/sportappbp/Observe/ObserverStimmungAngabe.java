@@ -120,7 +120,7 @@ public class ObserverStimmungAngabe extends Observer{
                         context,
                         context.getString( R.string.stimmungsabgabe),
                         ActivityStimmungsAbgabe.class,context.getString(R.string.stimmungsabgabe),
-                        context.getString(R.string.ntf_stimmungsabgabe),
+                        context.getString(R.string.ntf_stimmungsabgabe_nach),
                         R.mipmap.ic_stimmungsabgabe );
             }
 

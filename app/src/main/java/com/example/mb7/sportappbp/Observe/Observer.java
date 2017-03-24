@@ -202,7 +202,10 @@ public abstract class Observer {
                 }
             }
         }
-        return Integer.valueOf(lastTraining.split(":")[0]) * 60
+        if (lastTraining == "")
+            return 0;
+        else
+            return Integer.valueOf(lastTraining.split(":")[0]) * 60
                 + Integer.valueOf(lastTraining.split(":")[1]);
     }
     // get the current weekday in German

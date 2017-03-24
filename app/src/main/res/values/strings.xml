@@ -51,6 +51,7 @@
     <!-- Strings related to alert -->
     <string name="ntf_title">Fit up</string>
     <string name="ntf_stimmungsabgabe">Es ist bald Zeit zum trainiern. Wie fühlen Sie sich?</string>
+    <string name="ntf_stimmungsabgabe_nach">Sie sind fertig mit dem Training. Wie fühlen Sie sich?</string>
     <!--Fitnessfragebogen xml-->
     <string name="Wie_gut_können_Sie_folgende_Tätigkeiten_bewältigen">Wie gut können Sie folgende Tätigkeiten bewältigen? \n</string>
     <string name="Können_Sie">Können Sie... \n</string>

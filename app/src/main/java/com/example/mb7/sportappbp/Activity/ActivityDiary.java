@@ -20,7 +20,6 @@ import java.util.Date;
 public class ActivityDiary extends AppCompatActivity {
 
     final static int REQUEST_ID = 555;
-    //ArrayAdapter<String> arrayAdapter;
     static DiaryViewAdapter diaryViewAdapter;
     ListView listView;
     AllDiaryEntries allDiaryEntries;
@@ -35,7 +34,7 @@ public class ActivityDiary extends AppCompatActivity {
         setContentView(R.layout.activity_diary);
 
 
-
+        //get a list with all diary entries
         allDiaryEntries = allDiaryEntries.getInstance();
 
 
@@ -45,34 +44,43 @@ public class ActivityDiary extends AppCompatActivity {
         diaryViewAdapter = new DiaryViewAdapter(ActivityDiary.this, allDiaryEntries.getDiaryList());
         //set the adapter for the listview
         listView.setAdapter(diaryViewAdapter);
+        //set listener when an item has been clicked
+        listView.setOnItemClickListener(listViewOnItemClickListener);
 
-        listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
-                diaryEntry = (DiaryEntry) adapterView.getItemAtPosition(position);
-
-                exerciseList = diaryEntry.getExerciseList();
-                sendOldAndRequestNewExerciseList();
-
-                Toast.makeText(ActivityDiary.this, diaryEntry.getDate() , Toast.LENGTH_SHORT).show();
-            }
-        });
-
+        //clear list against duplicates
         allDiaryEntries.getDiaryList().clear();
+        //load list from firesbase
+        //todo laden aller Eintraege nicht nur einem
         ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
 
     }
+
+    /**
+     * Action when an item has been clicked in the list
+     */
+    AdapterView.OnItemClickListener listViewOnItemClickListener = new AdapterView.OnItemClickListener(){
+        @Override
+        public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
+            //get entry of the clicked item
+            diaryEntry = (DiaryEntry) adapterView.getItemAtPosition(position);
+
+            exerciseList = diaryEntry.getExerciseList();
+            //send the exercise list of the entry to the diaryEntry activity
+            sendOldAndRequestNewExerciseList();
+
+        }};
 
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
+
         ArrayList<Exercise> result;
 
-        //check if the request was successful
+        //check the correctness of the received packages
         if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
 
-            //get the new list
+            //get and set the result of the request
             result = data.getParcelableArrayListExtra("newExercises");
             exerciseList = result;
             diaryEntry.setExerciseList(result);
@@ -80,15 +88,26 @@ public class ActivityDiary extends AppCompatActivity {
         }
     }
 
+    /**
+     * This method start notifyDataSetChanged of the view adapter. When data has been changed in
+     * the AllDiaryEntries object from external, this method has to be executed
+     */
     public static void notifyDataChanged(){
         diaryViewAdapter.notifyDataSetChanged();
     }
 
 
+    /**
+     * this method send the exerciseList of the selected diaryEntry to the diaryEntry Activity.
+     * Furthermore this method sends a request to receive the prepared exerciseList
+     */
     public void sendOldAndRequestNewExerciseList(){
         ArrayList<Exercise> oldList = exerciseList;
+        //set goal activity
         Intent pickExerciseIntent = new Intent(this, ActivityDiaryEntry.class);
+        //List in package
         pickExerciseIntent.putParcelableArrayListExtra("oldExercises", oldList);
+        //send package and open the goal activity
         startActivityForResult(pickExerciseIntent, REQUEST_ID);
     }
 

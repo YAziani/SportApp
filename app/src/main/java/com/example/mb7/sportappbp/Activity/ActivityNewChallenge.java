@@ -43,7 +43,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
 
     private ListView listview;
     private NewChallengeViewAdapter newChallengeViewAdapter;
-    private CharSequence[] durationItems = {"7 - Tage", "14 - Tage", "28 - Tage" };
+    //private CharSequence[] durationItems = {"7 - Tage", "14 - Tage", "28 - Tage" };
     private ArrayList<User> userList = new ArrayList<User>();
     private int duration = 6;
 
@@ -180,13 +180,13 @@ public class ActivityNewChallenge extends AppCompatActivity {
         AlertDialog.Builder dialogSetDuraiton = new AlertDialog.Builder(ActivityNewChallenge.this);
 
         //Chain together various setter methods to set the dialog characteristics
-        dialogSetDuraiton.setTitle("Wie lange soll die challenge gehen?");
+        dialogSetDuraiton.setTitle(R.string.WieLangeSolldieChallengeGehen);
 
         //set the durationItems and the standard position of the radio button list
-        dialogSetDuraiton.setSingleChoiceItems(durationItems, 0, radioButtonDialogSetDurationOnClickListener);
+        dialogSetDuraiton.setSingleChoiceItems(R.array.ArrayChallengeDuration, 0, radioButtonDialogSetDurationOnClickListener);
 
         //Set action for the negative button
-        dialogSetDuraiton.setNegativeButton("Abbrechen", new DialogInterface.OnClickListener() {
+        dialogSetDuraiton.setNegativeButton( R.string.Abbrechen , new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialogInterface, int i) {
                 //close the window
@@ -258,7 +258,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
                 //user zur Gruppe hinzufuegen
                 //User ist bereits in einer Challenge
 
-                Toast.makeText(ActivityNewChallenge.this, editTextMailAddress.getText()  + " konnte nicht gefunden werden ", Toast.LENGTH_SHORT).show();
+                Toast.makeText(ActivityNewChallenge.this, editTextMailAddress.getText()  + getResources().getString(R.string.konnteNichtGefundenWerden) , Toast.LENGTH_SHORT).show();
             }
         });
         //set action for btnCancel

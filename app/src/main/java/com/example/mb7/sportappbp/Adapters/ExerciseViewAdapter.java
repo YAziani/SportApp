@@ -48,7 +48,7 @@ public class ExerciseViewAdapter extends BaseAdapter{
         txtTitle.setText(exercise.getName());
 
         TextView txtText = (TextView) view.findViewById(R.id.txtDuration);
-        txtText.setText(String.valueOf(exercise.getTimeHours()) + " Stunden " + exercise.getTimeMunites() + " Minuten");
+        txtText.setText(String.valueOf(exercise.getTimeHours()) + "Stunden" + exercise.getTimeMunites() + "Minuten");
         return view;
     }
 

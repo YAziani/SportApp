@@ -23,7 +23,7 @@ import com.example.mb7.sportappbp.R;
 import java.util.ArrayList;
 
 
-public class ActivityExerciseOverview extends AppCompatActivity {
+public class ActivitySelectedExercises extends AppCompatActivity {
 
     final static int REQUEST_ID = 2;
 
@@ -35,13 +35,13 @@ public class ActivityExerciseOverview extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_exerciseoverview);
+        setContentView(R.layout.activity_selectedexercises);
 
         //receive exercise list
         exerciseList = receiveExerciseList();
 
         listView = (ListView)findViewById(R.id.listviewActivityOverview);
-        exerciseViewAdapter = new ExerciseViewAdapter(ActivityExerciseOverview.this, exerciseList);
+        exerciseViewAdapter = new ExerciseViewAdapter(ActivitySelectedExercises.this, exerciseList);
         listView.setAdapter(exerciseViewAdapter);
 
 
@@ -157,7 +157,7 @@ public class ActivityExerciseOverview extends AppCompatActivity {
     private void numberPicker(final Exercise exercise){
 
         //create dialog window
-        final Dialog dialog = new Dialog(ActivityExerciseOverview.this);
+        final Dialog dialog = new Dialog(ActivitySelectedExercises.this);
 
         //set the layout for the dialog window
         dialog.setContentView(R.layout.dialog_two_numberpicker);
@@ -210,7 +210,7 @@ public class ActivityExerciseOverview extends AppCompatActivity {
 
                 }
                 else
-                    Toast.makeText(ActivityExerciseOverview.this, "Es wurde keine Zeit gesetzt!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivitySelectedExercises.this, R.string.ungültigeZeit, Toast.LENGTH_SHORT).show();
             }
         });
 

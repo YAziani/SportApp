@@ -60,5 +60,56 @@
         <item>Ich habe leichte Probleme</item>
         <item>Ich habe keine Probleme</item>
     </string-array>
-    
+
+    <string-array name="ArrayCategories">
+        <item>Leistungstests</item>
+        <item>Training</item>
+        <item>Wellness</item>
+        <item>Reiner Aufenthalt</item>
+    </string-array>
+
+    <string-array name="ArrayLeistungstests">
+        <item>Spiroergometrie</item>
+        <item>Laktattest</item>
+        <item>Beweglichkeitstest</item>
+        <item>Krafttest</item>
+        <item>Anderer Leistungstest</item>
+    </string-array>
+
+    <string-array name="ArrayTraining">
+        <item>Krafttraining</item>
+        <item>Laufen</item>
+        <item>Cycling</item>
+        <item>Beweglichkeit/Flexibilität</item>
+        <item>Yoga</item>
+        <item>Rückentraining</item>
+        <item>Progressive</item>
+        <item>Muskelentspannung</item>
+        <item>Autogenes Training</item>
+        <item>Meditation</item>
+        <item>Anderes Training</item>
+</string-array>
+
+    <string-array name="ArrayWellness">
+        <item>Sauna</item>
+        <item>Dampfbad</item>
+        <item>Massage</item>
+        <item>Solarium</item>
+        <item>Andere Wellnessaktivität</item>
+    </string-array>
+
+    <string-array name="ArrayReinerAufenthalt">
+        <item>Soziale Kontakte</item>
+        <item>Bistro</item>
+        <item>Andere</item>
+    </string-array>
+
+    <string-array name="ArrayChallengeDuration">
+        <item>7 - Tage</item>
+        <item>14 - Tage</item>
+        <item>28 - Tage</item>
+    </string-array>
+
+
+
 </resources>

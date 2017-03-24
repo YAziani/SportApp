@@ -14,14 +14,14 @@
 
 
         <TextView
-            android:text="Setze Zeit"
+            android:id="@+id/textView25"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:id="@+id/textView25"
-            android:paddingTop="24dp"
+            android:paddingBottom="20dp"
             android:paddingLeft="24dp"
             android:paddingRight="24dp"
-            android:paddingBottom="20dp"
+            android:paddingTop="24dp"
+            android:text="@string/BenötigteZeit"
             android:textSize="28sp" />
 
         <LinearLayout
@@ -30,20 +30,20 @@
             android:layout_height="wrap_content">
 
             <TextView
-                android:text="Stunden"
+                android:id="@+id/textView27"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView27"
                 android:layout_weight="1"
+                android:text="@string/Stunden"
                 android:textAlignment="center"
                 android:textSize="20sp" />
 
             <TextView
-                android:text="Minuten"
+                android:id="@+id/textView26"
                 android:layout_width="140dp"
                 android:layout_height="wrap_content"
-                android:id="@+id/textView26"
                 android:layout_weight="1"
+                android:text="@string/Minuten"
                 android:textAlignment="center"
                 android:textSize="20sp" />
         </LinearLayout>
@@ -87,20 +87,20 @@
             android:paddingLeft="8dp"
             android:paddingStart="8dp"
             android:paddingTop="8dp"
-            android:text="Abbrechen" />
+            android:text="@android:string/cancel" />
 
         <Button
-            android:text="OK"
+            android:id="@+id/npOk"
+            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog"
             android:layout_width="128dp"
             android:layout_height="36dp"
-            android:id="@+id/npOk"
+            android:layout_weight="1"
             android:paddingBottom="8dp"
             android:paddingEnd="8dp"
             android:paddingLeft="8dp"
             android:paddingRight="8dp"
-            android:paddingTop="8dp"
             android:paddingStart="8dp"
-            android:layout_weight="1"
-            style="@style/Widget.AppCompat.Button.ButtonBar.AlertDialog" />
+            android:paddingTop="8dp"
+            android:text="@string/button_ok_text" />
     </LinearLayout>
 </LinearLayout>

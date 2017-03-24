@@ -28,7 +28,6 @@ public class ActivityCategories extends AppCompatActivity {
 
     ListView listView;
     ArrayAdapter<String> arrayAdapter;
-    String[] listOfCategories = {"Leistungstests", "Training", "Wellness", "Reiner Aufenthalt"};
 
     ListView listViewSelected;
     ExerciseViewAdapter exerciseViewAdapter;
@@ -54,7 +53,7 @@ public class ActivityCategories extends AppCompatActivity {
         exerciseList = receiveExerciseList();
 
         listView = (ListView) findViewById(R.id.listviewCategories);
-        arrayAdapter = new ArrayAdapter<String>(ActivityCategories.this, android.R.layout.simple_list_item_1, listOfCategories);
+        arrayAdapter = new ArrayAdapter<String>(ActivityCategories.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.ArrayCategories));
         listView.setAdapter(arrayAdapter);
 
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -65,16 +64,16 @@ public class ActivityCategories extends AppCompatActivity {
 
                 switch (category){
                     case "Leistungstests":
-                        forwardOldExerciseList(category, exerciseList);
+                        forwardOldExerciseList(R.string.Leistungstests , exerciseList);
                         break;
                     case "Training":
-                        forwardOldExerciseList(category, exerciseList);
+                        forwardOldExerciseList(R.string.Training, exerciseList);
                         break;
                     case "Wellness":
-                        forwardOldExerciseList(category, exerciseList);
+                        forwardOldExerciseList(R.string.Wellness, exerciseList);
                         break;
                     case "Reiner Aufenthalt":
-                        forwardOldExerciseList(category, exerciseList);
+                        forwardOldExerciseList(R.string.ReinerAufenthalt, exerciseList);
                         break;
                     default:
 
@@ -149,7 +148,7 @@ public class ActivityCategories extends AppCompatActivity {
         finish();
     }
 
-    private void forwardOldExerciseList(String category, ArrayList<Exercise> exerciseList){
+    private void forwardOldExerciseList(int category, ArrayList<Exercise> exerciseList){
 
         Intent intent = new Intent(ActivityCategories.this, ActivityExercises.class);
         intent.putExtra("category", category);
@@ -251,7 +250,7 @@ public class ActivityCategories extends AppCompatActivity {
 
                 }
                 else
-                    Toast.makeText(ActivityCategories.this, "Es wurde keine Zeit gesetzt!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityCategories.this, R.string.ungültigeZeit , Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -10,6 +10,7 @@ import android.content.SharedPreferences;
 import android.graphics.Color;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
@@ -70,6 +71,8 @@ public class ActivityMain extends AppCompatActivity {
     public  static  User mainUser ;
     public static ActivityMain activityMain;
     private SharedPreferences preferences;
+    private FloatingActionButton fab1;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -140,6 +143,15 @@ public class ActivityMain extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         setTabLayout();
 
+
+        fab1 = (FloatingActionButton) findViewById(R.id.fab);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityMain.this, ActivityDiaryEntry.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -362,4 +374,12 @@ public class ActivityMain extends AppCompatActivity {
         mainUser = User.Create(username);
         return mainUser;
     }
+
+
+
+
+
 }
+
+
+

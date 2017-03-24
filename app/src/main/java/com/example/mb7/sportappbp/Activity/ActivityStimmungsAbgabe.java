@@ -157,7 +157,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
     {
         StimmungAbfrageScore stimmungAbfrageScore = getDataScore();
         ActivityMain.mainUser.SaveStimmungScore(stimmungAbfrageScore, new Date());
-        StimmungAbfrage stimmungAbfrage  = getData();
+        StimmungsAngabe stimmungAbfrage  = getData();
         ActivityMain.mainUser.SaveStimmung(stimmungAbfrage, new Date());
 
 

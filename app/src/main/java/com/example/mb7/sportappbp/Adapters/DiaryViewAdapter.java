@@ -10,6 +10,7 @@ import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.Objects.Exercise;
 import com.example.mb7.sportappbp.R;
 
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 
 /**
@@ -20,6 +21,8 @@ public class DiaryViewAdapter extends BaseAdapter {
 
     private Activity _context;
     private ArrayList<DiaryEntry> _diaryEntries;
+    SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
+    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
 
     public DiaryViewAdapter(Activity context, ArrayList<DiaryEntry> diaryEntries)
     {
@@ -47,8 +50,10 @@ public class DiaryViewAdapter extends BaseAdapter {
 
         //Set the date and time of the diaryEntry into the text field
         TextView txtTitle =(TextView) view.findViewById(android.R.id.text1);
-        txtTitle.setText(_context.getResources().getString(R.string.Vom) + diaryEntry.getDate() + ", " + _context.getResources().getString(R.string.um) +
-                diaryEntry.getTime() + " " + _context.getResources().getString(R.string.Uhr));
+        txtTitle.setText( _context.getResources().getString(R.string.Vom) +" "+
+                sdfDate.format(diaryEntry.getDate()) + ", " + _context.getResources().getString(R.string.um) + " " +
+                sdfTime.format(diaryEntry.getDate()) +
+                " " + _context.getResources().getString(R.string.Uhr));
         return view;
     }
 

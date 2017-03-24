@@ -93,7 +93,7 @@ public class User {
         return true;
     }
     public boolean GetDiaryEntry(Date date){
-        DAL_User.GetDiaryEntry(this,date);
+        DAL_User.LoadCompleteDiary(this);
         return true;
     }
 

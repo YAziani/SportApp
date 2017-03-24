@@ -32,6 +32,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     private GridView gridView;
     private DiaryEntryViewAdapter diaryEntryViewAdapter;
     private Firebase mRootRef;
+    private Calendar calendar = Calendar.getInstance();
     ArrayList<Integer> listCategories = new ArrayList<Integer>();
     ArrayList<Integer> listIcons = new ArrayList<Integer>();
 
@@ -49,9 +50,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
         //Create Diary Entry Object to safe all data
         diaryEntry = new DiaryEntry();
-        diaryEntry.setId(getID());
-        diaryEntry.setDate(getCurrentDate());
-        diaryEntry.setTime(getCurrentTime());
+        diaryEntry.setDate(calendar.getTime());
 
         //exerciseList = diaryEntry.getExerciseList();
         exerciseList = receiveExerciseList();
@@ -98,7 +97,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
                 return true;
             case R.id.icon_save:
                 //calculate the totalpoints and save it
-                diaryEntry.setTotalpoints(calculateTotalPoints());
+                diaryEntry.setTotalPoints(calculateTotalPoints());
                 //check if a new entry has been created or just been prepared
                 if(!newData) {
                     //return exerciseList to previous activity (diary)
@@ -168,31 +167,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         Toast.makeText(ActivityDiaryEntry.this, R.string.Tagebucheintraggespeichert , Toast.LENGTH_SHORT).show();
 
         return true;
-    }
-
-    /**
-     * This method returns the current date as a string in the format "dd.MM.yy".
-     * @return a String with the date "dd.MM.yy"
-     */
-    private String getCurrentDate(){
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-        String strDate = sdf.format(c.getTime());
-        return strDate;
-    }
-
-    private String getCurrentTime(){
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("HH:mm:ss");
-        String strTime = sdf.format(c.getTime());
-        return strTime;
-    }
-
-    private String getID(){
-        Calendar c = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        String strID = sdf.format(c.getTime());
-        return strID;
     }
 
     /**

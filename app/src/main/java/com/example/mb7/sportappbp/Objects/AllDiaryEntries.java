@@ -40,20 +40,6 @@ public class AllDiaryEntries {
         return diaryList;
     }
 
-    /**
-     * This method adds the all dates of the list as a string to a new list
-     * @return a arraylist with all dates as strings
-     */
-    public ArrayList<String> getAllDates(){
-        ArrayList<String> dateList = new ArrayList<String>();
-
-        for(DiaryEntry p : diaryList){
-            dateList.add(p.getDate());
-        }
-
-        return dateList;
-    }
-
 
 
 }

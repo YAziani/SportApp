@@ -1,6 +1,5 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
-import android.provider.ContactsContract;
 import android.util.Log;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
@@ -22,6 +21,8 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
 
@@ -220,81 +221,102 @@ public class DAL_User {
     }
 
 
-    static public void GetDiaryEntry(User user, Date date)
+    static public void LoadCompleteDiary(User user)
     {
+
+        final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd,HH:mm:ss");
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+
         try
         {
-            final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/Diary/" + "20170322");
+            //final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/Diary/");
             final Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                // Hier kriegst du den Knoten -KfNx5TBo4yQpfN07Ekh
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String  strKey = "";
 
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        //Key
-                        strKey = child.getKey();
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        //date yyyyMMdd
+                        final String strDate = child.getKey();
 
-                            root.child(strKey).addListenerForSingleValueEvent(new ValueEventListener() {
-                                @Override
-                                public void onDataChange(DataSnapshot dataSnapshot) {
+                        root.child(strDate).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                String  strKey = "";
+
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    //Key
+                                    strKey = child.getKey();
+
+                                    root.child(strDate).child(strKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                                        @Override
+                                        public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                            AllDiaryEntries allDiaryEntries = AllDiaryEntries.getInstance();
+                                            DiaryEntry diaryEntry = new DiaryEntry();
 
 
-                                    AllDiaryEntries allDiaryEntries = AllDiaryEntries.getInstance();
-                                    //clear list to delete duplicates
-                                    //allDiaryEntries.getDiaryList().clear();
+                                            for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                                if (child.getKey().equals("time")) {
 
-                                    DiaryEntry diaryEntry = new DiaryEntry();
-                                    String strExercise = "";
+                                                    String time = child.getValue().toString();
 
-                                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                        if (child.getKey().equals("date"))
-                                            diaryEntry.setDate(child.getValue().toString());
-                                        else if (child.getKey().equals("time"))
-                                            diaryEntry.setTime(child.getValue().toString());
-                                        else if (child.getKey().equals("totalpoints"))
-                                            diaryEntry.setTotalpoints(Integer.getInteger(child.getValue().toString()));
-
-                                        else if(child.getKey().startsWith("exercise")){
-
-                                            strExercise = child.getKey();
-                                            String category = child.getChildren().iterator().next().getValue().toString();
-
-                                            Exercise exercise = null;
-                                            //String category = child.getValue().toString();
-
-                                                if (category.equals("Training")) {
-                                                    exercise = new TrainingExercise();
-                                                    exercise = child.getValue(TrainingExercise.class);
-                                                } else if (category.equals("Leistungstests")) {
-                                                    exercise = new LeistungstestsExercise();
-                                                    exercise = child.getValue(LeistungstestsExercise.class);
-                                                } else if (category.equals("ReinerAufenthalt")) {
-                                                    exercise = new ReinerAufenthaltExercise();
-                                                    exercise = child.getValue(ReinerAufenthaltExercise.class);
-                                                } else if (category.equals("Wellness")) {
-                                                    exercise = new WellnessExercise();
-                                                    exercise = child.getValue(WellnessExercise.class);
+                                                    try {
+                                                        Date date = sdfDate.parse(strDate + "," + time );
+                                                        diaryEntry.setDate(date);
+                                                    } catch (ParseException e) {
+                                                        e.printStackTrace();
+                                                    }
+                                                    //diaryEntry.setTime(time);
                                                 }
+                                                else if (child.getKey().equals("totalpoints"))
+                                                    diaryEntry.setTotalPoints(Integer.getInteger(child.getValue().toString()));
 
-                                            if(exercise != null)
-                                                diaryEntry.addExercise(exercise);
+                                                else if(child.getKey().startsWith("exercise")){
+
+                                                    String category = child.getChildren().iterator().next().getValue().toString();
+
+                                                    Exercise exercise = null;
+
+                                                    if (category.equals("Training")) {
+                                                        exercise = new TrainingExercise();
+                                                        exercise = child.getValue(TrainingExercise.class);
+                                                    } else if (category.equals("Leistungstests")) {
+                                                        exercise = new LeistungstestsExercise();
+                                                        exercise = child.getValue(LeistungstestsExercise.class);
+                                                    } else if (category.equals("ReinerAufenthalt")) {
+                                                        exercise = new ReinerAufenthaltExercise();
+                                                        exercise = child.getValue(ReinerAufenthaltExercise.class);
+                                                    } else if (category.equals("Wellness")) {
+                                                        exercise = new WellnessExercise();
+                                                        exercise = child.getValue(WellnessExercise.class);
+                                                    }
+
+                                                    if(exercise != null)
+                                                        diaryEntry.addExercise(exercise);
+
+                                                }
+                                            }
+                                            allDiaryEntries.add(diaryEntry);
+                                            ActivityDiary.notifyDataChanged();
 
                                         }
-                                    }
-                                    allDiaryEntries.add(diaryEntry);
-                                    ActivityDiary.notifyDataChanged();
-                                }
 
-                                @Override
-                                public void onCancelled(FirebaseError firebaseError) {
+                                        @Override
+                                        public void onCancelled(FirebaseError firebaseError) {
 
+                                        }
+                                    });
                                 }
-                            });
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
                     }
 
 
@@ -307,10 +329,12 @@ public class DAL_User {
             });
 
 
+
         }
         catch (Exception e)
         {
             Log.d("ERROR", e.getMessage());
+
         }
     }
 
@@ -342,19 +366,21 @@ public class DAL_User {
 
     static public void InsertDiaryEntry(User user, DiaryEntry diaryEntry)
     {
+        SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
+        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
         try
         {
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Diary/" + diaryEntry.getID() + "/");
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Diary/" + sdfDate.format(diaryEntry.getDate()).toString() + "/");
             Firebase newChildRef = ref.push();
 
             Firebase childDate = newChildRef.child("date");
             childDate.setValue(diaryEntry.getDate());
 
             Firebase childTime = newChildRef.child("time");
-            childTime.setValue(diaryEntry.getTime());
+            childTime.setValue(sdfTime.format(diaryEntry.getDate()).toString());
 
             Firebase childPonts = newChildRef.child("totalPoints");
-            childPonts.setValue(diaryEntry.getTotalpoints());
+            childPonts.setValue(diaryEntry.getTotalPoints());
 
 
             int i = 0;

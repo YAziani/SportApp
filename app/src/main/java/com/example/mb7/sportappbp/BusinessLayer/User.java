@@ -60,6 +60,13 @@ public class User {
         DAL_User.InsertStimmung(this,stimmungAbfrage, date);
         return true;
     }
+    public boolean SaveStimmungScore(StimmungAbfrageScore stimmungAbfrageScore, Date date)
+    {
+        DAL_User.InsertStimmungScore(this,stimmungAbfrageScore, date);
+        return true;
+    }
+
+
     public boolean SaveFitnessFragebogen(FitnessFragebogen fitnessfragebogen)
     {
         DAL_User.InsertFitnessFragebogen(this,fitnessfragebogen);

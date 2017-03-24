@@ -50,8 +50,8 @@ public class ExampleUnitTest   {
 
     private static FireApp application;
 
+<<<<<<< HEAD
     @Before
-    @Override
     public void setUp() throws Exception {
         DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/";
         User user = User.Create("TestUniUser");
@@ -60,6 +60,12 @@ public class ExampleUnitTest   {
         stimmungAbfrage.Vor = true;
         DAL_User.InsertStimmung(user  ,stimmungAbfrage,new Date());
 
+=======
+
+    @Test
+    public void SampleTrueTest(){
+        assertTrue(true);
+>>>>>>> 361150edcf6b72530e9218746e9761aea444e2c0
     }
 
 

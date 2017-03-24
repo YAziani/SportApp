@@ -44,8 +44,8 @@ public class MotivationMessage extends MotivationMethod{
         final NotificationCompat.Builder notificationBuilder =
                 new NotificationCompat.Builder(activity)
                         .setSmallIcon(R.drawable.weight_icon)
-                        .setContentTitle("Schon gewusst?")
-                        .setContentText("Wissenswertes über Sport");
+                        .setContentTitle(activity.getString(R.string.mmNotiTitle))
+                        .setContentText(activity.getString(R.string.mmNotiSmallTitle));
         // specify which activity should be started upon clicking on the notification
         Intent notificationIntent = new Intent(activity,ActivityMain.class);
         notificationIntent.putExtra("startTab",1);
@@ -58,8 +58,7 @@ public class MotivationMessage extends MotivationMethod{
         // send notification
         notificationManager.notify(
                 notificationId,
-                notificationBuilder.setContentText(
-                        "Wissenswertes über Sport").build()
+                notificationBuilder.build()
         );
     }
 }

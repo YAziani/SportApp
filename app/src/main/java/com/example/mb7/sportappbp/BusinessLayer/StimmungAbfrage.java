@@ -16,4 +16,6 @@ public class StimmungAbfrage {
     public Integer Traurig;
     public Integer Wuetend;
     public Integer Zerstreut;
+
+
     }

@@ -25,7 +25,7 @@ public class DAL_TrainQuestioningTexts {
         if(praiseOrWarn == 1) {
             // access data in database and hand it to activity
             try {
-                URL url = new URL(DAL_Utilities.DatabaseURL + "/texts/trainNo");
+                URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/motivationText/neg");
                 Firebase root = new Firebase(url.toString());
                 root.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -46,13 +46,12 @@ public class DAL_TrainQuestioningTexts {
             }
         }else {
             try {
-                URL url = new URL(DAL_Utilities.DatabaseURL + "/texts/trainYes");
+                URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/motivationText/pos");
                 Firebase root = new Firebase(url.toString());
                 root.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         activityTrainQuestioning.returnTexts(dataSnapshot);
-                        return;
                     }
 
                     @Override

@@ -59,7 +59,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         setContentView(R.layout.activity_diaryentry);
 
         //Create Firebase reference
-        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
+        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
 
         allDiaryEntries = AllDiaryEntries.getInstance();
 

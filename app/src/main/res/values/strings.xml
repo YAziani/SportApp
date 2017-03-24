@@ -131,10 +131,13 @@
     <string name="Koordinationsscore">Koordinationsscore: </string>
     <string name="Gesamtscore">Gesamtscore: </string>
 
+    <string name="von_Punkten">von 35 </string>
+    <string name="von_Gesamtpunkten">von 140 </string>
+
     <string name="Erfolgreich_gespeichert">Erfolgreich gespeichert.</string>
 
     <string name="Bewegungsscore">Bewegungsscore: </string>
-    <string name="Sportsoce">Sportscore: </string>
+    <string name="Sportscore">Sportscore: </string>
 
     <string name="An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitäten_in_den_letzten">An wie vielen Tagen und wie lange haben Sie die folgenden Aktivitäten in den letzten </string>
     <string name="Wochen_ausgeübt"> Wochen ausgeübt?</string>
@@ -159,7 +162,7 @@
     <string name="Ja">Ja</string>
     <string name="Nein">Nein</string>
     <string name="Keine">Keine</string>
-    <string name="Eher_wenig">Eher wenig/etwas</string>
+    <string name="Eher_wenig">Eher wenig</string>
     <string name="Eher_mehr">Eher mehr</string>
     <string name="Viel">viel</string>
 

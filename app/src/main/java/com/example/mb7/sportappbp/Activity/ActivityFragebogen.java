@@ -98,17 +98,17 @@ public class ActivityFragebogen extends AppCompatActivity{
 
     private void speicheralert() {
         AlertDialog.Builder speicherbuilder=new AlertDialog.Builder(this);
-        speicherbuilder.setTitle("@string/Ergebnis");
+        speicherbuilder.setTitle(getString( R.string.Ergebnis));
         speicherbuilder.setMessage(
-                "@string/Bewegungsscore" + scoringbewegung()+"\n" +
-                "@string/Sportscore" + scoringsport() + "\n" +
-                "@string/Gesamtscore" + scoringgesamt());
+                getString( R.string.Bewegungsscore)+" " + scoringbewegung()+"\n" +
+                        getString( R.string.Sportscore)+" " + scoringsport() + "\n" +
+                        getString( R.string.Gesamtscore)+" " + scoringgesamt());
         speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 finish();
                 Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
-                        "@string/Erfolgreich_gespeichert",Toast.LENGTH_LONG);
+                        getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
                 ausgabe.show();
             }
 

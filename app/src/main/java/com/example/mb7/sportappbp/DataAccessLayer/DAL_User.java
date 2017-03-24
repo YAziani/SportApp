@@ -7,6 +7,7 @@ import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
+import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrageScore;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 import com.example.mb7.sportappbp.Objects.DiaryEntry;
@@ -165,7 +166,62 @@ public class DAL_User {
 
         }
 
+
     }
+
+    static public void InsertStimmungScore(User user, StimmungAbfrageScore stimmungAbfrageScore, Date date)
+    {
+        try
+        {
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/StimmungabfrageScore/"+ stimmungAbfrageScore.Date + "/" );
+            Firebase newChildRef = ref.push();
+
+            Firebase childscoreangespannt = newChildRef.child("Score Angespannt");
+            childscoreangespannt.setValue(stimmungAbfrageScore.AngespanntScore);
+
+            Firebase childscoretraurig = newChildRef.child("Score Traurig");
+            childscoretraurig.setValue(stimmungAbfrageScore.TraurigScore);
+
+            Firebase childscoretatkraeftig = newChildRef.child("Score Tatkräftig");
+            childscoretatkraeftig.setValue(stimmungAbfrageScore.TatkraeftigScore);
+
+            Firebase childscorezerstreut = newChildRef.child("Score Zerstreut");
+            childscorezerstreut.setValue(stimmungAbfrageScore.ZerstreutScore);
+
+            Firebase childscorewuetend = newChildRef.child("Score Wütend");
+            childscorewuetend.setValue(stimmungAbfrageScore.WuetendScore);
+
+            Firebase childscoremuede = newChildRef.child("Score Müde");
+            childscoremuede.setValue(stimmungAbfrageScore.MuedeScore);
+
+            Firebase childscoreselbstsicher = newChildRef.child("Score Selbstsicher");
+            childscoreselbstsicher.setValue(stimmungAbfrageScore.SelbstsicherScore);
+
+            Firebase childscoremitteilsam = newChildRef.child("Score Mitteilsam");
+            childscoremitteilsam.setValue(stimmungAbfrageScore.MitteilsamScore);
+
+            Firebase childscorebarometer = newChildRef.child("Score Stimmungsbarometer");
+            childscorebarometer.setValue(stimmungAbfrageScore.StimmungsBarometerScore);
+
+            Firebase childscoreenergieindex = newChildRef.child("Energieindex");
+            childscoreenergieindex.setValue(stimmungAbfrageScore.EnergieIndexScore);
+
+
+
+        }
+        catch (Exception exception)
+        {
+            String s = exception.getMessage();
+            System.out.println(s);
+        }
+        finally
+        {
+
+        }
+
+    }
+
+
     static public void GetDiaryEntry(User user, Date date)
     {
         try

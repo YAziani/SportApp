@@ -127,13 +127,13 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
 
     private void speicheralert() {
         AlertDialog.Builder speicherbuilder=new AlertDialog.Builder(this);
-        speicherbuilder.setTitle("@string/Ergebnis");
+        speicherbuilder.setTitle(getString( R.string.Ergebnis));
         speicherbuilder.setMessage(
-                getString( R.string.Kraftscore) + kraftscoring() +"\n" +
-                        getString( R.string.Ausdauerscore) + ausdauerscoring() + "\n" +
-                        getString( R.string.Bewglichkeitsscore) + bewglichkeitsscoring() + "\n" +
-                        getString( R.string.Koordinationsscore) + koordinationscoring() + "\n" +
-                        getString( R.string.Gesamtscore) + scoringwert() );
+                getString( R.string.Kraftscore) +" " + kraftscoring() +" " + getString( R.string.von_Punkten)+"\n" +
+                        getString( R.string.Ausdauerscore) +" " + ausdauerscoring() +" "  + getString( R.string.von_Punkten)+ "\n" +
+                        getString( R.string.Bewglichkeitsscore) +" " + bewglichkeitsscoring()+" " + getString( R.string.von_Punkten) + "\n" +
+                        getString( R.string.Koordinationsscore) +" " + koordinationscoring()+" "  + getString( R.string.von_Punkten)+ "\n" +
+                        getString( R.string.Gesamtscore)+" " + scoringwert()+" " + getString( R.string.von_Gesamtpunkten) );
         speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {

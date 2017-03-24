@@ -149,7 +149,7 @@ public class DiaryEntry {
 
     public int[] getTotalTimePointsAsArrayLeistungstests(){
 
-        int[] result = new int[2];
+        int[] result = new int[3];
         int resultMin = 0;
         int resultHours = 0;
 
@@ -182,7 +182,7 @@ public class DiaryEntry {
 
     public int[] getTotalTimePointsAsArrayTraining(){
 
-        int[] result = new int[2];
+        int[] result = new int[3];
         int resultMin = 0;
         int resultHours = 0;
 
@@ -215,7 +215,7 @@ public class DiaryEntry {
 
     public int[] getTotalTimePointsAsArrayWellness(){
 
-        int[] result = new int[2];
+        int[] result = new int[3];
         int resultMin = 0;
         int resultHours = 0;
 
@@ -248,7 +248,7 @@ public class DiaryEntry {
 
     public int[] getTotalTimePointsAsArrayReinerAufenthalt(){
 
-        int[] result = new int[2];
+        int[] result = new int[3];
         int resultMin = 0;
         int resultHours = 0;
 

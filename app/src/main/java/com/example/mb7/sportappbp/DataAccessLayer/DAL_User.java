@@ -394,11 +394,11 @@ public class DAL_User {
      * @param user
      * @param finessfragebogen
      */
-    static public void InsertFitnessFragebogen(User user, FitnessFragebogen finessfragebogen)
+    static public void InsertFitnessFragebogen(User user, FitnessFragebogen finessfragebogen, Date date)
     {
         try
         {
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/FitnessFragebogen/" );
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/FitnessFragebogen/" + finessfragebogen.Date + "/"  );
             Firebase newChildRef = ref.push();
 
                 Firebase childscorekraft = newChildRef.child("Score Kraft");
@@ -434,75 +434,95 @@ public class DAL_User {
      * @param user
      * @param fragebogen
      */
-    static public void InsertFragebogen(User user, Fragebogen fragebogen)
+    static public void InsertFragebogen(User user, Fragebogen fragebogen, Date date)
     {
         try
         {
 
 
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" );
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date + "/"  );
 
             Firebase newChildRef = ref.push();
 
+            if(fragebogen.berufstätig>=0){
             Firebase childberufstätig = newChildRef.child("Berufstätig");
-            childberufstätig.setValue(fragebogen.berufstätig);
+            childberufstätig.setValue(fragebogen.berufstätig);}
 
-            Firebase childsitzendetätigkeiten = newChildRef.child("Sitzende Tätigkeiten");
-            childsitzendetätigkeiten.setValue(fragebogen.sitzendetätigkeiten);
+            if (fragebogen.berufstätig==0 && fragebogen.sitzendetätigkeiten>=0)
+            {Firebase childsitzendetätigkeiten = newChildRef.child("Sitzende Tätigkeiten");
+            childsitzendetätigkeiten.setValue(fragebogen.sitzendetätigkeiten);}
 
+            if (fragebogen.berufstätig==0 && fragebogen.mäßigebewegung>=0){
             Firebase childmäßigebewegung = newChildRef.child("Mäßige Bewegung");
-            childmäßigebewegung.setValue(fragebogen.mäßigebewegung);
+            childmäßigebewegung.setValue(fragebogen.mäßigebewegung);}
 
+            if (fragebogen.berufstätig==0 && fragebogen.intensivebewegung>=0){
             Firebase childintensivebewegung = newChildRef.child("Intensive Bewegung");
-            childintensivebewegung.setValue(fragebogen.intensivebewegung);
+            childintensivebewegung.setValue(fragebogen.intensivebewegung);}
 
+            if (fragebogen.sportlichaktiv>=0){
             Firebase childsportlichaktiv = newChildRef.child("Sportlich Aktiv");
-            childsportlichaktiv.setValue(fragebogen.sportlichaktiv);
+            childsportlichaktiv.setValue(fragebogen.sportlichaktiv);}
 
+            if(fragebogen.zufußzurarbeit>0){
             Firebase childzufußzurarbeit = newChildRef.child("Zu Fuß zur Arbeit");
-            childzufußzurarbeit.setValue(fragebogen.zufußzurarbeit);
+            childzufußzurarbeit.setValue(fragebogen.zufußzurarbeit);}
 
+            if(fragebogen.zufußeinkaufen>0){
             Firebase childzufußeinkaufen = newChildRef.child("Zu Fuß einkaufen");
-            childzufußeinkaufen.setValue(fragebogen.zufußeinkaufen);
+            childzufußeinkaufen.setValue(fragebogen.zufußeinkaufen);}
 
+            if (fragebogen.radzurarbeit>0){
             Firebase childradzurarbeit = newChildRef.child("Mit dem Rad zur Arbeit");
-            childradzurarbeit.setValue(fragebogen.radzurarbeit);
+            childradzurarbeit.setValue(fragebogen.radzurarbeit);}
 
+            if (fragebogen.radfahren>0){
             Firebase childradfahren = newChildRef.child("Radfahren");
-            childradfahren.setValue(fragebogen.radfahren);
+            childradfahren.setValue(fragebogen.radfahren);}
 
+            if(fragebogen.spazieren>0){
             Firebase childspazieren = newChildRef.child("Spazieren");
-            childspazieren.setValue(fragebogen.spazieren);
+            childspazieren.setValue(fragebogen.spazieren);}
 
+            if(fragebogen.gartenarbeit>0){
             Firebase childgartenarbeit = newChildRef.child("Gartenarbeit");
-            childgartenarbeit.setValue(fragebogen.gartenarbeit);
+            childgartenarbeit.setValue(fragebogen.gartenarbeit);}
 
+            if(fragebogen.hausarbeit>0){
             Firebase childhausarbeit = newChildRef.child("Hausarbeit");
-            childhausarbeit.setValue(fragebogen.hausarbeit);
+            childhausarbeit.setValue(fragebogen.hausarbeit);}
 
+            if(fragebogen.pflegearbeit>0){
             Firebase childpflegearbeit = newChildRef.child("Pflegearbeit");
-            childpflegearbeit.setValue(fragebogen.pflegearbeit);
+            childpflegearbeit.setValue(fragebogen.pflegearbeit);}
 
+            if(fragebogen.treppensteigen>0){
             Firebase childtreppensteigen = newChildRef.child("Treppensteigen");
-            childtreppensteigen.setValue(fragebogen.treppensteigen);
+            childtreppensteigen.setValue(fragebogen.treppensteigen);}
 
+            if (fragebogen.aktivitätaname.isEmpty()==false){
             Firebase childaktaname = newChildRef.child("Aktivität A Name");
-            childaktaname.setValue(fragebogen.aktivitätaname);
+            childaktaname.setValue(fragebogen.aktivitätaname);}
 
+            if (fragebogen.aktivitätaname.isEmpty()==false && fragebogen.aktivitäta>0){
             Firebase childaktaanzahl = newChildRef.child("Aktivität A Zeit");
-            childaktaanzahl.setValue(fragebogen.aktivitäta);
+            childaktaanzahl.setValue(fragebogen.aktivitäta);}
 
+            if (fragebogen.aktivitätbname.isEmpty()==false){
             Firebase childaktbname = newChildRef.child("Aktivität B Name");
-            childaktbname.setValue(fragebogen.aktivitätbname);
+            childaktbname.setValue(fragebogen.aktivitätbname);}
 
+            if (fragebogen.aktivitätaname.isEmpty()==false && fragebogen.aktivitätb>0){
             Firebase childaktbanzahl = newChildRef.child("Aktivität B Zeit");
-            childaktbanzahl.setValue(fragebogen.aktivitätb);
+            childaktbanzahl.setValue(fragebogen.aktivitätb);}
 
+            if (fragebogen.aktivitätcname.isEmpty()==false){
             Firebase childaktcname = newChildRef.child("Aktivität C Name");
-            childaktcname.setValue(fragebogen.aktivitätcname);
+            childaktcname.setValue(fragebogen.aktivitätcname);}
 
+            if (fragebogen.aktivitätaname.isEmpty()==false && fragebogen.aktivitätc>0){
             Firebase childaktcanzahl = newChildRef.child("Aktivität C Zeit");
-            childaktcanzahl.setValue(fragebogen.aktivitätc);
+            childaktcanzahl.setValue(fragebogen.aktivitätc);}
 
             Firebase childbewegungscore = newChildRef.child("Score Bewegung");
             childbewegungscore.setValue(fragebogen.bewegungscoring);

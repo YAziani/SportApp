@@ -84,6 +84,8 @@ public class ActivityMain extends AppCompatActivity {
         mainUser = User.Create("TestUser");
         activityMain = this;
 
+        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         // create a new motivation method and add it to the list of methods
         TrainQuestioning p = new TrainQuestioning(this);
         fixMotivationMethods.add(p);
@@ -92,12 +94,11 @@ public class ActivityMain extends AppCompatActivity {
         fixMotivationMethods.add(t);
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
-        //preferences.edit().putBoolean("showPostTrainMoti",true).apply();
+        preferences.edit().putBoolean("showPostTrainMoti",true).apply();
 
 
 
         // check settings for initialization
-        preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
         // TODO remove debug functions
         /*
         preferences.edit().remove("initialized").commit();

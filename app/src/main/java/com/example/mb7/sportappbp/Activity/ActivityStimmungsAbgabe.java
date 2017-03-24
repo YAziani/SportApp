@@ -15,7 +15,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.StimmungsViewAdapter;
-import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
+import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.StimmungListview;
 import com.firebase.client.Firebase;
@@ -71,7 +71,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
 
         // build the current URL
         Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/Notifications/" );
-        ref.child(context.getString( R.string.stimmungsabfrage)).child(notificationDate).removeValue();
+        ref.child(context.getString( R.string.stimmungsabgabe)).child(notificationDate).removeValue();
 
     }
 /*    @Override
@@ -105,28 +105,28 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         }
     }
 
-    private StimmungAbfrage getData()
+    private StimmungsAngabe getData()
     {
-        StimmungAbfrage stimmungAbfrage = new StimmungAbfrage();
-        stimmungAbfrage.Angespannt = lstAngespannt.getIndex();
-        stimmungAbfrage.Mitteilsam = lstMittelsam.getIndex();
-        stimmungAbfrage.Muede = lstMuede.getIndex();
-        stimmungAbfrage.Selbstsicher = lstSelbstsicher.getIndex();
-        stimmungAbfrage.Tatkraeftig = lstTatkraeftig.getIndex();
-        stimmungAbfrage.Traurig = lstTraurig.getIndex();
-        stimmungAbfrage.Wuetend = lstWuetend.getIndex();
-        stimmungAbfrage.Zerstreut= lstZerstreut.getIndex();
-        stimmungAbfrage.Vor  = true;
+        StimmungsAngabe stimmungsAngabe = new StimmungsAngabe();
+        stimmungsAngabe.Angespannt = lstAngespannt.getIndex();
+        stimmungsAngabe.Mitteilsam = lstMittelsam.getIndex();
+        stimmungsAngabe.Muede = lstMuede.getIndex();
+        stimmungsAngabe.Selbstsicher = lstSelbstsicher.getIndex();
+        stimmungsAngabe.Tatkraeftig = lstTatkraeftig.getIndex();
+        stimmungsAngabe.Traurig = lstTraurig.getIndex();
+        stimmungsAngabe.Wuetend = lstWuetend.getIndex();
+        stimmungsAngabe.Zerstreut= lstZerstreut.getIndex();
+        stimmungsAngabe.Vor  = true;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        stimmungAbfrage.Date = sdf.format(new Date());
+        stimmungsAngabe.Date = sdf.format(new Date());
 
-        return stimmungAbfrage;
+        return stimmungsAngabe;
     }
 
     private boolean SaveData()
     {
-        StimmungAbfrage stimmungAbfrage  = getData();
-        ActivityMain.mainUser.SaveStimmung(stimmungAbfrage, new Date());
+        StimmungsAngabe stimmungsAngabe = getData();
+        ActivityMain.mainUser.SaveStimmung(stimmungsAngabe, new Date());
 
         return true;
     }

@@ -2,11 +2,8 @@ package com.example.mb7.sportappbp;
 
 
 
-import android.test.ApplicationTestCase;
-
-import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.FireApp;
-import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
+import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
@@ -17,25 +14,8 @@ import com.firebase.client.ValueEventListener;
 import java.net.URL;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-
-import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
-import com.example.mb7.sportappbp.BusinessLayer.User;
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
-import com.example.mb7.sportappbp.Objects.Exercise;
-import com.firebase.client.collection.ArraySortedMap;
-import com.firebase.client.snapshot.ChildrenNode;
 
 import java.util.Date;
-import java.util.List;
-import java.util.concurrent.TimeoutException;
-import java.lang.Object;
-
-
-import static java.security.AccessController.getContext;
-import static org.junit.Assert.*;
 
 /**
  * Example local unit test, which will execute on the development machine (host).
@@ -51,21 +31,21 @@ public class ExampleUnitTest   {
     private static FireApp application;
 
     @Before
-    @Override
     public void setUp() throws Exception {
         DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/";
         User user = User.Create("TestUniUser");
-        StimmungAbfrage stimmungAbfrage = new StimmungAbfrage();
-        stimmungAbfrage.Muede = 2;
-        stimmungAbfrage.Vor = true;
-        DAL_User.InsertStimmung(user  ,stimmungAbfrage,new Date());
+
+        StimmungsAngabe stimmungsAngabe = new StimmungsAngabe();
+        stimmungsAngabe.Muede = 2;
+        stimmungsAngabe.Vor = true;
+        DAL_User.InsertStimmung(user  , stimmungsAngabe,new Date());
 
     }
 
 
 
-    static public StimmungAbfrage getStimmungsabfrageFromDb(Date date){
-        final StimmungAbfrage sti=new StimmungAbfrage();
+    static public StimmungsAngabe getStimmungsabfrageFromDb(Date date){
+        final StimmungsAngabe sti=new StimmungsAngabe();
         try{
             final String fdate = DAL_Utilities.ConvertDateToFirebaseDate(date);
             URL url = new URL(DAL_Utilities.DatabaseURL + "users/Testperson1/Stimmungsabfrage/" + fdate);
@@ -88,8 +68,8 @@ public class ExampleUnitTest   {
                                                                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                                         // Hier bekommst du dann letztlich die Stimmungsabfrage
 
-                                                                        StimmungAbfrage stimmungAbfrage = child.getValue(StimmungAbfrage.class);
-                                                                        stimmungAbfrage=sti;
+                                                                        StimmungsAngabe stimmungsAngabe = child.getValue(StimmungsAngabe.class);
+                                                                        stimmungsAngabe =sti;
                                                                     }
                                                                 }
                                                                 @Override
@@ -116,9 +96,9 @@ public class ExampleUnitTest   {
 
 
 
-    public static StimmungAbfrage stimmung1(Date testdate1) throws Exception{
+    public static StimmungsAngabe stimmung1(Date testdate1) throws Exception{
         User Testperson1=User.Create("Testperson1");
-        StimmungAbfrage teststimmung = new StimmungAbfrage();
+        StimmungsAngabe teststimmung = new StimmungsAngabe();
         //teststimmung.Date=testdate;
         teststimmung.Vor=true;
         teststimmung.Angespannt=0;
@@ -138,7 +118,7 @@ public class ExampleUnitTest   {
         public boolean stimmung2(){
         User Testperson1=User.Create("Testperson1");
         Date testdate=new Date();
-        StimmungAbfrage teststimmung = new StimmungAbfrage();
+        StimmungsAngabe teststimmung = new StimmungsAngabe();
         String fdate = DAL_Utilities.ConvertDateToFirebaseDate(testdate);
         teststimmung.Date=fdate;
         teststimmung.Vor=true;

@@ -19,6 +19,13 @@ public class Notification {
         this.image = image;
         this.date = new Date();
     }
+    public Notification(String title, String text, Integer image, Date date)
+    {
+        this.title = title;
+        this.subText = text;
+        this.image = image;
+        this.date = date;
+    }
     public String getTitle() {
         return title;
     }
@@ -47,10 +54,10 @@ public class Notification {
 
         int diffMins = ((int) ((new Date().getTime()/(1000*60)) - (int) (date.getTime()/(1000*60))));
         if (diffMins != 0)
-            return Integer.toString(diffHours) + "m";
+            return Integer.toString(diffMins) + "m";
 
         int diffSecs= ((int) ((new Date().getTime()/(1000)) - (int) (date.getTime()/(1000))));
-        return Integer.toString(Math.max(1, diffHours)) + "s";
+        return Integer.toString(Math.max(1, diffSecs)) + "s";
     }
 
     public void setDate(Date date) {

@@ -55,9 +55,9 @@ public class User {
     {
         DAL_User.GetLastTodayStimmungsabfrage(this,date);
     }
-    public boolean SaveStimmung(StimmungAbfrage stimmungAbfrage, Date date)
+    public boolean SaveStimmung(StimmungsAngabe stimmungsAngabe, Date date)
     {
-        DAL_User.InsertStimmung(this,stimmungAbfrage, date);
+        DAL_User.InsertStimmung(this, stimmungsAngabe, date);
         return true;
     }
     public boolean SaveFitnessFragebogen(FitnessFragebogen fitnessfragebogen)
@@ -71,7 +71,7 @@ public class User {
         return true;
     }
 
-    public StimmungAbfrage GetStimmnungsabfrage(Date date){
+    public StimmungsAngabe GetStimmnungsabfrage(Date date){
         return DAL_User.GetStimmnungsabfrage(this,date);
 
     }

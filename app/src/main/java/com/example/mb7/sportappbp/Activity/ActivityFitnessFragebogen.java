@@ -99,7 +99,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_save:
-                SaveData();
                 speicheralert();
                 return true;
             case R.id.icon_info:
@@ -127,16 +126,17 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
 
     private void speicheralert() {
         AlertDialog.Builder speicherbuilder=new AlertDialog.Builder(this);
-        speicherbuilder.setTitle("@string/Ergebnis");
+        speicherbuilder.setTitle(getString( R.string.Ergebnis));
         speicherbuilder.setMessage(
-                getString( R.string.Kraftscore) + kraftscoring() +"\n" +
-                        getString( R.string.Ausdauerscore) + ausdauerscoring() + "\n" +
-                        getString( R.string.Bewglichkeitsscore) + bewglichkeitsscoring() + "\n" +
-                        getString( R.string.Koordinationsscore) + koordinationscoring() + "\n" +
-                        getString( R.string.Gesamtscore) + scoringwert() );
+                getString( R.string.Kraftscore) +" " + kraftscoring() +" " + getString( R.string.von_Punkten)+"\n" +
+                        getString( R.string.Ausdauerscore) +" " + ausdauerscoring() +" "  + getString( R.string.von_Punkten)+ "\n" +
+                        getString( R.string.Bewglichkeitsscore) +" " + bewglichkeitsscoring()+" " + getString( R.string.von_Punkten) + "\n" +
+                        getString( R.string.Koordinationsscore) +" " + koordinationscoring()+" "  + getString( R.string.von_Punkten)+ "\n" +
+                        getString( R.string.Gesamtscore)+" " + scoringwert()+" " + getString( R.string.von_Gesamtpunkten) );
         speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                SaveData();
                 finish();
                 Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
                         getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
@@ -162,12 +162,15 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         fitnessfragebogen.scorekoordination=koordinationscoring();
         fitnessfragebogen.scoregesamt=scoringwert();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        fitnessfragebogen.Date = sdf.format(new Date());
+
         return fitnessfragebogen;
     }
 
     private boolean SaveData() {
         FitnessFragebogen fitnessfragebogen = getData();
-        ActivityMain.mainUser.SaveFitnessFragebogen(fitnessfragebogen);
+        ActivityMain.mainUser.SaveFitnessFragebogen(fitnessfragebogen,new Date());
 
         return true;
     }

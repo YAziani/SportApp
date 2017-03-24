@@ -21,6 +21,9 @@ import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.Firebase;
 
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
 
 /**
  * Created by Felix on 19.01.2017.
@@ -86,7 +89,6 @@ public class ActivityFragebogen extends AppCompatActivity{
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_save:
-                SaveData();
                 speicheralert();
 
                 return true;
@@ -98,17 +100,18 @@ public class ActivityFragebogen extends AppCompatActivity{
 
     private void speicheralert() {
         AlertDialog.Builder speicherbuilder=new AlertDialog.Builder(this);
-        speicherbuilder.setTitle("@string/Ergebnis");
+        speicherbuilder.setTitle(getString( R.string.Ergebnis));
         speicherbuilder.setMessage(
-                "@string/Bewegungsscore" + scoringbewegung()+"\n" +
-                "@string/Sportscore" + scoringsport() + "\n" +
-                "@string/Gesamtscore" + scoringgesamt());
+                getString( R.string.Bewegungsscore)+" " + scoringbewegung()+"\n" +
+                        getString( R.string.Sportscore)+" " + scoringsport() + "\n" +
+                        getString( R.string.Gesamtscore)+" " + scoringgesamt());
         speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
+                SaveData();
                 finish();
                 Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
-                        "@string/Erfolgreich_gespeichert",Toast.LENGTH_LONG);
+                        getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
                 ausgabe.show();
             }
 
@@ -156,12 +159,15 @@ public class ActivityFragebogen extends AppCompatActivity{
         fragebogen.aktivitätcname=aktivitätcname();
         fragebogen.aktivitätc=aktivitätc();
 
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        fragebogen.Date = sdf.format(new Date());
+
         return fragebogen;
     }
 
     private boolean SaveData(){
         Fragebogen fragebogen = getData();
-        ActivityMain.mainUser.SaveFragebogen(fragebogen);
+        ActivityMain.mainUser.SaveFragebogen(fragebogen, new Date());
 
         return true;
 

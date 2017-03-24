@@ -17,8 +17,6 @@ import java.util.Date;
  */
 
 public class ObserverStimmungAngabe extends Observer{
-    private SharedPreferences preferences;
-    private Context context;
 
     /**
      * then main update method that is called from the Observable
@@ -122,110 +120,12 @@ public class ObserverStimmungAngabe extends Observer{
                         context,
                         context.getString( R.string.stimmungsabgabe),
                         ActivityStimmungsAbgabe.class,context.getString(R.string.stimmungsabgabe),
-                        context.getString(R.string.ntf_stimmungsabgabe),
+                        context.getString(R.string.ntf_stimmungsabgabe_nach),
                         R.mipmap.ic_stimmungsabgabe );
             }
 
         }
         return false;
-    }
-
-    // get the current weekday in German
-    // cause the trainingstermine are saved in Preferences as key-value -> (German Weekday, all trainingstermine as String seperated with semicolon)
-    private String getCurrentWeekday() {
-        String dayOfWeek;
-
-        // setup calendar to get day of week
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-
-        // determine the day of the week
-        int currentWeekday = calendar.get(Calendar.DAY_OF_WEEK);
-        if(currentWeekday == Calendar.MONDAY){
-            dayOfWeek = "Montag";
-        }
-        else if(currentWeekday == Calendar.TUESDAY){
-            dayOfWeek = "Dienstag";
-        }
-        else if(currentWeekday == Calendar.WEDNESDAY){
-            dayOfWeek = "Mittwoch";
-        }
-        else if(currentWeekday == Calendar.THURSDAY){
-            dayOfWeek = "Donnerstag";
-        }
-        else if(currentWeekday == Calendar.FRIDAY){
-            dayOfWeek = "Freitag";
-        }
-        else if(currentWeekday == Calendar.SATURDAY){
-            dayOfWeek = "Samstag";
-        }
-        else{
-            dayOfWeek = "Sonntag";
-        }
-        return dayOfWeek;
-    }
-
-    /**
-     * get the time of the next training time
-     * @param context
-     * @return
-     */
-    public Integer getNextTrainingTimeInteger(Context context){
-        String preferenceString = preferences.getString(getCurrentWeekday(), "");
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-        // find next training start time
-        if(!preferenceString.equals("")) {
-            for(final String s : preferenceString.split(";")) {
-                int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
-                        + Integer.valueOf(s.split(":")[1]);
-                int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
-                // check if training is still noteworthy
-                if(currentMinuteOfDay <= trainingMinuteOfDay) {
-                    return trainingMinuteOfDay;
-                }
-            }
-        }
-        return 0;
-    }
-
-    /**
-     * get the time of the last training time
-     * @param context
-     * @return
-     */
-    public Integer getLastTrainingTime(Context context){
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String preferenceString = preferences.getString(getCurrentWeekday(), "");
-        String lastTraining = "";
-        Calendar calendar = Calendar.getInstance();
-        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-        // find next training start time
-        if(!preferenceString.equals("")) {
-            for(final String s : preferenceString.split(";")) {
-                int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
-                        + Integer.valueOf(s.split(":")[1]);
-                int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
-                // check if training is still noteworthy
-                if(currentMinuteOfDay <= trainingMinuteOfDay) {
-                    if(!lastTraining.equals("")) {
-                        return Integer.valueOf(lastTraining.split(":")[0]) * 60
-                                + Integer.valueOf(lastTraining.split(":")[1]);
-                    }else {
-                        break;
-                    }
-                }else {
-                    lastTraining = s;
-                }
-            }
-        }
-        return Integer.valueOf(lastTraining.split(":")[0]) * 60
-                + Integer.valueOf(lastTraining.split(":")[1]);
     }
 
 }

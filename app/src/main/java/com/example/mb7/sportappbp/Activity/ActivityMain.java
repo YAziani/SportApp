@@ -1,7 +1,9 @@
 package com.example.mb7.sportappbp.Activity;
 
 import android.app.Activity;
+import android.app.AlarmManager;
 import android.app.NotificationManager;
+import android.app.PendingIntent;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -37,8 +39,10 @@ import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
 import com.example.mb7.sportappbp.Fragments.TbReportContent;
 import com.example.mb7.sportappbp.Fragments.TbTaskContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
+import com.example.mb7.sportappbp.Utilities.AlertReceiver;
 
 import java.util.ArrayList;
+import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -131,6 +135,38 @@ public class ActivityMain extends AppCompatActivity {
         mViewPager = (ViewPager) findViewById(container);
         mViewPager.setAdapter(mSectionsPagerAdapter);
         setTabLayout();
+
+    }
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+        // Set the AlarmReceiver to run the notifications
+        setAlarm();
+    }
+
+    public void setAlarm() {
+
+        // Define a time value of 5 seconds
+        Long alertTime = new GregorianCalendar().getTimeInMillis()+5*1000;
+        Integer interval = 1000*10;
+
+        // Define our intention of executing AlertReceiver
+        Intent alertIntent = new Intent(this, AlertReceiver.class);
+
+        // Allows you to schedule for your application to do something at a later date
+        // even if it is in he background or isn't active
+        AlarmManager alarmManager = (AlarmManager) getSystemService(Context.ALARM_SERVICE);
+
+        // set() schedules an alarm to trigger
+        // Trigger for alertIntent to fire in 5 seconds
+        // FLAG_UPDATE_CURRENT : Update the Intent if active
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, new GregorianCalendar().getTimeInMillis(),interval, PendingIntent.getBroadcast(this, 1, alertIntent,
+                PendingIntent.FLAG_UPDATE_CURRENT));
+/*        alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime,
+                PendingIntent.getBroadcast(this, 1, alertIntent,
+                        PendingIntent.FLAG_UPDATE_CURRENT));*/
+
     }
 
     // Set all the properties of the main TabLayout in the main page here

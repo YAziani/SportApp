@@ -5,6 +5,9 @@
     <uses-permission android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission android:name="android.permission.ACCESS_FINE_LOCATION" />
     <uses-permission android:name="android.permission.INTERNET" />
+    <!-- We need this permission!!! -->
+    <!-- Permission to use AlarmManager -->
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
 
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.location.network" />
@@ -41,7 +44,11 @@
             android:label="Tagebuch"
             android:parentActivityName=".Activity.ActivityMain" />
         <activity android:name=".Activity.ActivitySettings" />
-        <activity android:name=".Activity.ActivityStimmungsAbgabe" />
+        <activity android:name=".Activity.ActivityStimmungsAbgabe" android:parentActivityName=".Activity.ActivityMain" >
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.ActivityMain"/>
+        </activity>
         <activity android:name=".Activity.ActivitySettingInitializer" />
         <activity android:name=".Activity.ActivityChallenge" />
         <activity
@@ -61,6 +68,8 @@
         <activity
             android:name=".Activity.ActivityLogin"
             android:label="@string/title_activity_login"></activity>
+        <receiver  android:process=":remote" android:name=".Utilities.AlertReceiver"></receiver>
+
     </application>
 
 </manifest>

@@ -73,7 +73,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitnessquestions);
 
-        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
+        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
         this.InitializeControlls();
         super.onStart();
 

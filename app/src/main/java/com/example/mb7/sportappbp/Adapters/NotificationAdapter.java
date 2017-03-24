@@ -1,7 +1,6 @@
 package com.example.mb7.sportappbp.Adapters;
 
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -50,31 +49,31 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
         @Override
         public void onClick(View view) {
-            if (notifications.get(getAdapterPosition()).getTitle().equals("Trainingeintrag")) {
+            if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.tagebucheintrag))) {
                 Intent open = new Intent(context.getActivity(), ActivityDiaryEntry.class);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Stimmungsabfrage")) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.stimmungsabfrage))) {
                 Intent open = new Intent(context.getActivity(), ActivityStimmungsAbgabe.class);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Fitnessfragebogen")) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragebogen))) {
                 Intent open = new Intent(context.getActivity(), ActivityFitnessFragebogen.class);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Aktivitätsfragebogen")) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.aktivitaetsfragebogen) )) {
                 Intent open = new Intent(context.getActivity(), ActivityFragebogen.class);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Bewegen Sie sich!")) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.bewegen_sie_sich))) {
                 Intent open = new Intent(context.getActivity(), ActivityMotivationMessage.class);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals("Nächstes Training")) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.naechstes_training))) {
                 String nextTrainingTime = PreferenceManager
                         .getDefaultSharedPreferences(ActivityMain.activityMain
                                 .getApplicationContext()).getString("nextTrainingTime","");
                 if(!nextTrainingTime.equals("")) {
                     Toast.makeText(
                             ActivityMain.activityMain,
-                            "Ihr Training beginnt in "
+                            context.getString(R.string.ihr_train_begin_in)
                                     + MotivationMethod.timeTillTraining(nextTrainingTime)
-                                    + " Minuten.",
+                                    + context.getString(R.string.minuten) + ".",
                             Toast.LENGTH_SHORT
                     ).show();
                 }

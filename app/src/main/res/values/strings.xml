@@ -4,8 +4,7 @@
     <string name="section_format">Hello World from section: %1$d</string>
     <string name ="notifikationen">Notifikationen</string>
     <string name="title_activity_login">Anmeldung</string>
-
-    <string name="trainingseintrag">Trainingeintrag</string>
+    <string name="tagebucheintrag">Tagebucheintrag</string>
     <string name="nun_ist_es_soweit">Nun ist es soweit. Haben Sie heute trainert?</string>
     <string name="stimmungsabfrage">Stimmungsabfrage</string>
     <string name="wie_fuhlen_sie_moment">Wie fühlen Sie sich in dem Moment?</string>
@@ -15,6 +14,8 @@
     <string name="ihr_korper_ihnen_danken">Ihr Körper wird\'s Ihnen danken.</string>
     <string name="naechstes_training">Nächstes Training</string>
     <string name="ihr_naechstes_train_begin_um">Ihr nächstes Training beginnt um </string>
+    <string name="ihr_train_begin_in">Ihr Training beginnt in </string>
+    <string name="minuten"> Minuten</string>
     <string name="aktivitaetsfragebogen">Aktivitätsfragebogen</string>
     <!-- Strings related to login -->
     <string name="prompt_email">E-mail</string>
@@ -47,5 +48,7 @@
     <string name="ziemlich">Ziemlich</string>
     <string name="extrem">Extrem</string>
     <string name="taetigkeiten">Tätigkeiten</string>
-
+    <!-- Strings related to alert -->
+    <string name="ntf_title">Fit up</string>
+    <string name="ntf_stimmungsabfrage">Es ist bald Zeit zum trainiern. Wie fühlen Sie sich?</string>
 </resources>

@@ -57,7 +57,7 @@ public class ActivityFragebogen extends AppCompatActivity{
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bsaquestions);
-        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/players");
+        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
         this.SetControlCaptions();
         this.InitializeControlls();
         super.onStart();

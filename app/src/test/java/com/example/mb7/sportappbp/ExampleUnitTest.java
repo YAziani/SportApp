@@ -31,6 +31,7 @@ import com.firebase.client.snapshot.ChildrenNode;
 import java.util.Date;
 import java.util.List;
 import java.util.concurrent.TimeoutException;
+import java.lang.Object;
 
 
 import static java.security.AccessController.getContext;
@@ -45,31 +46,21 @@ import static org.junit.Assert.*;
 
 
 
-public class ExampleUnitTest extends ApplicationTestCase<FireApp> {
+public class ExampleUnitTest   {
 
     private static FireApp application;
 
-    public ExampleUnitTest() {
-        super(FireApp.class);
+    @Before
+    public void setUp() throws Exception {
+        DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/";
+        User user = User.Create("TestUniUser");
+        StimmungAbfrage stimmungAbfrage = new StimmungAbfrage();
+        stimmungAbfrage.Muede = 2;
+        stimmungAbfrage.Vor = true;
+        DAL_User.InsertStimmung(user  ,stimmungAbfrage,new Date());
+
     }
 
-    @Override
-    public void setUp() throws Exception {
-        super.setUp();
-        if (application == null) {
-            application = getApplication();
-        }
-        if (application == null) {
-            application = (FireApp) getContext().getApplicationContext();
-            assertNotNull(application);
-            long start = System.currentTimeMillis();
-            while (!application.isInitialized){
-                Thread.sleep(300);  //wait until FireBase is totally initialized
-                if ( (System.currentTimeMillis() - start ) >= 1000 )
-                    throw new TimeoutException(this.getClass().getName() +"Setup timeOut");
-            }
-        }
-    }
 
 
     static public StimmungAbfrage getStimmungsabfrageFromDb(Date date){
@@ -98,26 +89,18 @@ public class ExampleUnitTest extends ApplicationTestCase<FireApp> {
 
                                                                         StimmungAbfrage stimmungAbfrage = child.getValue(StimmungAbfrage.class);
                                                                         stimmungAbfrage=sti;
-
-
-
-
                                                                     }
                                                                 }
-
                                                                 @Override
                                                                 public void onCancelled(FirebaseError firebaseError) {
-
                                                                 }
                                                             });
                                                         }
                                                     }
-
                                                     @Override
                                                     public void onCancelled(FirebaseError firebaseError) {
                                                     }
                                                 }
-
             );
             return sti;
         }
@@ -170,10 +153,6 @@ public class ExampleUnitTest extends ApplicationTestCase<FireApp> {
         return true;
     }
 
-    @Test
-    public void SampleTrueTest(){
-        assertTrue(true);
-    }
 
     //Stimmung2 auf Firebase uploaden
     /*@Test

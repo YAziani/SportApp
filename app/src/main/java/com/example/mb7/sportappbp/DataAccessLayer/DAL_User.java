@@ -91,7 +91,7 @@ public class DAL_User {
     {
         try {
             final String sDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
-            URL url = new URL(DAL_Utilities.DatabaseURL  +  "players/" + user.getName() + "/Stimmungsabfrage/" + sDate + "/");
+            URL url = new URL(DAL_Utilities.DatabaseURL  +  "users/" + user.getName() + "/Stimmungsabfrage/" + sDate + "/");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

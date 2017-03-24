@@ -1,9 +1,6 @@
 package com.example.mb7.sportappbp.Fragments;
 
-import android.app.Activity;
-import android.content.Intent;
 import android.content.SharedPreferences;
-import android.content.res.Resources;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.LinearLayoutManager;
@@ -11,21 +8,11 @@ import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
-import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
-import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
-import com.example.mb7.sportappbp.Activity.ActivityMain;
-import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
-import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
-import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
 import com.example.mb7.sportappbp.Adapters.NotificationAdapter;
 import com.example.mb7.sportappbp.Adapters.NotificationViewAdapter;
-import com.example.mb7.sportappbp.Adapters.RecyclerViewClickListener;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
-import com.example.mb7.sportappbp.BusinessLayer.Task;
 import com.example.mb7.sportappbp.R;
 
 import java.util.Arrays;
@@ -52,15 +39,17 @@ public class TbNotificationContent extends TabFragment {
 
 
         view = inflater.inflate(R.layout.tbnotificationcontent, container, false);
-        Notification n1 = new Notification(getString( R.string.trainingseintrag),getString(R.string.nun_ist_es_soweit), R.mipmap.ic_trainingseinheit);
+
+        // first create some notifications
+        Notification n1 = new Notification(getString( R.string.tagebucheintrag),getString(R.string.nun_ist_es_soweit), R.mipmap.ic_trainingseinheit);
         Notification n2 = new Notification(getString( R.string.stimmungsabfrage), getString( R.string.wie_fuhlen_sie_moment), R.mipmap.ic_stimmungsabgabe);
         Notification n3 = new Notification(getString( R.string.aktivitaetsfragebogen), getString( R.string.wie_aktiv),R.mipmap.ic_aktivitaetfragebogen);
         Notification n4 = new Notification(getString( R.string.fitnessfragebogen), getString( R.string.wie_ist_fitnesstand),R.mipmap.ic_fitness_fragebogen);
-
-
         notifications =new LinkedList<Notification>(Arrays.asList(n1,n2,n3,n4));
 
+
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+
         // setup notifications that appear only on specific occasions
         final Notification nMotivationMessage = new Notification(
                 getString( R.string.bewegen_sie_sich),

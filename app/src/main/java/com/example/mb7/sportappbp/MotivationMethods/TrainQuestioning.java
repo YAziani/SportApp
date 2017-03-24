@@ -74,7 +74,7 @@ public class TrainQuestioning extends MotivationMethod {
                         notificationManager.notify(notificationId,notificationBuilder.build());
 
                     }
-                },1000);
+                },10800000);
                 return true;
             }else {
                 preferences.edit().remove("willTrain").apply();

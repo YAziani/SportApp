@@ -6,7 +6,7 @@ import android.util.Log;
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
-import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrage;
+import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrageScore;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
@@ -32,8 +32,8 @@ import java.util.List;
 public class DAL_User {
     static  private long gcounter ;
 
-    static public StimmungAbfrage GetStimmnungsabfrage(User user, Date date){
-    final StimmungAbfrage stimmunga=new StimmungAbfrage();
+    static public StimmungsAngabe GetStimmnungsabfrage(User user, Date date){
+    final StimmungsAngabe stimmunga=new StimmungsAngabe();
 
         try
         {
@@ -56,8 +56,8 @@ public class DAL_User {
                                                                            public void onDataChange(DataSnapshot dataSnapshot) {
                                                                                for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                                                    // Hier bekommst du dann letztlich die Stimmungsabfrage
-                                                                                   StimmungAbfrage stimmungAbfrage = child.getValue(StimmungAbfrage.class);
-                                                                                   stimmungAbfrage=stimmunga;
+                                                                                   StimmungsAngabe stimmungsAngabe = child.getValue(StimmungsAngabe.class);
+                                                                                   stimmungsAngabe =stimmunga;
 
                                                                                }
                                                                           }
@@ -67,9 +67,7 @@ public class DAL_User {
 
                                                                           }
                                                                       });
-                }
-
-
+                    }
                 }
 
                 @Override
@@ -114,47 +112,47 @@ public class DAL_User {
     }
 
 
-    static public void InsertStimmung(User user, StimmungAbfrage stimmungAbfrage, Date date)
+    static public void InsertStimmung(User user, StimmungsAngabe stimmungsAngabe, Date date)
     {
         try
         {
 
 
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Stimmungsabfrage/" + stimmungAbfrage.Date + "/");
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Stimmungsabfrage/" + stimmungsAngabe.Date + "/");
 
-            String V_N = stimmungAbfrage.Vor?"/V":"/N";
+            String V_N = stimmungsAngabe.Vor?"/V":"/N";
             Firebase newChildRef = ref.push();
-            if (stimmungAbfrage.Angespannt >= 0) {
+            if (stimmungsAngabe.Angespannt >= 0) {
                 Firebase childAngespannt = newChildRef.child(V_N).child("Angespannt");
-                childAngespannt.setValue(stimmungAbfrage.Angespannt);
+                childAngespannt.setValue(stimmungsAngabe.Angespannt);
             }
-            if(stimmungAbfrage.Mitteilsam >=0) {
+            if(stimmungsAngabe.Mitteilsam >=0) {
                 Firebase childMitteilsam = newChildRef.child(V_N).child("Mitteilsam");
-                childMitteilsam.setValue(stimmungAbfrage.Mitteilsam);
+                childMitteilsam.setValue(stimmungsAngabe.Mitteilsam);
             }
-            if(stimmungAbfrage.Muede >= 0) {
+            if(stimmungsAngabe.Muede >= 0) {
                 Firebase childMuede = newChildRef.child(V_N).child("Muede");
-                childMuede.setValue(stimmungAbfrage.Muede);
+                childMuede.setValue(stimmungsAngabe.Muede);
             }
-            if(stimmungAbfrage.Selbstsicher >=0) {
+            if(stimmungsAngabe.Selbstsicher >=0) {
                 Firebase childSelbstsicher = newChildRef.child(V_N).child("Selbstsicher");
-                childSelbstsicher.setValue(stimmungAbfrage.Selbstsicher);
+                childSelbstsicher.setValue(stimmungsAngabe.Selbstsicher);
             }
-            if(stimmungAbfrage.Tatkraeftig >= 0) {
+            if(stimmungsAngabe.Tatkraeftig >= 0) {
                 Firebase childTatkraeftig = newChildRef.child(V_N).child("Tatkraeftig");
-                childTatkraeftig.setValue(stimmungAbfrage.Tatkraeftig);
+                childTatkraeftig.setValue(stimmungsAngabe.Tatkraeftig);
             }
-            if(stimmungAbfrage.Traurig >=0) {
+            if(stimmungsAngabe.Traurig >=0) {
                 Firebase childTraurig = newChildRef.child(V_N).child("Traurig");
-                childTraurig.setValue(stimmungAbfrage.Traurig);
+                childTraurig.setValue(stimmungsAngabe.Traurig);
             }
-            if(stimmungAbfrage.Wuetend >=0) {
+            if(stimmungsAngabe.Wuetend >=0) {
                 Firebase childWuetend = newChildRef.child(V_N).child("Wuetend");
-                childWuetend.setValue(stimmungAbfrage.Wuetend);
+                childWuetend.setValue(stimmungsAngabe.Wuetend);
             }
-            if(stimmungAbfrage.Zerstreut >= 0) {
+            if(stimmungsAngabe.Zerstreut >= 0) {
                 Firebase childZerstreut = newChildRef.child(V_N).child("Zerstreut");
-                childZerstreut.setValue(stimmungAbfrage.Zerstreut);
+                childZerstreut.setValue(stimmungsAngabe.Zerstreut);
             }
         }
         catch (Exception ex)

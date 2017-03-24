@@ -6,7 +6,7 @@
     <string name="title_activity_login">Anmeldung</string>
     <string name="tagebucheintrag">Tagebucheintrag</string>
     <string name="nun_ist_es_soweit">Nun ist es soweit. Haben Sie heute trainert?</string>
-    <string name="stimmungsabfrage">Stimmungsabfrage</string>
+    <string name="stimmungsabgabe">Stimmungsabgabe</string>
     <string name="wie_fuhlen_sie_moment">Wie fühlen Sie sich in dem Moment?</string>
     <string name="wie_aktiv">Wie aktiv sind Sie?</string>
     <string name="wie_ist_fitnesstand">Wie ist Ihr Fitnessstand?</string>
@@ -50,7 +50,7 @@
     <string name="taetigkeiten">Tätigkeiten</string>
     <!-- Strings related to alert -->
     <string name="ntf_title">Fit up</string>
-    <string name="ntf_stimmungsabfrage">Es ist bald Zeit zum trainiern. Wie fühlen Sie sich?</string>
+    <string name="ntf_stimmungsabgabe">Es ist bald Zeit zum trainiern. Wie fühlen Sie sich?</string>
     <!--Fitnessfragebogen xml-->
     <string name="Wie_gut_können_Sie_folgende_Tätigkeiten_bewältigen">Wie gut können Sie folgende Tätigkeiten bewältigen? \n</string>
     <string name="Können_Sie">Können Sie... \n</string>

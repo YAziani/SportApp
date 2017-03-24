@@ -37,12 +37,12 @@ dependencies {
     })
 
     // Single target that includes all FirebaseUI libraries
-    
+
 
     // FirebaseUI Storage only
-    
+
     testCompile  'junit:junit:4.12'
-compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
     compile    'com.firebaseui:firebase-ui:0.4.0'
     compile    'com.firebaseui:firebase-ui-storage:1.1.1'
     compile    'com.android.support:appcompat-v7:24.2.1'

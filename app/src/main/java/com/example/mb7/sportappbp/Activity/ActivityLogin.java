@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp.Activity;
 
 import android.content.Context;
+import android.content.Intent;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
@@ -86,12 +87,12 @@ public class ActivityLogin extends AppCompatActivity{
     private void attemptLogin() {
 
         if(!isNetworkAvailable()) {
-            Toast.makeText(this,"Internetverbingung benötigt", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if(!validSnapshot) {
-            Toast.makeText(this,"Datenbankfehler, versuchen Sie es später erneut", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
             DAL_RegisteredUsers.getRegisteredUsers(this);
             return;
         }
@@ -114,20 +115,20 @@ public class ActivityLogin extends AppCompatActivity{
 
         // Check for a valid password, if the user entered one.
         if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
-            mPasswordView.setError("ungültiges Passwort (min. 4 Zeichen)");
+            mPasswordView.setError(getString(R.string.alpwerror));
             focusView = mPasswordView;
             cancel = true;
         }
 
         if (TextUtils.isEmpty(username)) {
-            mUsernameView.setError("Bitte füllen Sie alle Felder aus.");
+            mUsernameView.setError(getString(R.string.alallfields));
             focusView = mUsernameView;
             cancel = true;
         }
 
         //check if credentials are valid
         boolean validLogin = false;
-        String errMessage = "Unbekannter Nutzername";
+        String errMessage = getString(R.string.alunknownusername);
         TextView focus = mUsernameView;
         if(dataSnapshot.getValue() != null) {
             for(DataSnapshot d : dataSnapshot.getChildren()) {
@@ -136,7 +137,7 @@ public class ActivityLogin extends AppCompatActivity{
                         validLogin = true;
                         break;
                     }else {
-                        errMessage = "Falsches Passwort";
+                        errMessage = getString(R.string.alwrongpw);
                         focus = mPasswordView;
                         break;
                     }
@@ -164,12 +165,12 @@ public class ActivityLogin extends AppCompatActivity{
 
     private void attemptRegister() {
         if(!isNetworkAvailable()) {
-            Toast.makeText(this,"Internetverbingung benötigt", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
             return;
         }
 
         if(!validSnapshot) {
-            Toast.makeText(this,"Datenbankfehler, versuchen Sie es später erneut", Toast.LENGTH_SHORT).show();
+            Toast.makeText(this,getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
             DAL_RegisteredUsers.getRegisteredUsers(this);
             return;
         }
@@ -192,27 +193,25 @@ public class ActivityLogin extends AppCompatActivity{
         View focusView = null;
 
         // Check for a valid password, if the user entered one.
-        System.out.println(password);
         if (TextUtils.isEmpty(password) || !isPasswordValid(password)) {
-            System.out.println("prob");
-            mPasswordView.setError("ungültiges Passwort (min. 4 Zeichen)");
+            mPasswordView.setError(getString(R.string.alpwerror));
             focusView = mPasswordView;
             cancel = true;
         }
 
         // Check for a valid email address and username.
         if (TextUtils.isEmpty(email)) {
-            mEmailView.setError("Bitte füllen Sie alle Felder aus.");
+            mEmailView.setError(getString(R.string.alallfields));
             focusView = mEmailView;
             cancel = true;
         } else if (!isEmailValid(email)) {
-            mEmailView.setError("Ungültige E-Mail.");
+            mEmailView.setError(getString(R.string.alwrongmail));
             focusView = mEmailView;
             cancel = true;
         }
 
         if (TextUtils.isEmpty(username)) {
-            mUsernameView.setError("Bitte füllen Sie alle Felder aus.");
+            mUsernameView.setError(getString(R.string.alallfields));
             focusView = mUsernameView;
             cancel = true;
         }
@@ -225,13 +224,13 @@ public class ActivityLogin extends AppCompatActivity{
             for(DataSnapshot d : dataSnapshot.getChildren()) {
                 if (d.getKey().equals(username)) {
                     validLogin = false;
-                    errMessage = "Nutzername bereits vergeben";
+                    errMessage = getString(R.string.alusernametaken);
                     focus = mUsernameView;
                     break;
                 }
                 if(d.child("email").getValue() != null && d.child("email").getValue().equals(email)) {
                     validLogin = false;
-                    errMessage = "E-Mail bereits genutzt";
+                    errMessage = getString(R.string.almailtaken);
                     focus = mEmailView;
                     break;
                 }
@@ -304,12 +303,14 @@ public class ActivityLogin extends AppCompatActivity{
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            Toast.makeText(ActivityLogin.this,"Anmeldung abgeschlossen", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityLogin.this,getString(R.string.allogcomplete), Toast.LENGTH_SHORT).show();
             PreferenceManager
                     .getDefaultSharedPreferences(getApplicationContext())
                     .edit()
                     .putString("logedIn",mUsername)
                     .apply();
+            Intent kompassIntent = new Intent(ActivityMain.activityMain, ActivityKompass.class);
+            startActivity(kompassIntent);
             ActivityLogin.this.finish();
         }
 

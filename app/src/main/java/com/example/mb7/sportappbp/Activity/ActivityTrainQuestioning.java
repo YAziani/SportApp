@@ -38,6 +38,8 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_train_questioning);
 
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+
         // close notification
         int notificationId = getIntent().getIntExtra("notificationId",-1);
         if(notificationId != -1) {
@@ -49,8 +51,6 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
 
         // act depending on whether the user trained or not
         if(praiseOrWarn == 1) {
-            // access texts in data base
-            DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
             // put background image
             imageView.setImageResource(R.drawable.train_no);
             if(getIntent().getBooleanExtra("preTrain",false)) {
@@ -62,29 +62,23 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
             }
             // notify BackgroundClock about user activity
             BackgroundClock.startRating(false);
+            if(preferences.getBoolean("showPostTrainMoti",false)) {
+                // access texts in data base
+                DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
+            }else {
+                finish();
+            }
+
         }else {
-            DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
             imageView.setImageResource(R.drawable.train_yes);
             BackgroundClock.startRating(true);
+            if(preferences.getBoolean("showPostTrainMoti",false)) {
+                DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
+            }else {
+                finish();
+            }
         }
         imageView.setAlpha(1f);
-
-        /*
-        // reference for the firebase storage image
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("trainNo.jpg");
-
-        // Load the image using Glide
-        Glide.with(this)
-                .using(new FirebaseImageLoader())
-                .load(storageRef)
-                .into(imageView);
-
-        // set alpha and color
-        imageView.setColorFilter(Color.argb(100, 117, 66, 20));
-        imageView.setAlpha(0.4f);
-         */
-
-
     }
 
     @Override
@@ -126,7 +120,7 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
             for(int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
                 if(i == textIndex) {
                     // show the chosen text
-                    showText((String)iterator.next().getValue());
+                    showText((String)iterator.next().child("text").getValue());
                     break;
                 }else {
                     iterator.next();

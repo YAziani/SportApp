@@ -6,13 +6,16 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
 import com.firebase.client.DataSnapshot;
 
+import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Random;
@@ -301,7 +304,11 @@ public class MethodChooser {
             List<MotivationMethod> variableMotivationMethods,
             Activity activity) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
-        for(String s : preferences.getString("allocatedMethods","").split(";")) {
+        if(preferences.getString("allocatedMethods","").equals("")) {
+            DAL_Allocation.getAllocation(activity,fixMotivationMethods,variableMotivationMethods);
+            return;
+        }
+        for(String s : new HashSet<>(Arrays.asList(preferences.getString("allocatedMethods","").split(";"))).toArray(new String[0])) {
             putMethodInList(s,fixMotivationMethods,variableMotivationMethods,activity);
         }
     }
@@ -324,8 +331,11 @@ public class MethodChooser {
             case "Trainingserinnerung":
                 fixMotivationMethods.add(new TrainingReminder(activity));
                 break;
-            case "Motivationsnachricht":
+            case "Motivationsbilder":
                 variableMotivationMethods.add(new MotivationMessage(activity));
+                break;
+            case "Motivationsnachrichten als Trainingsfeedback":
+                preferences.edit().putBoolean("showPostTrainMoti",true).apply();
                 break;
         }
     }

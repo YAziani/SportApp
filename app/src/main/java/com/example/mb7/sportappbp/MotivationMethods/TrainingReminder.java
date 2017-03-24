@@ -260,9 +260,11 @@ public class TrainingReminder extends MotivationMethod {
                 new NotificationCompat.Builder(activity)
                         .setStyle(new NotificationCompat.BigTextStyle())
                         .setSmallIcon(R.drawable.weight_icon)
-                        .setContentTitle("Trainingserinnerung")
-                        .setContentText("Ihr Training beginnt in etwa " + timeTillTraining + " Minuten"
-                                +"\nWerden Sie teilnehmen?");
+                        .setContentTitle(activity.getString(R.string.trNotiTitle))
+                        .setContentText(activity.getString(
+                                R.string.trNotiSmallTitle1) + " "
+                                + timeTillTraining + " "
+                                + activity.getString(R.string.trNotiSmallTitle2));
         // specify which activity should be started upon clicking on the notification
         Intent intent = new Intent(activity,ActivityMain.class);
         intent.putExtra("startTab",1);

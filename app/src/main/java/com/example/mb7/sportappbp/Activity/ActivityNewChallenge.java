@@ -23,6 +23,8 @@ import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.R;
 
+import org.w3c.dom.Text;
+
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -43,7 +45,6 @@ public class ActivityNewChallenge extends AppCompatActivity {
 
     private ListView listview;
     private NewChallengeViewAdapter newChallengeViewAdapter;
-    //private CharSequence[] durationItems = {"7 - Tage", "14 - Tage", "28 - Tage" };
     private ArrayList<User> userList = new ArrayList<User>();
     private int duration = 6;
 
@@ -240,6 +241,10 @@ public class ActivityNewChallenge extends AppCompatActivity {
 
         //set the layout for the dialog window
         dialog.setContentView(R.layout.dialog_entertext);
+
+        //Set title of dialog box
+        TextView textViewTitle = (TextView) findViewById(R.id.textViewEntertextTitle);
+        textViewTitle.setText(R.string.BenutzerHinzufügen);
 
         //Create button
         Button btnOk = (Button)dialog.findViewById(R.id.btnChallengeOk);

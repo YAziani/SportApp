@@ -215,7 +215,7 @@
     <string name="keintagebucheintragerstellt">Es wurde kein Tagebucheintrag erstellt!</string>
 
     <!-- DiaryEntryViewAdapter -->
-    <string name="Pkt">Pkt</string>
+    <string name="Pkt"> Pkt.</string>
 
     <!-- ActivitySelectedExercises -->
     <string name="AusgewählteExercises">Ausgewählte Aktivitäten</string>
@@ -241,15 +241,16 @@
 
     <!--dialog two number picker -->
     <string name="Stunden">Stunden</string>
-    <string name="Minuten">Minuten</string>
+    <string name="Minuten"> Minuten</string>
     <string name="BenötigteZeit">Benötigte Zeit:</string>
 
     <!-- ActivityChallenge-->
-    <string name="VerbleibendeTage">Verbleibende Tage</string>
+    <string name="VerbleibendeTage">Verbleibende Tage:</string>
 
     <!-- ActivityNewChallenge-->
     <string name="WieLangeSolldieChallengeGehen">Wie lange soll die Challenge gehen?</string>
     <string name="konnteNichtGefundenWerden"> konnte nicht gefunden werden!</string>
+    <string name="BenutzerHinzufügen">Benutzer hinzufügen</string>
 
 
 

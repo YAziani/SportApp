@@ -47,7 +47,8 @@ public class DiaryViewAdapter extends BaseAdapter {
 
         //Set the date and time of the diaryEntry into the text field
         TextView txtTitle =(TextView) view.findViewById(android.R.id.text1);
-        txtTitle.setText(R.string.Vom + diaryEntry.getDate() + ", " + R.string.um + diaryEntry.getTime() + " " + R.string.Uhr);
+        txtTitle.setText(_context.getResources().getString(R.string.Vom) + diaryEntry.getDate() + ", " + _context.getResources().getString(R.string.um) +
+                diaryEntry.getTime() + " " + _context.getResources().getString(R.string.Uhr));
         return view;
     }
 

@@ -59,9 +59,9 @@ public class ActivityChallenge extends AppCompatActivity {
         //calculate the difference between today and the end date
         todayDate = calendar.getTime();
         endDate = challenge.getEndDate();
-        int remainingDays = challenge.getRemainingDays();
+        String  remainingDays = String.valueOf(challenge.getRemainingDays());
         //set the difference to the textview
-        textViewCountdown.setText(R.string.VerbleibendeTage + remainingDays);
+        textViewCountdown.setText(getString(R.string.VerbleibendeTage) + " " + remainingDays);
 
     }
 

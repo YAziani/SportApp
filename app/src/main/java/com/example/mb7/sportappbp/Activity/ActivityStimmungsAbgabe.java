@@ -47,6 +47,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
     int mitteilsamwert=0;
     int StimmungScore=0;
     float EnergieIndexScore=0;
+    boolean Vor = true;
 
 
     @Override
@@ -67,6 +68,8 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         {
             // read the datetime as this is the unique value in the db for the notification
             String notificationDate =(String) extras.get("NotificationDate");
+            Vor  =((String) extras.get("Vor")).equals("1")?true:false;
+
             Log.e("Oncreate notifi", notificationDate);
 
             // now we have delete this notification from the db cause it is read
@@ -128,7 +131,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         stimmungsAngabe.Traurig = lstTraurig.getIndex();
         stimmungsAngabe.Wuetend = lstWuetend.getIndex();
         stimmungsAngabe.Zerstreut= lstZerstreut.getIndex();
-        stimmungsAngabe.Vor  = true;
+        stimmungsAngabe.Vor  = Vor;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         stimmungsAngabe.Date = sdf.format(new Date());
 

@@ -17,6 +17,7 @@ import com.firebase.client.Firebase;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by M.Braei on 24.03.2017.
@@ -94,7 +95,9 @@ public abstract class Observer {
     private void createNotification(Context context, String NotificationDate, Class<?> cls,String title, String text, Integer icon ){
 
         Intent contentClass = new Intent(context, cls);
-        contentClass.putExtra("NotificationDate",NotificationDate);
+        contentClass.putExtra("NotificationDate",NotificationDate);                                             // we have to know the notification date to delete from db
+        contentClass.putExtra("Vor",text.equals(context.getString( R.string.ntf_stimmungsabgabe))?"1":"0");     // that we should know to save it in the V node or N node (is it the question before or after the training)
+
         // Used to stack tasks across activites so we go to the proper place when back is clicked
         // create(context): context is the context that will launch the new task stack or a PendingIndent
         TaskStackBuilder tStackBuilder = TaskStackBuilder.create(context);
@@ -139,8 +142,12 @@ public abstract class Observer {
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        // get a random ID
+        Random r = new Random();
+        Integer id = r.nextInt();
+
         // Post the notification
-        mNotificationManager.notify(1, mBuilder.build());
+        mNotificationManager.notify(id, mBuilder.build());
 
     }
 
@@ -151,6 +158,7 @@ public abstract class Observer {
      */
     public Integer getNextTrainingTimeInteger(Context context){
         String preferenceString = preferences.getString(getCurrentWeekday(), "");
+        insertTrainingdates(preferenceString);
         Date date = new Date();
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
@@ -170,7 +178,12 @@ public abstract class Observer {
         }
         return 0;
     }
+    private void insertTrainingdates(String dates){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/" );
+        ref.child("TrainingDates").setValue(dates);
 
+    }
     /**
      * get the time of the last training time
      * @param context

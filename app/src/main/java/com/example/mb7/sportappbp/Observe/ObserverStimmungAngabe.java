@@ -8,6 +8,7 @@ import android.util.Log;
 
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.R;
+import com.firebase.client.Firebase;
 
 import java.util.Calendar;
 import java.util.Date;
@@ -40,7 +41,7 @@ public class ObserverStimmungAngabe extends Observer{
     {
         try{
             String abstand = preferences.getString("lstStmabfrageAbstand","0");
-            return Integer.parseInt(abstand) *10;
+            return (Integer.parseInt(abstand)) *10;
         }
         catch ( Exception ex)
         {
@@ -102,19 +103,19 @@ public class ObserverStimmungAngabe extends Observer{
      */
     private  boolean shouldNotifyAfter(){
 
-        Integer nextTrDateInt = getLastTrainingTime(context);
+        Integer lastTrDateInt = getLastTrainingTime(context);
         int abstand = getAbstand();
-        if (getMinutesofDate(new Date()) >=nextTrDateInt + abstand &&  nextTrDateInt !=  0)
+        if (getMinutesofDate(new Date()) >=lastTrDateInt + abstand &&  lastTrDateInt !=  0)
         {
             // we are in the interval where we should raise a notification
             // just check if the user hasn't got a notification before
             preferences = PreferenceManager.getDefaultSharedPreferences(context);
             String date =  android.text.format.DateFormat.format("yyyy-MM-dd", new java.util.Date()).toString();
-            Boolean sendNotif = preferences.getBoolean("N:" +  date + " " + nextTrDateInt.toString(), false   );
+            Boolean sendNotif = preferences.getBoolean("N:" +  date + " " + lastTrDateInt.toString(), false   );
             if (!sendNotif)
             {
                 // insert in the preferences that notification has been sent
-                preferences.edit().putBoolean("N:" + date + " " + nextTrDateInt.toString(),true    ).commit(); ;
+                preferences.edit().putBoolean("N:" + date + " " + lastTrDateInt.toString(),true    ).commit(); ;
                 // send notification
                 sendNotification(
                         context,
@@ -127,5 +128,7 @@ public class ObserverStimmungAngabe extends Observer{
         }
         return false;
     }
+
+
 
 }

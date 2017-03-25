@@ -32,12 +32,21 @@ public  class   AlertReceiver extends BroadcastReceiver {
     // Called when a broadcast is made targeting this class
     @Override
     public void onReceive(Context context, Intent intent) {
-        android.os.Debug.waitForDebugger();
+       android.os.Debug.waitForDebugger();
 
         // Initialize your observer and call its update method
         if (observerStimmungAngabe == null)
             observerStimmungAngabe = new ObserverStimmungAngabe();
         observerStimmungAngabe.update(context);
+
+        insertdb(context);
+    }
+
+    void insertdb(Context context){
+
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/" );
+        ref.child("AlertReceiver").setValue(new Date().toString());
 
     }
 }

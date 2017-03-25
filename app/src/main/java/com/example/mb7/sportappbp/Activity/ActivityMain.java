@@ -38,10 +38,9 @@ import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
 import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
 import com.example.mb7.sportappbp.Fragments.TbReportContent;
-import com.example.mb7.sportappbp.Fragments.TbTaskContent;
+import com.example.mb7.sportappbp.Fragments.TbTaskCategContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Utilities.AlertReceiver;
-import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -260,7 +259,7 @@ public class ActivityMain extends AppCompatActivity {
             switch(sectionNumber)
             {
                 case 1:
-                    tabFragment = new TbTaskContent();
+                    tabFragment = new TbTaskCategContent();
                     tabFragment.Initialize(activity,"Aufgaben");
                     return tabFragment;
                 case 2:

@@ -3,10 +3,13 @@
     <string name="action_settings">Einstellungen</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name ="notifikationen">Notifikationen</string>
+    <string name="aktivitaeten">Aktivitäten</string>
     <string name="title_activity_login">Anmeldung</string>
     <string name="tagebucheintrag">Tagebucheintrag</string>
+    <string name="tagebucheintrag_desc">Die sportlichen Aktivitäten, die sie durchgeführt haben</string>
     <string name="nun_ist_es_soweit">Nun ist es soweit. Haben Sie heute trainert?</string>
     <string name="stimmungsabgabe">Stimmungsabgabe</string>
+    <string name="stimmungsabgabe_desc">Ihre Stimmung vor und nach dem Training</string>
     <string name="wie_fuhlen_sie_moment">Wie fühlen Sie sich in dem Moment?</string>
     <string name="wie_aktiv">Wie aktiv sind Sie?</string>
     <string name="wie_ist_fitnesstand">Wie ist Ihr Fitnessstand?</string>
@@ -17,6 +20,7 @@
     <string name="ihr_train_begin_in">Ihr Training beginnt in </string>
     <string name="minuten"> Minuten</string>
     <string name="aktivitaetsfragebogen">Aktivitätsfragebogen</string>
+    <string name="aktivitaetsfragebogen_desc">Ihre persönliche Aktivitäten...</string>
     <!-- Strings related to login -->
     <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Passwort</string>
@@ -29,6 +33,7 @@
     <string name="permission_rationale">"Kontaktberechtigung für Autokompletierung benötigt"
     </string>
     <string name="fitnessfragebogen">Fitnessfragebogen</string>
+    <string name="fitnessfragebogen_desc">Wie fitt sind Sie?</string>
     <string name="erfolgreichgespeichert">Erfolgreich gespeichert</string>
     <string name="bitte_geben_sie_moment_fuhlen">Bitte geben Sie an, wie Sie sich jetzt d.h. in diesem Moment fühlen</string>
     <string name="angespannt">Angespannt</string>

@@ -7,6 +7,7 @@ import android.preference.PreferenceManager;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
@@ -32,15 +33,9 @@ public class MethodChooser {
     /**
      * choose methods depending on the settings in the database
      * @param dataSnapshot snapshot representing entries in database
-     * @param fixMotivationMethods list for fix motivation methods
-     * @param variableMotivationMethods list for random choosen motivation methods
      * @param activity the calling activity
      */
-    public static void chooseMethods(
-            DataSnapshot dataSnapshot,
-            List<MotivationMethod> fixMotivationMethods,
-            List<MotivationMethod> variableMotivationMethods,
-            Activity activity) {
+    public static void chooseMethods(DataSnapshot dataSnapshot, Activity activity) {
         preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
         // get current time
         Date date = new Date();
@@ -64,13 +59,13 @@ public class MethodChooser {
                     // determine the scheme of distribution wanted
                     switch(allocationType) {
                         case "same":
-                            sameForAll(concreteSet.child("activities"),fixMotivationMethods,variableMotivationMethods,activity);
+                            sameForAll(concreteSet.child("activities"));
                             break;
                         case "random":
-                            randomised(concreteSet.child("activities"),fixMotivationMethods,variableMotivationMethods,activity);
+                            randomised(concreteSet.child("activities"));
                             break;
                         case "altern":
-                            alternating(concreteSet,fixMotivationMethods,variableMotivationMethods,activity);
+                            alternating(concreteSet);
                             break;
                     }
                     return;
@@ -173,26 +168,12 @@ public class MethodChooser {
     /**
      * all users get the same methods
      * @param dataSnapshot snapshot representing entries in database
-     * @param fixMotivationMethods list for fix motivation methods
-     * @param variableMotivationMethods list for random chosen motivation methods
-     * @param activity the calling activity
      */
-    private static void sameForAll(
-            DataSnapshot dataSnapshot,
-            List<MotivationMethod> fixMotivationMethods,
-            List<MotivationMethod> variableMotivationMethods,
-            Activity activity) {
+    private static void sameForAll( DataSnapshot dataSnapshot) {
         // iterate through all methods and put them into the list
         for(DataSnapshot d : dataSnapshot.getChildren()) {
             if(d.getValue() instanceof Boolean && (boolean)d.getValue()) {
-                preferences.edit().putString(
-                        "allocatedMethods",
-                        (preferences.getString("allocatedMethods","") + d.getKey() + ";")
-                ).apply();
-                putMethodInList(d.getKey(),
-                        fixMotivationMethods,
-                        variableMotivationMethods,
-                        activity);
+                putMethodInList(d.getKey());
             }
         }
     }
@@ -200,15 +181,8 @@ public class MethodChooser {
     /**
      * users get random sets of methods
      * @param dataSnapshot snapshot representing entries in database
-     * @param fixMotivationMethods list for fix motivation methods
-     * @param variableMotivationMethods list for random chosen motivation methods
-     * @param activity the calling activity
      */
-    private static void randomised(
-            DataSnapshot dataSnapshot,
-            List<MotivationMethod> fixMotivationMethods,
-            List<MotivationMethod> variableMotivationMethods,
-            Activity activity) {
+    private static void randomised(DataSnapshot dataSnapshot) {
         // iterate through all methods and save them
         LinkedList<String> list = new LinkedList<>();
         for(DataSnapshot d : dataSnapshot.getChildren()) {
@@ -224,14 +198,7 @@ public class MethodChooser {
         for(int i = 0; i < noOfUsedMethods; i++) {
             // get random index
             listIndex = random.nextInt(list.size());
-            preferences.edit().putString(
-                    "allocatedMethods",
-                    (preferences.getString("allocatedMethods","") + list.get(listIndex) + ";")
-            ).apply();
-            putMethodInList(list.get(listIndex),
-                    fixMotivationMethods,
-                    variableMotivationMethods,
-                    activity);
+            putMethodInList(list.get(listIndex));
             // remove method from list
             list.remove(listIndex);
         }
@@ -240,22 +207,15 @@ public class MethodChooser {
     /**
      * users get alternating sets of methods
      * @param dataSnapshot snapshot representing entries in database
-     * @param fixMotivationMethods list for fix motivation methods
-     * @param variableMotivationMethods list for random chosen motivation methods
-     * @param activity the calling activity
      */
-    private static void alternating(
-            DataSnapshot dataSnapshot,
-            List<MotivationMethod> fixMotivationMethods,
-            List<MotivationMethod> variableMotivationMethods,
-            Activity activity) {
+    private static void alternating( DataSnapshot dataSnapshot) {
         DataSnapshot currentActiveGroup = null;
         DataSnapshot nextActiveGroup = null;
         DataSnapshot firstGroup = null;
         boolean foundActiveGroup = false;
 
         //find active group
-        for(DataSnapshot group : dataSnapshot.getChildren()) {
+        for(DataSnapshot group : dataSnapshot.child("groups").getChildren()) {
             // if found active group, save next active group
             if(foundActiveGroup) {
                 nextActiveGroup = group;
@@ -280,63 +240,24 @@ public class MethodChooser {
 
         // save methods into list
         for(DataSnapshot d : currentActiveGroup.getChildren()) {
-            if(d.getValue() instanceof Boolean && (boolean) d.getValue()) {
-                preferences.edit().putString(
-                        "allocatedMethods",
-                        (preferences.getString("allocatedMethods","") + d.getKey() + ";")
-                ).apply();
-                putMethodInList(d.getKey(),fixMotivationMethods,variableMotivationMethods,activity);
+            if(d.getValue() instanceof Boolean && (boolean) d.getValue() && !d.getKey().equals("groupactive")) {
+                putMethodInList(d.getKey());
             }
         }
 
         // update alternating groups
-        ActivityMain.mainUser.saveAlternGroupUpdate(currentActiveGroup.getKey(),nextActiveGroup.getKey(),dataSnapshot.getKey());
-    }
-
-    /**
-     * reinsert methods into the lists
-     * @param fixMotivationMethods list for fix motivation methods
-     * @param variableMotivationMethods list for random choosen motivation methods
-     * @param activity the calling activity
-     */
-    public static void reputMethodsInList(
-            List<MotivationMethod> fixMotivationMethods,
-            List<MotivationMethod> variableMotivationMethods,
-            Activity activity) {
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
-        if(preferences.getString("allocatedMethods","").equals("")) {
-            DAL_Allocation.getAllocation(activity,fixMotivationMethods,variableMotivationMethods);
-            return;
-        }
-        for(String s : new HashSet<>(Arrays.asList(preferences.getString("allocatedMethods","").split(";"))).toArray(new String[0])) {
-            putMethodInList(s,fixMotivationMethods,variableMotivationMethods,activity);
-        }
+        DAL_User.insertAlternGroupUpdate(currentActiveGroup.getKey(),nextActiveGroup.getKey(),dataSnapshot.getKey());
     }
 
     /**
      * puts the method represented by s into it's list
      * @param s string representing the method
-     * @param fixMotivationMethods list for fix motivation methods
-     * @param variableMotivationMethods list for random choosen motivation methods
-     * @param activity the calling activity
      */
     private static void putMethodInList(
-            String s,
-            List<MotivationMethod> fixMotivationMethods,
-            List<MotivationMethod> variableMotivationMethods,
-            Activity activity) {
+            String s) {
         // check which method is represented by s and put it in it's list
-        switch(s) {
-            // TODO adjust string to database entries
-            case "Trainingserinnerung":
-                fixMotivationMethods.add(new TrainingReminder(activity));
-                break;
-            case "Motivationsbilder":
-                variableMotivationMethods.add(new MotivationMessage(activity));
-                break;
-            case "Motivationsnachrichten als Trainingsfeedback":
-                preferences.edit().putBoolean("showPostTrainMoti",true).apply();
-                break;
-        }
+        preferences.edit().putString(
+                "allocatedMethods", (preferences.getString("allocatedMethods","") + s + ";")
+        ).commit();
     }
 }

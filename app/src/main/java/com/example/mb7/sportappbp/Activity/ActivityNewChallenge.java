@@ -1,5 +1,19 @@
 package com.example.mb7.sportappbp.Activity;
 
+/* Test
+
+        User u1 = User.Create("Bernd");
+        u1.setPoints(250);
+        User u2 = User.Create("Peter");
+        u2.setPoints(40);
+        User u3 = User.Create("Hans");
+        u3.setPoints(500);
+
+        userList.add(u1);
+        userList.add(u2);
+        userList.add(u3);
+ */
+
 import android.app.DatePickerDialog;
 import android.app.Dialog;
 
@@ -21,9 +35,10 @@ import android.widget.Toast;
 import com.example.mb7.sportappbp.Adapters.NewChallengeViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.User;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Challenges;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
 import com.example.mb7.sportappbp.R;
-
-import org.w3c.dom.Text;
+import com.firebase.client.DataSnapshot;
 
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -41,12 +56,20 @@ public class ActivityNewChallenge extends AppCompatActivity {
     private Calendar endCalendar = Calendar.getInstance();
     private Calendar standardCalendar = Calendar.getInstance();
     private int day,month,year;
-
+    DataSnapshot dataSnapshotUsers;
+    DataSnapshot dataSnapshotChallenges;
+    boolean validSnapshotUsers = false;
+    boolean validSnapshotChallenges = false;
 
     private ListView listview;
-    private NewChallengeViewAdapter newChallengeViewAdapter;
-    private ArrayList<User> userList = new ArrayList<User>();
+    private  NewChallengeViewAdapter newChallengeViewAdapter;
+    private  ArrayList<User> userList = new ArrayList<User>();
     private int duration = 6;
+
+
+
+
+
 
 
     @Override
@@ -54,16 +77,8 @@ public class ActivityNewChallenge extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_newchallenge);
 
-        User u1 = User.Create("Bernd");
-        u1.setPoints(250);
-        User u2 = User.Create("Peter");
-        u2.setPoints(40);
-        User u3 = User.Create("Hans");
-        u3.setPoints(500);
-
-        userList.add(u1);
-        userList.add(u2);
-        userList.add(u3);
+        DAL_RegisteredUsers.getRegisteredUsersNewChallenge(ActivityNewChallenge.this);
+        DAL_Challenges.getRegisteredChallengesToNewChallenge(ActivityNewChallenge.this);
 
         //Create listview and adapter
         listview = (ListView) findViewById(R.id.listViewNewChallengeUser);
@@ -94,38 +109,58 @@ public class ActivityNewChallenge extends AppCompatActivity {
         textViewEndDate.setText(sdf.format(standardDateEnd));
 
     }
-
-
-    /**
-     * Create a on click listener for btnAddUser
-     */
-    View.OnClickListener btnAddUserClickListener = new View.OnClickListener() {
-        @Override
-        public void onClick(View v) {
-            dialogAddUser();
-        }
-    };
-
     /**
      * Create a on click listener for textViewStartDate
+     * Opens a dialog with a calender to select the start date of the challenge
      */
     View.OnClickListener textViewStartDateClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
-            calendarDialog();
+            //set actually date
+            day = startCalendar.get(Calendar.DAY_OF_MONTH);
+            year = startCalendar.get(Calendar.YEAR);
+            month = startCalendar.get(Calendar.MONTH);
+
+            //create dialog window with the date of today and a on click listener
+            DatePickerDialog dpDialog = new DatePickerDialog(ActivityNewChallenge.this, calenderDialogStartDateListener, year, month, day);
+
+            dpDialog.show();
 
         }
     };
 
     /**
      * Create a on Click listener for textViewEndDate
+     * Opens a dialog window with radio button to select the duration of the challenge
       */
     View.OnClickListener textViewEndDateClickListener = new View.OnClickListener() {
         @Override
         public void onClick(View view) {
 
-            dialogSetDuration();
+            //Instantiate an AlertDialog.Builder with its constructor
+            AlertDialog.Builder dialogSetDuraiton = new AlertDialog.Builder(ActivityNewChallenge.this);
+
+            //Chain together various setter methods to set the dialog characteristics
+            dialogSetDuraiton.setTitle(R.string.WieLangeSolldieChallengeGehen);
+
+            //set the durationItems and the standard position of the radio button list
+            dialogSetDuraiton.setSingleChoiceItems(R.array.ArrayChallengeDuration, 0, radioButtonDialogSetDurationOnClickListener);
+
+            //Set action for the negative button
+            dialogSetDuraiton.setNegativeButton( R.string.Abbrechen , new DialogInterface.OnClickListener() {
+                @Override
+                public void onClick(DialogInterface dialogInterface, int i) {
+                    //close the window
+                    dialogInterface.dismiss();
+                }
+            });
+
+            //Get the AlertDialog from create()
+            AlertDialog dialog = dialogSetDuraiton.create();
+
+            //open the window
+            dialog.show();
 
         }
     };
@@ -146,61 +181,118 @@ public class ActivityNewChallenge extends AppCompatActivity {
 
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
+            //add user to user list button
             case R.id.icon_add:
-                //Open dialog to enter a user
-                dialogAddUser();
 
+                //create dialog
+                final Dialog addUserDialog =  new Dialog(ActivityNewChallenge.this);
+                //set the layout for the dialog window
+                addUserDialog.setContentView(R.layout.dialog_entertext);
+
+                addUserDialog.show();
+
+                //final EditText editTextMailAddress = (EditText) addUserDialog.findViewById(R.id.textChallengeMailAddress);
+
+                //Create button to add a user to the userlist
+                Button btnOk = (Button)addUserDialog.findViewById(R.id.btnChallengeOk);
+                btnOk.setOnClickListener(btnOkAddUserDialogListener(addUserDialog));
+
+                //create button to cancel the dialog
+                Button btnCancel = (Button)addUserDialog.findViewById(R.id.btnChallengeCancel);
+                btnCancel.setOnClickListener(new View.OnClickListener(){
+                    @Override
+                    public void onClick(View view) {
+
+                        addUserDialog.dismiss();
+                    }
+                });
                 return true;
+
+            //save challenge button
             case R.id.icon_save:
 
-                //todo check if this name already exists
+                //EditText to enter the mail address
+                EditText editTextChallengeName = (EditText) findViewById(R.id.editTextNewChallengeName);
+                String challengename = editTextChallengeName.getText().toString();
 
-                //Create challenge object and set data
-                userList.add(ActivityMain.mainUser);
-                Challenge challenge = new Challenge();
-                challenge.setName(editTextName.getText().toString());
-                challenge.setStartDate(startCalendar.getTime());
-                challenge.setEndDate(endCalendar.getTime());
-                challenge.setUserList(userList);
+                //todo regex ueberarbeiten
+                //todo Notifikation senden
 
-                //Assign the challenge to the user
-                ActivityMain.mainUser.setChallenge(challenge);
+                //check if name is valid
+                if(challengename.matches("[[a-zA-Z_0-9]]"))
+                    Toast.makeText(ActivityNewChallenge.this, R.string.UngültigerName  , Toast.LENGTH_LONG).show();
+                //check if name already exist
+                else if(checkChallengeName(challengename)){
+                    Toast.makeText(ActivityNewChallenge.this, R.string.NameExistiertBereits , Toast.LENGTH_LONG).show();
+                }
+                else if(userList.size() == 0)
+                    Toast.makeText(ActivityNewChallenge.this, R.string.MindestensEinBenutzerMussHinzugefügtWerden , Toast.LENGTH_LONG).show();
 
-                finish();
+                else {
+                    //Create challenge object and set data
+                    userList.add(ActivityMain.mainUser);
+                    Challenge challenge = new Challenge();
+                    challenge.setName(editTextName.getText().toString());
+                    challenge.setStartDate(startCalendar.getTime());
+                    challenge.setEndDate(endCalendar.getTime());
+                    challenge.setUserList(userList);
+
+                    //Save challenge to firebase
+                    DAL_Challenges.InsertChallenge(challenge);
+
+                    //Assign the challenge to the user
+                    ActivityMain.mainUser.setChallenge(challenge);
+
+                    Toast.makeText(ActivityNewChallenge.this, R.string.ChallengeWurdeErstellt , Toast.LENGTH_SHORT).show();
+
+                    finish();
+                }
             default:
                 return super.onOptionsItemSelected(item);
         }
     }
 
     /**
-     * This method creates the dialog window with radio button, to enter the duration of the challenge.
-     */
-    private void dialogSetDuration(){
+     * This method creates an on click listener for the ok button from the add user dialog.
+     * The method checks if the user exists or has already been added. If not, the user will
+     * be added to the user list
+     * @param addUserDialog dialog object from the dialog to add an user
+     * @return returns a onClickListener for the button
+     **/
+    private View.OnClickListener btnOkAddUserDialogListener(final Dialog addUserDialog){
 
-        //Instantiate an AlertDialog.Builder with its constructor
-        AlertDialog.Builder dialogSetDuraiton = new AlertDialog.Builder(ActivityNewChallenge.this);
+        final EditText editTextMailAddress = (EditText) addUserDialog.findViewById(R.id.textChallengeMailAddress);
 
-        //Chain together various setter methods to set the dialog characteristics
-        dialogSetDuraiton.setTitle(R.string.WieLangeSolldieChallengeGehen);
-
-        //set the durationItems and the standard position of the radio button list
-        dialogSetDuraiton.setSingleChoiceItems(R.array.ArrayChallengeDuration, 0, radioButtonDialogSetDurationOnClickListener);
-
-        //Set action for the negative button
-        dialogSetDuraiton.setNegativeButton( R.string.Abbrechen , new DialogInterface.OnClickListener() {
+        View.OnClickListener listener = new View.OnClickListener(){
             @Override
-            public void onClick(DialogInterface dialogInterface, int i) {
-                //close the window
-                dialogInterface.dismiss();
+            public void onClick(View view) {
+
+                //get the entered email address
+                String mail = editTextMailAddress.getText().toString();
+
+                //get user form database
+                User user = checkUsersMail(editTextMailAddress.getText().toString());
+                //check if user exist
+                if(user != null){
+                    //user already added
+                    if(userAlreadyInList(user))
+                        Toast.makeText(ActivityNewChallenge.this, getString(R.string.BenutzerBereitshinzugefügt) , Toast.LENGTH_SHORT).show();
+                        //add user and close dialog
+                    else {
+                        userList.add(user);
+                        newChallengeViewAdapter.notifyDataSetChanged();
+                        addUserDialog.dismiss();
+                    }
+                }
+                //if user doesn't exist
+                else
+                    Toast.makeText(ActivityNewChallenge.this, mail + " " + getString(R.string.konnteNichtGefundenWerden) , Toast.LENGTH_SHORT).show();
+
             }
-        });
-
-        //Get the AlertDialog from create()
-        AlertDialog dialog = dialogSetDuraiton.create();
-
-        //open the window
-        dialog.show();
+        };
+        return listener;
     }
+
 
     /**
      * Create a on click listener for the radio list of the dialog window to enter the duration
@@ -229,73 +321,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
         }
     };
 
-    /**
-     * This method creates and shows a dialog window. In this window, the user can enter the
-     * E-mail address of users. With the ok button the user will be added to the users list
-     * of the challenge group. When the user doen't exist a information appears.
-     */
-    private void dialogAddUser(){
-
-        //create dialog window
-        final Dialog dialog = new Dialog(ActivityNewChallenge.this);
-
-        //set the layout for the dialog window
-        dialog.setContentView(R.layout.dialog_entertext);
-
-        //Set title of dialog box
-        TextView textViewTitle = (TextView) findViewById(R.id.textViewEntertextTitle);
-        textViewTitle.setText(R.string.BenutzerHinzufügen);
-
-        //Create button
-        Button btnOk = (Button)dialog.findViewById(R.id.btnChallengeOk);
-        Button btnCancel = (Button)dialog.findViewById(R.id.btnChallengeCancel);
-
-        //create editText
-        final EditText editTextMailAddress = (EditText) dialog.findViewById(R.id.textChallengeMailAddress);
-
-        //set action for btnOK
-        btnOk.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //todo if user exists in database and send him a request
-                //user aus Database suchen
-                //user zur Gruppe hinzufuegen
-                //User ist bereits in einer Challenge
-
-                Toast.makeText(ActivityNewChallenge.this, editTextMailAddress.getText()  + getResources().getString(R.string.konnteNichtGefundenWerden) , Toast.LENGTH_SHORT).show();
-            }
-        });
-        //set action for btnCancel
-        btnCancel.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                //close window
-                dialog.dismiss();
-            }
-        });
-
-        dialog.show();
-    }
-
-    /**
-     * This method creates a dialog window with a date picker (calendar). The window will be opened
-     * with the day of today.
-     */
-    public void calendarDialog(){
-
-        //set actually date
-        day = startCalendar.get(Calendar.DAY_OF_MONTH);
-        year = startCalendar.get(Calendar.YEAR);
-        month = startCalendar.get(Calendar.MONTH);
-
-        //create dialog window with the date of today and a on click listener
-        DatePickerDialog dpDialog = new DatePickerDialog(ActivityNewChallenge.this, calenderDialogStartDateListener, year, month, day);
-
-        dpDialog.show();
-    }
-
-    /**
+     /**
      * Create a on click listener for DatePickerDialog. This will happen, when someone entered a new date
      * in the calender dialog window.
      */
@@ -320,7 +346,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
 
 
     /**
-     * This method creates an date object made of int values. Enter the int values of the day
+     * This method creates a date object made of int values. Enter the int values of the day
      * month and the year, and the method converts them to a Date object.
      * @param year
      * @param monthOfYear
@@ -341,4 +367,86 @@ public class ActivityNewChallenge extends AppCompatActivity {
 
         return date;
     }
+
+    /**
+     * This method checks, if a user with an email address exist and returns him. When the user doesn't
+     * exist, the method returns null.
+     * @param searchedEmail email address of the user
+     * @return The user you are looking for or null
+     */
+    private User checkUsersMail(String searchedEmail){
+
+        User user = null;
+
+        if(dataSnapshotUsers.getValue() != null) {
+            for(DataSnapshot d : dataSnapshotUsers.getChildren()) {
+
+                if(d.child("email").getValue()!= null) {
+                    if (d.child("email").getValue().equals(searchedEmail)) {
+                        user = User.Create(d.getKey().toString());
+                        user.setEmail(d.child("email").getValue().toString());
+                        return user;
+                    }
+                }
+            }
+        }
+        return  null;
+    }
+
+    /**
+     * This method checks, if a challenge already and returns true. When the challenge name doesn't
+     * exist, the method returns false.
+     * @param challengeName searched challenge name
+     * @return The user you are looking for or null
+     */
+    private boolean checkChallengeName(String challengeName){
+
+        if(validSnapshotChallenges) {
+            if (dataSnapshotChallenges.getValue() != null) {
+                for (DataSnapshot d : dataSnapshotChallenges.getChildren()) {
+                    //return true if the name already exists
+                    if (d.getKey().equals(challengeName))
+                        return true;
+
+                }
+            }
+        }
+        return false;
+    }
+
+
+    /**
+     * This method checks if a user has been already added to the user list.
+     * @param user user you wanna add
+     * @return true if user already exist, else null
+     */
+    private boolean userAlreadyInList(User user){
+
+        boolean result = false;
+
+        for(User u : userList){
+            if(user.getEmail().equals(u.getEmail()))
+                result = true;
+        }
+        return result;
+    }
+
+    /**
+     * return the snapshot with registered users to this activity
+     * @param dataSnapshot snapshot containing registered users
+     */
+    public void returnRegisteredUsers(DataSnapshot dataSnapshot) {
+        this.dataSnapshotUsers = dataSnapshot;
+        validSnapshotUsers = true;
+    }
+
+    /**
+     * return the snapshot with registered challenges to this activity
+     * @param dataSnapshot snapshot containing registered users
+     */
+    public void returnRegisteredChallenges(DataSnapshot dataSnapshot) {
+        this.dataSnapshotChallenges = dataSnapshot;
+        validSnapshotChallenges = true;
+    }
 }
+

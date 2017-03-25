@@ -7,8 +7,7 @@ import android.widget.BaseAdapter;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
-import com.example.mb7.sportappbp.Objects.Exercise;
+import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.R;
 
 import java.text.DecimalFormat;

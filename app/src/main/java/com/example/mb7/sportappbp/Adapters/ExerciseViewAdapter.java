@@ -6,7 +6,7 @@ import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
-import com.example.mb7.sportappbp.Objects.Exercise;
+import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;

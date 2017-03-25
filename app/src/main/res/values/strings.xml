@@ -256,6 +256,11 @@
     <string name="WieLangeSolldieChallengeGehen">Wie lange soll die Challenge gehen?</string>
     <string name="konnteNichtGefundenWerden"> konnte nicht gefunden werden!</string>
     <string name="BenutzerHinzufügen">Benutzer hinzufügen</string>
+    <string name="BenutzerBereitshinzugefügt">Benutzer wurde bereits hinzugefügt!</string>
+    <string name="UngültigerName">Ungültiger Name!</string>
+    <string name="NameExistiertBereits">Name existiert bereits!</string>
+    <string name="ChallengeWurdeErstellt">Challenge wurde erstellt!</string>
+    <string name="MindestensEinBenutzerMussHinzugefügtWerden">Mindestens ein Benutzer muss zur Challenge hinzugefügt werden!</string>
 
     <!-- Menu items -->
     <string name="Loeschen">Löschen</string>

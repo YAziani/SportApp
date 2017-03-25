@@ -19,20 +19,16 @@ import java.util.List;
 
 public class DAL_Allocation {
 
-    public static void getAllocation(
-            final Activity activity,
-            final List<MotivationMethod> fixMotivationMethods,
-            final List<MotivationMethod> variableMotivationMethods) {
+    public static void getAllocation(final Activity activity) {
 
         // access data in database and hand it to MethodChooser
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/assignment/");
+            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/" + "/Administration/assignment/");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    MethodChooser.chooseMethods(
-                            dataSnapshot, fixMotivationMethods, variableMotivationMethods, activity);
+                    MethodChooser.chooseMethods(dataSnapshot,activity);
                 }
 
                 @Override

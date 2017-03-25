@@ -1,7 +1,7 @@
-package com.example.mb7.sportappbp.Objects;
+package com.example.mb7.sportappbp.BusinessLayer;
 
-import java.text.DecimalFormat;
 import java.util.ArrayList;
+import java.util.Date;
 
 /**
  * When you add a new attribute and you want to save it to the database, you have to add these
@@ -11,10 +11,8 @@ import java.util.ArrayList;
 
 public class DiaryEntry {
 
-    private String id;
-    private String date;
-    private String time;
-    private int totalpoints;
+    private Date date;
+    private int totalPoints;
     private ArrayList<Exercise> exerciseList;
 
 
@@ -26,30 +24,32 @@ public class DiaryEntry {
      */
     //String id, String date, String time
     public DiaryEntry(){
-        this.id = id;
-        this.date = date;
-        this.time = time;
         exerciseList = new ArrayList<Exercise>();
     }
 
-
-    public String getID(){
-        return this.id;
+    public ArrayList<Exercise> getExerciseList(){
+        return this.exerciseList;
     }
+
+    public void setDate(Date date){
+        this.date = date;
+    }
+    public void setExerciseList(ArrayList<Exercise> newList){
+        this.exerciseList = newList;
+    }
+    public void setTotalPoints(int totalPoints) {
+        this.totalPoints = totalPoints;
+    }
+
+
 
     /**
      * This method returns the date of the training
      * @return returns the date of the training as string
      */
-    public String getDate(){
+    public Date getDate(){
         return this.date;
     }
-
-
-    public String getTime(){
-        return this.time;
-    }
-
 
     public int getTotalTimeMinutes() {
         int result = 0;
@@ -64,8 +64,8 @@ public class DiaryEntry {
         }
         return result;
     }
-    public int getTotalpoints() {
-        return totalpoints;
+    public int getTotalPoints() {
+        return totalPoints;
     }
 
 
@@ -279,25 +279,7 @@ public class DiaryEntry {
     }
 
 
-    public ArrayList<Exercise> getExerciseList(){
-        return this.exerciseList;
-    }
 
-    public void setId(String id){
-        this.id = id;
-    }
-    public void setDate(String date){
-        this.date = date;
-    }
-    public void setTime(String time){
-        this.time = time;
-    }
-    public void setExerciseList(ArrayList<Exercise> newList){
-        this.exerciseList = newList;
-    }
-    public void setTotalpoints(int totalpoints) {
-        this.totalpoints = totalpoints;
-    }
 
 
 

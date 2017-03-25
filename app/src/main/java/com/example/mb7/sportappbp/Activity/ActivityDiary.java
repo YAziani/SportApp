@@ -6,16 +6,14 @@ import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
-import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.DiaryViewAdapter;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
-import com.example.mb7.sportappbp.Objects.Exercise;
+import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
+import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
-import java.util.Date;
 
 public class ActivityDiary extends AppCompatActivity {
 
@@ -51,7 +49,7 @@ public class ActivityDiary extends AppCompatActivity {
         allDiaryEntries.getDiaryList().clear();
         //load list from firesbase
         //todo laden aller Eintraege nicht nur einem
-        ActivityMain.mainUser.GetDiaryEntry(new Date(2017,3,20 ));
+        ActivityMain.mainUser.LoadCompleteDiry();
 
     }
 

@@ -7,13 +7,9 @@ import android.widget.BaseAdapter;
 import android.widget.TextView;
 
 import com.example.mb7.sportappbp.BusinessLayer.User;
-import com.example.mb7.sportappbp.Comparator.UserSortPoints;
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
-import java.util.Collection;
-import java.util.Collections;
 
 /**
  * Created by Basti on 21.03.2017.

@@ -129,6 +129,70 @@ public class ObserverStimmungAngabe extends Observer{
         return false;
     }
 
+    /**
+     * get the time of the next training time
+     * @param context
+     * @return
+     */
+    public Integer getNextTrainingTimeInteger(Context context){
+        String preferenceString = preferences.getString(getCurrentWeekday(), "");
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        // find next training start time
+        if(!preferenceString.equals("")) {
+            for(final String s : preferenceString.split(";")) {
+                int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
+                        + Integer.valueOf(s.split(":")[1]);
+                int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
+                // check if training is still noteworthy
+                if(currentMinuteOfDay <= trainingMinuteOfDay) {
+                    return trainingMinuteOfDay;
+                }
+            }
+        }
+        return 0;
+    }
+
+    /**
+     * get the time of the last training time
+     * @param context
+     * @return
+     */
+    public Integer getLastTrainingTime(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String preferenceString = preferences.getString(getCurrentWeekday(), "");
+        String lastTraining = "";
+        Calendar calendar = Calendar.getInstance();
+        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        // find next training start time
+        if(!preferenceString.equals("")) {
+            for(final String s : preferenceString.split(";")) {
+                int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
+                        + Integer.valueOf(s.split(":")[1]);
+                int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
+                // check if training is still noteworthy
+                if(currentMinuteOfDay <= trainingMinuteOfDay) {
+                    if(!lastTraining.equals("")) {
+                        return Integer.valueOf(lastTraining.split(":")[0]) * 60
+                                + Integer.valueOf(lastTraining.split(":")[1]);
+                    }else {
+                        break;
+                    }
+                }else {
+                    lastTraining = s;
+                }
+            }
+        }
+        if(lastTraining.equals("")) {
+            return -1;
+        }else {
+            return Integer.valueOf(lastTraining.split(":")[0]) * 60 + Integer.valueOf(lastTraining.split(":")[1]);
+        }
+    }
 
 
 }

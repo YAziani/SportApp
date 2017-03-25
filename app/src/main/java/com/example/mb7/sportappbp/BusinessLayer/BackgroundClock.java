@@ -112,11 +112,13 @@ public class BackgroundClock{
         LinkedList<String> listMethod = new LinkedList<>();
         LinkedList<String> listRating = new LinkedList<>();
         // let every running method rate themself
-        for(MotivationMethod m : runningMethods) {
-            listMethod.add(m.getClass().getSimpleName());
-            listRating.add(m.rate(didTrain));
-        }
-        runningMethods.clear();
+       if(runningMethods != null) {
+           for(MotivationMethod m : runningMethods) {
+               listMethod.add(m.getClass().getSimpleName());
+               listRating.add(m.rate(didTrain));
+           }
+           runningMethods.clear();
+       }
 
         // hand the ratings to the user object
         ActivityMain.mainUser.saveRating(listMethod,listRating);

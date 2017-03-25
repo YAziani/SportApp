@@ -2,7 +2,6 @@ package com.example.mb7.sportappbp.BusinessLayer;
 
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
 
 import java.util.Date;
 import java.util.List;
@@ -16,16 +15,11 @@ public class User {
     private String name;
     private int points;
     private Challenge challenge = null;
+    private String email;
 
 
 
-    public Challenge getChallenge() {
-        return challenge;
-    }
 
-    public void setChallenge(Challenge challenge) {
-        this.challenge = challenge;
-    }
 
 
     public static User Create(String Name)
@@ -36,6 +30,21 @@ public class User {
     private User (String Name)
     {
         name =Name;
+    }
+
+    public void setEmail(String email){
+        this.email = email;
+    }
+    public String getEmail(){
+        return this.email;
+    }
+
+    public Challenge getChallenge() {
+        return challenge;
+    }
+
+    public void setChallenge(Challenge challenge) {
+        this.challenge = challenge;
     }
 
     public String getName()
@@ -97,8 +106,8 @@ public class User {
         DAL_User.InsertDiaryEntry(this,diaryEntry);
         return true;
     }
-    public boolean GetDiaryEntry(Date date){
-        DAL_User.GetDiaryEntry(this,date);
+    public boolean LoadCompleteDiry(){
+        DAL_User.LoadCompleteDiary(this);
         return true;
     }
 
@@ -123,7 +132,7 @@ public class User {
      * @param alternGroup the set of groups currently used
      */
     void saveAlternGroupUpdate(String currentActiveGroup, String nextActiveGroup, String alternGroup) {
-        DAL_User.insertAlternGroupUpdate(this,currentActiveGroup,nextActiveGroup,alternGroup);
+        DAL_User.insertAlternGroupUpdate(currentActiveGroup,nextActiveGroup,alternGroup);
     }
 
     public void saveRegistration(String username, String email, String password) {

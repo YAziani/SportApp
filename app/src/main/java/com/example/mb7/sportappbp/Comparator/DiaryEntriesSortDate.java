@@ -1,6 +1,6 @@
 package com.example.mb7.sportappbp.Comparator;
 
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
+import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 
 import java.util.Comparator;
 

@@ -52,7 +52,7 @@ public abstract class Observer {
      * @param text          The text of the notification
      * @return
      */
-    private String saveNotificationDB(Context context, String strategyName, String text )
+    public String saveNotificationDB(Context context, String strategyName, String text )
     {
         try
         {
@@ -92,7 +92,7 @@ public abstract class Observer {
      * @param text                  text of the notification
      * @param icon                  icon that is shown on the notification
      */
-    private void createNotification(Context context, String NotificationDate, Class<?> cls,String title, String text, Integer icon ){
+    public void createNotification(Context context, String NotificationDate, Class<?> cls,String title, String text, Integer icon ){
 
         Intent contentClass = new Intent(context, cls);
         contentClass.putExtra("NotificationDate",NotificationDate);                                             // we have to know the notification date to delete from db
@@ -149,6 +149,92 @@ public abstract class Observer {
         // Post the notification
         mNotificationManager.notify(id, mBuilder.build());
 
+    }
+
+    public String getCurrentWeekday() {
+        String dayOfWeek;
+
+        // setup calendar to get day of week
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        // determine the day of the week
+        int currentWeekday = calendar.get(Calendar.DAY_OF_WEEK);
+        if(currentWeekday == Calendar.MONDAY){
+            dayOfWeek = "Montag";
+        }
+        else if(currentWeekday == Calendar.TUESDAY){
+            dayOfWeek = "Dienstag";
+        }
+        else if(currentWeekday == Calendar.WEDNESDAY){
+            dayOfWeek = "Mittwoch";
+        }
+        else if(currentWeekday == Calendar.THURSDAY){
+            dayOfWeek = "Donnerstag";
+        }
+        else if(currentWeekday == Calendar.FRIDAY){
+            dayOfWeek = "Freitag";
+        }
+        else if(currentWeekday == Calendar.SATURDAY){
+            dayOfWeek = "Samstag";
+        }
+        else{
+            dayOfWeek = "Sonntag";
+        }
+        return dayOfWeek;
+    }
+
+    public String getNextTrainingTimeString(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String preferenceString = preferences.getString(getCurrentWeekday(), "");
+        System.out.println(preferenceString);
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        // find next training start time
+        if(!preferenceString.equals("")) {
+            for(final String s : preferenceString.split(";")) {
+                int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
+                        + Integer.valueOf(s.split(":")[1]);
+                int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
+                // check if training is still noteworthy
+                if(currentMinuteOfDay <= trainingMinuteOfDay) {
+                    return s;
+                }
+            }
+        }
+        return "";
+    }
+
+    public String getLastTrainingTimeString(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String preferenceString = preferences.getString(getCurrentWeekday(), "");
+        String lastTraining = "";
+        Calendar calendar = Calendar.getInstance();
+        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        // find next training start time
+        if(!preferenceString.equals("")) {
+            for(final String s : preferenceString.split(";")) {
+                int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
+                        + Integer.valueOf(s.split(":")[1]);
+                int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
+                // check if training is still noteworthy
+                if(currentMinuteOfDay <= trainingMinuteOfDay) {
+                    if(!lastTraining.equals("")) {
+                        return lastTraining;
+                    }else {
+                        break;
+                    }
+                }else {
+                    lastTraining = s;
+                }
+            }
+        }
+        return lastTraining;
     }
 
     /**
@@ -221,40 +307,4 @@ public abstract class Observer {
             return Integer.valueOf(lastTraining.split(":")[0]) * 60
                 + Integer.valueOf(lastTraining.split(":")[1]);
     }
-    // get the current weekday in German
-    // cause the trainingstermine are saved in Preferences as key-value -> (German Weekday, all trainingstermine as String seperated with semicolon)
-    private String getCurrentWeekday() {
-        String dayOfWeek;
-
-        // setup calendar to get day of week
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-
-        // determine the day of the week
-        int currentWeekday = calendar.get(Calendar.DAY_OF_WEEK);
-        if(currentWeekday == Calendar.MONDAY){
-            dayOfWeek = "Montag";
-        }
-        else if(currentWeekday == Calendar.TUESDAY){
-            dayOfWeek = "Dienstag";
-        }
-        else if(currentWeekday == Calendar.WEDNESDAY){
-            dayOfWeek = "Mittwoch";
-        }
-        else if(currentWeekday == Calendar.THURSDAY){
-            dayOfWeek = "Donnerstag";
-        }
-        else if(currentWeekday == Calendar.FRIDAY){
-            dayOfWeek = "Freitag";
-        }
-        else if(currentWeekday == Calendar.SATURDAY){
-            dayOfWeek = "Samstag";
-        }
-        else{
-            dayOfWeek = "Sonntag";
-        }
-        return dayOfWeek;
-    }
-
 }

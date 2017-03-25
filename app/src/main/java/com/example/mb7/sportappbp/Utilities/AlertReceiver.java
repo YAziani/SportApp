@@ -38,7 +38,7 @@ public  class   AlertReceiver extends BroadcastReceiver {
     // Called when a broadcast is made targeting this class
     @Override
     public void onReceive(Context context, Intent intent) {
-       android.os.Debug.waitForDebugger();
+       //android.os.Debug.waitForDebugger();
 
         // Initialize your observer and call its update method
         if (observerStimmungAngabe == null)

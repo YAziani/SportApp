@@ -307,40 +307,4 @@ public abstract class Observer {
             return Integer.valueOf(lastTraining.split(":")[0]) * 60
                 + Integer.valueOf(lastTraining.split(":")[1]);
     }
-    // get the current weekday in German
-    // cause the trainingstermine are saved in Preferences as key-value -> (German Weekday, all trainingstermine as String seperated with semicolon)
-    private String getCurrentWeekday() {
-        String dayOfWeek;
-
-        // setup calendar to get day of week
-        Date date = new Date();
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-
-        // determine the day of the week
-        int currentWeekday = calendar.get(Calendar.DAY_OF_WEEK);
-        if(currentWeekday == Calendar.MONDAY){
-            dayOfWeek = "Montag";
-        }
-        else if(currentWeekday == Calendar.TUESDAY){
-            dayOfWeek = "Dienstag";
-        }
-        else if(currentWeekday == Calendar.WEDNESDAY){
-            dayOfWeek = "Mittwoch";
-        }
-        else if(currentWeekday == Calendar.THURSDAY){
-            dayOfWeek = "Donnerstag";
-        }
-        else if(currentWeekday == Calendar.FRIDAY){
-            dayOfWeek = "Freitag";
-        }
-        else if(currentWeekday == Calendar.SATURDAY){
-            dayOfWeek = "Samstag";
-        }
-        else{
-            dayOfWeek = "Sonntag";
-        }
-        return dayOfWeek;
-    }
-
 }

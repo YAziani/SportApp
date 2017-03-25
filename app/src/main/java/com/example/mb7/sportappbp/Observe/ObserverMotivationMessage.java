@@ -37,7 +37,7 @@ public class ObserverMotivationMessage extends Observer {
                         context.getString(R.string.mmNotiTitle),
                         context.getString(R.string.mmNotiSmallTitle),
                         R.mipmap.ic_trainingseinheit);
-                timeOutCounter = 10;
+                timeOutCounter = 5;
             }
         }
     }

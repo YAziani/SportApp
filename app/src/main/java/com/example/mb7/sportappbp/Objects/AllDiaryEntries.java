@@ -1,5 +1,7 @@
 package com.example.mb7.sportappbp.Objects;
 
+import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
+
 import java.util.ArrayList;
 
 /**

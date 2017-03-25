@@ -17,11 +17,11 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
-import com.example.mb7.sportappbp.Objects.Exercise;
-import com.example.mb7.sportappbp.Objects.LeistungstestsExercise;
-import com.example.mb7.sportappbp.Objects.ReinerAufenthaltExercise;
-import com.example.mb7.sportappbp.Objects.TrainingExercise;
-import com.example.mb7.sportappbp.Objects.WellnessExercise;
+import com.example.mb7.sportappbp.BusinessLayer.Exercise;
+import com.example.mb7.sportappbp.BusinessLayer.LeistungstestsExercise;
+import com.example.mb7.sportappbp.BusinessLayer.ReinerAufenthaltExercise;
+import com.example.mb7.sportappbp.BusinessLayer.TrainingExercise;
+import com.example.mb7.sportappbp.BusinessLayer.WellnessExercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;

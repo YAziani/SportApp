@@ -12,7 +12,7 @@
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
         android:paddingTop="24dp"
-        android:text="Titel"
+        android:text="@string/BenutzerHinzufügen"
         android:textSize="24sp" />
 
     <EditText

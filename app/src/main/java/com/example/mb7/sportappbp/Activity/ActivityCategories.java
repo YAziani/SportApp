@@ -17,7 +17,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
-import com.example.mb7.sportappbp.Objects.Exercise;
+import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;

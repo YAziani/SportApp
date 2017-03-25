@@ -3,23 +3,25 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 import android.util.Log;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
+import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrageScore;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
-import com.example.mb7.sportappbp.Objects.Exercise;
-import com.example.mb7.sportappbp.Objects.LeistungstestsExercise;
-import com.example.mb7.sportappbp.Objects.ReinerAufenthaltExercise;
-import com.example.mb7.sportappbp.Objects.TrainingExercise;
-import com.example.mb7.sportappbp.Objects.WellnessExercise;
+import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
+import com.example.mb7.sportappbp.BusinessLayer.Exercise;
+import com.example.mb7.sportappbp.BusinessLayer.LeistungstestsExercise;
+import com.example.mb7.sportappbp.BusinessLayer.ReinerAufenthaltExercise;
+import com.example.mb7.sportappbp.BusinessLayer.TrainingExercise;
+import com.example.mb7.sportappbp.BusinessLayer.WellnessExercise;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -225,11 +227,9 @@ public class DAL_User {
     {
 
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd,HH:mm:ss");
-        SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
 
         try
         {
-            //final String fDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
             URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName()+ "/Diary/");
             final Firebase root = new Firebase(url.toString());
 
@@ -247,39 +247,39 @@ public class DAL_User {
                                 String  strKey = "";
 
                                 for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                    //Key
+                                    //unikey
                                     strKey = child.getKey();
 
                                     root.child(strDate).child(strKey).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
-
+                                            //get instance to add all diaryentries after restore
                                             AllDiaryEntries allDiaryEntries = AllDiaryEntries.getInstance();
+                                            //create object
                                             DiaryEntry diaryEntry = new DiaryEntry();
 
 
                                             for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                                //restore date from diaryEntry
                                                 if (child.getKey().equals("time")) {
-
                                                     String time = child.getValue().toString();
-
                                                     try {
                                                         Date date = sdfDate.parse(strDate + "," + time );
                                                         diaryEntry.setDate(date);
                                                     } catch (ParseException e) {
                                                         e.printStackTrace();
                                                     }
-                                                    //diaryEntry.setTime(time);
                                                 }
+                                                //restore totalPoints from diaryEntry
                                                 else if (child.getKey().equals("totalpoints"))
                                                     diaryEntry.setTotalPoints(Integer.getInteger(child.getValue().toString()));
-
+                                                //restore exercises from diaryEntry
                                                 else if(child.getKey().startsWith("exercise")){
-
+                                                    //get the category of the stores exercise
                                                     String category = child.getChildren().iterator().next().getValue().toString();
 
                                                     Exercise exercise = null;
-
+                                                    //create the exercise object from the right class and restore the attribute
                                                     if (category.equals("Training")) {
                                                         exercise = new TrainingExercise();
                                                         exercise = child.getValue(TrainingExercise.class);
@@ -293,13 +293,16 @@ public class DAL_User {
                                                         exercise = new WellnessExercise();
                                                         exercise = child.getValue(WellnessExercise.class);
                                                     }
-
+                                                    //after restoring of the exercise, these has to be added to the diaryEntry
                                                     if(exercise != null)
                                                         diaryEntry.addExercise(exercise);
 
                                                 }
                                             }
+                                            //add every restored diaryEntry the singleton object
                                             allDiaryEntries.add(diaryEntry);
+                                            //allDiaryEntries will be used by the ListViewAdapter from the ActivityDiary.
+                                            //for which reason this method has to be executed
                                             ActivityDiary.notifyDataChanged();
 
                                         }
@@ -617,6 +620,69 @@ public class DAL_User {
             e.printStackTrace();
         }
     }
+
+    static public void DoesUserExist(final String mailAddress) {
+        final boolean userExist = false;
+
+
+        URL url = null;
+        try {
+            url = new URL(DAL_Utilities.DatabaseURL + "users/");
+            final Firebase root = new Firebase(url.toString());
+
+
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        final String strUser = child.getKey();
+
+                        root.child(strUser).addListenerForSingleValueEvent(new ValueEventListener() {
+                            @Override
+                            public void onDataChange(DataSnapshot dataSnapshot) {
+                                User user = User.Create(strUser);
+                                for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                    if (child.getKey().equals("email")) {
+                                        if (child.getValue().toString().equals(mailAddress)) {
+                                            user.setEmail(child.getValue().toString());
+                                            //ActivityNewChallenge.receiveDateFromFirebase(user);
+                                        }
+                                        else
+                                            break;
+                                    }
+
+                                }
+
+                            }
+
+                            @Override
+                            public void onCancelled(FirebaseError firebaseError) {
+
+                            }
+                        });
+                    }
+                }
+
+                @Override
+                public void onCancelled (FirebaseError firebaseError){
+
+            }
+
+            });
+
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
+
 }
 
 

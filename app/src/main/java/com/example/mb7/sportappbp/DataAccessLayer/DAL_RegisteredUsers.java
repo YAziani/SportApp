@@ -1,6 +1,9 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
+import android.app.Activity;
+
 import com.example.mb7.sportappbp.Activity.ActivityLogin;
+import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -22,6 +25,33 @@ public class DAL_RegisteredUsers {
      */
     public static void getRegisteredUsers(
             final ActivityLogin activity) {
+        // access data in database and hand it to activity
+        try {
+            URL url = new URL(DAL_Utilities.DatabaseURL + "/users");
+            Firebase root = new Firebase(url.toString());
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    activity.returnRegisteredUsers(dataSnapshot);
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * get registered users and hand it to the activity
+     *
+     * @param activity the displaying activity
+     */
+    public static void getRegisteredUsersNewChallenge(
+            final ActivityNewChallenge activity) {
         // access data in database and hand it to activity
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "/users");

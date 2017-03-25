@@ -11,12 +11,11 @@ import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.DiaryEntryViewAdapter;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
-import com.example.mb7.sportappbp.Objects.DiaryEntry;
-import com.example.mb7.sportappbp.Objects.Exercise;
+import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
+import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.Firebase;
 
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;

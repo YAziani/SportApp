@@ -1,4 +1,4 @@
-package com.example.mb7.sportappbp.Objects;
+package com.example.mb7.sportappbp.BusinessLayer;
 
 import java.util.ArrayList;
 import java.util.Date;

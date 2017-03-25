@@ -31,17 +31,15 @@ public class ActivityExercises extends AppCompatActivity {
 
     private ListView listviewExercises;
     private ArrayAdapter<String> arrayAdapter;
-    private ArrayList<String> exLst;
     private ArrayList<Exercise> exerciseList;
 
     private ListView listViewSelected;
     private ExerciseViewAdapter exerciseViewAdapter;
 
-    private int timeMinutes;
-    private int timeHours;
+    int listViewExerciseList;
 
     //private String chosenExercise;
-    private String selectedCategory;
+    private int selectedCategory;
 
     private boolean finalResult = false;
 
@@ -60,11 +58,11 @@ public class ActivityExercises extends AppCompatActivity {
         //Set title of the label
         setTitle(selectedCategory);
         //get the list of the activity for the selected category
-        exLst = getListOfActivities(selectedCategory);
+        listViewExerciseList = getListOfActivities(selectedCategory);
 
         //get the listviewExercises and set the adapter for the list of exercises
         listviewExercises = (ListView) findViewById(R.id.listviewExercises);
-        arrayAdapter = new ArrayAdapter<String>(ActivityExercises.this, android.R.layout.simple_list_item_1, exLst);
+        arrayAdapter = new ArrayAdapter<String>(ActivityExercises.this, android.R.layout.simple_list_item_1,getResources().getStringArray(listViewExerciseList));
         listviewExercises.setAdapter(arrayAdapter);
 
         //get the listviewExercises and set the adapter for the select4ed exercises
@@ -78,13 +76,19 @@ public class ActivityExercises extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 String selectedExercise = (String) adapterView.getItemAtPosition(position);
+
+
                 Exercise exercise = createSelectedCategoryExercise();
 
-                exercise.setName(selectedExercise);
-                exercise.setTimeHours(00);
-                exercise.setTimeMinutes(00);
+                if(exercise != null) {
+                    exercise.setName(selectedExercise);
+                    exercise.setTimeHours(00);
+                    exercise.setTimeMinutes(00);
 
-                numberPicker(exercise);
+                    numberPicker(exercise);
+                }
+                else
+                    Toast.makeText(ActivityExercises.this, R.string.KategorieNeuWählen , Toast.LENGTH_SHORT).show();
 
 
             }
@@ -153,12 +157,12 @@ public class ActivityExercises extends AppCompatActivity {
     }
 
 
-    private String receiveCategory(){
-        String category = "";
+    private int receiveCategory(){
+        int category = 0;
 
         final Bundle extra = getIntent().getExtras();
         if (extra != null) {
-            category = extra.getString("category");
+            category = extra.getInt("category");
         }
         return category;
     }
@@ -192,7 +196,7 @@ public class ActivityExercises extends AppCompatActivity {
             exerciseViewAdapter.notifyDataSetChanged();
         }
         else
-            Toast.makeText(ActivityExercises.this, "Kategorie wurde nicht richtig gewählt!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityExercises.this, R.string.KategorieWurdNichtRichtigGewählt, Toast.LENGTH_LONG).show();
 
     }
 
@@ -207,25 +211,25 @@ public class ActivityExercises extends AppCompatActivity {
             exerciseViewAdapter.notifyDataSetChanged();
         }
         else
-            Toast.makeText(ActivityExercises.this, "Kategorie wurde nicht richtig gewählt!", Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityExercises.this, R.string.KategorieWurdNichtRichtigGewählt, Toast.LENGTH_LONG).show();
 
     }
 
 
     private Exercise createSelectedCategoryExercise(){
 
-        if(selectedCategory.equals("Leistungstests")){
+        if(selectedCategory == R.string.Leistungstests){
             return new LeistungstestsExercise();
         }
-        else if(selectedCategory.equals("Training")){
+        else if(selectedCategory == (R.string.Training)){
             return new TrainingExercise();
         }
-        else if(selectedCategory.equals("Wellness")){
+        else if(selectedCategory == (R.string.Wellness)){
             return new WellnessExercise();
         }
-        else if(selectedCategory.equals("Reiner Aufenthalt")){
+        else if(selectedCategory == (R.string.ReinerAufenthalt)){
             return new ReinerAufenthaltExercise();
-        }//todo overthink else case
+        }
         else return null;
 
     }
@@ -292,7 +296,7 @@ public class ActivityExercises extends AppCompatActivity {
                     returnResult(exercise);
                 }
                 else
-                    Toast.makeText(ActivityExercises.this, "Es wurde keine Zeit gesetzt!", Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityExercises.this, R.string.ungültigeZeit , Toast.LENGTH_SHORT).show();
             }
         });
 
@@ -313,51 +317,26 @@ public class ActivityExercises extends AppCompatActivity {
     }
 
 
-    private ArrayList getListOfActivities(String category){
+    private int getListOfActivities(int category) {
 
         ArrayList<String> result = new ArrayList<>();
 
-        switch(category){
-            case "Leistungstests":
-                result.add("Spiroergometrie");
-                result.add("Laktattest");
-                result.add("Beweglichkeitstest");
-                result.add("Krafttest");
-                result.add("Anderer Leistungstest");
-                return result;
+        switch (category) {
+            case R.string.Leistungstests:
+                return R.array.ArrayLeistungstests;
 
-            case "Training":
-                result.add("Krafttraining");
-                result.add("Laufen");
-                result.add("Cycling");
-                result.add("Beweglichkeit/Flexibilität");
-                result.add("Yoga");
-                result.add("Rückentraining");
-                result.add("Progressive");
-                result.add("Muskelentspannung");
-                result.add("Autogenes Training");
-                result.add("Meditation");
-                result.add("Anderes Training");
+            case R.string.Training:
+                return R.array.ArrayTraining;
 
-                return result;
+            case R.string.Wellness:
+                return R.array.ArrayWellness;
 
-            case "Wellness":
-                result.add("Sauna");
-                result.add("Dampfbad");
-                result.add("Massage");
-                result.add("Solarium");
-                result.add("Andere Wellnessaktivität");
-                return result;
-
-            case "Reiner Aufenthalt":
-                result.add("Soziale Kontakte");
-                result.add("Bistro");
-                result.add("Andere");
-                return result;
+            case R.string.ReinerAufenthalt:
+                return R.array.ArrayReinerAufenthalt;
             default:
-                result.add("Kategorie falsch ausgeählt");
-                return result;
-        }
+                return 0;
 
+
+        }
     }
 }

@@ -45,12 +45,10 @@ public class DiaryViewAdapter extends BaseAdapter {
         if (view == null)
             view = _context.getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
 
+        //Set the date and time of the diaryEntry into the text field
         TextView txtTitle =(TextView) view.findViewById(android.R.id.text1);
-        txtTitle.setText("Vom " + diaryEntry.getDate() + ", um " + diaryEntry.getTime() + " Uhr");
-        /*
-        TextView txtText = (TextView) view.findViewById(R.id.txtDuration);
-        txtText.setText(diaryEntry.getTime() + " Uhr");
-        */
+        txtTitle.setText(_context.getResources().getString(R.string.Vom) + diaryEntry.getDate() + ", " + _context.getResources().getString(R.string.um) +
+                diaryEntry.getTime() + " " + _context.getResources().getString(R.string.Uhr));
         return view;
     }
 

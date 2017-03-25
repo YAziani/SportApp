@@ -13,43 +13,43 @@
         android:layout_centerHorizontal="true"/>
 
     <Button
-        android:text="Test 1"
+        android:id="@+id/btndiary"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
+        android:text="diary"
         android:layout_centerVertical="true"
-        android:layout_centerHorizontal="true"
-        android:id="@+id/neu1" />
+        android:layout_centerHorizontal="true" />
 
     <Button
-        android:id="@+id/btnTest3"
+        android:id="@+id/btnNewChallenge"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/button2"
-        android:layout_below="@+id/button2"
-        android:text="test3" />
+        android:layout_alignStart="@+id/btnDiaryEntry"
+        android:layout_below="@+id/btnDiaryEntry"
+        android:text="Challenge" />
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/btnDiaryEntry"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:text="test2"
-        android:layout_below="@+id/neu1"
-        android:layout_alignStart="@+id/neu1" />
+        android:layout_alignStart="@+id/btndiary"
+        android:layout_below="@+id/btndiary"
+        android:text="dairyEntry" />
 
     <TextView
         android:text="TextView"
         android:layout_width="300dp"
-        android:layout_above="@+id/btnTest3"
+        android:layout_above="@+id/btnNewChallenge"
         android:layout_centerHorizontal="true"
         android:layout_marginBottom="22dp"
         android:id="@+id/txtRequestTest"
         android:layout_height="100dp" />
 
     <Button
-        android:id="@+id/btnTest4"
+        android:id="@+id/btnNewChallenge1"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_alignStart="@+id/btnTest3"
-        android:layout_below="@+id/btnTest3"
-        android:text="newCh" />
+        android:text="newChallenge"
+        android:layout_below="@+id/btnNewChallenge"
+        android:layout_alignStart="@+id/btnNewChallenge" />
 </RelativeLayout>

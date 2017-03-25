@@ -208,9 +208,55 @@
     <string name="siaddressnotfound">Addresse konnte nicht bestimmt werden.</string>
     <string name="sitextview">Bitte tragen Sie Ihre Trainingszeiten und die Adresse ihres Fitnessstudios ein.</string>
 
+    <!-- ActivityDiary -->
+    <string name="Tagebuch">Tagebuch</string>
+
+    <!-- DiaryViewAdapter -->
+    <string name="Vom">Vom</string>
+    <string name="um">um</string>
+    <string name="Uhr">Uhr</string>
+
+    <!-- ActivityDiaryEntry -->
+    <string name="Tagebucheintraggespeichert">Tagebucheintrag gespeichert!</string>
+    <string name="keintagebucheintragerstellt">Es wurde kein Tagebucheintrag erstellt!</string>
+
+    <!-- DiaryEntryViewAdapter -->
+    <string name="Pkt"> Pkt.</string>
+
+    <!-- ActivitySelectedExercises -->
+    <string name="AusgewählteExercises">Ausgewählte Aktivitäten</string>
+    <string name="ungültigeZeit">Ungültige Zeit!</string>
+
+    <!-- ActivityCategories -->
 
 
+    <!-- ActivityExercises -->
+    <string name="KategorieWurdNichtRichtigGewählt">Es wurde keine richtige Kategorie gewählt!</string>
+    <string name="KategorieNeuWählen">Kategorie bitte erneut wählen!</string>
 
+    <!-- Exercise Categories -->
+    <string name="Leistungstests">Leistungstests</string>
+    <string name="Training">Training</string>
+    <string name="Wellness">Wellness</string>
+    <string name="ReinerAufenthalt">Reiner Aufenthalt</string>
+    <string name="KategorieAuswählen...">Kategorie auswählen ...</string>
+
+    <!--customDialogWindow -->
+    <string name="Abbrechen">Abbrechen</string>
+    <string name="OK">OK</string>
+
+    <!--dialog two number picker -->
+    <string name="Stunden">Stunden</string>
+    <string name="Minuten"> Minuten</string>
+    <string name="BenötigteZeit">Benötigte Zeit:</string>
+
+    <!-- ActivityChallenge-->
+    <string name="VerbleibendeTage">Verbleibende Tage:</string>
+
+    <!-- ActivityNewChallenge-->
+    <string name="WieLangeSolldieChallengeGehen">Wie lange soll die Challenge gehen?</string>
+    <string name="konnteNichtGefundenWerden"> konnte nicht gefunden werden!</string>
+    <string name="BenutzerHinzufügen">Benutzer hinzufügen</string>
 
 
 

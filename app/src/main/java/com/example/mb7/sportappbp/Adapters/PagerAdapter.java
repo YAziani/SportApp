@@ -7,7 +7,7 @@ import android.support.v4.app.FragmentStatePagerAdapter;
 
 import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
 import com.example.mb7.sportappbp.Fragments.TbReportContent;
-import com.example.mb7.sportappbp.Fragments.TbTaskContent;
+import com.example.mb7.sportappbp.Fragments.TbTaskCategContent;
 
 import java.util.ArrayList;
 /**
@@ -16,7 +16,7 @@ import java.util.ArrayList;
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
     TbNotificationContent tbNotificationContent       = null;
-    TbTaskContent tbTaskContent               = null;
+    TbTaskCategContent tbTaskCategContent = null;
     TbReportContent tbReportContent             = null;
 
     ArrayList<String>       csTabsList           = null;
@@ -46,9 +46,9 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
             String tab = csTabsList.get(position);
             if (tab.equalsIgnoreCase("tbTask"))
             {
-                if(tbTaskContent  == null)
-                    tbTaskContent  =  new TbTaskContent();
-                fragment = tbTaskContent ;
+                if(tbTaskCategContent == null)
+                    tbTaskCategContent =  new TbTaskCategContent();
+                fragment = tbTaskCategContent;
             }
 
             if (tab.equalsIgnoreCase("tbNotification"))

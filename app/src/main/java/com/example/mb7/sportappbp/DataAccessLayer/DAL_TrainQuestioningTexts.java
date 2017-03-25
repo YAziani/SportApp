@@ -25,28 +25,28 @@ public class DAL_TrainQuestioningTexts {
         if(praiseOrWarn == 1) {
             // access data in database and hand it to activity
             try {
-                URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/motivationText/neg");
+                URL url = new URL("https://sportapp-cbd6b.firebaseio.com/Administration/motivationText/neg");
                 Firebase root = new Firebase(url.toString());
                 root.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
                     public void onDataChange(DataSnapshot dataSnapshot) {
                         activityTrainQuestioning.returnTexts(dataSnapshot);
-                        return;
                     }
 
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {
-
+                        activityTrainQuestioning.returnTexts(null);
                     }
                 });
             }
             catch (Exception e)
             {
+                activityTrainQuestioning.returnTexts(null);
                 e.printStackTrace();
             }
         }else {
             try {
-                URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/motivationText/pos");
+                URL url = new URL("https://sportapp-cbd6b.firebaseio.com/Administration/motivationText/pos");
                 Firebase root = new Firebase(url.toString());
                 root.addListenerForSingleValueEvent(new ValueEventListener() {
                     @Override
@@ -56,12 +56,13 @@ public class DAL_TrainQuestioningTexts {
 
                     @Override
                     public void onCancelled(FirebaseError firebaseError) {
-
+                        activityTrainQuestioning.returnTexts(null);
                     }
                 });
             }
             catch (Exception e)
             {
+                activityTrainQuestioning.returnTexts(null);
                 e.printStackTrace();
             }
         }

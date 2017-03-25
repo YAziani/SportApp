@@ -61,8 +61,8 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
                         .apply();
             }
             // notify BackgroundClock about user activity
-            BackgroundClock.startRating(false);
-            if(preferences.getBoolean("showPostTrainMoti",false)) {
+            //BackgroundClock.startRating(false);
+            if(preferences.getString("allocatedMethods","").contains("motivationtexts")) {
                 // access texts in data base
                 DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
             }else {
@@ -71,8 +71,8 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
 
         }else {
             imageView.setImageResource(R.drawable.train_yes);
-            BackgroundClock.startRating(true);
-            if(preferences.getBoolean("showPostTrainMoti",false)) {
+            //BackgroundClock.startRating(true);
+            if(preferences.getString("allocatedMethods","").contains("motivationtexts")) {
                 DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
             }else {
                 finish();
@@ -110,6 +110,7 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
      * @param dataSnapshot the snapshot from the database
      */
     public void returnTexts(DataSnapshot dataSnapshot) {
+
         if(dataSnapshot != null && dataSnapshot.getChildrenCount() > 0){
             int textIndex;
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());

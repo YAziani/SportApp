@@ -587,7 +587,7 @@ public class DAL_User {
         try
         {
             // setting up url for the database
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/methodRatings");
+            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/" + "users/" + user.getName() + "/methodRatings");
             Firebase root = new Firebase(url.toString());
             Firebase child;
             // insert ratings for each method
@@ -602,16 +602,15 @@ public class DAL_User {
 
     /**
      * update groups of alternating group assignment
-     * @param user the active user
      * @param currentActiveGroup the currently active group
      * @param nextActiveGroup the next group to be active
      * @param alternGroup the set of groups currently used
      */
-    static public void insertAlternGroupUpdate(User user, String currentActiveGroup, String nextActiveGroup, String alternGroup) {
+    static public void insertAlternGroupUpdate(String currentActiveGroup, String nextActiveGroup, String alternGroup) {
         try
         {
             // setting up url for the database
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/Administration/assignment/altern/" + alternGroup);
+            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/" + "/Administration/assignment/altern/" + alternGroup + "/groups/");
             Firebase root = new Firebase(url.toString());
             // update group values
             root.child(currentActiveGroup).child("groupactive").setValue(false);

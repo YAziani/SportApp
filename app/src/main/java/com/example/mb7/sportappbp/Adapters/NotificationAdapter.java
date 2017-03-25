@@ -61,6 +61,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 Intent open = new Intent(context.getActivity(), ActivityStimmungsAbgabe.class);
                 // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
                 String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
+                if (notifications.get(getAdapterPosition()).getSubText().equals(context.getString( R.string.ntf_stimmungsabgabe)))
+                    open.putExtra("Vor","1");
+                else
+                    open.putExtra("Vor","0");
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragebogen))) {

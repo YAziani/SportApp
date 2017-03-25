@@ -12,6 +12,7 @@ import android.support.v4.app.NotificationCompat;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityTrainQuestioning;
+import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
 import com.example.mb7.sportappbp.R;
 
 /**
@@ -77,6 +78,7 @@ public class TrainQuestioning extends MotivationMethod {
                 },10800000);
                 return true;
             }else {
+                BackgroundClock.startRating(false);
                 preferences.edit().remove("willTrain").apply();
             }
         }

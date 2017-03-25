@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.Manifest;
 import android.app.Activity;
 import android.app.AlarmManager;
 import android.app.NotificationManager;
@@ -8,9 +9,12 @@ import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.graphics.Color;
+import android.location.LocationListener;
+import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.design.widget.TabLayout;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentManager;
 import android.support.v4.app.FragmentPagerAdapter;
@@ -71,10 +75,18 @@ public class ActivityMain extends AppCompatActivity {
     public static ActivityMain activityMain;
     private SharedPreferences preferences;
 
+    private final int  LOCATION_PERMISSION_REQUEST = 1440;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        ActivityCompat.requestPermissions(
+                this,
+                new String[]{Manifest.permission.ACCESS_FINE_LOCATION},
+                LOCATION_PERMISSION_REQUEST
+        );
 
 
         // set the main URL
@@ -86,16 +98,16 @@ public class ActivityMain extends AppCompatActivity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
+        /*
         // create a new motivation method and add it to the list of methods
         TrainQuestioning p = new TrainQuestioning(this);
         fixMotivationMethods.add(p);
-
         TrainingReminder t = new TrainingReminder(this);
         fixMotivationMethods.add(t);
         MotivationMessage m = new MotivationMessage(this);
         variableMotivationMethods.add(m);
         preferences.edit().putBoolean("showPostTrainMoti",true).apply();
-
+        */
 
 
         // check settings for initialization
@@ -108,13 +120,15 @@ public class ActivityMain extends AppCompatActivity {
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);
             // choose motivation methods depending on administrator settings
-            DAL_Allocation.getAllocation(
-                    this,
-                    fixMotivationMethods,
-                    variableMotivationMethods);
-        } else {
-            MethodChooser.reputMethodsInList(fixMotivationMethods,variableMotivationMethods,this);
+            DAL_Allocation.getAllocation(this);
         }
+
+        if(preferences.getString("allocatedMethods","").equals("")) {
+            // choose motivation methods depending on administrator settings
+            DAL_Allocation.getAllocation(this);
+        }
+
+
 
         // login
         if(preferences.getString("logedIn","").equals("")) {
@@ -126,7 +140,7 @@ public class ActivityMain extends AppCompatActivity {
 
         // start background clock
         BackgroundClock backgroundClock = new BackgroundClock();
-        backgroundClock.startClock(this,fixMotivationMethods,variableMotivationMethods);
+        //backgroundClock.startClock(this,fixMotivationMethods,variableMotivationMethods);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -317,6 +331,7 @@ public class ActivityMain extends AppCompatActivity {
         }
     }
 
+    /*
     @Override
     public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
         for(int i = 0; i < fixMotivationMethods.size(); i++) {
@@ -326,6 +341,7 @@ public class ActivityMain extends AppCompatActivity {
             variableMotivationMethods.get(i).evaluatePermissionResults(requestCode, permissions, grantResults);
         }
     }
+    */
 
     @Override
     public void onNewIntent(Intent intent) {

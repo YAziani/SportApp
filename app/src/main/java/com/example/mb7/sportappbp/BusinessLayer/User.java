@@ -118,7 +118,7 @@ public class User {
      * @param alternGroup the set of groups currently used
      */
     void saveAlternGroupUpdate(String currentActiveGroup, String nextActiveGroup, String alternGroup) {
-        DAL_User.insertAlternGroupUpdate(this,currentActiveGroup,nextActiveGroup,alternGroup);
+        DAL_User.insertAlternGroupUpdate(currentActiveGroup,nextActiveGroup,alternGroup);
     }
 
     public void saveRegistration(String username, String email, String password) {

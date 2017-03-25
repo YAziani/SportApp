@@ -27,7 +27,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
         setContentView(R.layout.activity_motivation_message);
 
         // reference for the firebase storage image
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("lift_text.jpg");
+        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("motivationPicture.jpg");
         final ImageView imageView0 = (ImageView)findViewById(R.id.imageMotivationMessage0);
         final ImageView imageView1 = (ImageView)findViewById(R.id.imageMotivationMessage1);
         final Drawable drawable = getDrawable(R.drawable.sport_icon);
@@ -46,6 +46,9 @@ public class ActivityMotivationMessage extends AppCompatActivity {
                         imageView0.setImageDrawable(drawable);
                         imageView1.setImageDrawable(drawable);
                         imageView1.setAlpha(0.5f);
+                        Intent i = new Intent(ActivityMotivationMessage.this,ActivityMain.class);
+                        i.putExtra("startTab",1);
+                        startActivity(i);
                         return true;
                     }
 
@@ -55,6 +58,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
                                                    Target<GlideDrawable> target,
                                                    boolean isFromMemoryCache,
                                                    boolean isFirstResource) {
+                        imageView0.setImageDrawable(resource);
                         imageView1.setImageDrawable(resource);
                         imageView1.setAlpha(0.5f);
                         return false;
@@ -75,7 +79,6 @@ public class ActivityMotivationMessage extends AppCompatActivity {
     public boolean onOptionsItemSelected(MenuItem item) {
         // close activity
         Intent i = new Intent(this,ActivityMain.class);
-        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
         i.putExtra("startTab",1);
         startActivity(i);
         finish();

@@ -24,7 +24,7 @@ public class DAL_RegisteredUsers {
             final ActivityLogin activity) {
         // access data in database and hand it to activity
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/users");
+            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/" + "/users");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -46,7 +46,7 @@ public class DAL_RegisteredUsers {
         try
         {
             // setting up url for the database
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/users");
+            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/" + "/users");
             Firebase root = new Firebase(url.toString());
             // insert user
             root.child(username).child("email").setValue(email);

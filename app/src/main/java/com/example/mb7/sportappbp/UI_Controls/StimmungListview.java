@@ -7,13 +7,16 @@ import android.view.View;
 import android.widget.AdapterView;
 import android.widget.ListView;
 
+import com.example.mb7.sportappbp.Adapters.StimmungsViewAdapter;
+import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
+
 /**
  * Created by MB7 on 18.01.2017.
  */
 
 public class StimmungListview extends ListView  {
     private int index = -1;
-
+    StimmungListview lst = this;
 
     public StimmungListview(Context context) {
     super(context);
@@ -50,14 +53,15 @@ public class StimmungListview extends ListView  {
         public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
             index = position;
             String val = Integer.toString(index);
-
+            ((StimmungsViewAdapter)lst.getAdapter()).setSelectedIndex(position);
+            ((StimmungsViewAdapter) lst.getAdapter()).notifyDataSetChanged();
             view.setSelected(true);
         }
     });
     }
 
     public int getIndex(){
-        return index;
+        return ((StimmungsViewAdapter)getAdapter()).getSelectedIndex();
     }
 
 }

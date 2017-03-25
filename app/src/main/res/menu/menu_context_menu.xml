@@ -4,10 +4,10 @@
     tools:context="com.example.mb7.sportappbp.Activity.ActivityMain">
     <item
         android:id="@+id/delete_id"
-        android:title="löschen"
+        android:title="@string/Loeschen"
         />
     <item
         android:id="@+id/edit_id"
-        android:title="bearbeiten"
+        android:title="@string/bearbeiten"
         />
 </menu>

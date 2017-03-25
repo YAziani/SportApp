@@ -48,17 +48,14 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
     int StimmungScore=0;
     float EnergieIndexScore=0;
     boolean Vor = true;
+    boolean INSERT  = true;
 
-
+    StimmungsAngabe stimmungsAngabe = null;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
         Log.e("Oncreate enter", "Entered onCreate");
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stimmung);
-
-        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
-        this.InitializeControlls();
-        this.SetControlCaptions();
 
         // Now read the extra key - val
         Intent iin= getIntent();
@@ -68,14 +65,48 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         {
             // read the datetime as this is the unique value in the db for the notification
             String notificationDate =(String) extras.get("NotificationDate");
-            Vor  =((String) extras.get("Vor")).equals("1")?true:false;
 
-            Log.e("Oncreate notifi", notificationDate);
+            if (((String) extras.get("Vor")) != null)
+                Vor  =((String) extras.get("Vor")).equals("1")?true:false;
 
-            // now we have delete this notification from the db cause it is read
+            stimmungsAngabe = (StimmungsAngabe) iin.getSerializableExtra(getString(R.string.stimmungsabgabe));
+            if (stimmungsAngabe != null)
+            {
+                INSERT = false;
+
+               /* lstAngespannt.
+                        Integer mActivePosition = 2;
+                lstAngespannt.requestFocusFromTouch();
+                lstAngespannt.setSelection(mActivePosition);
+                lstAngespannt.performItemClick(
+                        lstAngespannt.getAdapter().getView(mActivePosition, null, null),
+                        mActivePosition,
+                        lstAngespannt.getAdapter().getItemId(mActivePosition));*/
+            }
+
+            // now we have delete this notification from the db cause it is read if there has been any
+            // we could enter this activity without clicking any notification!
             // we delete it from the database, because now the notification is read and it should not be shown in the notification tab cardview
-            removeNofiication(this,notificationDate);
+            if (notificationDate != null)
+                removeNofiication(this,notificationDate);
         }
+
+        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
+        this.InitializeControlls();
+        this.SetControlCaptions();
+
+
+    }
+
+    @Override
+    protected void onResume() {
+        super.onResume();
+         }
+
+
+
+    void setControlData(StimmungsAngabe stimmungsAngabe)
+    {
 
     }
 
@@ -112,12 +143,18 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
                 SaveData();
                 finish();
                 Toast.makeText(ActivityMain.activityMain,getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_SHORT).show();
-
-                return true;
-
-            default:
                 return super.onOptionsItemSelected(item);
+
+            case android.R.id.home:
+                finish();
+                return true;
+            default:
+                finish();
+                return super.onOptionsItemSelected(item);
+
+
         }
+
     }
 
     private StimmungsAngabe getData()
@@ -132,8 +169,17 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         stimmungsAngabe.Wuetend = lstWuetend.getIndex();
         stimmungsAngabe.Zerstreut= lstZerstreut.getIndex();
         stimmungsAngabe.Vor  = Vor;
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        stimmungsAngabe.Date = sdf.format(new Date());
+        // If we are in the insert modus we do read the current date otherwise we have to save the old date to replace in firebase
+        if(INSERT) {
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            stimmungsAngabe.Date = sdf.format(new Date());
+        }
+        else
+        {
+            stimmungsAngabe.Date = this.stimmungsAngabe.FirebaseDate;
+            stimmungsAngabe.Time = this.stimmungsAngabe.Time;
+
+        }
 
         return stimmungsAngabe;
 
@@ -161,11 +207,15 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         StimmungAbfrageScore stimmungAbfrageScore = getDataScore();
         ActivityMain.mainUser.SaveStimmungScore(stimmungAbfrageScore, new Date());
         StimmungsAngabe stimmungAbfrage  = getData();
-        ActivityMain.mainUser.SaveStimmung(stimmungAbfrage, new Date());
-
+        if (INSERT)
+            ActivityMain.mainUser.InsertStimmung(stimmungAbfrage);
+        else
+            ActivityMain.mainUser.UpdateStimmung(stimmungAbfrage);
 
         return true;
     }
+
+
 
     private void InitializeControlls(){
 
@@ -181,13 +231,36 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         lstSelbstsicher = (StimmungListview)findViewById( R.id.lvSelbstsicher);
         lstMittelsam = (StimmungListview)findViewById( R.id.lvMitteilsam);
 
+        adapter.setStimmung(stimmungsAngabe,getString(R.string.angespannt));
+        adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Angespannt!=null? stimmungsAngabe.Angespannt:-1);
         lstAngespannt.setAdapter(adapter);
+        adapter = new StimmungsViewAdapter(this);
+        adapter.setStimmung(stimmungsAngabe,getString(R.string.traurig));
+        adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Traurig!=null? stimmungsAngabe.Traurig:-1);
         lstTraurig.setAdapter(adapter);
+        adapter = new StimmungsViewAdapter(this);
+        adapter.setStimmung(stimmungsAngabe,getString(R.string.tatkraeftig));
+        adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Tatkraeftig!=null? stimmungsAngabe.Tatkraeftig:-1);
         lstTatkraeftig.setAdapter(adapter);
+        adapter = new StimmungsViewAdapter(this);
+        adapter.setStimmung(stimmungsAngabe,getString(R.string.zerstreut));
+        adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Zerstreut!=null? stimmungsAngabe.Zerstreut:-1);
         lstZerstreut.setAdapter(adapter);
+        adapter = new StimmungsViewAdapter(this);
+        adapter.setStimmung(stimmungsAngabe,getString(R.string.wuetend));
+        adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Wuetend!=null? stimmungsAngabe.Wuetend:-1);
         lstWuetend.setAdapter(adapter);
+        adapter = new StimmungsViewAdapter(this);
+        adapter.setStimmung(stimmungsAngabe,getString(R.string.muede));
+        adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Muede!=null? stimmungsAngabe.Muede:-1);
         lstMuede.setAdapter(adapter);
+        adapter = new StimmungsViewAdapter(this);
+        adapter.setStimmung(stimmungsAngabe,getString(R.string.selbstsicher));
+        adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Selbstsicher!=null? stimmungsAngabe.Selbstsicher:-1);
         lstSelbstsicher.setAdapter(adapter);
+        adapter = new StimmungsViewAdapter(this);
+        adapter.setStimmung(stimmungsAngabe,getString(R.string.mitteilsam));
+        adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Mitteilsam!=null? stimmungsAngabe.Mitteilsam:-1);
         lstMittelsam.setAdapter(adapter);
 
         // set the onTouch Event to disable scrolling
@@ -200,6 +273,8 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         lstSelbstsicher.Initialize();
         lstMittelsam.Initialize();
     }
+
+
 
     private void SetControlCaptions(){
         ((TextView)findViewById(R.id.txtMainQuestion)).setText(getString( R.string.bitte_geben_sie_moment_fuhlen));

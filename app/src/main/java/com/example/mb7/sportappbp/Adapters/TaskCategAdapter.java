@@ -14,6 +14,7 @@ import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
+import com.example.mb7.sportappbp.Activity.Activity_lst_stimmungsabfrage;
 import com.example.mb7.sportappbp.BusinessLayer.TaskCategory;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
 import com.example.mb7.sportappbp.R;
@@ -51,7 +52,7 @@ public class TaskCategAdapter  extends RecyclerView.Adapter<TaskCategAdapter.Tas
                 context.startActivity(open);
 
             } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.stimmungsabgabe))) {
-                Intent open = new Intent(context.getActivity(), ActivityStimmungsAbgabe.class);
+                Intent open = new Intent(context.getActivity(), Activity_lst_stimmungsabfrage.class);
                 // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
                 context.startActivity(open);
 

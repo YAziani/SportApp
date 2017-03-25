@@ -55,9 +55,14 @@ public class User {
     {
         DAL_User.GetLastTodayStimmungsabfrage(this,date);
     }
-    public boolean SaveStimmung(StimmungsAngabe stimmungsAngabe, Date date)
+    public boolean InsertStimmung(StimmungsAngabe stimmungsAngabe)
     {
-        DAL_User.InsertStimmung(this, stimmungsAngabe, date);
+        DAL_User.InsertStimmung(this, stimmungsAngabe);
+        return true;
+    }
+    public boolean UpdateStimmung(StimmungsAngabe stimmungsAngabe)
+    {
+        DAL_User.UpdateStimmung(this, stimmungsAngabe);
         return true;
     }
     public boolean SaveStimmungScore(StimmungAbfrageScore stimmungAbfrageScore, Date date)
@@ -78,7 +83,7 @@ public class User {
         return true;
     }
 
-    public StimmungsAngabe GetStimmnungsabfrage(Date date){
+    public StimmungsAngabe GetStimmnungsabfrage(String date){
         return DAL_User.GetStimmnungsabfrage(this,date);
 
     }

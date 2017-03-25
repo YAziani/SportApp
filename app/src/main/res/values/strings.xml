@@ -2,13 +2,14 @@
     <string name="app_name">Fit Up</string>
     <string name="action_settings">Einstellungen</string>
     <string name="section_format">Hello World from section: %1$d</string>
-    <string name ="notifikationen">Notifikationen</string>
+    <string name="notifikationen">Notifikationen</string>
     <string name="aktivitaeten">Aktivitäten</string>
     <string name="title_activity_login">Anmeldung</string>
     <string name="tagebucheintrag">Tagebucheintrag</string>
     <string name="tagebucheintrag_desc">Die sportlichen Aktivitäten, die sie durchgeführt haben</string>
     <string name="nun_ist_es_soweit">Nun ist es soweit. Haben Sie heute trainert?</string>
     <string name="stimmungsabgabe">Stimmungsabgabe</string>
+    <string name="stimmungsabgaben">Stimmungsabgaben</string>
     <string name="stimmungsabgabe_desc">Ihre Stimmung vor und nach dem Training</string>
     <string name="wie_fuhlen_sie_moment">Wie fühlen Sie sich in dem Moment?</string>
     <string name="wie_aktiv">Wie aktiv sind Sie?</string>
@@ -35,6 +36,7 @@
     <string name="fitnessfragebogen">Fitnessfragebogen</string>
     <string name="fitnessfragebogen_desc">Wie fitt sind Sie?</string>
     <string name="erfolgreichgespeichert">Erfolgreich gespeichert</string>
+    <string name="erfolgreichgeloescht">Erfolgreich gelöscht</string>
     <string name="bitte_geben_sie_moment_fuhlen">Bitte geben Sie an, wie Sie sich jetzt d.h. in diesem Moment fühlen</string>
     <string name="angespannt">Angespannt</string>
     <string name="traurig">Traurig</string>
@@ -45,7 +47,7 @@
     <string name="muede">Müde</string>
     <string name="selbstsicher">Selbstsicher</string>
     <string name="mitteilsam">Mitteilsam</string>
-    <string name="wird_geladen">Wird geladen</string>
+    <string name="wird_geladen">Wird geladen...</string>
     <string name="kompass">Kompass</string>
     <string name="ueberhaupt_nicht">Überhaupt nicht</string>
     <string name="wenig">Wenig</string>
@@ -125,7 +127,6 @@
     <string name="Minuten_pro_Einheit">Minuten pro Einheit</string>
 
 
-
     <!--Fragebogen Activities-->
     <string name="Fitnessfragebogeninfo">Bitte geben Sie zu den nächsten 28 Fragen eine spontane Einschätzung ab. Klicken Sie bitte auf das Feld, welches Ihrer Einschätzung nach am besten auf Sie zutrifft. Es kommt nicht darauf an, die Tätigkeit oft durchgeführt zu haben. Entscheidend ist, was Sie sich wirklich zutrauen.</string>
     <string name="Information">Information</string>
@@ -154,8 +155,6 @@
     <string name="Wie_oft_haben_Sie_Aktivität_A_in_den_letzten">Wie oft haben Sie Aktivität A in den letzten </string>
     <string name="Wie_oft_haben_Sie_Aktivität_B_in_den_letzten">Wie oft haben Sie Aktivität B in den letzten </string>
     <string name="Wie_oft_haben_Sie_Aktivität_C_in_den_letzten">Wie oft haben Sie Aktivität C in den letzten </string>
-
-
 
 
     <!-- Fragebogen Adapter-->
@@ -258,11 +257,15 @@
     <string name="konnteNichtGefundenWerden"> konnte nicht gefunden werden!</string>
     <string name="BenutzerHinzufügen">Benutzer hinzufügen</string>
 
+    <!-- Menu items -->
+    <string name="Loeschen">Löschen</string>
+    <string name="hinzufuegen">Hinzufügen</string>
+    <string name="bearbeiten">Bearbeiten</string>
+    <string name="speichern">Speichern</string>
 
-
-
-
-
-
+    <!-- Stimmungsabgabe -->
+    <string name="stimm_vor_nach_question">Ist diese Stimmungsabgabe für vor oder nach dem Training vorgesehen?</string>
+    <string name="vor">Vor dem Training</string>
+    <string name="nach">Nach dem Training</string>
 
 </resources>

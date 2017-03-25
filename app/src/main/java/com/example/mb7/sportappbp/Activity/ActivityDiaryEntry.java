@@ -77,15 +77,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         gridView.setAdapter(diaryEntryViewAdapter);
     }
 
-    @Override
-    public boolean onCreateOptionsMenu(Menu menu) {
-        MenuInflater inflater = getMenuInflater();
-
-        //set the menu with add and save icon
-        inflater.inflate(R.menu.menu_add_and_save, menu);
-
-        return super.onCreateOptionsMenu(menu);
-    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){

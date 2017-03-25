@@ -4,15 +4,8 @@
     tools:context="com.example.mb7.sportappbp.Activity.ActivityMain">
 
     <item
-        android:id="@+id/icon_info"
-        android:icon="@drawable/ic_info_outline_black_24dp"
-        android:title="Info"
+        android:id="@+id/icon_add"
+        android:icon="@drawable/ic_add_black_24dp"
+        android:title="@string/hinzufuegen"
         app:showAsAction="always"/>
-
-    <item
-        android:id="@+id/icon_save"
-        android:icon="@drawable/ic_save"
-        android:title="@string/speichern"
-        app:showAsAction="always"/>
-
 </menu>

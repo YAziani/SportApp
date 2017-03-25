@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Fragments;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
@@ -16,6 +17,7 @@ import com.example.mb7.sportappbp.Activity.ActivityKompass;
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
 import com.example.mb7.sportappbp.ClientIF;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.Firebase;
 
@@ -55,7 +57,7 @@ public class TbReportContent extends TabFragment{
         btnDiary.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
+                DAL_User.GetStimmnungsabfrage(ActivityMain.mainUser,"20170325");
                 Intent open = new Intent(getActivity(), ActivityDiary.class);
                 startActivity(open);
 

@@ -17,6 +17,7 @@ import com.firebase.client.Firebase;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Random;
 
 /**
  * Created by M.Braei on 24.03.2017.
@@ -24,6 +25,8 @@ import java.util.Date;
 
 public abstract class Observer {
     abstract public void update(Context context);
+    protected Context context;
+    protected SharedPreferences preferences;
 
     /**
      * The public function to outside which saves the notification in the db and shows out on the status bar of the device
@@ -92,7 +95,9 @@ public abstract class Observer {
     public void createNotification(Context context, String NotificationDate, Class<?> cls,String title, String text, Integer icon ){
 
         Intent contentClass = new Intent(context, cls);
-        contentClass.putExtra("NotificationDate",NotificationDate);
+        contentClass.putExtra("NotificationDate",NotificationDate);                                             // we have to know the notification date to delete from db
+        contentClass.putExtra("Vor",text.equals(context.getString( R.string.ntf_stimmungsabgabe))?"1":"0");     // that we should know to save it in the V node or N node (is it the question before or after the training)
+
         // Used to stack tasks across activites so we go to the proper place when back is clicked
         // create(context): context is the context that will launch the new task stack or a PendingIndent
         TaskStackBuilder tStackBuilder = TaskStackBuilder.create(context);
@@ -137,8 +142,12 @@ public abstract class Observer {
         NotificationManager mNotificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
 
+        // get a random ID
+        Random r = new Random();
+        Integer id = r.nextInt();
+
         // Post the notification
-        mNotificationManager.notify(1, mBuilder.build());
+        mNotificationManager.notify(id, mBuilder.build());
 
     }
 
@@ -227,4 +236,111 @@ public abstract class Observer {
         }
         return lastTraining;
     }
+
+    /**
+     * get the time of the next training time
+     * @param context
+     * @return
+     */
+    public Integer getNextTrainingTimeInteger(Context context){
+        String preferenceString = preferences.getString(getCurrentWeekday(), "");
+        insertTrainingdates(preferenceString);
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        // find next training start time
+        if(!preferenceString.equals("")) {
+            for(final String s : preferenceString.split(";")) {
+                int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
+                        + Integer.valueOf(s.split(":")[1]);
+                int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
+                // check if training is still noteworthy
+                if(currentMinuteOfDay <= trainingMinuteOfDay) {
+                    return trainingMinuteOfDay;
+                }
+            }
+        }
+        return 0;
+    }
+    private void insertTrainingdates(String dates){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/" );
+        ref.child("TrainingDates").setValue(dates);
+
+    }
+    /**
+     * get the time of the last training time
+     * @param context
+     * @return
+     */
+    public Integer getLastTrainingTime(Context context){
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        String preferenceString = preferences.getString(getCurrentWeekday(), "");
+        String lastTraining = "";
+        Calendar calendar = Calendar.getInstance();
+        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
+        int currentMinute = calendar.get(Calendar.MINUTE);
+        // find next training start time
+        if(!preferenceString.equals("")) {
+            for(final String s : preferenceString.split(";")) {
+                int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
+                        + Integer.valueOf(s.split(":")[1]);
+                int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
+                // check if training is still noteworthy
+                if(currentMinuteOfDay <= trainingMinuteOfDay) {
+                    if(!lastTraining.equals("")) {
+                        return Integer.valueOf(lastTraining.split(":")[0]) * 60
+                                + Integer.valueOf(lastTraining.split(":")[1]);
+                    }else {
+                        break;
+                    }
+                }else {
+                    lastTraining = s;
+                }
+            }
+        }
+        if (lastTraining == "")
+            return 0;
+        else
+            return Integer.valueOf(lastTraining.split(":")[0]) * 60
+                + Integer.valueOf(lastTraining.split(":")[1]);
+    }
+    // get the current weekday in German
+    // cause the trainingstermine are saved in Preferences as key-value -> (German Weekday, all trainingstermine as String seperated with semicolon)
+    private String getCurrentWeekday() {
+        String dayOfWeek;
+
+        // setup calendar to get day of week
+        Date date = new Date();
+        Calendar calendar = Calendar.getInstance();
+        calendar.setTime(date);
+
+        // determine the day of the week
+        int currentWeekday = calendar.get(Calendar.DAY_OF_WEEK);
+        if(currentWeekday == Calendar.MONDAY){
+            dayOfWeek = "Montag";
+        }
+        else if(currentWeekday == Calendar.TUESDAY){
+            dayOfWeek = "Dienstag";
+        }
+        else if(currentWeekday == Calendar.WEDNESDAY){
+            dayOfWeek = "Mittwoch";
+        }
+        else if(currentWeekday == Calendar.THURSDAY){
+            dayOfWeek = "Donnerstag";
+        }
+        else if(currentWeekday == Calendar.FRIDAY){
+            dayOfWeek = "Freitag";
+        }
+        else if(currentWeekday == Calendar.SATURDAY){
+            dayOfWeek = "Samstag";
+        }
+        else{
+            dayOfWeek = "Sonntag";
+        }
+        return dayOfWeek;
+    }
+
 }

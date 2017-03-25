@@ -13,12 +13,8 @@ package com.example.mb7.sportappbp.Activity;
         userList.add(u3);
         */
 
-import android.app.Activity;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.ListView;
 import android.widget.TextView;
 
@@ -26,8 +22,6 @@ import com.example.mb7.sportappbp.Adapters.ChallengeViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.R;
-
-import org.w3c.dom.Text;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -65,9 +59,9 @@ public class ActivityChallenge extends AppCompatActivity {
         //calculate the difference between today and the end date
         todayDate = calendar.getTime();
         endDate = challenge.getEndDate();
-        int remainingDays = challenge.getRemainingDays();
+        String  remainingDays = String.valueOf(challenge.getRemainingDays());
         //set the difference to the textview
-        textViewCountdown.setText("Verbleibende Tage: " + remainingDays);
+        textViewCountdown.setText(getString(R.string.VerbleibendeTage) + " " + remainingDays);
 
     }
 

@@ -13,6 +13,7 @@ import android.location.LocationListener;
 import android.location.LocationManager;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
+import android.support.design.widget.FloatingActionButton;
 import android.support.design.widget.TabLayout;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
@@ -41,10 +42,9 @@ import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
 import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
 import com.example.mb7.sportappbp.Fragments.TbReportContent;
-import com.example.mb7.sportappbp.Fragments.TbTaskContent;
+import com.example.mb7.sportappbp.Fragments.TbTaskCategContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Utilities.AlertReceiver;
-import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 import java.util.GregorianCalendar;
@@ -74,6 +74,8 @@ public class ActivityMain extends AppCompatActivity {
     public  static  User mainUser ;
     public static ActivityMain activityMain;
     private SharedPreferences preferences;
+    private FloatingActionButton fab1;
+
 
     private final int  LOCATION_PERMISSION_REQUEST = 1440;
 
@@ -154,6 +156,15 @@ public class ActivityMain extends AppCompatActivity {
         mViewPager.setAdapter(mSectionsPagerAdapter);
         setTabLayout();
 
+
+        fab1 = (FloatingActionButton) findViewById(R.id.fab);
+        fab1.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                Intent intent = new Intent(ActivityMain.this, ActivityDiaryEntry.class);
+                startActivity(intent);
+            }
+        });
     }
 
     @Override
@@ -262,7 +273,7 @@ public class ActivityMain extends AppCompatActivity {
             switch(sectionNumber)
             {
                 case 1:
-                    tabFragment = new TbTaskContent();
+                    tabFragment = new TbTaskCategContent();
                     tabFragment.Initialize(activity,"Aufgaben");
                     return tabFragment;
                 case 2:
@@ -378,4 +389,12 @@ public class ActivityMain extends AppCompatActivity {
         mainUser = User.Create(username);
         return mainUser;
     }
+
+
+
+
+
 }
+
+
+

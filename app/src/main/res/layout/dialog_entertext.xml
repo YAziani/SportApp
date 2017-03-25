@@ -5,14 +5,14 @@
     android:orientation="vertical">
 
     <TextView
-        android:id="@+id/textView25"
+        android:id="@+id/textViewEntertextTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:paddingBottom="20dp"
         android:paddingLeft="24dp"
         android:paddingRight="24dp"
         android:paddingTop="24dp"
-        android:text="Benutzer hinzufügen ..."
+        android:text="Titel"
         android:textSize="24sp" />
 
     <EditText
@@ -43,7 +43,7 @@
             android:paddingLeft="8dp"
             android:paddingStart="8dp"
             android:paddingTop="8dp"
-            android:text="Abbrechen" />
+            android:text="string @android:string/cancel" />
 
         <Button
             android:id="@+id/btnChallengeOk"
@@ -57,6 +57,6 @@
             android:paddingRight="8dp"
             android:paddingStart="8dp"
             android:paddingTop="8dp"
-            android:text="OK" />
+            android:text="@string/button_ok_text" />
     </LinearLayout>
 </LinearLayout>

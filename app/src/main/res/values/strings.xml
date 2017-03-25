@@ -3,10 +3,13 @@
     <string name="action_settings">Einstellungen</string>
     <string name="section_format">Hello World from section: %1$d</string>
     <string name ="notifikationen">Notifikationen</string>
+    <string name="aktivitaeten">Aktivitäten</string>
     <string name="title_activity_login">Anmeldung</string>
     <string name="tagebucheintrag">Tagebucheintrag</string>
+    <string name="tagebucheintrag_desc">Die sportlichen Aktivitäten, die sie durchgeführt haben</string>
     <string name="nun_ist_es_soweit">Nun ist es soweit. Haben Sie heute trainert?</string>
     <string name="stimmungsabgabe">Stimmungsabgabe</string>
+    <string name="stimmungsabgabe_desc">Ihre Stimmung vor und nach dem Training</string>
     <string name="wie_fuhlen_sie_moment">Wie fühlen Sie sich in dem Moment?</string>
     <string name="wie_aktiv">Wie aktiv sind Sie?</string>
     <string name="wie_ist_fitnesstand">Wie ist Ihr Fitnessstand?</string>
@@ -17,6 +20,7 @@
     <string name="ihr_train_begin_in">Ihr Training beginnt in </string>
     <string name="minuten"> Minuten</string>
     <string name="aktivitaetsfragebogen">Aktivitätsfragebogen</string>
+    <string name="aktivitaetsfragebogen_desc">Ihre persönliche Aktivitäten...</string>
     <!-- Strings related to login -->
     <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Passwort</string>
@@ -29,6 +33,7 @@
     <string name="permission_rationale">"Kontaktberechtigung für Autokompletierung benötigt"
     </string>
     <string name="fitnessfragebogen">Fitnessfragebogen</string>
+    <string name="fitnessfragebogen_desc">Wie fitt sind Sie?</string>
     <string name="erfolgreichgespeichert">Erfolgreich gespeichert</string>
     <string name="bitte_geben_sie_moment_fuhlen">Bitte geben Sie an, wie Sie sich jetzt d.h. in diesem Moment fühlen</string>
     <string name="angespannt">Angespannt</string>
@@ -51,6 +56,7 @@
     <!-- Strings related to alert -->
     <string name="ntf_title">Fit up</string>
     <string name="ntf_stimmungsabgabe">Es ist bald Zeit zum trainiern. Wie fühlen Sie sich?</string>
+    <string name="ntf_stimmungsabgabe_nach">Sie sind fertig mit dem Training. Wie fühlen Sie sich?</string>
     <!--Fitnessfragebogen xml-->
     <string name="Wie_gut_können_Sie_folgende_Tätigkeiten_bewältigen">Wie gut können Sie folgende Tätigkeiten bewältigen? \n</string>
     <string name="Können_Sie">Können Sie... \n</string>
@@ -202,9 +208,55 @@
     <string name="siaddressnotfound">Addresse konnte nicht bestimmt werden.</string>
     <string name="sitextview">Bitte tragen Sie Ihre Trainingszeiten und die Adresse ihres Fitnessstudios ein.</string>
 
+    <!-- ActivityDiary -->
+    <string name="Tagebuch">Tagebuch</string>
+
+    <!-- DiaryViewAdapter -->
+    <string name="Vom">Vom</string>
+    <string name="um">um</string>
+    <string name="Uhr">Uhr</string>
+
+    <!-- ActivityDiaryEntry -->
+    <string name="Tagebucheintraggespeichert">Tagebucheintrag gespeichert!</string>
+    <string name="keintagebucheintragerstellt">Es wurde kein Tagebucheintrag erstellt!</string>
+
+    <!-- DiaryEntryViewAdapter -->
+    <string name="Pkt"> Pkt.</string>
+
+    <!-- ActivitySelectedExercises -->
+    <string name="AusgewählteExercises">Ausgewählte Aktivitäten</string>
+    <string name="ungültigeZeit">Ungültige Zeit!</string>
+
+    <!-- ActivityCategories -->
 
 
+    <!-- ActivityExercises -->
+    <string name="KategorieWurdNichtRichtigGewählt">Es wurde keine richtige Kategorie gewählt!</string>
+    <string name="KategorieNeuWählen">Kategorie bitte erneut wählen!</string>
 
+    <!-- Exercise Categories -->
+    <string name="Leistungstests">Leistungstests</string>
+    <string name="Training">Training</string>
+    <string name="Wellness">Wellness</string>
+    <string name="ReinerAufenthalt">Reiner Aufenthalt</string>
+    <string name="KategorieAuswählen...">Kategorie auswählen ...</string>
+
+    <!--customDialogWindow -->
+    <string name="Abbrechen">Abbrechen</string>
+    <string name="OK">OK</string>
+
+    <!--dialog two number picker -->
+    <string name="Stunden">Stunden</string>
+    <string name="Minuten"> Minuten</string>
+    <string name="BenötigteZeit">Benötigte Zeit:</string>
+
+    <!-- ActivityChallenge-->
+    <string name="VerbleibendeTage">Verbleibende Tage:</string>
+
+    <!-- ActivityNewChallenge-->
+    <string name="WieLangeSolldieChallengeGehen">Wie lange soll die Challenge gehen?</string>
+    <string name="konnteNichtGefundenWerden"> konnte nicht gefunden werden!</string>
+    <string name="BenutzerHinzufügen">Benutzer hinzufügen</string>
 
 
 

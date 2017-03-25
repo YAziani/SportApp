@@ -37,11 +37,11 @@
         </activity>
         <activity
             android:name=".Activity.ActivityDiaryEntry"
-            android:label="Tagebuch Eintrag"
+            android:label="@string/tagebucheintrag"
             android:parentActivityName=".Activity.ActivityMain" />
         <activity
             android:name=".Activity.ActivityDiary"
-            android:label="Tagebuch"
+            android:label="@string/Tagebuch"
             android:parentActivityName=".Activity.ActivityMain" />
         <activity android:name=".Activity.ActivitySettings" />
         <activity android:name=".Activity.ActivityStimmungsAbgabe" android:parentActivityName=".Activity.ActivityMain" >
@@ -53,12 +53,13 @@
         <activity android:name=".Activity.ActivityChallenge" />
         <activity
             android:name=".Activity.ActivityCategories"
-            android:label="Kategorie auswählen..."
-            android:parentActivityName=".Activity.ActivityExerciseOverview" />
+            android:label="@string/KategorieAuswählen..."/>
+            android:parentActivityName=".Activity.ActivitySelectedExercises" />
         <activity
             android:name=".Activity.ActivityExercises"
             android:parentActivityName=".Activity.ActivityCategories" />
-        <activity android:name=".Activity.ActivityExerciseOverview" />
+        <activity android:name=".Activity.ActivitySelectedExercises"
+            android:label="@string/AusgewählteExercises"/>
         <activity android:name=".Activity.ActivityFragebogen" />
         <activity android:name=".Activity.ActivityFitnessFragebogen" />
         <activity android:name=".Activity.ActivityMotivationMessage" />
@@ -68,7 +69,7 @@
         <activity
             android:name=".Activity.ActivityLogin"
             android:label="@string/title_activity_login" />
-        <activity android:name=".Activity.ActivityChallengeInfo"></activity>
+
         <receiver  android:process=":remote" android:name=".Utilities.AlertReceiver"></receiver>
 
     </application>

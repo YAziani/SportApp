@@ -23,7 +23,10 @@ import com.example.mb7.sportappbp.DataAccessLayer.DAL_TrainQuestioningTexts;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
 
+import java.util.Calendar;
 import java.util.Iterator;
+import java.util.Random;
+import java.util.regex.Pattern;
 
 /**
  * activity that displays text if user does not want to train
@@ -62,7 +65,7 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
             }
             // notify BackgroundClock about user activity
             //BackgroundClock.startRating(false);
-            if(preferences.getString("allocatedMethods","").contains("motivationtexts")) {
+            if(preferences.getString("allocatedMethods","").contains("motivationtexts") && checkIntensifier()) {
                 // access texts in data base
                 DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
             }else {
@@ -72,7 +75,7 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
         }else {
             imageView.setImageResource(R.drawable.train_yes);
             //BackgroundClock.startRating(true);
-            if(preferences.getString("allocatedMethods","").contains("motivationtexts")) {
+            if(preferences.getString("allocatedMethods","").contains("motivationtexts") && checkIntensifier()) {
                 DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
             }else {
                 finish();
@@ -110,7 +113,6 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
      * @param dataSnapshot the snapshot from the database
      */
     public void returnTexts(DataSnapshot dataSnapshot) {
-
         if(dataSnapshot != null && dataSnapshot.getChildrenCount() > 0){
             int textIndex;
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
@@ -147,5 +149,42 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
         s.setSpan(new RelativeSizeSpan(2f),0,1,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
         // display text view
         textView.setText(s);
+    }
+
+    /**
+     * check if intensifier allows notification
+     * @return true if notification allowed
+     */
+    private boolean checkIntensifier() {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
+        long daysFromStart = Calendar.getInstance().getTimeInMillis() - preferences.getLong("firstDay",0);
+        daysFromStart = daysFromStart / 86400000;
+        String intensifier = preferences.getString("intensifier","");
+        if(intensifier.equals("")) {
+            return true;
+        }else {
+            // go through all entries
+            for(String s : intensifier.split(";")) {
+                if(s.split(",").length == 3 &&
+                        !s.split(",")[0].equals("") && !s.split(",")[1].equals("") && !s.split(",")[2].equals("")
+                        && Pattern.matches("[0-9]+",s.split(",")[0])
+                        && Pattern.matches("[0-9]+",s.split(",")[1])
+                        && Pattern.matches("[0-1][,][0-9]+",s.split(",")[2])) {
+                    if(daysFromStart > Integer.valueOf(s.split(",")[0])) {
+                        daysFromStart -= Integer.valueOf(s.split(",")[0]);
+                        continue;
+                    }
+                    if(daysFromStart > Integer.valueOf(s.split(",")[1])) {
+                        Random random = new Random();
+                        return Double.valueOf(s.split(",")[2]) > random.nextDouble();
+                    }else {
+                        return false;
+                    }
+                }else {
+                    return true;
+                }
+            }
+        }
+        return true;
     }
 }

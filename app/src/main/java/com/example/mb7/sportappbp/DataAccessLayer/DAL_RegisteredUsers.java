@@ -73,14 +73,13 @@ public class DAL_RegisteredUsers {
         }
     }
 
-    public static void insertRegistration(String username, String email, String password){
+    public static void insertRegistration(String username, String password){
         try
         {
             // setting up url for the database
             URL url = new URL("https://sportapp-cbd6b.firebaseio.com/" + "/users");
             Firebase root = new Firebase(url.toString());
             // insert user
-            root.child(username).child("email").setValue(email);
             root.child(username).child("password").setValue(password);
         }catch (Exception e) {
             e.printStackTrace();
@@ -103,6 +102,17 @@ public class DAL_RegisteredUsers {
                 }
             });
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void insertMail(String mail) {
+        try {
+            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/users/" + ActivityMain.mainUser.getName());
+            Firebase root = new Firebase(url.toString());
+            // insert user
+            root.child("email").setValue(mail);
+        }catch (Exception e) {
             e.printStackTrace();
         }
     }

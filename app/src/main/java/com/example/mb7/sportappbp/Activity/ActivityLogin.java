@@ -2,13 +2,20 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.content.Context;
 import android.content.Intent;
+import android.graphics.Color;
+import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AppCompatActivity;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.text.Spannable;
+import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.ForegroundColorSpan;
+import android.text.style.RelativeSizeSpan;
+import android.text.style.StyleSpan;
 import android.view.KeyEvent;
 import android.view.View;
 import android.view.View.OnClickListener;
@@ -18,6 +25,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.TextView;
 import android.widget.Toast;
+
+import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
@@ -37,16 +46,27 @@ public class ActivityLogin extends AppCompatActivity{
 
     // UI references.
     private AutoCompleteTextView mUsernameView;
-    private AutoCompleteTextView mEmailView;
     private EditText mPasswordView;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_login);
+
+        // set text above login
+        TextView textView = (TextView)findViewById(R.id.textViewLogin);
+        String textToShow = "Wählen Sie sich bitte einen Nutzernamen und ein Passwort aus";
+        SpannableString s = new SpannableString(textToShow);
+        s.setSpan(new StyleSpan(Typeface.BOLD),0,textToShow.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new RelativeSizeSpan(1.75f),0,textToShow.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC),28,39, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC),48,56,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)),28,39, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)),48,56,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        textView.setText(s);
+
         // Set up the login form.
         mUsernameView = (AutoCompleteTextView) findViewById(R.id.username);
-        mEmailView = (AutoCompleteTextView) findViewById(R.id.email);
 
         mPasswordView = (EditText) findViewById(R.id.password);
         mPasswordView.setOnEditorActionListener(new TextView.OnEditorActionListener() {
@@ -103,7 +123,6 @@ public class ActivityLogin extends AppCompatActivity{
 
         // Reset errors.
         mUsernameView.setError(null);
-        mEmailView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
@@ -152,7 +171,7 @@ public class ActivityLogin extends AppCompatActivity{
         } else {
             // perform the user login attempt
             if(validLogin) {
-                mAuthTask = new UserLoginTask(username, null, password, true);
+                mAuthTask = new UserLoginTask(username, password, true);
                 mAuthTask.execute((Void) null);
             }else {
                 focusView = focus;
@@ -181,12 +200,10 @@ public class ActivityLogin extends AppCompatActivity{
 
         // Reset errors.
         mUsernameView.setError(null);
-        mEmailView.setError(null);
         mPasswordView.setError(null);
 
         // Store values at the time of the login attempt.
         String username = mUsernameView.getText().toString();
-        String email = mEmailView.getText().toString();
         String password = mPasswordView.getText().toString();
 
         boolean cancel = false;
@@ -199,17 +216,7 @@ public class ActivityLogin extends AppCompatActivity{
             cancel = true;
         }
 
-        // Check for a valid email address and username.
-        if (TextUtils.isEmpty(email)) {
-            mEmailView.setError(getString(R.string.alallfields));
-            focusView = mEmailView;
-            cancel = true;
-        } else if (!isEmailValid(email)) {
-            mEmailView.setError(getString(R.string.alwrongmail));
-            focusView = mEmailView;
-            cancel = true;
-        }
-
+        // Check for a valid username.
         if (TextUtils.isEmpty(username)) {
             mUsernameView.setError(getString(R.string.alallfields));
             focusView = mUsernameView;
@@ -228,12 +235,6 @@ public class ActivityLogin extends AppCompatActivity{
                     focus = mUsernameView;
                     break;
                 }
-                if(d.child("email").getValue() != null && d.child("email").getValue().equals(email)) {
-                    validLogin = false;
-                    errMessage = getString(R.string.almailtaken);
-                    focus = mEmailView;
-                    break;
-                }
             }
         }
 
@@ -244,7 +245,7 @@ public class ActivityLogin extends AppCompatActivity{
         } else {
             // perform the user login attempt
             if(validLogin) {
-                mAuthTask = new UserLoginTask(username, email, password, false);
+                mAuthTask = new UserLoginTask(username, password, false);
                 mAuthTask.execute((Void) null);
             }else {
                 focusView = focus;
@@ -263,10 +264,6 @@ public class ActivityLogin extends AppCompatActivity{
         validSnapshot = true;
     }
 
-    private boolean isEmailValid(String email) {
-        return email.contains("@");
-    }
-
     private boolean isPasswordValid(String password) {
         return password.length() >= 4;
     }
@@ -279,13 +276,11 @@ public class ActivityLogin extends AppCompatActivity{
     private class UserLoginTask extends AsyncTask<Void, Void, Boolean> {
 
         private final String mUsername;
-        private final String mEmail;
         private final String mPassword;
         private final boolean mLogin;
 
-        UserLoginTask(String username, String email, String password, boolean login) {
+        UserLoginTask(String username, String password, boolean login) {
             mUsername = username;
-            mEmail = email;
             mPassword = password;
             mLogin = login;
         }
@@ -296,7 +291,7 @@ public class ActivityLogin extends AppCompatActivity{
             if(mLogin) {
                 ActivityMain.activityMain.createUser(mUsername);
             }else {
-                ActivityMain.activityMain.createUser(mUsername).saveRegistration(mUsername,mEmail,mPassword);
+                ActivityMain.activityMain.createUser(mUsername).saveRegistration(mUsername,mPassword);
             }
             return true;
         }
@@ -309,14 +304,23 @@ public class ActivityLogin extends AppCompatActivity{
                     .edit()
                     .putString("logedIn",mUsername)
                     .apply();
-            Intent kompassIntent = new Intent(ActivityMain.activityMain, ActivityKompass.class);
-            startActivity(kompassIntent);
+            if(!mLogin) {
+                Intent kompassIntent = new Intent(ActivityMain.activityMain, ActivityKompass.class);
+                startActivity(kompassIntent);
+                RegisterCatcher registerCatcher = new RegisterCatcher();
+                registerCatcher.catchRegistration(ActivityMain.activityMain);
+            }
             ActivityLogin.this.finish();
         }
 
         @Override
         protected void onCancelled() {
         }
+    }
+
+    @Override
+    public void onBackPressed() {
+        return;
     }
 
     private boolean isNetworkAvailable() {

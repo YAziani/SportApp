@@ -1,6 +1,8 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
 import com.example.mb7.sportappbp.Activity.ActivityLogin;
+import com.example.mb7.sportappbp.Activity.ActivityMain;
+import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -52,6 +54,26 @@ public class DAL_RegisteredUsers {
             root.child(username).child("email").setValue(email);
             root.child(username).child("password").setValue(password);
         }catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public static void loadRegistration(final ActivityMain activity, final RegisterCatcher registerCatcher) {
+        try {
+            URL url = new URL("https://kompass-8720f.firebaseio.com/users");
+            Firebase root = new Firebase(url.toString());
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    registerCatcher.returnRegistrations(activity,dataSnapshot);
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    registerCatcher.returnRegistrations(activity,null);
+                }
+            });
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

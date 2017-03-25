@@ -32,6 +32,7 @@ import android.widget.TextView;
 
 import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
 import com.example.mb7.sportappbp.BusinessLayer.MethodChooser;
+import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
@@ -134,11 +135,15 @@ public class ActivityMain extends AppCompatActivity {
 
         // login
         if(preferences.getString("logedIn","").equals("")) {
-            Intent loginIntent = new Intent(this,ActivityLogin.class);
+            //Intent loginIntent = new Intent(this,ActivityLogin.class);
+            Intent loginIntent = new Intent(this,ActivityKompass.class);
             startActivity(loginIntent);
+            RegisterCatcher registerCatcher = new RegisterCatcher();
+            registerCatcher.catchRegistration(this);
         }else {
             mainUser = User.Create(preferences.getString("logedIn",""));
         }
+
 
         // start background clock
         BackgroundClock backgroundClock = new BackgroundClock();
@@ -387,6 +392,7 @@ public class ActivityMain extends AppCompatActivity {
      */
     public User createUser(String username) {
         mainUser = User.Create(username);
+        preferences.edit().putString("logedIn",username).commit();
         return mainUser;
     }
 

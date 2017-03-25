@@ -72,6 +72,7 @@ public class DAL_RegisteredUsers {
             e.printStackTrace();
         }
     }
+
     public static void insertRegistration(String username, String email, String password){
         try
         {

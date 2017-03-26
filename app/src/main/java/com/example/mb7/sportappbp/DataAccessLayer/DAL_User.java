@@ -280,6 +280,7 @@ public class DAL_User {
     {
 
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd,HH:mm:ss");
+        final SimpleDateFormat sdfDateDiary = new SimpleDateFormat("dd.MM.yyyy");
 
         try
         {
@@ -297,13 +298,13 @@ public class DAL_User {
                         root.child(strDate).addListenerForSingleValueEvent(new ValueEventListener() {
                             @Override
                             public void onDataChange(DataSnapshot dataSnapshot) {
-                                String  strKey = "";
 
                                 for (DataSnapshot child : dataSnapshot.getChildren()) {
                                     //unikey
-                                    strKey = child.getKey();
+                                    //time
+                                    final String strTime = child.getKey();
 
-                                    root.child(strDate).child(strKey).addListenerForSingleValueEvent(new ValueEventListener() {
+                                    root.child(strDate).child(strTime).addListenerForSingleValueEvent(new ValueEventListener() {
                                         @Override
                                         public void onDataChange(DataSnapshot dataSnapshot) {
                                             //get instance to add all diaryentries after restore
@@ -311,20 +312,24 @@ public class DAL_User {
                                             //create object
                                             DiaryEntry diaryEntry = new DiaryEntry();
 
+                                            //restore date from diaryEntry
+                                            try {
+                                                Date date = sdfDate.parse(strDate + "," + strTime );
+                                                diaryEntry.setDate(date);
+                                                diaryEntry.sDate = sdfDateDiary.format(date);
+                                                diaryEntry.sTime = strTime;
+                                            } catch (ParseException e) {
+                                                e.printStackTrace();
+                                            }
+
+
+
+
 
                                             for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                                //restore date from diaryEntry
-                                                if (child.getKey().equals("time")) {
-                                                    String time = child.getValue().toString();
-                                                    try {
-                                                        Date date = sdfDate.parse(strDate + "," + time );
-                                                        diaryEntry.setDate(date);
-                                                    } catch (ParseException e) {
-                                                        e.printStackTrace();
-                                                    }
-                                                }
+
                                                 //restore totalPoints from diaryEntry
-                                                else if (child.getKey().equals("totalpoints"))
+                                                if (child.getKey().equals("totalpoints"))
                                                     diaryEntry.setTotalPoints(Integer.getInteger(child.getValue().toString()));
                                                 //restore exercises from diaryEntry
                                                 else if(child.getKey().startsWith("exercise")){
@@ -426,23 +431,20 @@ public class DAL_User {
         SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
         try
         {
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Diary/" + sdfDate.format(diaryEntry.getDate()).toString() + "/");
-            Firebase newChildRef = ref.push();
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Diary/");
 
-            Firebase childDate = newChildRef.child("date");
-            childDate.setValue(diaryEntry.getDate());
+            Firebase newChildDate = ref.child(sdfDate.format(diaryEntry.getDate()));
 
-            Firebase childTime = newChildRef.child("time");
-            childTime.setValue(sdfTime.format(diaryEntry.getDate()).toString());
+            Firebase childTime = newChildDate.child(sdfTime.format(diaryEntry.getDate()).toString());
 
-            Firebase childPonts = newChildRef.child("totalPoints");
+            Firebase childPonts = childTime.child("totalPoints");
             childPonts.setValue(diaryEntry.getTotalPoints());
 
 
             int i = 0;
             for(Exercise ex : diaryEntry.getExerciseList()){
                 // 1. Ebene
-                Firebase exerciseChild = newChildRef.child("exercise " + String.valueOf(i) + " :");
+                Firebase exerciseChild = childTime.child("exercise " + String.valueOf(i) + " :");
 
                 // 2. Ebene
                 Firebase categoryChild = exerciseChild.child("category");

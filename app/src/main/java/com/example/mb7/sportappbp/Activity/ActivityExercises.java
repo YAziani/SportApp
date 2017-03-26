@@ -17,6 +17,7 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
+import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.BusinessLayer.LeistungstestsExercise;
 import com.example.mb7.sportappbp.BusinessLayer.ReinerAufenthaltExercise;
@@ -25,6 +26,7 @@ import com.example.mb7.sportappbp.BusinessLayer.WellnessExercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 
 public class ActivityExercises extends AppCompatActivity {
 
@@ -202,13 +204,27 @@ public class ActivityExercises extends AppCompatActivity {
 
     private void returnFinalResult(){
 
+        Calendar calendar = Calendar.getInstance();
+
+
         if(exerciseList != null) {
 
+            // if nothing is longclicked -> go to the ActivityStimmung of the selected item
+            Intent open = new Intent(ActivityExercises.this, ActivityDiaryEntry.class);
+            // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+
+            // pass the clicked diaryEntry to the activity
+            open.putParcelableArrayListExtra("oldExercises", exerciseList);
+            open.putExtra("date", calendar.getTime());
+            startActivity(open);
+
+            /*
             Intent intent = new Intent();
             intent.putParcelableArrayListExtra("newExercises", exerciseList);
             intent.putExtra("finalResult", finalResult);
             setResult(RESULT_OK, intent);
             exerciseViewAdapter.notifyDataSetChanged();
+            */
         }
         else
             Toast.makeText(ActivityExercises.this, R.string.KategorieWurdNichtRichtigGewählt, Toast.LENGTH_LONG).show();

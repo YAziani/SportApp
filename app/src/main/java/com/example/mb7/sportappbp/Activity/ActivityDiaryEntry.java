@@ -3,6 +3,7 @@ package com.example.mb7.sportappbp.Activity;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -10,6 +11,7 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.DiaryEntryViewAdapter;
+import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
@@ -24,9 +26,8 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     //request id for the activitiy request
     final static int REQUEST_ID = 1;
-    private boolean newData = true;
+
     private DiaryEntry diaryEntry;
-    private AllDiaryEntries allDiaryEntries;
     private ArrayList<Exercise> exerciseList;
     private GridView gridView;
     private DiaryEntryViewAdapter diaryEntryViewAdapter;
@@ -42,19 +43,42 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diaryentry);
 
+        //todo make diary Entry parceable
+        diaryEntry = new DiaryEntry();
+
+        // Now read the extra key - val
+        Intent iin = getIntent();
+        Bundle extras = iin.getExtras();
+        Log.e("Oncreate","We have reached it");
+        if(extras!=null ) {
+            // read the datetime as this is the unique value in the db for the notification
+            //String notificationDate =(String) extras.get("NotificationDate");
+
+            exerciseList = extras.getParcelableArrayList("oldExercises");
+            Date date = (Date) extras.getSerializable("date");
+            diaryEntry.setExerciseList(exerciseList);
+            diaryEntry.setDate(date);
+            //set flag for saving data later
+            //newData = false;
+            //diaryEntry = (DiaryEntry) iin.getSerializableExtra(getString(R.string.tagebucheintrag));
+        }
+        else{
+
+            //Set attribute
+            diaryEntry.setDate(calendar.getTime());
+            exerciseList = diaryEntry.getExerciseList();
+
+        }
+
+
+
         //Create Firebase reference
         mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
 
-        allDiaryEntries = AllDiaryEntries.getInstance();
+        //allDiaryEntries = AllDiaryEntries.getInstance();
 
-        //Create Diary Entry Object to safe all data
-        diaryEntry = new DiaryEntry();
-        diaryEntry.setDate(calendar.getTime());
 
-        //exerciseList = diaryEntry.getExerciseList();
-        exerciseList = receiveExerciseList();
 
-        diaryEntry.setExerciseList(exerciseList);
 
 
         //set all categories for the viewadapter
@@ -75,6 +99,15 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         gridView.setAdapter(diaryEntryViewAdapter);
     }
 
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+
+        //set the menu with add and save icon
+        inflater.inflate(R.menu.menu_add_and_save , menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item){
@@ -88,19 +121,9 @@ public class ActivityDiaryEntry extends AppCompatActivity {
             case R.id.icon_save:
                 //calculate the totalpoints and save it
                 diaryEntry.setTotalPoints(calculateTotalPoints());
-                //check if a new entry has been created or just been prepared
-                if(!newData) {
-                    //return exerciseList to previous activity (diary)
-                    returnResult();
-                    //save prepared entry to firebase
-                    //todo new save method to save prepared entries
-                    SaveData();
-                    //reset flag
-                    newData = false;
-                }
-                else
-                    //save new entry to database
-                    saveNewData();
+
+                //save new entry to database
+                saveNewData();
                 return true;
 
             default:
@@ -137,7 +160,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         if(diaryEntry.getExerciseList().size() > 0) {
             //save data to firebase
             SaveData();
-            allDiaryEntries.getDiaryList().add(diaryEntry);
+            //allDiaryEntries.getDiaryList().add(diaryEntry);
         }
 
         else//Say that there was nothing to save
@@ -173,7 +196,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         if (extra != null) {
             result = extra.getParcelableArrayList("oldExercises");
             //set flag for saving data later
-            newData = false;
             return result;
         }
         else //else get the current exerciseList of the object

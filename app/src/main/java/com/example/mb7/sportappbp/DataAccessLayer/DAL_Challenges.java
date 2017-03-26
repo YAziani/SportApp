@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
+import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
@@ -27,6 +28,34 @@ public class DAL_Challenges {
      */
     public static void getRegisteredChallengesToNewChallenge(
             final ActivityNewChallenge activity) {
+        // access data in database and hand it to activity
+        try {
+            URL url = new URL(DAL_Utilities.DatabaseURL + "/challenges/");
+            Firebase root = new Firebase(url.toString());
+
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    activity.returnRegisteredChallenges(dataSnapshot);
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * get registered challenges and hand it to the activity
+     *
+     * @param activity the displaying activity
+     */
+    public static void getRegisteredChallengesToChallenge(
+            final ActivityChallenge activity) {
         // access data in database and hand it to activity
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "/challenges/");

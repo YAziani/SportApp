@@ -15,6 +15,7 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 
 import java.util.concurrent.TimeoutException;
+import java.util.regex.Pattern;
 
 /**
  * Created by Aziani on 24.03.2017.

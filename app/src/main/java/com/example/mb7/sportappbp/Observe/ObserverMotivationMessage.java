@@ -68,22 +68,24 @@ public class ObserverMotivationMessage extends Observer {
         }else {
             // go through all entries
             for(String s : intensifier.split(";")) {
-                if(s.split(",").length == 3 &&
-                        !s.split(",")[0].equals("") && !s.split(",")[1].equals("") && !s.split(",")[2].equals("")
-                        && Pattern.matches("[0-9]+",s.split(",")[0])
-                        && Pattern.matches("[0-9]+",s.split(",")[1])
-                        && Pattern.matches("[0-1][,][0-9]+",s.split(",")[2])) {
-                    if(daysFromStart > Integer.valueOf(s.split(",")[0])) {
-                        daysFromStart -= Integer.valueOf(s.split(",")[0]);
-                        continue;
-                    }
-                    if(daysFromStart > Integer.valueOf(s.split(",")[1])) {
-                        Random random = new Random();
-                        return Double.valueOf(s.split(",")[2]) > random.nextDouble();
+                try {
+                    if(s.split(",").length == 3 &&
+                            !s.split(",")[0].equals("") && !s.split(",")[1].equals("") && !s.split(",")[2].equals("")) {
+                        if(daysFromStart > Integer.valueOf(s.split(",")[0])) {
+                            daysFromStart -= Integer.valueOf(s.split(",")[0]);
+                            continue;
+                        }
+                        if(daysFromStart > Integer.valueOf(s.split(",")[1])) {
+                            Random random = new Random();
+                            return Double.valueOf(s.split(",")[2]) > random.nextDouble();
+                        }else {
+                            return false;
+                        }
                     }else {
-                        return false;
+                        return true;
                     }
-                }else {
+                }catch(Exception e) {
+                    e.printStackTrace();
                     return true;
                 }
             }

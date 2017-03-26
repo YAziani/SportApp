@@ -4,29 +4,25 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
 import java.util.Calendar;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 /**
- * Created by Intirion on 25.03.2017.
+ * observer for motivation images
+ * Created by Aziani on 25.03.2017.
  */
 
 public class ObserverMotivationMessage extends Observer {
 
-    short timeOutCounter = 0;
+    private short timeOutCounter = 0;
 
     @Override
     public void update(Context context) {
         this.context = context;
-
-
 
         // check if method allocated
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);

@@ -234,10 +234,12 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         adapter.setStimmung(stimmungsAngabe,getString(R.string.angespannt));
         adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Angespannt!=null? stimmungsAngabe.Angespannt:-1);
         lstAngespannt.setAdapter(adapter);
+
         adapter = new StimmungsViewAdapter(this);
         adapter.setStimmung(stimmungsAngabe,getString(R.string.traurig));
         adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Traurig!=null? stimmungsAngabe.Traurig:-1);
         lstTraurig.setAdapter(adapter);
+
         adapter = new StimmungsViewAdapter(this);
         adapter.setStimmung(stimmungsAngabe,getString(R.string.tatkraeftig));
         adapter.setSelectedIndex(stimmungsAngabe!=null && stimmungsAngabe.Tatkraeftig!=null? stimmungsAngabe.Tatkraeftig:-1);

@@ -1,11 +1,13 @@
 package com.example.mb7.sportappbp.Adapters;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
@@ -17,6 +19,10 @@ import java.util.ArrayList;
 public class FitnessFragebogenViewAdapter extends BaseAdapter {
     private Activity _context;
     private ArrayList<String > antworten;
+    private int ImageId;
+    private FitnessFragebogen fitnessFragebogen=null;
+    private String subject;
+    private Integer selectedIndex=-1;
 
     public FitnessFragebogenViewAdapter(Activity context)
     {
@@ -30,6 +36,12 @@ public class FitnessFragebogenViewAdapter extends BaseAdapter {
         _context = context;
 
     }
+
+    public void setFitnessFragebogen(FitnessFragebogen fitnessFragebogen, String subject){
+        this.fitnessFragebogen=fitnessFragebogen;
+        this.subject=subject;
+    }
+
 
     @Override
     public Object getItem(int position)
@@ -50,7 +62,23 @@ public class FitnessFragebogenViewAdapter extends BaseAdapter {
         TextView txtTitle =(TextView) view.findViewById(R.id.txtTitle);
         txtTitle.setText(nt);
 
+        if (position == selectedIndex) {
+            txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
+        }
+        else {
+            txtTitle.setBackgroundColor(Color.parseColor("#4b6df2"));
+        }
+
         return view;
+    }
+
+    public void setSelectedIndex(Integer position){
+        selectedIndex = position;
+    }
+
+    public Integer getSelectedIndex()
+    {
+        return selectedIndex;
     }
 
     @Override

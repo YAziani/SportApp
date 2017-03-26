@@ -21,7 +21,7 @@
     <string name="ihr_train_begin_in">Ihr Training beginnt in </string>
     <string name="minuten"> Minuten</string>
     <string name="aktivitaetsfragebogen">Aktivitätsfragebogen</string>
-    <string name="aktivitaetsfragebogen_desc">Ihre persönliche Aktivitäten...</string>
+    <string name="aktivitaetsfragebogen_desc">Bewertung der Bewegungs- und Sportaktivität</string>
     <!-- Strings related to login -->
     <string name="prompt_email">E-mail</string>
     <string name="prompt_password">Passwort</string>
@@ -31,10 +31,9 @@
     <string name="error_invalid_password">Passwort zu kurz</string>
     <string name="error_incorrect_password">Passwort inkorrekt</string>
     <string name="error_field_required">Dieses Feld wird benötigt</string>
-    <string name="permission_rationale">"Kontaktberechtigung für Autokompletierung benötigt"
-    </string>
+    <string name="permission_rationale">"Kontaktberechtigung für Autokompletierung benötigt"</string>
     <string name="fitnessfragebogen">Fitnessfragebogen</string>
-    <string name="fitnessfragebogen_desc">Wie fitt sind Sie?</string>
+    <string name="fitnessfragebogen_desc">Erfassung des motorischen Funktionsstatus</string>
     <string name="erfolgreichgespeichert">Erfolgreich gespeichert</string>
     <string name="erfolgreichgeloescht">Erfolgreich gelöscht</string>
     <string name="bitte_geben_sie_moment_fuhlen">Bitte geben Sie an, wie Sie sich jetzt d.h. in diesem Moment fühlen</string>
@@ -59,6 +58,8 @@
     <string name="ntf_title">Fit up</string>
     <string name="ntf_stimmungsabgabe">Es ist bald Zeit zum trainiern. Wie fühlen Sie sich?</string>
     <string name="ntf_stimmungsabgabe_nach">Sie sind fertig mit dem Training. Wie fühlen Sie sich?</string>
+    <string name="ntf_fitnessfragebogen">Wie gut ist ihr Fitnessstand? Beantworten Sie den Fragebogen.</string>
+    <string name="ntf_aktivitaetsfragebogen">Wie aktiv sind Sie? Beantworten Sie den Fragebogen.</string>
     <!--Fitnessfragebogen xml-->
     <string name="Wie_gut_können_Sie_folgende_Tätigkeiten_bewältigen">Wie gut können Sie folgende Tätigkeiten bewältigen? \n</string>
     <string name="Können_Sie">Können Sie... \n</string>

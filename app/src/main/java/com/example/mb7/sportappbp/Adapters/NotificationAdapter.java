@@ -18,6 +18,8 @@ import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivitySettingInitializer;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
+import com.example.mb7.sportappbp.Activity.Activity_lst_bsafragebogen;
+import com.example.mb7.sportappbp.Activity.Activity_lst_fitnessfragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
@@ -69,13 +71,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragebogen))) {
-                Intent open = new Intent(context.getActivity(), ActivityFitnessFragebogen.class);
+                Intent open = new Intent(context.getActivity(), Activity_lst_fitnessfragebogen.class);
                 // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
                 String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.aktivitaetsfragebogen) )) {
-                Intent open = new Intent(context.getActivity(), ActivityFragebogen.class);
+                Intent open = new Intent(context.getActivity(), Activity_lst_bsafragebogen.class);
                 // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
                 String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate",NotificationDate);

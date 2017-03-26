@@ -1,11 +1,13 @@
 package com.example.mb7.sportappbp.Adapters;
 
 import android.app.Activity;
+import android.graphics.Color;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.BaseAdapter;
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
@@ -20,6 +22,9 @@ public class FragebogenViewAdapter2 extends BaseAdapter{
     private Activity _context;
     private ArrayList<String > antworten;
     private int ImageId;
+    private Fragebogen fragebogen=null;
+    private String subject;
+    private Integer selectedIndex = -1;
 
     public FragebogenViewAdapter2(Activity context)
     {
@@ -31,6 +36,11 @@ public class FragebogenViewAdapter2 extends BaseAdapter{
 
         _context = context;
 
+    }
+
+    public void setAntworten(Fragebogen fragebogen, String subject){
+        this.fragebogen=fragebogen;
+        this.subject=subject;
     }
 
     @Override
@@ -52,7 +62,23 @@ public class FragebogenViewAdapter2 extends BaseAdapter{
         TextView txtTitle =(TextView) view.findViewById(R.id.txtTitle);
         txtTitle.setText(nt);
 
+        if (position == selectedIndex) {
+            txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
+        }
+        else {
+            txtTitle.setBackgroundColor(Color.parseColor("#4b6df2"));
+        }
+
         return view;
+    }
+
+    public void setSelectedIndex(Integer position){
+        selectedIndex = position;
+    }
+
+    public Integer getSelectedIndex()
+    {
+        return selectedIndex;
     }
 
     @Override

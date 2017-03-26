@@ -115,7 +115,7 @@ public class ObserverStimmungAngabe extends Observer{
             if (!sendNotif)
             {
                 // insert in the preferences that notification has been sent
-                preferences.edit().putBoolean("N:" + date + " " + lastTrDateInt.toString(),true    ).commit(); ;
+                preferences.edit().putBoolean("N:" + date + " " + lastTrDateInt.toString(),true).commit(); ;
                 // send notification
                 sendNotification(
                         context,

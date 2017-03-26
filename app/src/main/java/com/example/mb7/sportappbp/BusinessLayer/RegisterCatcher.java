@@ -18,14 +18,15 @@ public class RegisterCatcher {
 
     Thread t;
     LinkedList<String> oldRegisteredUsers = new LinkedList<>();
-
-    public void catchRegistration(final ActivityMain activityMain) {
-        DAL_RegisteredUsers.loadRegistration(activityMain,RegisterCatcher.this);
+    User user;
+    public void catchRegistration(User user) {
+        this.user = user;
+        DAL_RegisteredUsers.loadRegistration(RegisterCatcher.this);
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
                 for(int i = 0; i < 60 ; i++) {
-                    DAL_RegisteredUsers.loadRegistration(activityMain,RegisterCatcher.this);
+                    DAL_RegisteredUsers.loadRegistration(RegisterCatcher.this);
                     try {
                         Thread.sleep(10000);
                     }catch(Exception e) {
@@ -41,10 +42,9 @@ public class RegisterCatcher {
 
     /**
      * return texts of registered users
-     * @param activity the main activity
      * @param dataSnapshot snapshot with users
      */
-    public void returnRegistrations(ActivityMain activity, DataSnapshot dataSnapshot) {
+    public void returnRegistrations( DataSnapshot dataSnapshot) {
         if(dataSnapshot == null) {
             return;
         }
@@ -65,8 +65,8 @@ public class RegisterCatcher {
             }
             difference.removeAll(removeList);
             if(difference.size() > 0) {
-                DAL_RegisteredUsers.insertMail(difference.getFirst());
-                ActivityMain.mainUser.setEmail(difference.getFirst());
+                DAL_RegisteredUsers.insertMail(difference.getFirst(),user);
+                user.setEmail(difference.getFirst());
                 if(t!=null){
                     t.interrupt();
                     t = null;

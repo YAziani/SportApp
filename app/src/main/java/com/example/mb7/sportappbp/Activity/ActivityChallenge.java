@@ -55,10 +55,10 @@ public class ActivityChallenge extends AppCompatActivity {
 
         DAL_Challenges.getRegisteredChallengesToChallenge(ActivityChallenge.this);
 
-        challengeName = ActivityMain.mainUser.getChallangeName();
+        challengeName = ActivityMain.getMainUser(this  ).getChallangeName();
 
         //todo load challenge and user from database
-        challenge = ActivityMain.mainUser.getChallenge();
+        challenge = ActivityMain.getMainUser(this  ).getChallenge();
 
         userList = challenge.getUserList();
 

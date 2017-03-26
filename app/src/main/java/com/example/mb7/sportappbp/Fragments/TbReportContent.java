@@ -58,7 +58,7 @@ public class TbReportContent extends TabFragment{
         btnDiary.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                DAL_User.GetStimmnungsabfrage(ActivityMain.mainUser,"20170325");
+                DAL_User.GetStimmnungsabfrage(ActivityMain.getMainUser(getContext()),"20170325");
                 Intent open = new Intent(getActivity(), ActivityDiary.class);
                 startActivity(open);
 
@@ -110,8 +110,8 @@ public class TbReportContent extends TabFragment{
             @Override
             public void onClick(View v) {
 
-                Intent open = new Intent(ActivityMain.activityMain, ActivityKompass.class);
-                ActivityMain.activityMain.startActivity(open);
+                Intent open = new Intent(getContext() ,ActivityKompass.class);
+               getContext().startActivity(open);
 
             }
         });

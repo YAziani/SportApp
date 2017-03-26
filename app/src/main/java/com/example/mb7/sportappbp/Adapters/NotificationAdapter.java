@@ -88,11 +88,10 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.naechstes_training))) {
                 String nextTrainingTime = PreferenceManager
-                        .getDefaultSharedPreferences(ActivityMain.activityMain
-                                .getApplicationContext()).getString("nextTrainingTime","");
+                        .getDefaultSharedPreferences(context.getContext()).getString("nextTrainingTime","");
                 if(!nextTrainingTime.equals("")) {
                     Toast.makeText(
-                            ActivityMain.activityMain,
+                            context.getContext(),
                             context.getString(R.string.ihr_train_begin_in)
                                     + MotivationMethod.timeTillTraining(nextTrainingTime)
                                     + context.getString(R.string.minuten) + ".",

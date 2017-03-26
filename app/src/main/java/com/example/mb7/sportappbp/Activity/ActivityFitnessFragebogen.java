@@ -67,7 +67,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     int gesamtscore;
 
     private Firebase mRootRef;
-
+    ActivityFitnessFragebogen activityFitnessFragebogen = this;
     @Override
     protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
@@ -138,7 +138,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 SaveData();
                 finish();
-                Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
+                Toast ausgabe= Toast.makeText(activityFitnessFragebogen,
                         getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
                 ausgabe.show();
             }
@@ -170,7 +170,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
 
     private boolean SaveData() {
         FitnessFragebogen fitnessfragebogen = getData();
-        ActivityMain.mainUser.SaveFitnessFragebogen(fitnessfragebogen,new Date());
+        ActivityMain.getMainUser(this).SaveFitnessFragebogen(fitnessfragebogen,new Date());
 
         return true;
     }

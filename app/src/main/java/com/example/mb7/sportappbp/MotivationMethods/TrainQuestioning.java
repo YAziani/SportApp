@@ -78,7 +78,7 @@ public class TrainQuestioning extends MotivationMethod {
                 },10800000);
                 return true;
             }else {
-                BackgroundClock.startRating(false);
+                BackgroundClock.startRating(false,activity);
                 preferences.edit().remove("willTrain").apply();
             }
         }

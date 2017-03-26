@@ -42,7 +42,9 @@ public abstract class Observer {
         // first save the data in database
         String sDate =  saveNotificationDB(context,strategyname, text);
         // now show the notification
-        createNotification(context, sDate, cls, title,text, icon    );
+        if (!sDate.equals(""))
+            createNotification(context, sDate, cls, title,text, icon    );
+
     }
 
     /**
@@ -242,7 +244,7 @@ public abstract class Observer {
      * @param context
      * @return
      */
-    public Integer getNextTrainingTimeInteger(Context context){
+    final public Integer getNextTrainingTimeInteger(Context context){
         String preferenceString = preferences.getString(getCurrentWeekday(), "");
         insertTrainingdates(preferenceString);
         Date date = new Date();
@@ -275,6 +277,11 @@ public abstract class Observer {
      * @param context
      * @return
      */
+    /**
+     * get the time of the last training time
+     * @param context
+     * @return
+     */
     public Integer getLastTrainingTime(Context context){
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String preferenceString = preferences.getString(getCurrentWeekday(), "");
@@ -301,10 +308,10 @@ public abstract class Observer {
                 }
             }
         }
-        if (lastTraining == "")
-            return 0;
-        else
-            return Integer.valueOf(lastTraining.split(":")[0]) * 60
-                + Integer.valueOf(lastTraining.split(":")[1]);
+        if(lastTraining.equals("")) {
+            return -1;
+        }else {
+            return Integer.valueOf(lastTraining.split(":")[0]) * 60 + Integer.valueOf(lastTraining.split(":")[1]);
+        }
     }
 }

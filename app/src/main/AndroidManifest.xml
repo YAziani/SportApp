@@ -73,8 +73,8 @@
             android:label="@string/title_activity_login" />
 
         <receiver
-            android:name=".Utilities.AlertReceiver"
-            android:process=":remote" />
+            android:name=".Utilities.AlertReceiver"  android:process=":remote" /><!-- android:process=":remote" -->
+
 
         <activity android:name=".Activity.Activity_lst_stimmungsabfrage" />
         <activity android:name=".Activity.ActivityAbout"></activity>

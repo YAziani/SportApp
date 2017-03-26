@@ -43,7 +43,7 @@ public class ActivitySettings extends Activity {
 //        startActivity(i);
         super.onBackPressed();
         finish();
-        Toast.makeText(ActivityMain.activityMain,
+        Toast.makeText(this,
                 getString(R.string.erfolgreichgespeichert) ,Toast.LENGTH_SHORT).show();
     }
 

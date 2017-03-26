@@ -55,6 +55,7 @@ public class ActivityFragebogen extends AppCompatActivity{
     int itemintensivebewegung;
 
     private Firebase mRootRef;
+    private ActivityFragebogen activityFragebogen = this;
 
     @Override
     protected void onCreate(Bundle savedInstanceState){
@@ -110,7 +111,7 @@ public class ActivityFragebogen extends AppCompatActivity{
             public void onClick(DialogInterface dialog, int which) {
                 SaveData();
                 finish();
-                Toast ausgabe= Toast.makeText(ActivityMain.activityMain,
+                Toast ausgabe= Toast.makeText(activityFragebogen,
                         getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
                 ausgabe.show();
             }
@@ -167,7 +168,7 @@ public class ActivityFragebogen extends AppCompatActivity{
 
     private boolean SaveData(){
         Fragebogen fragebogen = getData();
-        ActivityMain.mainUser.SaveFragebogen(fragebogen, new Date());
+        ActivityMain.getMainUser(this).SaveFragebogen(fragebogen, new Date());
 
         return true;
 

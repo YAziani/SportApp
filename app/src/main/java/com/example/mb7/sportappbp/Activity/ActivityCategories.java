@@ -1,10 +1,12 @@
 package com.example.mb7.sportappbp.Activity;
 
 import android.app.ActionBar;
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -17,10 +19,13 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
+import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
+import java.util.Calendar;
+import java.util.Date;
 
 public class ActivityCategories extends AppCompatActivity {
     //request id for the activitiy request
@@ -33,6 +38,8 @@ public class ActivityCategories extends AppCompatActivity {
     ExerciseViewAdapter exerciseViewAdapter;
 
     ArrayList<Exercise> exerciseList;
+    Calendar calendar = Calendar.getInstance();
+    Date date;
     String activity;
 
     private Boolean finalResult = false;
@@ -43,6 +50,26 @@ public class ActivityCategories extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_categories);
 
+
+        // Now read the extra key - exerciseList
+        Intent iin = getIntent();
+        Bundle extras = iin.getExtras();
+        Log.e("Oncreate","We have reached it");
+        if(extras!=null ) {
+
+            //Get unpack the exerciseList und date
+            exerciseList = extras.getParcelableArrayList("oldExercises");
+            date = (Date) extras.getSerializable("date");
+    }
+        else{
+
+            //Set attribute
+            exerciseList = new ArrayList<Exercise>();
+            date = calendar.getTime();
+
+        }
+
+
         ActionBar actionbar = getActionBar();
         if(actionbar != null){
             actionbar.setHomeButtonEnabled(false);
@@ -50,7 +77,7 @@ public class ActivityCategories extends AppCompatActivity {
             actionbar.setDisplayShowHomeEnabled(false);
         }
 
-        exerciseList = receiveExerciseList();
+        //exerciseList = receiveExerciseList();
 
         listView = (ListView) findViewById(R.id.listviewCategories);
         arrayAdapter = new ArrayAdapter<String>(ActivityCategories.this, android.R.layout.simple_list_item_1, getResources().getStringArray(R.array.ArrayCategories));
@@ -61,19 +88,19 @@ public class ActivityCategories extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 String category = (String) adapterView.getItemAtPosition(position);
-
+                //todo change String
                 switch (category){
                     case "Leistungstests":
-                        forwardOldExerciseList(R.string.Leistungstests , exerciseList);
+                        forwardOldExerciseList(R.string.Leistungstests);
                         break;
                     case "Training":
-                        forwardOldExerciseList(R.string.Training, exerciseList);
+                        forwardOldExerciseList(R.string.Training);
                         break;
                     case "Wellness":
-                        forwardOldExerciseList(R.string.Wellness, exerciseList);
+                        forwardOldExerciseList(R.string.Wellness);
                         break;
                     case "Reiner Aufenthalt":
-                        forwardOldExerciseList(R.string.ReinerAufenthalt, exerciseList);
+                        forwardOldExerciseList(R.string.ReinerAufenthalt);
                         break;
                     default:
 
@@ -148,12 +175,25 @@ public class ActivityCategories extends AppCompatActivity {
         finish();
     }
 
-    private void forwardOldExerciseList(int category, ArrayList<Exercise> exerciseList){
+    private void forwardOldExerciseList(int category){
 
+        // if nothing is longclicked -> go to the ActivityStimmung of the selected item
+        Intent open = new Intent(ActivityCategories.this , ActivityExercises.class);
+        // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+
+        // pass the clicked diaryEntry to the activity
+        open.putParcelableArrayListExtra("oldExercises", exerciseList);
+        open.putExtra("date", date);
+        open.putExtra("category", category);
+        finish();
+        startActivity(open);
+
+        /*
         Intent intent = new Intent(ActivityCategories.this, ActivityExercises.class);
         intent.putExtra("category", category);
         intent.putParcelableArrayListExtra("oldExercises", exerciseList);
         startActivityForResult(intent, REQUEST_ID);
+        */
     }
 
     private void receiveSerializable(){
@@ -268,4 +308,5 @@ public class ActivityCategories extends AppCompatActivity {
         dialog.show();
 
     }
+
 }

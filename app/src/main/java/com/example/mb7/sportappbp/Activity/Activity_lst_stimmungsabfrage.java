@@ -43,6 +43,7 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lst_stimmungsabfrage);
+
         setTitle(getString(R.string.stimmungsabgaben));
 
         activityLstStimmungsabfrage = this;

@@ -16,6 +16,7 @@ public class User {
     private int points;
     private Challenge challenge = null;
     private String email;
+    private String challangeName;
 
 
 
@@ -35,6 +36,15 @@ public class User {
     public void setEmail(String email){
         this.email = email;
     }
+
+    public void setChallangeName(String challangeName){
+        this.challangeName = challangeName;
+    }
+
+    public String getChallangeName(){
+        return challangeName;
+    }
+
     public String getEmail(){
         return this.email;
     }

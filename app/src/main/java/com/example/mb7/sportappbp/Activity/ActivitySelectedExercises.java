@@ -4,6 +4,7 @@ import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -21,6 +22,7 @@ import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
+import java.util.Date;
 
 
 public class ActivitySelectedExercises extends AppCompatActivity {
@@ -30,6 +32,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
     ListView listView;
     ExerciseViewAdapter exerciseViewAdapter;
     ArrayList<Exercise> exerciseList;
+    Date date;
 
 
     @Override
@@ -37,8 +40,26 @@ public class ActivitySelectedExercises extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_selectedexercises);
 
+
+        // Now read the extra key - exerciseList
+        Intent iin = getIntent();
+        Bundle extras = iin.getExtras();
+        Log.e("Oncreate","We have reached it");
+        if(extras!=null ) {
+
+            //Get unpack the exerciseList und date
+            exerciseList = extras.getParcelableArrayList("oldExercises");
+            date = (Date) extras.getSerializable("date");
+        }
+        else{
+
+            //Set attribute
+            exerciseList = new ArrayList<Exercise>();
+
+        }
+
         //receive exercise list
-        exerciseList = receiveExerciseList();
+        //exerciseList = receiveExerciseList();
 
         listView = (ListView)findViewById(R.id.listviewActivityOverview);
         exerciseViewAdapter = new ExerciseViewAdapter(ActivitySelectedExercises.this, exerciseList);
@@ -93,10 +114,14 @@ public class ActivitySelectedExercises extends AppCompatActivity {
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_add:
-                sendOldAndRequestNewExerciseList(exerciseList);
+                //sendOldAndRequestNewExerciseList(exerciseList);
+                openActivityWithExtra(ActivityCategories.class);
+                finish();
                 return true;
             case R.id.icon_save:
-                returnResult();
+                openActivityWithExtra(ActivityDiaryEntry.class);
+                finish();
+                //returnResult();
                 return true;
 
             default:
@@ -226,6 +251,19 @@ public class ActivitySelectedExercises extends AppCompatActivity {
 
         //show the dialog window
         dialog.show();
+
+    }
+
+    private void openActivityWithExtra(Class destinationClass){
+
+        // if nothing is longclicked -> go to the ActivityStimmung of the selected item
+        Intent open = new Intent(ActivitySelectedExercises.this , destinationClass);
+        // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+
+        // pass the clicked diaryEntry to the activity
+        open.putParcelableArrayListExtra("oldExercises", exerciseList);
+        open.putExtra("date", date);
+        startActivity(open);
 
     }
 

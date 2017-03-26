@@ -107,12 +107,6 @@ public class DiaryEntryViewAdapter extends BaseAdapter{
         return _categories.size();
     }
 
-    public String buildString(int points){
-        StringBuilder sb = new StringBuilder();
-        sb.append(points).append(" ");
-
-        return sb.toString();
-    }
 
 }
 

@@ -1,9 +1,11 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -27,6 +29,7 @@ import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;
 import java.util.Calendar;
+import java.util.Date;
 
 public class ActivityExercises extends AppCompatActivity {
 
@@ -45,6 +48,7 @@ public class ActivityExercises extends AppCompatActivity {
 
     private boolean finalResult = false;
 
+    Date date;
 
 
     @Override
@@ -52,10 +56,30 @@ public class ActivityExercises extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises);
 
+        // Now read the extra key - exerciseList
+        Intent iin = getIntent();
+        Bundle extras = iin.getExtras();
+        Log.e("Oncreate","We have reached it");
+        if(extras!=null ) {
+
+            //Get unpack the exerciseList und date
+            exerciseList = extras.getParcelableArrayList("oldExercises");
+            date = (Date) extras.getSerializable("date");
+            selectedCategory = extras.getInt("category");
+            //set attribute
+        }
+        else{
+
+            //Set attribute
+            exerciseList = new ArrayList<Exercise>();
+            selectedCategory = 0;
+
+        }
+
         //get the selected category of the previous activity (categories)
-        selectedCategory = receiveCategory();
+        //selectedCategory = receiveCategory();
         //get the already selected exercises
-        exerciseList = receiveExerciseList();
+        //exerciseList = receiveExerciseList();
 
         //Set title of the label
         setTitle(selectedCategory);
@@ -116,12 +140,14 @@ public class ActivityExercises extends AppCompatActivity {
             case android.R.id.home:
                 //save the selected items and send them to the previous activity
                 //returnResult();
+                openActivityWithExtra(ActivityCategories.class);
                 //close the activity
                 finish();
                 return true;
             case R.id.icon_save:
                 finalResult = true;
-                returnFinalResult();
+                //returnFinalResult();
+                openActivityWithExtra(ActivityDiaryEntry.class);
                 finish();
                 return true;
 
@@ -172,6 +198,7 @@ public class ActivityExercises extends AppCompatActivity {
     private ArrayList<Exercise> receiveExerciseList(){
 
         ArrayList<Exercise> result;
+
         final Bundle extra = getIntent().getExtras();
 
         if (extra != null) {
@@ -329,6 +356,19 @@ public class ActivityExercises extends AppCompatActivity {
 
         //show the dialog window
         dialog.show();
+
+    }
+
+    private void openActivityWithExtra(Class destinationClass){
+
+            // if nothing is longclicked -> go to the ActivityStimmung of the selected item
+            Intent open = new Intent(ActivityExercises.this , destinationClass);
+            // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+
+            // pass the clicked diaryEntry to the activity
+            open.putParcelableArrayListExtra("oldExercises", exerciseList);
+            open.putExtra("date", date);
+            startActivity(open);
 
     }
 

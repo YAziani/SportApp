@@ -100,8 +100,8 @@ public class ActivityDiary extends AppCompatActivity {
         switch (item.getItemId()) {
             case R.id.icon_add:
 
-                //dialog window zum Datum bestimmen
-                Intent open = new Intent(activityDiary, ActivityDiaryEntry.class);
+                //open activity to create a new diaryEntry
+                Intent open = new Intent(activityDiary, ActivityCategories.class);
                 startActivity(open);
                 break;
         }

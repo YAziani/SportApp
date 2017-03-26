@@ -37,8 +37,7 @@
         </activity>
         <activity
             android:name=".Activity.ActivityDiaryEntry"
-            android:label="@string/tagebucheintrag"
-            android:parentActivityName=".Activity.ActivityMain" />
+            android:label="@string/tagebucheintrag"/>
         <activity
             android:name=".Activity.ActivityDiary"
             android:label="@string/Tagebuch"

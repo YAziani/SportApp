@@ -35,6 +35,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     private Calendar calendar = Calendar.getInstance();
     ArrayList<Integer> listCategories = new ArrayList<Integer>();
     ArrayList<Integer> listIcons = new ArrayList<Integer>();
+    Date date;
 
 
 
@@ -46,21 +47,18 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         //todo make diary Entry parceable
         diaryEntry = new DiaryEntry();
 
-        // Now read the extra key - val
+        // Now read the extra key - exerciseList
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
         Log.e("Oncreate","We have reached it");
         if(extras!=null ) {
-            // read the datetime as this is the unique value in the db for the notification
-            //String notificationDate =(String) extras.get("NotificationDate");
 
+            //Get unpack the exerciseList und date
             exerciseList = extras.getParcelableArrayList("oldExercises");
-            Date date = (Date) extras.getSerializable("date");
+            date = (Date) extras.getSerializable("date");
+            //set attribute
             diaryEntry.setExerciseList(exerciseList);
             diaryEntry.setDate(date);
-            //set flag for saving data later
-            //newData = false;
-            //diaryEntry = (DiaryEntry) iin.getSerializableExtra(getString(R.string.tagebucheintrag));
         }
         else{
 
@@ -116,14 +114,26 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         switch (item.getItemId()){
             case R.id.icon_add:
                 //send current list to the next activity and open it (categories)
-                sendOldAndRequestNewExerciseList();
+                //sendOldAndRequestNewExerciseList();
+                openSelectedExercises();
+                finish();
+
                 return true;
             case R.id.icon_save:
                 //calculate the totalpoints and save it
                 diaryEntry.setTotalPoints(calculateTotalPoints());
 
-                //save new entry to database
-                saveNewData();
+                //check if any exercises have been added to the list
+                if(diaryEntry.getExerciseList().size() > 0) {
+                    //save data to firebase
+                    SaveData();
+                    //allDiaryEntries.getDiaryList().add(diaryEntry);
+                }
+
+                else//Say that there was nothing to save
+                    Toast.makeText(ActivityDiaryEntry.this, R.string.keintagebucheintragerstellt , Toast.LENGTH_SHORT).show();
+
+                finish();
                 return true;
 
             default:
@@ -152,30 +162,12 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     }
 
     /**
-     *
-     */
-    private void saveNewData() {
-
-        //check if any exercises have been added to the list
-        if(diaryEntry.getExerciseList().size() > 0) {
-            //save data to firebase
-            SaveData();
-            //allDiaryEntries.getDiaryList().add(diaryEntry);
-        }
-
-        else//Say that there was nothing to save
-            Toast.makeText(ActivityDiaryEntry.this, R.string.keintagebucheintragerstellt , Toast.LENGTH_SHORT).show();
-
-        finish();
-    }
-
-    /**
      * Save diaryEntry to Firebase
      * @return
      */
     private boolean SaveData(){
 
-        ActivityMain.mainUser.GetLastTodayDiaryEntry(new Date());
+        //ActivityMain.mainUser.GetLastTodayDiaryEntry(new Date());
         ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
         Toast.makeText(ActivityDiaryEntry.this, R.string.Tagebucheintraggespeichert , Toast.LENGTH_SHORT).show();
 
@@ -242,6 +234,18 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         int totalPoints = leistungstests +training + wellness + reinerAufenthalt;
 
         return totalPoints;
+    }
+
+    private void openSelectedExercises(){
+
+            Intent open = new Intent(ActivityDiaryEntry.this , ActivitySelectedExercises.class);
+
+            // pass the clicked diaryEntry to the activity
+            open.putParcelableArrayListExtra("oldExercises", exerciseList);
+            open.putExtra("date", date);
+            open.putExtra("prepare", true);
+            startActivity(open);
+
     }
 
 }

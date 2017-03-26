@@ -1,8 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,13 +16,11 @@ import android.widget.ListView;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.DiaryViewAdapter;
-import com.example.mb7.sportappbp.Adapters.DiaryViewAdapterNew;
 import com.example.mb7.sportappbp.BusinessLayer.LeistungstestsExercise;
 import com.example.mb7.sportappbp.BusinessLayer.ReinerAufenthaltExercise;
 import com.example.mb7.sportappbp.BusinessLayer.TrainingExercise;
 import com.example.mb7.sportappbp.BusinessLayer.WellnessExercise;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
-import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
@@ -64,12 +60,12 @@ public class ActivityDiary extends AppCompatActivity {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_lst_stimmungsabfrage);
+        setContentView(R.layout.activity_diary);
 
         activityDiary = this;
 
         // we want to make a context menu for our RecyclerView to show delelete Button when long clicked
-        rv = (RecyclerView) findViewById(R.id.recycler_stmAbfrage);
+        rv = (RecyclerView) findViewById(R.id.recycler_diary);
         registerForContextMenu(rv);
 
     }
@@ -114,7 +110,7 @@ public class ActivityDiary extends AppCompatActivity {
         switch (item.getItemId())
         {
             case R.id.deleteItem:
-                deleteDiaryEntry( ((DiaryViewAdapterNew)rv.getAdapter()).getSelectedObject());
+                deleteDiaryEntry( ((DiaryViewAdapter)rv.getAdapter()).getSelectedObject());
                 Toast.makeText(this,getString(R.string.erfolgreichgeloescht),Toast.LENGTH_SHORT).show();
                 break;
 
@@ -276,7 +272,7 @@ public class ActivityDiary extends AppCompatActivity {
                                                 LinearLayoutManager lm = new LinearLayoutManager(activityDiary);
                                                 rv.setLayoutManager(lm);
                                                 // just create a list of tasks
-                                                rv.setAdapter(new DiaryViewAdapterNew(diaryEntries, activityDiary));
+                                                rv.setAdapter(new DiaryViewAdapter(diaryEntries, activityDiary));
                                                 pd.dismiss();
                                             }
                                         }

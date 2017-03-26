@@ -1,63 +1,136 @@
 package com.example.mb7.sportappbp.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
+import android.graphics.Color;
+import android.support.v7.widget.CardView;
+import android.support.v7.widget.RecyclerView;
+import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.BaseAdapter;
+import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.R;
 
-import java.text.SimpleDateFormat;
-import java.util.ArrayList;
+import java.util.List;
 
 /**
- * Created by Basti on 21.03.2017.
+ * Created by M.Braei on 25.03.2017.
  */
 
-public class DiaryViewAdapter extends BaseAdapter {
+public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.DiaryEntryHolder> {
 
-    private Activity _context;
-    private ArrayList<DiaryEntry> _diaryEntries;
-    SimpleDateFormat sdfDate = new SimpleDateFormat("dd.MM.yyyy");
-    SimpleDateFormat sdfTime = new SimpleDateFormat("HH:mm:ss");
+    List<DiaryEntry> diaryEntries;
+    Activity context;
+    Integer selectedPosition = -1;
 
-    public DiaryViewAdapter(Activity context, ArrayList<DiaryEntry> diaryEntries)
+    public  class DiaryEntryHolder extends RecyclerView.ViewHolder  {
+        CardView cv;
+        TextView txtTitle;
+        TextView txtSubText;
+        ImageView imageView;
+        public View view   ;
+        DiaryEntryHolder(View itemView) {
+            super(itemView);
+            txtTitle = (TextView) itemView.findViewById(R.id.txtDateStmAbfrage);
+            txtSubText = (TextView) itemView.findViewById(R.id.txtTimeStmAbfrage);
+            cv = (CardView) itemView.findViewById(R.id.card_view_stmAbgabe);
+            imageView = (ImageView) itemView.findViewById(R.id.imgViewstimmungabgabe);
+            view = itemView;
+        }
+
+    }
+    public DiaryViewAdapter(List<DiaryEntry> diaryEntries, Activity context){
+        this.diaryEntries = diaryEntries;
+        this.context = context;
+    }
+
+    @Override
+    public int getItemCount() {
+        return diaryEntries.size();
+    }
+
+    @Override
+    public DiaryEntryHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_stimmungabgabe, viewGroup, false);
+        DiaryEntryHolder bvh = new DiaryEntryHolder(v);
+        return bvh;
+    }
+
+    @Override
+    public void onBindViewHolder(final DiaryEntryHolder holder, final int position) {
+        DiaryEntryHolder diaryEntryHolder = (DiaryEntryHolder) holder;
+        diaryEntryHolder.txtTitle.setText(diaryEntries.get(position).sDate);
+        diaryEntryHolder.txtSubText.setText(diaryEntries.get(position).sTime   );
+        diaryEntryHolder.imageView.setImageResource(R.mipmap.ic_trainingseinheit);
+
+        if (position == selectedPosition)
+        {
+            diaryEntryHolder.itemView.setBackgroundColor(Color.GRAY);
+        }
+        else
+        {
+            diaryEntryHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
+        }
+
+        holder.view.setOnLongClickListener(new View.OnLongClickListener(){
+            @Override
+            public boolean onLongClick(View v) {
+                // reset the previous item as unselected if exists
+                if (selectedPosition != -1)
+                    notifyItemChanged(selectedPosition);
+                // set the new item as selected
+                selectedPosition = position;
+                notifyItemChanged(selectedPosition);
+
+
+                return false;
+            }
+
+        });
+        holder.view.setOnClickListener(new View.OnClickListener(){
+            @Override
+            public void onClick(View v) {
+
+                // if an item is longclicked -> exit longcligck state
+                if (selectedPosition != -1) {
+                    notifyItemChanged(selectedPosition);
+                    selectedPosition = -1;
+
+                }
+
+
+                else {
+
+                    // if nothing is longclicked -> go to the ActivityStimmung of the selected item
+                    Intent open = new Intent(context, ActivityDiaryEntry.class);
+                    // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+
+                    // pass the clicked diaryEntry to the activity
+                    DiaryEntry diaryEntry = diaryEntries.get(position);
+                    open.putParcelableArrayListExtra("oldExercises", diaryEntry.getExerciseList());
+                    open.putExtra("date", diaryEntry.getDate());
+                    context.startActivity(open);
+                }
+
+            }
+        });
+    }
+
+    public DiaryEntry getSelectedObject()
     {
-        _diaryEntries = diaryEntries;
-        _context = context;
+        return diaryEntries.get(selectedPosition);
     }
 
     @Override
-    public Object getItem(int position) {
-        return _diaryEntries.get(position);
+    public void onAttachedToRecyclerView(RecyclerView recyclerView) {
+        super.onAttachedToRecyclerView(recyclerView);
     }
 
-    @Override
-    public long getItemId(int position) {
-        return position;
-    }
-
-    @Override
-    public View getView(int position, View convertView, ViewGroup parent) {
-
-        View view = convertView;
-        DiaryEntry diaryEntry = _diaryEntries.get(position);
-        if (view == null)
-            view = _context.getLayoutInflater().inflate(android.R.layout.simple_list_item_1, null);
-
-        //Set the date and time of the diaryEntry into the text field
-        TextView txtTitle =(TextView) view.findViewById(android.R.id.text1);
-        txtTitle.setText( _context.getResources().getString(R.string.Vom) +" "+
-                sdfDate.format(diaryEntry.getDate()) + ", " + _context.getResources().getString(R.string.um) + " " +
-                sdfTime.format(diaryEntry.getDate()) +
-                " " + _context.getResources().getString(R.string.Uhr));
-        return view;
-    }
-
-    @Override
-    public int getCount() {
-        return _diaryEntries.size();
-    }
 }
+
+
+

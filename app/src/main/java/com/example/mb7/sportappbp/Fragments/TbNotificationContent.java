@@ -17,6 +17,7 @@ import com.example.mb7.sportappbp.Adapters.NotificationAdapter;
 import com.example.mb7.sportappbp.Adapters.NotificationViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
+import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -153,6 +154,27 @@ public class TbNotificationContent extends TabFragment {
                         }
 
                     }
+
+                    // reminder notification
+                    boolean containsReminder = false;
+                    for(Notification n : notifications) {
+                        if(n.getTitle().equals(getString(R.string.trNotiTitle))) {
+                            containsReminder = true;
+                            break;
+                        }
+                    }
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                    String nextTrainingTime = preferences.getString("nextTrainingTime","");
+                    if(!containsReminder && !nextTrainingTime.equals("")) {
+                        notifications.add(new Notification(
+                                getString(R.string.trNotiTitle),
+                                getString(R.string.trNotiSmallTitle1)
+                                        +" "+ MotivationMethod.timeTillTraining(nextTrainingTime)
+                                        +" "+ getString(R.string.trNotiSmallTitle2).split("\n")[0],
+                                R.mipmap.ic_fittnessfragebogen,new Date())
+                        );
+                    }
+
                     if (notifications != null) {
                         Collections.reverse(notifications);
                         // fill the recycler

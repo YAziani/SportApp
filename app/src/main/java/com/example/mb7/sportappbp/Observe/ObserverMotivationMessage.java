@@ -37,7 +37,7 @@ public class ObserverMotivationMessage extends Observer {
         if(timeOutCounter > 0) {
             timeOutCounter--;
         }else {
-            //sendNotification(context,"a",ActivityMain.class,String.valueOf(getNextTrainingTimeString(context)),String.valueOf(MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))),R.mipmap.ic_trainingseinheit);
+            //sendNotification(context,"a",ActivityMain.class,String.valueOf(getNextTrainingTimeString(context)),String.valueOf(MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))),R.mipmap.ic_tagebuch_eintrag);
             if(!getNextTrainingTimeString(context).equals("")
                     && MotivationMessage.timeTillTraining(getNextTrainingTimeString(context)) == 5) {
                 if(checkIntensifier()) {
@@ -47,7 +47,7 @@ public class ObserverMotivationMessage extends Observer {
                             ActivityMotivationMessage.class,
                             context.getString(R.string.mmNotiTitle),
                             context.getString(R.string.mmNotiSmallTitle),
-                            R.mipmap.ic_trainingseinheit);
+                            R.mipmap.ic_tagebuch_eintrag);
                     timeOutCounter = 5;
                 }
             }

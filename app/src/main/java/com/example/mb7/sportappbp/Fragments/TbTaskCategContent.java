@@ -99,12 +99,11 @@ public class TbTaskCategContent extends TabFragment {
         setTitle(getString( R.string.aktivitaeten));
         view = inflater.inflate(R.layout.tbtaskcontent, container, false);
 
-        TaskCategory tc1 = new TaskCategory(getString( R.string.tagebucheintrag),getString(R.string.tagebucheintrag_desc), R.mipmap.ic_trainingseinheit);
-        TaskCategory tc2 = new TaskCategory(getString( R.string.stimmungsabgabe), getString( R.string.stimmungsabgabe_desc), R.mipmap.ic_stimmungsabgabe);
-        TaskCategory tc3 = new TaskCategory(getString( R.string.aktivitaetsfragebogen), getString( R.string.aktivitaetsfragebogen_desc),R.mipmap.ic_aktivitaetfragebogen);
-        TaskCategory tc4 = new TaskCategory(getString( R.string.fitnessfragebogen), getString( R.string.fitnessfragebogen_desc),R.mipmap.ic_fitness_fragebogen);
-        TaskCategory tc5 = new TaskCategory(getString( R.string.trainingszeiten_und_studioadresse), "",R.drawable.settings_icon);
-
+        TaskCategory tc1 = new TaskCategory(getString( R.string.tagebucheintrag),getString(R.string.tagebucheintrag_desc), R.mipmap.ic_tagebuch_eintrag);
+        TaskCategory tc2 = new TaskCategory(getString( R.string.stimmungsabgabe), getString( R.string.stimmungsabgabe_desc), R.mipmap.ic_stimmungs_abgabe);
+        TaskCategory tc3 = new TaskCategory(getString( R.string.aktivitaetsfragebogen), getString( R.string.aktivitaetsfragebogen_desc),R.mipmap.ic_aktivitaets_fragebogen);
+        TaskCategory tc4 = new TaskCategory(getString( R.string.fitnessfragebogen), getString( R.string.fitnessfragebogen_desc),R.mipmap.ic_fittnessfragebogen);
+        TaskCategory tc5 = new TaskCategory(getString( R.string.trainingszeiten_und_studioadresse), getString(R.string.wann_und_wo_findet_training_statt),R.mipmap.ic_trainings_zeiten_ort);
         taskCategories =new LinkedList<TaskCategory>(Arrays.asList(tc1,tc2,tc3,tc4,tc5));
 
         rv = (RecyclerView)view.findViewById(R.id.recyclerTaskCateg);

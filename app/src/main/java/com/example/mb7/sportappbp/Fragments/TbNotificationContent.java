@@ -135,16 +135,16 @@ public class TbNotificationContent extends TabFragment {
                             Notification notification = null;
                             // Now create our Notifications
                             if (title.equals( getString( R.string.stimmungsabgabe))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_stimmungsabgabe,date);
+                                notification = new Notification( title,subtext,R.mipmap.ic_stimmungs_abgabe,date);
                             }
                             else if(title.equals( getString(R.string.tagebucheintrag))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_trainingseinheit,date);
+                                notification = new Notification( title,subtext,R.mipmap.ic_tagebuch_eintrag,date);
                             }
                             else if(title.equals( getString(R.string.fitnessfragebogen))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_fitness_fragebogen,date);
+                                notification = new Notification( title,subtext,R.mipmap.ic_aktivitaets_fragebogen,date);
                             }
                             else if(title.equals(getString(R.string.aktivitaetsfragebogen))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_aktivitaetfragebogen,date);
+                                notification = new Notification( title,subtext,R.mipmap.ic_fittnessfragebogen,date);
                             }
 
 

@@ -37,7 +37,7 @@ public class ObserverTrainQuestioning extends Observer{
                         ActivityMain.class,
                         context.getString(R.string.tqNotiTitle),
                         context.getString(R.string.tqNotiSmallTitle),
-                        R.mipmap.ic_trainingseinheit);
+                        R.mipmap.ic_tagebuch_eintrag);
                 timeOutCounter = 5;
             }
         }

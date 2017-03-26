@@ -126,7 +126,7 @@ public class ObserverTrainingReminder extends Observer {
                                     context.getString(R.string.trNotiSmallTitle1)
                                             +" "+ MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))
                                             +" "+ context.getString(R.string.trNotiSmallTitle2),
-                                    R.mipmap.ic_trainingseinheit);
+                                    R.mipmap.ic_tagebuch_eintrag);
                             timeOutCounter = 5;
                             preferences.edit().putBoolean("reminderNotified", true).apply();
                             return;

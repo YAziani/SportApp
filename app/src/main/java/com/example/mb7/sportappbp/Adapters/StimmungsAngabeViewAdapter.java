@@ -75,7 +75,7 @@ public class StimmungsAngabeViewAdapter extends RecyclerView.Adapter<StimmungsAn
         StimmungsAngabeViewAdapter.StimmungsAngabeHolder stimmungsAngabeHolder = (StimmungsAngabeViewAdapter.StimmungsAngabeHolder) holder;
         stimmungsAngabeHolder.txtTitle.setText(stimmungsAngaben.get(position).Date);
         stimmungsAngabeHolder.txtSubText.setText(stimmungsAngaben.get(position).Time   );
-        stimmungsAngabeHolder.imageView.setImageResource(R.mipmap.ic_stimmungsabgabe);
+        stimmungsAngabeHolder.imageView.setImageResource(R.mipmap.ic_stimmungs_abgabe);
 
         if (position == selectedPosition)
         {

@@ -10,6 +10,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mb7.sportappbp.Activity.ActivityCategories;
+import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
@@ -49,7 +50,7 @@ public class TaskCategAdapter  extends RecyclerView.Adapter<TaskCategAdapter.Tas
         @Override
         public void onClick(View view) {
             if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.tagebucheintrag))) {
-                Intent open = new Intent(context.getActivity(), ActivityCategories.class);
+                Intent open = new Intent(context.getActivity(), ActivityDiary.class);
                 // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
                 context.startActivity(open);
 

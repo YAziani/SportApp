@@ -39,7 +39,7 @@ public class ExampleUnitTest   {
         StimmungsAngabe stimmungsAngabe = new StimmungsAngabe();
         stimmungsAngabe.Muede = 2;
         stimmungsAngabe.Vor = true;
-        DAL_User.InsertStimmung(user  , stimmungsAngabe,new Date());
+        DAL_User.InsertStimmung(user  , stimmungsAngabe);
 
     }
 
@@ -110,7 +110,7 @@ public class ExampleUnitTest   {
         teststimmung.Traurig=0;
         teststimmung.Wuetend=0;
         teststimmung.Zerstreut=0;
-        DAL_User.InsertStimmung(Testperson1, teststimmung, testdate1);
+        DAL_User.InsertStimmung(Testperson1, teststimmung);
         return teststimmung;
 
 
@@ -131,7 +131,7 @@ public class ExampleUnitTest   {
         teststimmung.Traurig=0;
         teststimmung.Wuetend=0;
         teststimmung.Zerstreut=0;
-        DAL_User.InsertStimmung(Testperson1, teststimmung, testdate);
+        DAL_User.InsertStimmung(Testperson1, teststimmung);
         return true;
     }
 

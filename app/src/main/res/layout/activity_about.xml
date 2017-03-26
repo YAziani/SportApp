@@ -28,17 +28,6 @@
         android:textAlignment="center"
         android:layout_below="@id/imageView3"
         android:textColor="#000000"></TextView>
-    <TextView
-        android:id="@+id/txtLink"
-        android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:textAlignment="center"
-        android:autoLink="web"
-        android:paddingLeft="10dp"
-        android:paddingRight="10dp"
-        android:paddingTop="10dp"
-        android:text="TextView"
-        android:layout_alignParentBottom="true"
-        tools:text="http://ww.freepik.com/free-vector/icons-for-business_957351.htm" />
+
 />
 </RelativeLayout>

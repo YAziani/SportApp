@@ -17,15 +17,18 @@ import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.R;
 
 /**
- * Created by Intirion on 25.03.2017.
+ * observer for questioning, whether the user trained or not
+ * Created by Aziani on 25.03.2017.
  */
 
 public class ObserverTrainQuestioning extends Observer{
 
-    short timeOutCounter = 0;
+    private short timeOutCounter = 0;
 
     @Override
     public void update(Context context) {
+        this.context = context;
+
         if(timeOutCounter > 0) {
             timeOutCounter--;
         }else {
@@ -37,7 +40,7 @@ public class ObserverTrainQuestioning extends Observer{
                         ActivityMain.class,
                         context.getString(R.string.tqNotiTitle),
                         context.getString(R.string.tqNotiSmallTitle),
-                        R.mipmap.ic_trainingseinheit);
+                        R.mipmap.ic_tagebuch_eintrag);
                 timeOutCounter = 5;
             }
         }

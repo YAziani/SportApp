@@ -89,7 +89,7 @@ public class ObserverStimmungAngabe extends Observer{
                         context.getString( R.string.stimmungsabgabe),
                         ActivityStimmungsAbgabe.class,context.getString(R.string.stimmungsabgabe),
                         context.getString(R.string.ntf_stimmungsabgabe),
-                        R.mipmap.ic_stimmungsabgabe );
+                        R.mipmap.ic_stimmungs_abgabe );
             }
 
         }
@@ -122,7 +122,7 @@ public class ObserverStimmungAngabe extends Observer{
                         context.getString( R.string.stimmungsabgabe),
                         ActivityStimmungsAbgabe.class,context.getString(R.string.stimmungsabgabe),
                         context.getString(R.string.ntf_stimmungsabgabe_nach),
-                        R.mipmap.ic_stimmungsabgabe );
+                        R.mipmap.ic_stimmungs_abgabe );
             }
 
         }

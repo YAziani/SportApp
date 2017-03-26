@@ -4,29 +4,25 @@ import android.content.Context;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
-import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
 import java.util.Calendar;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 /**
- * Created by Intirion on 25.03.2017.
+ * observer for motivation images
+ * Created by Aziani on 25.03.2017.
  */
 
 public class ObserverMotivationMessage extends Observer {
 
-    short timeOutCounter = 0;
+    private short timeOutCounter = 0;
 
     @Override
     public void update(Context context) {
         this.context = context;
-
-
 
         // check if method allocated
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -37,7 +33,7 @@ public class ObserverMotivationMessage extends Observer {
         if(timeOutCounter > 0) {
             timeOutCounter--;
         }else {
-            //sendNotification(context,"a",ActivityMain.class,String.valueOf(getNextTrainingTimeString(context)),String.valueOf(MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))),R.mipmap.ic_trainingseinheit);
+            //sendNotification(context,"a",ActivityMain.class,String.valueOf(getNextTrainingTimeString(context)),String.valueOf(MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))),R.mipmap.ic_tagebuch_eintrag);
             if(!getNextTrainingTimeString(context).equals("")
                     && MotivationMessage.timeTillTraining(getNextTrainingTimeString(context)) == 5) {
                 if(checkIntensifier()) {
@@ -47,7 +43,7 @@ public class ObserverMotivationMessage extends Observer {
                             ActivityMotivationMessage.class,
                             context.getString(R.string.mmNotiTitle),
                             context.getString(R.string.mmNotiSmallTitle),
-                            R.mipmap.ic_trainingseinheit);
+                            R.mipmap.ic_tagebuch_eintrag);
                     timeOutCounter = 5;
                 }
             }

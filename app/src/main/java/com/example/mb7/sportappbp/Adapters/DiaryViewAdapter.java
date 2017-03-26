@@ -67,7 +67,7 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
         DiaryEntryHolder diaryEntryHolder = (DiaryEntryHolder) holder;
         diaryEntryHolder.txtTitle.setText(diaryEntries.get(position).sDate);
         diaryEntryHolder.txtSubText.setText(diaryEntries.get(position).sTime   );
-        diaryEntryHolder.imageView.setImageResource(R.mipmap.ic_trainingseinheit);
+        diaryEntryHolder.imageView.setImageResource(R.mipmap.ic_tagebuch_eintrag);
 
         if (position == selectedPosition)
         {

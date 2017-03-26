@@ -13,7 +13,5 @@ public class ActivityAbout extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_about);
-        txtLink = (TextView) findViewById(R.id.txtLink);
-        txtLink.setText("http://ww.freepik.com/free-vector/icons-for-business_957351.htm");
     }
 }

@@ -17,6 +17,7 @@ import com.example.mb7.sportappbp.Adapters.NotificationAdapter;
 import com.example.mb7.sportappbp.Adapters.NotificationViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
+import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -135,16 +136,16 @@ public class TbNotificationContent extends TabFragment {
                             Notification notification = null;
                             // Now create our Notifications
                             if (title.equals( getString( R.string.stimmungsabgabe))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_stimmungsabgabe,date);
+                                notification = new Notification( title,subtext,R.mipmap.ic_stimmungs_abgabe,date);
                             }
                             else if(title.equals( getString(R.string.tagebucheintrag))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_trainingseinheit,date);
+                                notification = new Notification( title,subtext,R.mipmap.ic_tagebuch_eintrag,date);
                             }
                             else if(title.equals( getString(R.string.fitnessfragebogen))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_fitness_fragebogen,date);
+                                notification = new Notification( title,subtext,R.mipmap.ic_aktivitaets_fragebogen,date);
                             }
                             else if(title.equals(getString(R.string.aktivitaetsfragebogen))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_aktivitaetfragebogen,date);
+                                notification = new Notification( title,subtext,R.mipmap.ic_fittnessfragebogen,date);
                             }
 
 
@@ -153,6 +154,27 @@ public class TbNotificationContent extends TabFragment {
                         }
 
                     }
+
+                    // reminder notification
+                    boolean containsReminder = false;
+                    for(Notification n : notifications) {
+                        if(n.getTitle().equals(getString(R.string.trNotiTitle))) {
+                            containsReminder = true;
+                            break;
+                        }
+                    }
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
+                    String nextTrainingTime = preferences.getString("nextTrainingTime","");
+                    if(!containsReminder && !nextTrainingTime.equals("")) {
+                        notifications.add(new Notification(
+                                getString(R.string.trNotiTitle),
+                                getString(R.string.trNotiSmallTitle1)
+                                        +" "+ MotivationMethod.timeTillTraining(nextTrainingTime)
+                                        +" "+ getString(R.string.trNotiSmallTitle2).split("\n")[0],
+                                R.mipmap.ic_fittnessfragebogen,new Date())
+                        );
+                    }
+
                     if (notifications != null) {
                         Collections.reverse(notifications);
                         // fill the recycler

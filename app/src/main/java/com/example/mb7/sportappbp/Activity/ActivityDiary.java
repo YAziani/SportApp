@@ -273,8 +273,8 @@ public class ActivityDiary extends AppCompatActivity {
                                                 rv.setLayoutManager(lm);
                                                 // just create a list of tasks
                                                 rv.setAdapter(new DiaryViewAdapter(diaryEntries, activityDiary));
-                                                pd.dismiss();
                                             }
+                                            pd.dismiss();
                                         }
 
                                             @Override

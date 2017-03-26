@@ -26,7 +26,7 @@
             android:entryValues="@array/ArrrayVerkehrsmittelValue" />
         <Preference
         android:title="@string/trainingszeiten_und_studioadresse"
-        android:summary="Wann und wo findet Ihr Training statt?">
+        android:summary="@string/wann_und_wo_findet_training_statt">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="com.example.mb7.sportappbp"

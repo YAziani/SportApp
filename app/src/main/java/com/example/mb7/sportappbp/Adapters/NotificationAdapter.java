@@ -86,18 +86,23 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.naechstes_training))) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.trNotiTitle))) {
+                notifications.remove(notifications.get(getAdapterPosition()));
                 String nextTrainingTime = PreferenceManager
-                        .getDefaultSharedPreferences(ActivityMain.activityMain
-                                .getApplicationContext()).getString("nextTrainingTime","");
+                        .getDefaultSharedPreferences(ActivityMain.activityMain.getApplicationContext())
+                        .getString("nextTrainingTime","");
                 if(!nextTrainingTime.equals("")) {
                     Toast.makeText(
                             ActivityMain.activityMain,
                             context.getString(R.string.ihr_train_begin_in)
-                                    + MotivationMethod.timeTillTraining(nextTrainingTime)
-                                    + context.getString(R.string.minuten) + ".",
+                                    +" "+ MotivationMethod.timeTillTraining(nextTrainingTime)
+                                    +" "+ context.getString(R.string.minuten) + ".",
                             Toast.LENGTH_SHORT
                     ).show();
+                    PreferenceManager
+                            .getDefaultSharedPreferences(ActivityMain.activityMain.getApplicationContext())
+                            .edit()
+                            .remove("nextTrainingTime").apply();
                 }
 
             }

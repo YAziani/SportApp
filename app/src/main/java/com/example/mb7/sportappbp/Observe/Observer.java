@@ -301,7 +301,7 @@ public abstract class Observer {
                 }
             }
         }
-        if (lastTraining == "")
+        if (lastTraining.equals(""))
             return 0;
         else
             return Integer.valueOf(lastTraining.split(":")[0]) * 60

@@ -21,7 +21,7 @@
                 android:layout_height="130dp"
                 android:scaleType="fitXY"
                 android:layout_margin="16dp"
-                app:srcCompat="@drawable/stimmungsabgabe" />
+                app:srcCompat="@mipmap/ic_stimmungs_abgabe" />
             <TextView
                 android:id="@+id/txtTitleTaskCateg"
                 android:layout_width="match_parent"

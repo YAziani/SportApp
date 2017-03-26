@@ -1,21 +1,21 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
-import android.support.test.filters.SmallTest;
+import android.content.Context;
+import android.support.test.InstrumentationRegistry;
+import android.support.test.filters.MediumTest;
 import android.support.test.runner.AndroidJUnit4;
-import android.test.ApplicationTestCase;
 
-import com.example.mb7.sportappbp.Activity.ActivityMain;
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
-import com.example.mb7.sportappbp.Utilities.MyApplication;
+import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
 import org.junit.Before;
-import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
-import java.util.concurrent.TimeoutException;
-import java.util.regex.Pattern;
+import static junit.framework.Assert.assertEquals;
+import static junit.framework.Assert.assertTrue;
 
 /**
  * Created by Aziani on 24.03.2017.
@@ -23,49 +23,123 @@ import java.util.regex.Pattern;
 
 
 @RunWith(AndroidJUnit4.class)
-public class FirebaseTest extends ApplicationTestCase<MyApplication> {
+@MediumTest
+public class FirebaseTest{
 
-    private static MyApplication application;
+    // context of the test
+    private Context instrumentationCtx;
 
-    public FirebaseTest() {
-        super(MyApplication.class);
+    @Before
+    // initializing method, run before every test
+    public void init() {
+        instrumentationCtx = InstrumentationRegistry.getContext();
+        Firebase.setAndroidContext(instrumentationCtx);
+        // wait for initializing of database
         try {
-            setUp();
+            Thread.sleep(1000);
+        }catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        Firebase cloud = new Firebase("https://sportapp-cbd6b.firebaseio.com/");
+        // write values into database
+        cloud.child("TestNode").child("testValue00").setValue("qwertz");
+        cloud.child("TestNode").child("testValue01").setValue("qwerty");
+        DAL_RegisteredUsers.insertRegistration("TestRegistration","testPassword");
+        try {
+            Thread.sleep(1000);
         }catch(Exception e) {
             e.printStackTrace();
         }
     }
 
-    @Override
-    public void setUp() throws Exception {
-        System.out.println("setUp");
-        super.setUp();
-        if (application == null) {
-            application = getApplication();
-        }
-        if (application == null) {
-            application = (MyApplication) getContext().getApplicationContext();
-            assertNotNull(application);
-            long start = System.currentTimeMillis();
-            while (!application.isInitialized){
-                Thread.sleep(3000);  //wait until FireBase is totally initialized
-                if ( (System.currentTimeMillis() - start ) >= 1000 )
-                    throw new TimeoutException(this.getClass().getName() +"Setup timeOut");
-            }
-        }
-    }
-
-
+    /*
     @Test
     public void testWrite(){
-        System.out.println("testWrite");
-        Firebase cloud = new Firebase("https://sportapp-cbd6b.firebaseio.com/");
-        cloud.child("FIREBASETEST").setValue("data test");
+
+    }
+     */
+
+    @Test
+    public void testRead00(){
+        // define reading target
+        Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/TestNode/testValue00");
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    assertEquals("qwertz", dataSnapshot.getValue());
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
     }
 
     @Test
-    public void testTest() {
-        System.out.println("testTest");
+    public void testRead01(){
+        Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/TestNode/testValue01");
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    assertEquals("qwerty", dataSnapshot.getValue());
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testReadRegistration(){
+        Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    boolean containsValue = false;
+                    for(DataSnapshot d : dataSnapshot.getChildren()) {
+                        if(d.getKey().equals("TestRegistration")
+                                && d.child("password").getValue() != null
+                                && d.child("password").getValue().equals("testPassword")) {
+                            containsValue = true;
+                            break;
+                        }
+                    }
+                    assertTrue(containsValue);
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testAssert() {
         assertEquals(9,3*3);
     }
 }

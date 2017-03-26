@@ -48,6 +48,7 @@ import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Utilities.AlertReceiver;
 
 import java.util.ArrayList;
+import java.util.Calendar;
 import java.util.GregorianCalendar;
 import java.util.LinkedList;
 import java.util.List;
@@ -101,18 +102,6 @@ public class ActivityMain extends AppCompatActivity {
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
-        /*
-        // create a new motivation method and add it to the list of methods
-        TrainQuestioning p = new TrainQuestioning(this);
-        fixMotivationMethods.add(p);
-        TrainingReminder t = new TrainingReminder(this);
-        fixMotivationMethods.add(t);
-        MotivationMessage m = new MotivationMessage(this);
-        variableMotivationMethods.add(m);
-        preferences.edit().putBoolean("showPostTrainMoti",true).apply();
-        */
-
-
         // check settings for initialization
         // TODO remove debug functions
         /*
@@ -120,6 +109,7 @@ public class ActivityMain extends AppCompatActivity {
         preferences.edit().remove("logedIn").commit();
         */
         if(!preferences.getBoolean("initialized",false)) {
+            preferences.edit().putLong("firstDay",Calendar.getInstance().getTimeInMillis()).apply();
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);
             // choose motivation methods depending on administrator settings
@@ -131,23 +121,13 @@ public class ActivityMain extends AppCompatActivity {
             DAL_Allocation.getAllocation(this);
         }
 
-
-
         // login
         if(preferences.getString("logedIn","").equals("")) {
-            //Intent loginIntent = new Intent(this,ActivityLogin.class);
-            Intent loginIntent = new Intent(this,ActivityKompass.class);
+            Intent loginIntent = new Intent(this,ActivityLogin.class);
             startActivity(loginIntent);
-            RegisterCatcher registerCatcher = new RegisterCatcher();
-            registerCatcher.catchRegistration(this);
         }else {
             mainUser = User.Create(preferences.getString("logedIn",""));
         }
-
-
-        // start background clock
-        BackgroundClock backgroundClock = new BackgroundClock();
-        //backgroundClock.startClock(this,fixMotivationMethods,variableMotivationMethods);
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
         setSupportActionBar(toolbar);
@@ -378,12 +358,6 @@ public class ActivityMain extends AppCompatActivity {
                 mSectionsPagerAdapter.getItem(startTab).onStart();
             }
         }
-    }
-
-    @Override
-    public void onDestroy(){
-        // TODO close all notifications
-        super.onDestroy();
     }
 
     /**

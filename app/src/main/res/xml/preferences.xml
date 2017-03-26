@@ -6,7 +6,7 @@
 
 
         <ListPreference
-            android:title="Abstand der Stimmungsabfrage"
+            android:title="@string/abstand_stimmungsabfrage"
             android:key="lstStmabfrageAbstand"
             android:defaultValue="3"
             android:summary="%s"
@@ -14,24 +14,30 @@
             android:entryValues="@array/ArrrayStmabfrageAbstandeValue" />
     </PreferenceCategory>
     <PreferenceCategory
-        android:title="Erinnerung an das Training"
+        android:title="@string/erinnerung_training"
         android:key="pref_key_storage_settings">
 
         <ListPreference
-            android:title="Fortbewegungsmittel zum Fitnessstudio"
+            android:title="@string/fortbewegungsmittelFittness"
             android:key="lstVerkehrsmittel"
             android:defaultValue="1"
             android:summary="%s"
             android:entries="@array/ArrrayVerkehrsmittel"
             android:entryValues="@array/ArrrayVerkehrsmittelValue" />
         <Preference
-        android:title="Trainingszeiten und Studioadresse"
+        android:title="@string/trainingszeiten_und_studioadresse"
         android:summary="Wann und wo findet Ihr Training statt?">
         <intent
             android:action="android.intent.action.VIEW"
             android:targetPackage="com.example.mb7.sportappbp"
             android:targetClass="com.example.mb7.sportappbp.Activity.ActivitySettingInitializer" />
-    </Preference>
+        </Preference>
+    </PreferenceCategory>
+
+    <PreferenceCategory
+        android:title= "Kompass"
+        android:key="pref_key_storage_settings">
+
         <Preference
             android:title="Kompass"
             android:summary="Zum Bearbeiten deiner Angaben im Kompass">
@@ -39,6 +45,20 @@
                 android:action="android.intent.action.VIEW"
                 android:targetPackage="com.example.mb7.sportappbp"
                 android:targetClass="com.example.mb7.sportappbp.Activity.ActivityKompass" />
+        </Preference>
+    </PreferenceCategory>
+    <PreferenceCategory
+        android:title="@string/info_ueber"
+        android:key="pref_key_storage_settings">
+        <Preference
+            android:title="@string/info_ueber_fitup"
+            android:key="pref_key_storage_settings"
+            >
+            <intent android:action="android.intent.action.VIEW"
+                android:targetPackage="com.example.mb7.sportappbp"
+                android:targetClass="com.example.mb7.sportappbp.Activity.ActivityAbout"
+                />
+
         </Preference>
     </PreferenceCategory>
 </PreferenceScreen>

@@ -153,7 +153,7 @@ public class TbNotificationContent extends TabFragment {
                         }
 
                     }
-                    if (notifications.size() != 0) {
+                    if (notifications != null) {
                         Collections.reverse(notifications);
                         // fill the recycler
                         rv = (RecyclerView) view.findViewById(R.id.recycler);
@@ -161,10 +161,11 @@ public class TbNotificationContent extends TabFragment {
                         rv.setLayoutManager(lm);
                         // just create a list of tasks
                         rv.setAdapter(new NotificationAdapter(notifications, tbNotificationContent));
-                        pd.dismiss();
 
                     }
 
+                    // close the progress dialog
+                    pd.dismiss();
 
                 }
 

@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context="com.example.mb7.sportappbp.Activity.ActivityAbout"
+    android:orientation="vertical">
+
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="135dp"
+        android:padding="10dp"
+        android:layout_marginTop="80dp"
+        android:layout_height="99dp"
+        android:layout_centerInParent="true"
+        android:layout_gravity="center_horizontal|center_vertical"
+        app:srcCompat="@drawable/sport_icon"></ImageView>
+    <TextView
+        android:id="@+id/main"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text="Fit Up 1.0"
+        android:textAlignment="center"
+        android:layout_below="@id/imageView3"
+        android:textColor="#000000"></TextView>
+    <TextView
+        android:id="@+id/txtLink"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:textAlignment="center"
+        android:autoLink="web"
+        android:paddingLeft="10dp"
+        android:paddingRight="10dp"
+        android:paddingTop="10dp"
+        android:text="TextView"
+        android:layout_alignParentBottom="true"
+        tools:text="http://ww.freepik.com/free-vector/icons-for-business_957351.htm" />
+/>
+</RelativeLayout>

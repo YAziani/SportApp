@@ -208,7 +208,7 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
                                 }
 
 
-                            if (stimmungsAngaben.size() != 0)
+                            if (stimmungsAngaben != null)
                             {
                                 // reverse the list to get the newest first
                                 Collections.reverse( stimmungsAngaben);
@@ -217,8 +217,11 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
                                  rv.setLayoutManager(lm);
                                 // just create a list of tasks
                                  rv.setAdapter(new StimmungsAngabeViewAdapter(stimmungsAngaben, activityLstStimmungsabfrage));
-                                pd.dismiss();
                             }
+
+
+                            // close the progress dialog
+                            pd.dismiss();
 
 
                 }

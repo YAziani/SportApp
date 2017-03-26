@@ -273,4 +273,12 @@
     <string name="vor">Vor dem Training</string>
     <string name="nach">Nach dem Training</string>
 
+    <!-- Stettings-->
+    <string name="abstand_stimmungsabfrage">Abstand der Stimmungsabfrage</string>
+    <string name="erinnerung_training">Erinnerung an das Training</string>
+    <string name="fortbewegungsmittelFittness">Fortbewegungsmittel zum Fitnessstudio</string>
+    <string name="trainingszeiten_und_studioadresse">Trainingszeiten und Studioadresse</string>
+    <string name="erinnerung_das_training">Erinnerung an das Training</string>
+    <string name="info_ueber">Info über</string>
+    <string name="info_ueber_fitup">Info über Fit Up</string>
 </resources>

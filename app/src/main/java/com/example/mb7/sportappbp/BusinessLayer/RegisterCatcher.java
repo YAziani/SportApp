@@ -24,10 +24,10 @@ public class RegisterCatcher {
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                for(int i = 0; i < 20 ; i++) {
+                for(int i = 0; i < 60 ; i++) {
                     DAL_RegisteredUsers.loadRegistration(activityMain,RegisterCatcher.this);
                     try {
-                        Thread.sleep(30000);
+                        Thread.sleep(10000);
                     }catch(Exception e) {
                         e.printStackTrace();
                     }
@@ -65,15 +65,8 @@ public class RegisterCatcher {
             }
             difference.removeAll(removeList);
             if(difference.size() > 0) {
-                String username = "";
-                StringTokenizer tokens = new StringTokenizer(difference.get(0), ".");
-                while(tokens.hasMoreElements()) {
-                    if(!username.equals("")) {
-                        username = username + "(DOT)";
-                    }
-                    username = username + tokens.nextToken();
-                }
-                activity.createUser(username);
+                DAL_RegisteredUsers.insertMail(difference.getFirst());
+                ActivityMain.mainUser.setEmail(difference.getFirst());
                 if(t!=null){
                     t.interrupt();
                     t = null;

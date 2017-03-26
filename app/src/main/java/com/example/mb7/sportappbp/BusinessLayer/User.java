@@ -135,17 +135,7 @@ public class User {
         DAL_User.insertRating(this,listMethod,listRating);
     }
 
-    /**
-     * save updated group values for alternating group assignment
-     * @param currentActiveGroup the currently active group
-     * @param nextActiveGroup the next group to be active
-     * @param alternGroup the set of groups currently used
-     */
-    void saveAlternGroupUpdate(String currentActiveGroup, String nextActiveGroup, String alternGroup) {
-        DAL_User.insertAlternGroupUpdate(currentActiveGroup,nextActiveGroup,alternGroup);
-    }
-
-    public void saveRegistration(String username, String email, String password) {
-        DAL_RegisteredUsers.insertRegistration(username, email, password);
+    public void saveRegistration(String username, String password) {
+        DAL_RegisteredUsers.insertRegistration(username, password);
     }
 }

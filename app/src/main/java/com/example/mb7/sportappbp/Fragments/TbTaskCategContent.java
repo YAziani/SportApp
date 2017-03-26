@@ -103,7 +103,9 @@ public class TbTaskCategContent extends TabFragment {
         TaskCategory tc2 = new TaskCategory(getString( R.string.stimmungsabgabe), getString( R.string.stimmungsabgabe_desc), R.mipmap.ic_stimmungsabgabe);
         TaskCategory tc3 = new TaskCategory(getString( R.string.aktivitaetsfragebogen), getString( R.string.aktivitaetsfragebogen_desc),R.mipmap.ic_aktivitaetfragebogen);
         TaskCategory tc4 = new TaskCategory(getString( R.string.fitnessfragebogen), getString( R.string.fitnessfragebogen_desc),R.mipmap.ic_fitness_fragebogen);
-        taskCategories =new LinkedList<TaskCategory>(Arrays.asList(tc1,tc2,tc3,tc4));
+        TaskCategory tc5 = new TaskCategory(getString( R.string.trainingszeiten_und_studioadresse), "",R.drawable.settings_icon);
+
+        taskCategories =new LinkedList<TaskCategory>(Arrays.asList(tc1,tc2,tc3,tc4,tc5));
 
         rv = (RecyclerView)view.findViewById(R.id.recyclerTaskCateg);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);

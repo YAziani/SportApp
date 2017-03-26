@@ -11,6 +11,14 @@
     tools:context="com.example.mb7.sportappbp.Activity.ActivityLogin">
 
     <!-- Login progress -->
+    <TextView
+        android:id="@+id/textViewLogin"
+        android:layout_width="match_parent"
+        android:layout_height="142dp"
+        android:gravity="center"
+        android:typeface="serif"
+        android:text="" />
+
     <ProgressBar
         android:id="@+id/login_progress"
         style="?android:attr/progressBarStyleLarge"
@@ -48,15 +56,6 @@
             <android.support.design.widget.TextInputLayout
                 android:layout_width="match_parent"
                 android:layout_height="wrap_content">
-
-                <AutoCompleteTextView
-                    android:id="@+id/email"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:hint="E-Mail (nur für Registrierung benötigt)"
-                    android:inputType="textEmailAddress"
-                    android:maxLines="1"
-                    android:singleLine="true" />
 
             </android.support.design.widget.TextInputLayout>
 

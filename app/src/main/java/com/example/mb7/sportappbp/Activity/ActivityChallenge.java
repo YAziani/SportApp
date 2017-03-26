@@ -14,13 +14,17 @@ package com.example.mb7.sportappbp.Activity;
         */
 
 import android.app.Activity;
+import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.util.Log;
 import android.widget.ListView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.ChallengeViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
+import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Challenges;
 import com.example.mb7.sportappbp.R;
@@ -53,12 +57,36 @@ public class ActivityChallenge extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge);
 
+        challenge = new Challenge();
+
+        // Now read the extra key - exerciseList
+        Intent iin = getIntent();
+        Bundle extras = iin.getExtras();
+        Log.e("Oncreate","We have reached it");
+        if(extras!=null ) {
+
+            /*
+            //Get unpack the exerciseList und date
+            exerciseList = extras.getParcelableArrayList("oldExercises");
+            date = (Date) extras.getSerializable("date");
+            //set attribute
+            diaryEntry.setExerciseList(exerciseList);
+            diaryEntry.setDate(date);
+            */
+        }
+        else{
+
+            Toast.makeText(this,getString(R.string.ChallengeKonnteNichtGeladenWerdenVersuchenSieBitteErneut),Toast.LENGTH_SHORT).show();
+            finish();
+
+        }
+
         DAL_Challenges.getRegisteredChallengesToChallenge(ActivityChallenge.this);
 
         challengeName = ActivityMain.mainUser.getChallangeName();
 
         //todo load challenge and user from database
-        challenge = ActivityMain.mainUser.getChallenge();
+        //challenge = ActivityMain.mainUser.getChallenge();
 
         userList = challenge.getUserList();
 

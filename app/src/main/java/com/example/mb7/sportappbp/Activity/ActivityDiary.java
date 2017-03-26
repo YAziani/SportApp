@@ -74,7 +74,7 @@ public class ActivityDiary extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId() == R.id.recycler_stmAbfrage)
+        if (v.getId() == R.id.recycler_diary)
         {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_item_delete, menu);
@@ -265,7 +265,7 @@ public class ActivityDiary extends AppCompatActivity {
 
                                             }
 
-                                            if (diaryEntries.size() != 0) {
+                                            if (diaryEntries != null) {
                                                 // reverse the list to get the newest first
                                                 Collections.reverse(diaryEntries);
                                                 // fill the recycler

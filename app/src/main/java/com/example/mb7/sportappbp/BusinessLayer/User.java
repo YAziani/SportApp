@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Challenges;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 
@@ -111,13 +112,8 @@ public class User {
         DAL_User.GetLastTodayDiaryEntry(this,date);
     }
 
-    public boolean SaveDiaryEntry(DiaryEntry diaryEntry)
-    {
-        DAL_User.InsertDiaryEntry(this,diaryEntry);
-        return true;
-    }
-    public boolean LoadCompleteDiry(){
-        DAL_User.LoadCompleteDiary(this);
+    public boolean SaveDiaryEntry(DiaryEntry diaryEntry) {
+        DAL_User.InsertDiaryEntry(this, diaryEntry);
         return true;
     }
 
@@ -125,6 +121,17 @@ public class User {
             //todo implement the firebase method
         return true;
     }
+
+    /**
+     * challenge to DAL_User to save its into database
+     * @param challenge challenge to add
+     * @return
+     */
+    public boolean InsertChallenge(Challenge challenge) {
+        DAL_User.InsertChallenge(this, challenge);
+        return true;
+    }
+
 
     /**
      * hand ratings to DAL_User to save them into database

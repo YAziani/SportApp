@@ -68,6 +68,7 @@
         <activity android:name=".Activity.ActivityTrainQuestioning" />
         <activity android:name=".Activity.ActivityKompass" />
         <activity android:name=".Activity.ActivityNewChallenge" />
+        <activity android:name=".Activity.Activity_lst_Challenge" />
         <activity
             android:name=".Activity.ActivityLogin"
             android:label="@string/title_activity_login" />
@@ -77,7 +78,8 @@
             android:process=":remote" />
 
         <activity android:name=".Activity.Activity_lst_stimmungsabfrage" />
-        <activity android:name=".Activity.ActivityAbout"></activity>
+        <activity android:name=".Activity.ActivityAbout">
+        </activity>
     </application>
 
 </manifest>

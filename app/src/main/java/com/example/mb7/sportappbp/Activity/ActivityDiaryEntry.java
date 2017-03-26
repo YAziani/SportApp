@@ -11,8 +11,6 @@ import android.widget.GridView;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.DiaryEntryViewAdapter;
-import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
-import com.example.mb7.sportappbp.Objects.AllDiaryEntries;
 import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;

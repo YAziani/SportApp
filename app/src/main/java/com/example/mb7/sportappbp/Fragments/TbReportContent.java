@@ -17,6 +17,7 @@ import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityKompass;
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
+import com.example.mb7.sportappbp.Activity.Activity_lst_Challenge;
 import com.example.mb7.sportappbp.ClientIF;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 import com.example.mb7.sportappbp.R;
@@ -55,11 +56,12 @@ public class TbReportContent extends TabFragment{
         txtRequest = (TextView) view.findViewById(R.id.txtRequestTest);
 
         btnDiary = (Button) view.findViewById(R.id.btndiary);
+
         btnDiary.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-                DAL_User.GetStimmnungsabfrage(ActivityMain.mainUser,"20170325");
-                Intent open = new Intent(getActivity(), ActivityDiary.class);
+
+                Intent open = new Intent(getActivity(), Activity_lst_Challenge.class);
                 startActivity(open);
 
             }

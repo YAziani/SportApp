@@ -3,7 +3,9 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 import android.util.Log;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
+import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
+import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
@@ -675,66 +677,38 @@ public class DAL_User {
         }
     }
 
-    static public void DoesUserExist(final String mailAddress) {
-        final boolean userExist = false;
+    /**
+     * Inserts challenge to the database
+     * @param user the current user
+     * @param challenge the challenge to add
+     */
+    public static void InsertChallenge(User user, Challenge challenge){
 
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Challenges/");
 
-        URL url = null;
-        try {
-            url = new URL(DAL_Utilities.DatabaseURL + "users/");
-            final Firebase root = new Firebase(url.toString());
+        //Build a string with start and end date
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+        StringBuilder sb = new StringBuilder();
+        sb.append(sdf.format(challenge.getStartDate())).append("_").
+                append(sdf.format(challenge.getEndDate()));
 
-
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        final String strUser = child.getKey();
-
-                        root.child(strUser).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                User user = User.Create(strUser);
-                                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                    if (child.getKey().equals("email")) {
-                                        if (child.getValue().toString().equals(mailAddress)) {
-                                            user.setEmail(child.getValue().toString());
-                                            //ActivityNewChallenge.receiveDateFromFirebase(user);
-                                        }
-                                        else
-                                            break;
-                                    }
-
-                                }
-
-                            }
-
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled (FirebaseError firebaseError){
-
-            }
-
-            });
-
-
-        } catch (MalformedURLException e) {
-            e.printStackTrace();
-        }
-
+        //add challenge to user challenges
+        Firebase newChild = ref.child(challenge.getName());
+        newChild.setValue(sdf.format(challenge.getEndDate()));
 
     }
 
+    /**
+     * Removes the challenge in user in the database
+     *
+     * @param user user that has to leave the challenge
+     * @param challenge to leave
+     */
+    public static void RemoveChallenge(User user, Challenge challenge){
 
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + user.getName() + "/Challenges/" );
+        ref.child(challenge.getName()).removeValue();
+    }
 
 
 }

@@ -1,7 +1,6 @@
 package com.example.mb7.sportappbp.Adapters;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -11,29 +10,30 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
-import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
-import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
+import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.R;
 
+import java.text.SimpleDateFormat;
+import java.util.Calendar;
+import java.util.Date;
 import java.util.List;
 
 /**
  * Created by M.Braei on 25.03.2017.
  */
 
-public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.DiaryEntryHolder> {
-
-    List<DiaryEntry> diaryEntries;
+public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstViewAdapter.ChallengeHolder> {
+    List<Challenge> challenges;
     Activity context;
     Integer selectedPosition = -1;
 
-    public  class DiaryEntryHolder extends RecyclerView.ViewHolder  {
+    public  class ChallengeHolder extends RecyclerView.ViewHolder  {
         CardView cv;
         TextView txtTitle;
         TextView txtSubText;
         ImageView imageView;
         public View view   ;
-        DiaryEntryHolder(View itemView) {
+        ChallengeHolder(View itemView) {
             super(itemView);
             //// TODO: 26.03.2017  
             txtTitle = (TextView) itemView.findViewById(R.id.txtDateStmAbfrage);
@@ -44,38 +44,39 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
         }
 
     }
-    public DiaryViewAdapter(List<DiaryEntry> diaryEntries, Activity context){
-        this.diaryEntries = diaryEntries;
+    public ChallengeLstViewAdapter(List<Challenge> challenges, Activity context){
+        this.challenges = challenges;
         this.context = context;
     }
 
     @Override
     public int getItemCount() {
-        return diaryEntries.size();
+        return challenges.size();
     }
 
     @Override
-    public DiaryEntryHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+    public ChallengeHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
         //// TODO: 26.03.2017  
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_stimmungabgabe, viewGroup, false);
-        DiaryEntryHolder bvh = new DiaryEntryHolder(v);
+        ChallengeHolder bvh = new ChallengeHolder(v);
         return bvh;
     }
 
     @Override
-    public void onBindViewHolder(final DiaryEntryHolder holder, final int position) {
-        DiaryEntryHolder diaryEntryHolder = (DiaryEntryHolder) holder;
-        diaryEntryHolder.txtTitle.setText(diaryEntries.get(position).sDate);
-        diaryEntryHolder.txtSubText.setText(diaryEntries.get(position).sTime   );
-        diaryEntryHolder.imageView.setImageResource(R.mipmap.ic_trainingseinheit);
+    public void onBindViewHolder(final ChallengeHolder holder, final int position) {
+        ChallengeHolder challengeHolder = (ChallengeHolder) holder;
+        challengeHolder.txtTitle.setText(challenges.get(position).getName());
+        challengeHolder.txtSubText.setText(getDateOrFinished(challenges.get(position)));
+        //// TODO: 26.03.2017  
+        challengeHolder.imageView.setImageResource(R.mipmap.ic_stimmungsabgabe);
 
         if (position == selectedPosition)
         {
-            diaryEntryHolder.itemView.setBackgroundColor(Color.GRAY);
+            challengeHolder.itemView.setBackgroundColor(Color.GRAY);
         }
         else
         {
-            diaryEntryHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
+            challengeHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
         holder.view.setOnLongClickListener(new View.OnLongClickListener(){
@@ -103,33 +104,49 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
                     selectedPosition = -1;
 
                 }
-
-
                 else {
-
+                    /*
                     // if nothing is longclicked -> go to the ActivityStimmung of the selected item
-                    Intent open = new Intent(context, ActivityDiaryEntry.class);
+                    Intent open = new Intent(context, ActivityStimmungsAbgabe.class);
                     // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                    if (challenges.get(position).Vor)
+                        open.putExtra("Vor", "1");
+                    else
+                        open.putExtra("Vor", "0");
 
-                    // pass the clicked diaryEntry to the activity
-                    DiaryEntry diaryEntry = diaryEntries.get(position);
-                    open.putParcelableArrayListExtra("oldExercises", diaryEntry.getExerciseList());
-                    open.putExtra("date", diaryEntry.getDate());
+                    // pass the clicked stimmungsangabe to the activity
+                    StimmungsAngabe stimmungsAngabe = challenges.get(position);
+                    open.putExtra(context.getString(R.string.stimmungsabgabe), stimmungsAngabe);
                     context.startActivity(open);
+                    */
                 }
-
             }
         });
     }
 
-    public DiaryEntry getSelectedObject()
+    public Challenge getSelectedObject()
     {
-        return diaryEntries.get(selectedPosition);
+        return challenges.get(selectedPosition);
     }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
+    }
+
+    /**
+     * Returns the string "Challenge beendet" if the challenge is finished. Else the end date
+     * @param challenge challenge to check if finished
+     * @return returns string
+     */
+    private String getDateOrFinished(Challenge challenge){
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
+
+        if(challenge.finished())
+            return context.getString(R.string.ChallengeBeendet);
+        else
+            return context.getString(R.string.EndetAm) + " " + sdf.format(challenge.getEndDate()).toString();
     }
 
 }

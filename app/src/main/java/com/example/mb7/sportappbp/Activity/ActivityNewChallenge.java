@@ -225,9 +225,10 @@ public class ActivityNewChallenge extends AppCompatActivity {
                 else if(checkChallengeName(challengename)){
                     Toast.makeText(ActivityNewChallenge.this, R.string.NameExistiertBereits , Toast.LENGTH_LONG).show();
                 }
+                /*
                 else if(userList.size() == 0)
-                    Toast.makeText(ActivityNewChallenge.this, R.string.MindestensEinBenutzerMussHinzugefügtWerden , Toast.LENGTH_LONG).show();
-
+                   Toast.makeText(ActivityNewChallenge.this, R.string.MindestensEinBenutzerMussHinzugefügtWerden , Toast.LENGTH_LONG).show();
+*/
                 else {
                     //Create challenge object and set data
                     userList.add(ActivityMain.mainUser);
@@ -238,10 +239,11 @@ public class ActivityNewChallenge extends AppCompatActivity {
                     challenge.setUserList(userList);
 
                     //Save challenge to firebase
-                    DAL_Challenges.InsertChallenge(challenge);
-
-                    //Assign the challenge to the user
-                    ActivityMain.mainUser.setChallenge(challenge);
+                    challenge.SaveNewChallenge();
+                    //Add user too challenge
+                    challenge.AddUser(ActivityMain.mainUser);
+                    //The creator is automatically the admin
+                    challenge.AddAdmin(ActivityMain.mainUser);
 
                     Toast.makeText(ActivityNewChallenge.this, R.string.ChallengeWurdeErstellt , Toast.LENGTH_SHORT).show();
 

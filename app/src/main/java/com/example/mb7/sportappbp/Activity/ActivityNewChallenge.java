@@ -271,7 +271,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
                 String mail = editTextMailAddress.getText().toString();
 
                 //get user form database
-                User user = checkUsersMail(editTextMailAddress.getText().toString());
+                User user = getUser(editTextMailAddress.getText().toString());
                 //check if user exist
                 if(user != null){
                     //user already added
@@ -374,7 +374,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
      * @param searchedEmail email address of the user
      * @return The user you are looking for or null
      */
-    private User checkUsersMail(String searchedEmail){
+    private User getUser(String searchedEmail){
 
         User user = null;
 
@@ -385,6 +385,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
                     if (d.child("email").getValue().equals(searchedEmail)) {
                         user = User.Create(d.getKey().toString());
                         user.setEmail(d.child("email").getValue().toString());
+
                         return user;
                     }
                 }

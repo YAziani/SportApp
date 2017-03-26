@@ -10,6 +10,7 @@ import android.view.ViewGroup;
 import android.widget.Button;
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.Activity.ActivityCategories;
 import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
@@ -68,7 +69,7 @@ public class TbReportContent extends TabFragment{
         btnDiaryEntry.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Intent open = new Intent(getActivity(), ActivityDiaryEntry.class);
+                Intent open = new Intent(getActivity(), ActivityCategories.class);
                 startActivity(open);
             }
         });

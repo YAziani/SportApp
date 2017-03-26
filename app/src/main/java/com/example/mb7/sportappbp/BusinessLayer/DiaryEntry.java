@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -9,11 +10,13 @@ import java.util.Date;
  * Created by Basti on 16.01.2017.
  */
 
-public class DiaryEntry {
+public class DiaryEntry implements Serializable {
 
     private Date date;
     private int totalPoints;
     private ArrayList<Exercise> exerciseList;
+    public String sDate;
+    public String sTime;
 
 
 

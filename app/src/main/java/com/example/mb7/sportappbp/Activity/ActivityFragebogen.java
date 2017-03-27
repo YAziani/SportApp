@@ -71,16 +71,16 @@ public class ActivityFragebogen extends AppCompatActivity {
     public static void getWochenanzahlFromDb() {
 
 
-            //URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/bsa/questionaryPeriodweeks");
-            //Firebase root = new Firebase(url.toString());
-            Firebase root= new Firebase("https://sportapp-cbd6b.firebaseio.com/Administration/bsa/questionaryPeriodweeks");
-            try{root.addListenerForSingleValueEvent(new ValueEventListener() {
+        //URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/bsa/questionaryPeriodweeks");
+        //Firebase root = new Firebase(url.toString());
+        Firebase root= new Firebase("https://sportapp-cbd6b.firebaseio.com/Administration/bsa/questionaryPeriodweeks");
+        try{root.addListenerForSingleValueEvent(new ValueEventListener() {
 
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                                       if (dataSnapshot.getValue()!=null)
-                                                        //wochenzeitraum=(long)dataSnapshot.getValue();
-                                                        ActivityFragebogen.wochenzeitraum=convertToLong(dataSnapshot.getValue());
+                                                        if (dataSnapshot.getValue()!=null)
+                                                            //wochenzeitraum=(long)dataSnapshot.getValue();
+                                                            ActivityFragebogen.wochenzeitraum=convertToLong(dataSnapshot.getValue());
 
                                                         else
                                                             ActivityFragebogen.wochenzeitraum=4;
@@ -93,7 +93,7 @@ public class ActivityFragebogen extends AppCompatActivity {
                                                         Log.d("Fragebogen",firebaseError.getMessage());
                                                     }
                                                 }
-            );
+        );
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -131,12 +131,12 @@ public class ActivityFragebogen extends AppCompatActivity {
             if (fragebogen!=null){
                 INSERT=false;
             }
-           // Log.e("Oncreate notifi", notificationDate);
+            // Log.e("Oncreate notifi", notificationDate);
 
             // now we have delete this notification from the db cause it is read
             // we delete it from the database, because now the notification is read and it should not be shown in the notification tab cardview
             if (notificationDate !=null)
-            removeNofiication(this, notificationDate);
+                removeNofiication(this, notificationDate);
         }
 
         mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
@@ -266,8 +266,8 @@ public class ActivityFragebogen extends AppCompatActivity {
         fragebogen.Aktivität_C_Minuten =strtoint((EditText) findViewById(R.id.edittextaktivitätcminuten));
 
         if (INSERT){
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        fragebogen.Date = sdf.format(new Date());}
+            SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+            fragebogen.Date = sdf.format(new Date());}
         else
             fragebogen.Date=this.fragebogen.FirebaseDate;
 
@@ -281,7 +281,7 @@ public class ActivityFragebogen extends AppCompatActivity {
         if (INSERT)
             ActivityMain.getMainUser(this).InsertFragebogen(fragebogen);
         else
-        ActivityMain.getMainUser(this).UpdateFragebogen(fragebogen);
+            ActivityMain.getMainUser(this).UpdateFragebogen(fragebogen);
 
         return true;
 
@@ -306,22 +306,22 @@ public class ActivityFragebogen extends AppCompatActivity {
         //Adapter setzen
         adapter = new FragebogenViewAdapter(this);
         adapter.setAntworten(fragebogen,getString(R.string.Sind_Sie_berufstätig_oder_in_Ausbildung));
-        adapter.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null? fragebogen.Berufstätig :-1);
+        adapter.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig!=null? fragebogen.Berufstätig:-1);
         lstberufstätig.setAdapter(adapter);
 
         adapter2 = new FragebogenViewAdapter2(this);
         adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstätigkeit_sitzende_Tätigkeiten));
-        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.sitzendetätigkeiten!=null? fragebogen.sitzendetätigkeiten:-1);
+        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig!=null && fragebogen.sitzende_Tätigkeiten !=null? fragebogen.sitzende_Tätigkeiten :-1);
         lstsitzendetätigkeiten.setAdapter(adapter2);
 
         adapter2 = new FragebogenViewAdapter2(this);
         adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstätigkeit_Ausbildung_mäßige_Bewegung));
-        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.mäßigebewegung!=null? fragebogen.mäßigebewegung:-1);
+        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig!=null && fragebogen.mäßige_Bewegung !=null? fragebogen.mäßige_Bewegung :-1);
         lstmäßigebewegung.setAdapter(adapter2);
 
         adapter2 = new FragebogenViewAdapter2(this);
         adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstätigkeit_Ausbildung_intensive_Bewegung));
-        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.intensivebewegung!=null? fragebogen.intensivebewegung:-1);
+        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig!=null && fragebogen.intensive_Bewegung !=null? fragebogen.intensive_Bewegung :-1);
         lstintensivebewegung.setAdapter(adapter2);
 
         adapter = new FragebogenViewAdapter(this);
@@ -431,7 +431,7 @@ public class ActivityFragebogen extends AppCompatActivity {
         if (lstberufstätig.getIndexBSA1() > 0)
             return 0;
         else
-        itemsitzendetätigkeit = listscoringsitzend(lstsitzendetätigkeiten.getIndexBSA2());
+            itemsitzendetätigkeit = listscoringsitzend(lstsitzendetätigkeiten.getIndexBSA2());
         itemmäßigebewegung = listscoringbewegung(lstmäßigebewegung.getIndexBSA2());
         itemintensivebewegung = listscoringbewegung(lstintensivebewegung.getIndexBSA2());
         return bewegungsaktivitätberuf = itemsitzendetätigkeit + itemmäßigebewegung + itemintensivebewegung;

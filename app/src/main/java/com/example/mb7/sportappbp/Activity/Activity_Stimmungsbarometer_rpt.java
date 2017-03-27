@@ -2,6 +2,8 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
+import android.graphics.Paint;
+import android.support.design.widget.FloatingActionButton;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.support.v7.widget.LinearLayoutManager;
@@ -15,16 +17,18 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+import com.github.mikephil.charting.charts.Chart;
 import com.github.mikephil.charting.charts.LineChart;
 import com.github.mikephil.charting.components.AxisBase;
+import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.components.XAxis;
 import com.github.mikephil.charting.components.YAxis;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
-import com.github.mikephil.charting.formatter.IAxisValueFormatter;
 import com.github.mikephil.charting.interfaces.datasets.ILineDataSet;
 import com.github.mikephil.charting.utils.ColorTemplate;
+import com.github.mikephil.charting.utils.Utils;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
@@ -44,13 +48,9 @@ public class Activity_Stimmungsbarometer_rpt extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__stimmungsbarometer_rpt);
+        lineChart = (LineChart)findViewById(R.id.lineChart);
 
 
-        lineChart = (LineChart)findViewById(R.id.linechart);
-        lineChart.setTouchEnabled(true);
-        lineChart.setDragEnabled(true);
-        lineChart.setScaleEnabled(true);
-        lineChart.setHighlightPerDragEnabled(true);
 
 /*
         ArrayList<String> xAxes = new ArrayList<>();
@@ -114,44 +114,64 @@ public class Activity_Stimmungsbarometer_rpt extends AppCompatActivity {
         computeStimmungsBarometer(addDays(new Date(),-4) ,new Date(), lineChart);
     }
 
-    private void buildChart(LineChart lineChart)
+    private void prepareChart()
     {
-        XAxis xAxis = lineChart.getXAxis();
-        xAxis.setPosition(XAxis.XAxisPosition.TOP_INSIDE);
-        xAxis.setTextSize(10f);
-        xAxis.setTextColor(Color.WHITE);
-        xAxis.setDrawAxisLine(false);
-        xAxis.setTextColor(Color.rgb(255, 192, 56));
-        xAxis.setCenterAxisLabels(true);
-/*        xAxis.setValueFormatter(new IAxisValueFormatter() {
 
-            private SimpleDateFormat mFormat = new SimpleDateFormat("dd MMM");
+        // no description text
 
-            @Override
-            public String getFormattedValue(float value, AxisBase axis) {
-// days to milisecons
-                long millis = TimeUnit.DAYS.toMillis((long) value);
-                return mFormat.format(new Date(millis));
-            }
+        // enable touch gestures
+  /*      lineChart.setTouchEnabled(true);
+
+        lineChart.setDragDecelerationFrictionCoef(0.9f);
+
+        // enable scaling and dragging
+        lineChart.setDragEnabled(true);
+        lineChart.setScaleEnabled(true);
+        lineChart.setDrawGridBackground(false);
+        lineChart.setHighlightPerDragEnabled(true);
+        lineChart.setPinchZoom(true);
+        // set an alternative background color
+        lineChart.setBackgroundColor(Color.WHITE);
+        lineChart.setViewPortOffsets(10f, 10f, 10f, 10f);*/
+    }
+    private void buildChart(LineChart lineChart, Float MinY, Float MaxY)
+    {
+/*        // get the legend (only possible after setting data)
+        Legend l = lineChart.getLegend();
+        l.setEnabled(false);
+
+               XAxis xAxis = lineChart.getXAxis();
+        xAxis.setPosition(XAxis.XAxisPosition.BOTTOM);
+        xAxis.setLabelRotationAngle(90);
+        //  xAxis.setTypeface(mTfLight);
+        xAxis.setTextSize(16f);
+        xAxis.setTextColor(Color.BLUE);
+        xAxis.setDrawAxisLine(true);
+        xAxis.setLabelsToSkip(0);
+        xAxis.setDrawGridLines(true);
+        //xAxis.setTextColor(Color.rgb(255, 192, 56));
 
 
-        });*/
         YAxis leftAxis = lineChart.getAxisLeft();
         leftAxis.setPosition(YAxis.YAxisLabelPosition.INSIDE_CHART);
+        //     leftAxis.setTypeface(mTfLight);
         leftAxis.setTextColor(ColorTemplate.getHoloBlue());
+        leftAxis.setDrawGridLines(true);
         leftAxis.setGranularityEnabled(true);
-        leftAxis.setAxisMinimum(0f);
-        leftAxis.setAxisMaximum(170f);
+
         leftAxis.setYOffset(-9f);
         leftAxis.setTextColor(Color.rgb(255, 192, 56));
 
         YAxis rightAxis = lineChart.getAxisRight();
-        rightAxis.setEnabled(false);
+        rightAxis.setEnabled(false);*/
+        lineChart.setVisibleXRangeMaximum(65f);
+
     }
 
     void computeStimmungsBarometer (final Date Startdate, final Date EndDate,final LineChart lineChart){
         try {
-            final ArrayList<Entry> xyAxesSin = new ArrayList<>();
+            final ArrayList<String> xAXES = new ArrayList<>();
+            final ArrayList<Entry> yAXESsin = new ArrayList<>();
         URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/StimmungabfrageScore/");
         final Firebase root = new Firebase(url.toString());
 
@@ -160,18 +180,19 @@ public class Activity_Stimmungsbarometer_rpt extends AppCompatActivity {
                                        // Hier kriegst du den Knoten date zurueck
                                        @Override
                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            float x = 0;
-                                            float y = 0;
-                                           float max_y = 0; float min_y = 0;
+                                           String x = "";
+                                           float y = 0;
+                                           float max_y = 0;
+                                           float min_y = 0;
                                            boolean flag = false;
+                                           int j  = 0;
                                            //final String sDate = dataSnapshot.getKey();
 
                                            // dataSnapshot.getKey() declares which strategy the notification belongs to (Stimmungsabgabe....)
                                            // the child.key of dataSnapshop declare the unique datetime of the notification
-                                           int j = 1;
                                            for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                // Here I get the time
-                                               final String sDate= child.getKey();// Date
+                                               final String sDate = child.getKey();// Date
                                                Date d = new Date();
 
                                                // Here I have V or N
@@ -182,7 +203,7 @@ public class Activity_Stimmungsbarometer_rpt extends AppCompatActivity {
 
                                                    // Now convert the string date to real date
                                                    d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime(sDate + " " + sTime);
-                                                   if (!Startdate.after(d) &&  !d.before( EndDate) ){
+                                                   if (!d.before(Startdate) && !d.after(EndDate)) {
                                                        i++;
 
 
@@ -197,33 +218,72 @@ public class Activity_Stimmungsbarometer_rpt extends AppCompatActivity {
 
                                                }
                                                // get the average of on day
-                                               if(flag) {
+                                               if (flag) {
                                                    y = y / i;
                                                    // Now we have the days
-                                                   x = TimeUnit.MILLISECONDS.toDays(DAL_Utilities.ConvertFirebaseKeyStringToDateTime(sDate + " " + "00:00:00").getTime());
-                                                   max_y = Math.max(y,max_y); min_y = Math.min(min_y,y);
-                                                   xyAxesSin.add(new Entry(j,y));
-                                                   j++;
+                                                   x  = sDate ;
+                                                   max_y = Math.max(y, max_y);
+                                                   min_y = Math.min(min_y, y);
+                                                   xAXES.add(x);
+                                                   yAXESsin.add(new Entry(y,j));
+
                                                    flag = false;
+                                                   j++;
                                                }
                                            }
 
-                                           LineDataSet lineDataSet1 = new LineDataSet(xyAxesSin,"Dates-Values-MB");
-                                           lineDataSet1.setDrawCircles(false); // otherwise it would not be smooth
-                                           lineDataSet1.setColor(Color.BLUE);
-                                           //lineDataSets.add(lineDataSet1);
+                                           if (xAXES.size() != 0) {
+/*                                               ArrayList<String> xAXES = new ArrayList<>();
+                                               ArrayList<Entry> yAXESsin = new ArrayList<>();
+                                               double x1 = 0 ;
+                                               int numDataPoints = 1000;
+                                               for(int i=0;i<numDataPoints;i++){
+                                                   float sinFunction = Float.parseFloat(String.valueOf(Math.sin(x1)));
+                                                   x1 = x1 + 0.1;
+                                                   yAXESsin.add(new Entry(sinFunction,i));
+                                                   xAXES.add(i, String.valueOf(x1));
+                                               }
+                                               String[] xaxes = new String[xAXES.size()];
+                                               for(int i=0; i<xAXES.size();i++){
+                                                   if (i < 300)
+                                                       xaxes[i] = "12.03.2017";
+                                                   else if(i >= 300 && i <= 600)
+                                                        xaxes[i] = "13.03.2017";
+                                                   else
+                                                       xaxes[i] = "14.03.2017";
+                                               }*/
+
+                                               ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
 
 
-                                           lineChart.setData(new LineData( lineDataSet1));
-                                           //lineChart.setVisibleYRangeMaximum(max_y,);
-                                           Activity_Stimmungsbarometer_rpt.this.buildChart(lineChart);
+                                               LineDataSet lineDataSet2 = new LineDataSet(yAXESsin,"sin");
+                                               lineDataSet2.setDrawCircles(false);
+                                               lineDataSet2.setColor(Color.RED);
+
+
+                                               lineDataSets.add(lineDataSet2);
+
+                                               lineChart.invalidate();
+                                               //lineChart.setVisibleYRangeMaximum(3f,YAxis.AxisDependency.LEFT);
+                                               //lineChart.getXAxis().setLabelsToSkip(0);
+                                               lineChart.getAxisLeft().resetAxisMinValue();
+                                               lineChart.getAxisLeft().setAxisMinValue((float)Math.floor(min_y) - 0.5f);
+                                               lineChart.getAxisLeft().setAxisMaxValue((float)Math.ceil(max_y) + 0.5f);
+                                               lineChart.getAxisRight().setTextColor(Color.WHITE);
+                                               lineChart.setExtraLeftOffset( 10);
+                                               lineChart.setData(new LineData(xAXES,lineDataSets));
+                                               lineChart.setDragEnabled(true   );
+                                               lineChart.setScaleEnabled(true);
+                                               lineChart.setHighlightPerDragEnabled(true);
+                                               Paint p = lineChart.getPaint(Chart.PAINT_INFO);
+                                               p.setTextSize(Utils.convertDpToPixel(5));
+                                               //lineChart.setVisibleXRangeMaximum(65f);
 
 
 
-
+                                           }
                                            // close the progress dialog
                                            pd.dismiss();
-
 
                                        }
                                        @Override

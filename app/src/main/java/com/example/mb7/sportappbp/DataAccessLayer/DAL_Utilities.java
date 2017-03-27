@@ -69,7 +69,7 @@ public class DAL_Utilities {
     }
     public  static Date ConvertFirebaseKeyStringToDateTime(String date)
     {
-        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH_mm_ss");
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH:mm:ss");
         Date convertedDate = new Date();
         try {
             convertedDate = dateFormat.parse(date);

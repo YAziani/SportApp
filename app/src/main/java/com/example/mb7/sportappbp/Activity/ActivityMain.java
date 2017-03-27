@@ -131,14 +131,6 @@ public class ActivityMain extends AppCompatActivity {
         setTabLayout();
 
 
-        fab1 = (FloatingActionButton) findViewById(R.id.fab);
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ActivityMain.this, ActivityDiaryEntry.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override

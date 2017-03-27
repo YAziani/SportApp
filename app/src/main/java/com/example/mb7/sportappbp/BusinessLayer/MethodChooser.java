@@ -1,24 +1,13 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
 import android.app.Activity;
-import android.app.backup.SharedPreferencesBackupHelper;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
-
-import com.example.mb7.sportappbp.Activity.ActivityMain;
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
-import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
 import com.firebase.client.DataSnapshot;
-
-import java.util.Arrays;
 import java.util.Calendar;
 import java.util.Date;
-import java.util.HashSet;
 import java.util.LinkedList;
-import java.util.List;
 import java.util.Random;
 
 /**

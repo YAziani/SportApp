@@ -5,7 +5,7 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
+import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
 import java.util.Calendar;
@@ -35,7 +35,7 @@ public class ObserverMotivationMessage extends Observer {
         }else {
             //sendNotification(context,"a",ActivityMain.class,String.valueOf(getNextTrainingTimeString(context)),String.valueOf(MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))),R.mipmap.ic_tagebuch_eintrag);
             if(!getNextTrainingTimeString(context).equals("")
-                    && MotivationMessage.timeTillTraining(getNextTrainingTimeString(context)) == 5) {
+                    && MotivationMethod.timeTillTraining(getNextTrainingTimeString(context)) == 5) {
                 if(checkIntensifier()) {
                     sendNotification(
                             context,

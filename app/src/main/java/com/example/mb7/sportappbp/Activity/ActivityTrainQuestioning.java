@@ -19,7 +19,6 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_TrainQuestioningTexts;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
@@ -64,8 +63,6 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
                         .putBoolean("willTrain",false)
                         .apply();
             }
-            // notify BackgroundClock about user activity
-            //BackgroundClock.startRating(false);
             if(preferences.getString("allocatedMethods","").contains("motivationtexts") && checkIntensifier()) {
                 // access texts in data base
                 DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
@@ -75,7 +72,6 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
 
         }else {
             imageView.setImageResource(R.drawable.train_yes);
-            //BackgroundClock.startRating(true);
             if(preferences.getString("allocatedMethods","").contains("motivationtexts") && checkIntensifier()) {
                 DAL_TrainQuestioningTexts.getTrainQuestioningTexts(this,praiseOrWarn);
             }else {

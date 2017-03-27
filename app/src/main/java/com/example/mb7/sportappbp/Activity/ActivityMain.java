@@ -29,16 +29,8 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
-
-import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
-import com.example.mb7.sportappbp.BusinessLayer.MethodChooser;
-import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
-import com.example.mb7.sportappbp.MotivationMethods.TrainQuestioning;
-import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
 import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
@@ -54,7 +46,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.example.mb7.sportappbp.R.id.container;
-import static com.example.mb7.sportappbp.R.id.main;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -68,8 +59,6 @@ public class ActivityMain extends AppCompatActivity {
      * {@link android.support.v4.app.FragmentStatePagerAdapter}.
      */
     // list which consists of all used motivation methods
-    private LinkedList<MotivationMethod> fixMotivationMethods = new LinkedList<>();
-    private LinkedList<MotivationMethod> variableMotivationMethods = new LinkedList<>();
     private SectionsPagerAdapter mSectionsPagerAdapter;
     private ViewPager mViewPager;
     private TabLayout tabLayout;
@@ -105,17 +94,9 @@ public class ActivityMain extends AppCompatActivity {
                 LOCATION_PERMISSION_REQUEST
         );
 
-
-
-
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         // check settings for initialization
-        // TODO remove debug functions
-        /*
-        preferences.edit().remove("initialized").commit();
-        preferences.edit().remove("logedIn").commit();
-        */
         if(!preferences.getBoolean("initialized",false)) {
             preferences.edit().putLong("firstDay",Calendar.getInstance().getTimeInMillis()).apply();
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
@@ -334,18 +315,6 @@ public class ActivityMain extends AppCompatActivity {
                 return "No Value";
         }
     }
-
-    /*
-    @Override
-    public void onRequestPermissionsResult(int requestCode, String permissions[], int[] grantResults){
-        for(int i = 0; i < fixMotivationMethods.size(); i++) {
-            fixMotivationMethods.get(i).evaluatePermissionResults(requestCode, permissions, grantResults);
-        }
-        for(int i = 0; i < variableMotivationMethods.size(); i++) {
-            variableMotivationMethods.get(i).evaluatePermissionResults(requestCode, permissions, grantResults);
-        }
-    }
-    */
 
     @Override
     public void onNewIntent(Intent intent) {

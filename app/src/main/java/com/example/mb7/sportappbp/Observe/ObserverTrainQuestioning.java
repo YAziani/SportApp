@@ -9,11 +9,10 @@ import android.content.Intent;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.support.v4.app.NotificationCompat;
-import android.support.v4.content.pm.ActivityInfoCompat;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityTrainQuestioning;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
+import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
 /**
@@ -33,7 +32,7 @@ public class ObserverTrainQuestioning extends Observer{
             timeOutCounter--;
         }else {
             if(!getLastTrainingTimeString(context).equals("")
-                    && MotivationMessage.timeTillTraining(getLastTrainingTimeString(context)) == -59) {
+                    && MotivationMethod.timeTillTraining(getLastTrainingTimeString(context)) == -59) {
                 sendNotification(
                         context,
                         "Trainingsabfrage",

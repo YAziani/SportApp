@@ -282,4 +282,18 @@
     <string name="info_ueber">Info über</string>
     <string name="info_ueber_fitup">Info über Fit Up</string>
     <string name="wann_und_wo_findet_training_statt">Wann und wo findet Ihr Training statt?</string>
+
+    <!-- Reports-->
+    <string name="stimmungsbarometer_dgr_ttl">Stimmungsbarometerdiagramm</string>
+    <string name="energieindex_dgr_ttl">Energieindexdiagramm</string>
+    <string name="differenzwert_dgr_ttl">Differenzwertdiagramm</string>
+    <string name="punkteproWoche_dgr_ttl">Trainingsdiagramm</string>
+    <string name="fittnessfragen_dgr_ttl">Diagramm über Fitnesszustand</string>
+    <string name="bsa_dgr_ttl">BSA Diagramm</string>
+    <string name="stimmungsbarometer_dgr_text">Sehen Sie wie sich ihre Stimmung im Laufe der Zeit geändert hat</string>
+    <string name="energieeindex_dgr_text">Ihr Fitness hat direkten Einfluss, wie energiereich sie agieren.</string>
+    <string name="differenzwert_dgr_text">Sehen Sie den Unterschied vor und nach dem Training</string>
+    <string name="punkteproWoche_dgr_text">Zusammenfassung der Gesamtpunkte die Sie erreicht haben</string>
+    <string name="fittnessfragen_dgr_text">Lassen Sie sich ihre Fortschritte anzeigen, in wie weit Sie fitter geworden sind</string>
+    <string name="bsa_dgr_text">Durch BSA sehen Sie hier Ihre Fortschritte</string>
 </resources>

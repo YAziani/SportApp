@@ -37,7 +37,7 @@
         </activity>
         <activity
             android:name=".Activity.ActivityDiaryEntry"
-            android:label="@string/tagebucheintrag"/>
+            android:label="@string/tagebucheintrag" />
         <activity
             android:name=".Activity.ActivityDiary"
             android:label="@string/Tagebuch"
@@ -72,11 +72,11 @@
             android:name=".Activity.ActivityLogin"
             android:label="@string/title_activity_login" />
 
-        <receiver
-            android:name=".Utilities.AlertReceiver" />
+        <receiver android:name=".Utilities.AlertReceiver" />
 
         <activity android:name=".Activity.Activity_lst_stimmungsabfrage" />
-        <activity android:name=".Activity.ActivityAbout"></activity>
+        <activity android:name=".Activity.ActivityAbout" />
+        <activity android:name=".Activity.Activity_Stimmungsbarometer_rpt"></activity>
     </application>
 
 </manifest>

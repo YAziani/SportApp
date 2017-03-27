@@ -4,7 +4,7 @@
     android:orientation="vertical" android:layout_width="match_parent"
     android:layout_height="wrap_content">
     <android.support.v7.widget.CardView xmlns:card_view="http://schemas.android.com/apk/res-auto"
-        android:id="@+id/card_view"
+        android:id="@+id/card_view_Reports"
         android:layout_width="match_parent"
         android:layout_height="82dp"
         android:layout_gravity="center"
@@ -22,9 +22,9 @@
                 android:layout_height="match_parent"
                 app:srcCompat="@mipmap/ic_stimmungs_abgabe" />
             <TextView
-                android:id="@+id/txtTitle"
+                android:id="@+id/txtTitleReport"
                 android:layout_toRightOf="@id/imageViewReports"
-                android:layout_width="180dp"
+                android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="TitleTitleTeTitleTeTitleTeTitleTitle"
                 android:textSize="24sp"
@@ -36,9 +36,9 @@
                 android:maxLines="1"
                 android:textColor="#000"/>
             <TextView
-                android:id="@+id/txtSubtext"
+                android:id="@+id/txtSubtextReport"
                 android:layout_toRightOf="@id/imageViewReports"
-                android:layout_below="@id/txtTitle"
+                android:layout_below="@id/txtTitleReport"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:text="Just want to test it Just want to test it Just want to test it Just want to test it Just want to test it"
@@ -47,19 +47,6 @@
                 android:layout_marginLeft="5dp"
                 android:layout_marginRight="16dp"
                 android:gravity="bottom"/>
-            <TextView
-                android:id="@+id/txtDate"
-                android:layout_toRightOf="@id/txtTitle"
-                android:layout_width="wrap_content"
-                android:layout_height="20dp"
-                android:text="1d"
-                android:textAlignment="viewEnd"
-                android:textSize="14sp"
-                android:layout_alignParentRight="true"
-                android:layout_marginRight="16dp"
-                android:layout_marginTop="8dp"
-
-                />
 
         </RelativeLayout>
     </android.support.v7.widget.CardView>

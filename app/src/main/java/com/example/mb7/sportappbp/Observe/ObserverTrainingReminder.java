@@ -268,6 +268,7 @@ public class ObserverTrainingReminder extends Observer {
      * @return time needed in minutes
      */
     private int getTimeToStudio() {
+        
         // time to studio in minutes
         float time;
         // standard amount of time which always will be added to the net time

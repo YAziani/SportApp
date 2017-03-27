@@ -67,6 +67,7 @@ public class ActivityFragebogen extends AppCompatActivity {
     int itemintensivebewegung;
 
     private Firebase mRootRef;
+    private ActivityFragebogen activityFragebogen = this;
 
     boolean INSERT=true;
     Fragebogen fragebogen=null;
@@ -104,7 +105,7 @@ public class ActivityFragebogen extends AppCompatActivity {
     }
 
     @Override
-    protected void onCreate(Bundle savedInstanceState) {
+    protected void onCreate(Bundle savedInstanceState){
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bsaquestions);
 
@@ -188,6 +189,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
+
             default:
                 finish();
                 return super.onOptionsItemSelected(item);
@@ -206,8 +208,8 @@ public class ActivityFragebogen extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
                 SaveData();
                 finish();
-                Toast ausgabe = Toast.makeText(ActivityMain.activityMain,
-                        getString(R.string.Erfolgreich_gespeichert), Toast.LENGTH_LONG);
+                Toast ausgabe= Toast.makeText(activityFragebogen,
+                        getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
                 ausgabe.show();
             }
 
@@ -266,9 +268,9 @@ public class ActivityFragebogen extends AppCompatActivity {
 
         Fragebogen fragebogen = getData();
         if (INSERT)
-            ActivityMain.mainUser.InsertFragebogen(fragebogen);
+            ActivityMain.getmainUser(this).InsertFragebogen(fragebogen);
         else
-        ActivityMain.mainUser.UpdateFragebogen(fragebogen);
+        ActivityMain.getmainUser(this).UpdateFragebogen(fragebogen);
 
         return true;
 
@@ -340,6 +342,9 @@ public class ActivityFragebogen extends AppCompatActivity {
         ((TextView) findViewById(R.id.txtaktivitätbanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_B_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeübt));
         ((TextView) findViewById(R.id.txtaktivitätcanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_C_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeübt));
     }
+
+
+
 
 
     /**

@@ -13,6 +13,7 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
+import android.text.style.BulletSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
@@ -27,6 +28,7 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
+import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
@@ -289,9 +291,9 @@ public class ActivityLogin extends AppCompatActivity{
         protected Boolean doInBackground(Void... params) {
 
             if(mLogin) {
-                ActivityMain.activityMain.createUser(mUsername);
+                User.createUser(mUsername,getApplicationContext());
             }else {
-                ActivityMain.activityMain.createUser(mUsername).saveRegistration(mUsername,mPassword);
+                User.createUser(mUsername,getApplicationContext()).saveRegistration(mUsername,mPassword);
             }
             return true;
         }
@@ -305,10 +307,11 @@ public class ActivityLogin extends AppCompatActivity{
                     .putString("logedIn",mUsername)
                     .apply();
             if(!mLogin) {
-                Intent kompassIntent = new Intent(ActivityMain.activityMain, ActivityKompass.class);
+                User user = User.Create(mUsername);
+                Intent kompassIntent = new Intent(ActivityLogin.this, ActivityKompass.class);
                 startActivity(kompassIntent);
                 RegisterCatcher registerCatcher = new RegisterCatcher();
-                registerCatcher.catchRegistration(ActivityMain.activityMain);
+                registerCatcher.catchRegistration(user);
             }
             ActivityLogin.this.finish();
         }

@@ -230,7 +230,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
 
                 else {
                     //Create challenge object and set data
-                    userList.add(ActivityMain.mainUser);
+                    userList.add(ActivityMain.getMainUser(this));
                     Challenge challenge = new Challenge();
                     challenge.setName(editTextName.getText().toString());
                     challenge.setStartDate(startCalendar.getTime());
@@ -241,7 +241,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
                     DAL_Challenges.InsertChallenge(challenge);
 
                     //Assign the challenge to the user
-                    ActivityMain.mainUser.setChallenge(challenge);
+                    ActivityMain.getMainUser(this).setChallenge(challenge);
 
                     Toast.makeText(ActivityNewChallenge.this, R.string.ChallengeWurdeErstellt , Toast.LENGTH_SHORT).show();
 

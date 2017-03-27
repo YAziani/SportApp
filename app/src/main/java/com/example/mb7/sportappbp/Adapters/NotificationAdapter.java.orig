@@ -18,8 +18,6 @@ import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivitySettingInitializer;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
-import com.example.mb7.sportappbp.Activity.Activity_lst_bsafragebogen;
-import com.example.mb7.sportappbp.Activity.Activity_lst_fitnessfragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
@@ -71,13 +69,13 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragebogen))) {
-                Intent open = new Intent(context.getActivity(), Activity_lst_fitnessfragebogen.class);
+                Intent open = new Intent(context.getActivity(), ActivityFitnessFragebogen.class);
                 // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
                 String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.aktivitaetsfragebogen) )) {
-                Intent open = new Intent(context.getActivity(), Activity_lst_bsafragebogen.class);
+                Intent open = new Intent(context.getActivity(), ActivityFragebogen.class);
                 // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
                 String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate",NotificationDate);
@@ -91,7 +89,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.trNotiTitle))) {
                 notifications.remove(notifications.get(getAdapterPosition()));
                 String nextTrainingTime = PreferenceManager
+<<<<<<< HEAD
                         .getDefaultSharedPreferences(context.getContext()).getString("nextTrainingTime","");
+=======
+                        .getDefaultSharedPreferences(ActivityMain.activityMain.getApplicationContext())
+                        .getString("nextTrainingTime","");
+>>>>>>> 13899b0d3013c58f3fb5f837be192530892f4d7d
                 if(!nextTrainingTime.equals("")) {
                     Toast.makeText(
                             context.getContext(),
@@ -101,7 +104,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                             Toast.LENGTH_SHORT
                     ).show();
                     PreferenceManager
-                            .getDefaultSharedPreferences(context.getActivity().getApplicationContext())
+                            .getDefaultSharedPreferences(ActivityMain.activityMain.getApplicationContext())
                             .edit()
                             .remove("nextTrainingTime").apply();
                 }

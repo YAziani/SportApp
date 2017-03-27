@@ -103,7 +103,7 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
      */
     private void deleteStimmungsabgabe(StimmungsAngabe stimmungsAngabe)
     {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.mainUser.getName() + "/Stimmungsabfrage/" );
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/Stimmungsabfrage/" );
         String V_N = (stimmungsAngabe.Vor)?"V":"N";
         ref.child(stimmungsAngabe.FirebaseDate).child(stimmungsAngabe.Time).child(V_N).removeValue();
     }
@@ -170,7 +170,7 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
 
     void readStimmungsabgaben() {
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.mainUser.getName() + "/Stimmungsabfrage/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/Stimmungsabfrage/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {

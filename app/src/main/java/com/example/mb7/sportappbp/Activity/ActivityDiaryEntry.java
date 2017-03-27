@@ -168,7 +168,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     private boolean SaveData(){
 
         //ActivityMain.mainUser.GetLastTodayDiaryEntry(new Date());
-        ActivityMain.mainUser.SaveDiaryEntry(diaryEntry);
+        ActivityMain.getMainUser(this).SaveDiaryEntry(diaryEntry);
         Toast.makeText(ActivityDiaryEntry.this, R.string.Tagebucheintraggespeichert , Toast.LENGTH_SHORT).show();
 
         return true;

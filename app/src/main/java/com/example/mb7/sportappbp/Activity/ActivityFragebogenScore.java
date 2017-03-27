@@ -52,7 +52,7 @@ public class ActivityFragebogenScore extends AppCompatActivity{
         switch (item.getItemId()){
             case R.id.icon_save:
                 finish();
-                Toast.makeText(ActivityMain.activityMain,
+                Toast.makeText(this,
                         "Erfolgreich gespeichert" + "\n"
                         ,Toast.LENGTH_LONG).show();
 

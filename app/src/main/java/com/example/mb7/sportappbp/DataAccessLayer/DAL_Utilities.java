@@ -11,7 +11,7 @@ import java.util.Date;
 
 public class DAL_Utilities {
 
-    public static String DatabaseURL ;
+    public static String DatabaseURL  = "https://sportapp-cbd6b.firebaseio.com/";
     public static String ConvertDateToFirebaseDate(Date date)
     {
         String dateString = null;

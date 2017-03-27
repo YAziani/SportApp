@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -142,7 +143,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
             case R.id.icon_save:
                 SaveData();
                 finish();
-                Toast.makeText(ActivityMain.activityMain,getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_SHORT).show();
+                Toast.makeText(this,getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_SHORT).show();
                 return super.onOptionsItemSelected(item);
 
             case android.R.id.home:
@@ -156,6 +157,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         }
 
     }
+
 
     private StimmungsAngabe getData()
     {
@@ -205,12 +207,12 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
     private boolean SaveData()
     {
         StimmungAbfrageScore stimmungAbfrageScore = getDataScore();
-        ActivityMain.mainUser.SaveStimmungScore(stimmungAbfrageScore, new Date());
+        ActivityMain.getMainUser(this).SaveStimmungScore(stimmungAbfrageScore, new Date());
         StimmungsAngabe stimmungAbfrage  = getData();
         if (INSERT)
-            ActivityMain.mainUser.InsertStimmung(stimmungAbfrage);
+            ActivityMain.getMainUser(this).InsertStimmung(stimmungAbfrage);
         else
-            ActivityMain.mainUser.UpdateStimmung(stimmungAbfrage);
+            ActivityMain.getMainUser(this).UpdateStimmung(stimmungAbfrage);
 
         return true;
     }

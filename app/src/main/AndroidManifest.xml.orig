@@ -7,7 +7,7 @@
     <uses-permission android:name="android.permission.INTERNET" />
     <!-- We need this permission!!! -->
     <!-- Permission to use AlarmManager -->
-    <uses-permission android:name="com.android.alarm.permission.SET_ALARM"/>
+    <uses-permission android:name="com.android.alarm.permission.SET_ALARM" />
 
     <uses-feature android:name="android.hardware.location.gps" />
     <uses-feature android:name="android.hardware.location.network" />
@@ -37,28 +37,31 @@
         </activity>
         <activity
             android:name=".Activity.ActivityDiaryEntry"
-            android:label="Tagebuch Eintrag"
-            android:parentActivityName=".Activity.ActivityMain" />
+            android:label="@string/tagebucheintrag"/>
         <activity
             android:name=".Activity.ActivityDiary"
-            android:label="Tagebuch"
+            android:label="@string/Tagebuch"
             android:parentActivityName=".Activity.ActivityMain" />
         <activity android:name=".Activity.ActivitySettings" />
-        <activity android:name=".Activity.ActivityStimmungsAbgabe" android:parentActivityName=".Activity.ActivityMain" >
+        <activity
+            android:name=".Activity.ActivityStimmungsAbgabe"
+            android:parentActivityName=".Activity.ActivityMain">
             <meta-data
                 android:name="android.support.PARENT_ACTIVITY"
-                android:value=".Activity.ActivityMain"/>
+                android:value=".Activity.ActivityMain" />
         </activity>
         <activity android:name=".Activity.ActivitySettingInitializer" />
         <activity android:name=".Activity.ActivityChallenge" />
         <activity
             android:name=".Activity.ActivityCategories"
-            android:label="Kategorie auswählen..."
-            android:parentActivityName=".Activity.ActivityExerciseOverview" />
+            android:label="@string/KategorieAuswählen..." />
+        android:parentActivityName=".Activity.ActivitySelectedExercises" />
         <activity
             android:name=".Activity.ActivityExercises"
             android:parentActivityName=".Activity.ActivityCategories" />
-        <activity android:name=".Activity.ActivityExerciseOverview" />
+        <activity
+            android:name=".Activity.ActivitySelectedExercises"
+            android:label="@string/AusgewählteExercises" />
         <activity android:name=".Activity.ActivityFragebogen" />
         <activity android:name=".Activity.ActivityFitnessFragebogen" />
         <activity android:name=".Activity.ActivityMotivationMessage" />
@@ -67,14 +70,13 @@
         <activity android:name=".Activity.ActivityNewChallenge" />
         <activity
             android:name=".Activity.ActivityLogin"
-<<<<<<< HEAD
-            android:label="@string/title_activity_login"></activity>
-        <receiver  android:process=":remote" android:name=".Utilities.AlertReceiver"></receiver>
-
-=======
             android:label="@string/title_activity_login" />
-        <activity android:name=".Activity.ActivityChallengeInfo"></activity>
->>>>>>> 361150edcf6b72530e9218746e9761aea444e2c0
+
+        <receiver
+            android:name=".Utilities.AlertReceiver" />
+
+        <activity android:name=".Activity.Activity_lst_stimmungsabfrage" />
+        <activity android:name=".Activity.ActivityAbout"></activity>
     </application>
 
 </manifest>

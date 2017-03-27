@@ -2,7 +2,6 @@ package com.example.mb7.sportappbp.Observe;
 
 
 import android.Manifest;
-import android.app.Activity;
 import android.app.Notification;
 import android.app.NotificationManager;
 import android.app.PendingIntent;
@@ -23,9 +22,7 @@ import android.support.v4.app.NotificationCompat;
 import android.support.v4.content.ContextCompat;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
-import com.example.mb7.sportappbp.Activity.ActivitySettingInitializer;
 import com.example.mb7.sportappbp.Activity.ActivityTrainQuestioning;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMessage;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
@@ -34,15 +31,11 @@ import java.util.List;
 import java.util.Locale;
 
 /**
- * Created by Intirion on 24.03.2017.
+ * observer for training reminder
+ * Created by Aziani on 24.03.2017.
  */
 
 public class ObserverTrainingReminder extends Observer {
-    private SharedPreferences preferences;
-
-
-    private LocationManager locationManager;
-    private LocationListener locationListener;
 
     // objects describing the user and studio positions
     private static Address userAddress;
@@ -50,15 +43,13 @@ public class ObserverTrainingReminder extends Observer {
     private static Location userLocation;
     private static Location studioLocation;
 
-    short timeOutCounter = 0;
-
-    Context context;
+    private short timeOutCounter = 0;
 
     public ObserverTrainingReminder(Context context) {
         this.context = context;
-        final Context c = context;
-        locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE) ;
-        locationListener = new LocationListener() {
+
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE) ;
+        LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 userLocation = location;
@@ -129,20 +120,20 @@ public class ObserverTrainingReminder extends Observer {
                                     R.mipmap.ic_tagebuch_eintrag);
                             timeOutCounter = 5;
                             preferences.edit().putBoolean("reminderNotified", true).apply();
+                            preferences.edit().putString("nextTrainingTime", getNextTrainingTimeString(context)).apply();
                             return;
                         }
                         return;
                     }
                 }
                 preferences.edit().putBoolean("reminderNotified",false).apply();
+                preferences.edit().remove("nextTrainingTime").apply();
             }
         }
     }
 
     @Override
     public void createNotification(Context context, String NotificationDate, Class<?> cls,String title, String text, Integer icon ){
-
-        final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         Intent contentClass = new Intent(context, cls);
         contentClass.putExtra("NotificationDate",NotificationDate);
@@ -232,7 +223,7 @@ public class ObserverTrainingReminder extends Observer {
      * @param givenPosition: the user entered name of the studio address
      * @return address object matching the user given address the most
      */
-    public String compareStudioPosition(String givenPosition) {
+    private String compareStudioPosition(String givenPosition) {
         List<Address> determinedAddresses = null;
         Geocoder geocoder = new Geocoder(context, Locale.getDefault());
 

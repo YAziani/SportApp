@@ -308,10 +308,18 @@ public abstract class Observer {
                 }
             }
         }
+<<<<<<< HEAD
         if(lastTraining.equals("")) {
+            return -1;
+        }else {
+            return Integer.valueOf(lastTraining.split(":")[0]) * 60 + Integer.valueOf(lastTraining.split(":")[1]);
+        }
+=======
+        if (lastTraining.equals(""))
             return 0;
-        }else
+        else
             return Integer.valueOf(lastTraining.split(":")[0]) * 60
                 + Integer.valueOf(lastTraining.split(":")[1]);
+>>>>>>> 13899b0d3013c58f3fb5f837be192530892f4d7d
     }
 }

@@ -680,7 +680,7 @@
                         android:layout_width="match_parent"
                         android:layout_height="match_parent"
                         android:gravity="center"
-                        android:id="@+id/txtfragebogenendeleerzzeichen"
+                        android:id="@+id/txtfragebogenendeleerzzeichen1"
                         android:text=""
                         android:textSize="18sp"
                         android:textColor="@android:color/black"
@@ -1035,7 +1035,7 @@
                 android:layout_width="match_parent"
                 android:layout_height="match_parent"
                 android:gravity="center"
-                android:id="@+id/txtfragebogenendeleerzzeichen"
+                android:id="@+id/txtfragebogenendeleerzzeichen0"
                 android:text=""
                 android:textSize="18sp"
                 android:textColor="@android:color/black"
@@ -1068,12 +1068,5 @@
 
 
     </ScrollView>
-    <ImageView
-        android:layout_width="match_parent"
-        android:layout_height="55dp"
-        app:srcCompat="@drawable/sport2"
-        android:id="@+id/imageView"
-        android:layout_gravity="top"
-        android:layout_marginTop="25dp" />
 
 </LinearLayout>

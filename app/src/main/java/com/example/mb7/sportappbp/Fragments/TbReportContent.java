@@ -4,10 +4,15 @@ import android.app.Activity;
 import android.content.Intent;
 import android.os.AsyncTask;
 import android.os.Bundle;
+import android.support.v7.widget.DefaultItemAnimator;
+import android.support.v7.widget.GridLayoutManager;
+import android.support.v7.widget.LinearLayoutManager;
+import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
 import android.widget.Button;
+import android.widget.ListView;
 import android.widget.TextView;
 
 import com.example.mb7.sportappbp.Activity.ActivityCategories;
@@ -17,6 +22,10 @@ import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityKompass;
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
+import com.example.mb7.sportappbp.Adapters.ReportAdapter;
+import com.example.mb7.sportappbp.Adapters.TaskCategAdapter;
+import com.example.mb7.sportappbp.BusinessLayer.Report;
+import com.example.mb7.sportappbp.BusinessLayer.TaskCategory;
 import com.example.mb7.sportappbp.ClientIF;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 import com.example.mb7.sportappbp.R;
@@ -28,6 +37,9 @@ import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
+import java.util.Arrays;
+import java.util.LinkedList;
+import java.util.List;
 
 
 /**
@@ -36,162 +48,33 @@ import java.net.URL;
 
 public class TbReportContent extends TabFragment{
 
-
-    Button btnChallenge;
-    Button btnDiary;
     View view;
-    public TextView txtRequest;
-    private Firebase firebase;
+    ListView listView;
+    List<Report> reports;
+    RecyclerView rv;
 
     @Override
 
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
         this.setTitle("Berichte");
         view = inflater.inflate(R.layout.tbreportcontent, container, false);
-       // asyncTask.delegate = this;
 
-        Firebase.setAndroidContext(this.getActivity());
-        firebase = new Firebase("https://sportapp-cbd6b.firebaseio.com/");
-        txtRequest = (TextView) view.findViewById(R.id.txtRequestTest);
-
-        btnDiary = (Button) view.findViewById(R.id.btndiary);
-        btnDiary.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-                DAL_User.GetStimmnungsabfrage(ActivityMain.getMainUser(getContext()),"20170325");
-                Intent open = new Intent(getActivity(), ActivityDiary.class);
-                startActivity(open);
-
-            }
-        });
-
-        Button btnDiaryEntry = (Button) view.findViewById(R.id.btnDiaryEntry);
-        btnDiaryEntry.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent open = new Intent(getActivity(), ActivityCategories.class);
-                startActivity(open);
-            }
-        });
-
-        Button btnNewChallenge = (Button) view.findViewById(R.id.btnNewChallenge1);
-        btnNewChallenge.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-
-                Intent open = new Intent(getActivity(), ActivityNewChallenge.class);
-                startActivity(open);
-
-            }
-        });
-
-        btnChallenge = (Button) view.findViewById(R.id.btnNewChallenge);
-        btnChallenge.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
+        Report r1 = new Report(getString( R.string.stimmungsbarometer_dgr_ttl),getString(R.string.stimmungsbarometer_dgr_text), R.mipmap.ic_report_violett);
+        Report r2 = new Report(getString( R.string.energieindex_dgr_ttl), getString( R.string.energieeindex_dgr_text), R.mipmap.ic_report_green);
+        Report r3 = new Report(getString( R.string.differenzwert_dgr_ttl), getString( R.string.differenzwert_dgr_text),R.mipmap.ic_report_orange);
+        Report r4 = new Report(getString( R.string.punkteproWoche_dgr_ttl), getString( R.string.punkteproWoche_dgr_text),R.mipmap.ic_report_rosa);
+        Report r5 = new Report(getString( R.string.fittnessfragen_dgr_ttl), getString(R.string.fittnessfragen_dgr_text),R.mipmap.ic_report_blue);
+        Report r6 = new Report(getString( R.string.bsa_dgr_ttl), getString(R.string.bsa_dgr_text),R.mipmap.ic_report_red);
+        reports =new LinkedList<Report>(Arrays.asList(r1,r2,r3,r4,r5,r6));
 
 
-                Intent open = new Intent(getActivity(), ActivityChallenge.class);
-                startActivity(open);
-            }
-        });
+        rv = (RecyclerView)view.findViewById(R.id.recycler_report);
 
-        //testMo(view);
+        LinearLayoutManager lm = new LinearLayoutManager(getContext());
+        rv.setLayoutManager(lm);
+        // just create a list of tasks
+        rv.setAdapter(new ReportAdapter(reports, this));
+
         return view;
     }
-
-    private void Btn1_Clic(){
-
-    }
-
-    private void testMo(View view){
-        btnChallenge = (Button)view.findViewById(R.id.btndiary);
-        btnChallenge.setOnClickListener(new View.OnClickListener () {
-            @Override
-            public void onClick(View v) {
-
-                Intent open = new Intent(getContext() ,ActivityKompass.class);
-               getContext().startActivity(open);
-
-            }
-        });
-
-    }
-
-    private void testBasti(View view){
-        btnChallenge = (Button) view.findViewById(R.id.btndiary);
-        btnChallenge.setOnClickListener(new View.OnClickListener(){
-            @Override
-            public void onClick(View view){
-
-                //Firebase firebaseChild = firebase.child("MyChildTest");
-                //firebaseChild.setValue("Mo B");
-
-                Intent open = new Intent(getActivity(), ActivityDiaryEntry.class);
-                startActivity(open);
-            }
-        });
-    }
-
-
-
-    abstract  class  MyDownloadTask extends AsyncTask<Object,Void,String> implements ClientIF {
-        String url ="";
-
-        public MyDownloadTask(String url)
-        {
-            this.url = url;
-        }
-
-        TbReportContent tbReportContent;
-        public void Initialize(TbReportContent tb)
-        {
-            tbReportContent = tb;
-        }
-
-        // abstract function that mus be implemented
-        // this function receives the result value and can be passed to the caller
-        public abstract void onResponseReceived(String result);
-        protected void onPreExecute() {
-            //display progress dialog.
-
-        }
-
-
-        @Override
-        protected void onPostExecute(String s) {
-            onResponseReceived(s);
-        }
-
-        // function that is called after calling the execute() function by the caller
-        @Override
-        protected String doInBackground(Object... params) {
-            String s = "";
-            try
-            {
-                URL url = new URL(this.url);
-                HttpURLConnection urlConnection = (HttpURLConnection) url.openConnection();
-                InputStream in = new BufferedInputStream(urlConnection.getInputStream());
-                BufferedReader r = new BufferedReader(new InputStreamReader(in));
-                StringBuilder total = new StringBuilder();
-                String line;
-                while ((line = r.readLine()) != null) {
-                    total.append(line).append('\n');
-                }
-                s = total.toString();
-               // delegate.processFinish(s);
-
-            }
-            catch (Exception ex)
-            {
-                s = ex.getMessage();
-            }
-            finally
-            {
-
-            }
-            return  s;
-        }
-    }
-
 }

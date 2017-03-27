@@ -136,9 +136,8 @@ public class User {
         DAL_User.GetLastTodayDiaryEntry(this,date);
     }
 
-    public boolean SaveDiaryEntry(DiaryEntry diaryEntry)
-    {
-        DAL_User.InsertDiaryEntry(this,diaryEntry);
+    public boolean SaveDiaryEntry(DiaryEntry diaryEntry) {
+        DAL_User.InsertDiaryEntry(this, diaryEntry);
         return true;
     }
     public boolean LoadCompleteDiry(){
@@ -150,6 +149,17 @@ public class User {
             //todo implement the firebase method
         return true;
     }
+
+    /**
+     * challenge to DAL_User to save its into database
+     * @param challenge challenge to add
+     * @return
+     */
+    public boolean InsertChallenge(Challenge challenge) {
+        DAL_User.InsertChallenge(this, challenge);
+        return true;
+    }
+
 
     /**
      * hand ratings to DAL_User to save them into database

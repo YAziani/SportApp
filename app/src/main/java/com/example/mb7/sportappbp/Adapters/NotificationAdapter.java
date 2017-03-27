@@ -101,7 +101,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                             Toast.LENGTH_SHORT
                     ).show();
                     PreferenceManager
-                            .getDefaultSharedPreferences(context.getActivity().getApplicationContext())
+                            .getDefaultSharedPreferences(context.getActivity())
                             .edit()
                             .remove("nextTrainingTime").apply();
                 }

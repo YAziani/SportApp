@@ -55,7 +55,7 @@ public class ObserverFitnessFragebogen extends Observer {
                         context.getString( R.string.fitnessfragebogen),
                         ActivityFitnessFragebogen.class,context.getString(R.string.fitnessfragebogen),
                         context.getString(R.string.ntf_fitnessfragebogen),
-                        R.mipmap.ic_fitness_fragebogen );
+                        R.mipmap.ic_fittnessfragebogen );
             }
 
 

@@ -80,7 +80,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     boolean INSERT=true;
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState){
-        Log.e("Oncreate enter", "Entered onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitnessquestions);
 
@@ -156,7 +156,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
                 return super.onOptionsItemSelected(item);
             case R.id.icon_info:
                 infoalert();
-
+                return super.onOptionsItemSelected(item);
             case android.R.id.home:
                 finish();
                 return true;
@@ -195,7 +195,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
                 SaveData();
                 finish();
                 Toast ausgabe= Toast.makeText(activityFitnessFragebogen,
-                        getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
+                        getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_SHORT);
                 ausgabe.show();
             }
 
@@ -267,9 +267,9 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     private boolean SaveData() {
         FitnessFragebogen fitnessfragebogen = getData();
         if (INSERT)
-        ActivityMain.getmainUser(this).InsertFitnessFragebogen(fitnessfragebogen);
+        ActivityMain.getMainUser(this).InsertFitnessFragebogen(fitnessfragebogen);
         else
-            ActivityMain.getmainUser(this).UpdateFitnessFragebogen(fitnessfragebogen);
+           ActivityMain.getMainUser(this).UpdateFitnessFragebogen(fitnessfragebogen);
 
 
         return true;

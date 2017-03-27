@@ -486,20 +486,7 @@ public class DAL_User {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/FitnessFragebogen/" + finessfragebogen.Date );
 
 
-            Firebase childscorekraft = ref.child("Score Kraft");
-            childscorekraft.setValue(finessfragebogen.scorekraft);
 
-            Firebase childscoreausdauer = ref.child("Score Ausdauer");
-            childscoreausdauer.setValue(finessfragebogen.scoreausdauer);
-
-            Firebase childscorekoordination = ref.child("Score Koordination");
-            childscorekoordination.setValue(finessfragebogen.scorekoordination);
-
-            Firebase childscorebewglichkeit = ref.child("Score Beweglichkeit");
-            childscorebewglichkeit.setValue(finessfragebogen.scorebeweglichkeit);
-
-            Firebase childscoregesamt = ref.child("Gesamtscore");
-            childscoregesamt.setValue(finessfragebogen.scoregesamt);
 
             if(finessfragebogen.stuhlaufstehen>=0){
                 Firebase childstuhlaufstehen = ref.child("auf einem Stuhl sitzend ohne Hilfe der Arme aufstehen");
@@ -613,6 +600,21 @@ public class DAL_User {
                 Firebase childradschlagen = ref.child("ein Rad schlagen");
                 childradschlagen.setValue(finessfragebogen.radschlagen);}
 
+
+            Firebase childscorekraft = ref.child("Score Kraft");
+            childscorekraft.setValue(finessfragebogen.scorekraft);
+
+            Firebase childscoreausdauer = ref.child("Score Ausdauer");
+            childscoreausdauer.setValue(finessfragebogen.scoreausdauer);
+
+            Firebase childscorekoordination = ref.child("Score Koordination");
+            childscorekoordination.setValue(finessfragebogen.scorekoordination);
+
+            Firebase childscorebewglichkeit = ref.child("Score Beweglichkeit");
+            childscorebewglichkeit.setValue(finessfragebogen.scorebeweglichkeit);
+
+            Firebase childscoregesamt = ref.child("Gesamtscore");
+            childscoregesamt.setValue(finessfragebogen.scoregesamt);
 
         }
         catch (Exception exception)
@@ -639,20 +641,7 @@ public class DAL_User {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/FitnessFragebogen/" + finessfragebogen.Date );
 
 
-            Firebase childscorekraft = ref.child("Score Kraft");
-            childscorekraft.setValue(finessfragebogen.scorekraft);
 
-            Firebase childscoreausdauer = ref.child("Score Ausdauer");
-            childscoreausdauer.setValue(finessfragebogen.scoreausdauer);
-
-            Firebase childscorekoordination = ref.child("Score Koordination");
-            childscorekoordination.setValue(finessfragebogen.scorekoordination);
-
-            Firebase childscorebewglichkeit = ref.child("Score Beweglichkeit");
-            childscorebewglichkeit.setValue(finessfragebogen.scorebeweglichkeit);
-
-            Firebase childscoregesamt = ref.child("Gesamtscore");
-            childscoregesamt.setValue(finessfragebogen.scoregesamt);
 
             if(finessfragebogen.stuhlaufstehen>=0){
                 Firebase childstuhlaufstehen = ref.child("auf einem Stuhl sitzend ohne Hilfe der Arme aufstehen");
@@ -767,6 +756,21 @@ public class DAL_User {
                 childradschlagen.setValue(finessfragebogen.radschlagen);}
 
 
+            Firebase childscorekraft = ref.child("Score Kraft");
+            childscorekraft.setValue(finessfragebogen.scorekraft);
+
+            Firebase childscoreausdauer = ref.child("Score Ausdauer");
+            childscoreausdauer.setValue(finessfragebogen.scoreausdauer);
+
+            Firebase childscorekoordination = ref.child("Score Koordination");
+            childscorekoordination.setValue(finessfragebogen.scorekoordination);
+
+            Firebase childscorebewglichkeit = ref.child("Score Beweglichkeit");
+            childscorebewglichkeit.setValue(finessfragebogen.scorebeweglichkeit);
+
+            Firebase childscoregesamt = ref.child("Gesamtscore");
+            childscoregesamt.setValue(finessfragebogen.scoregesamt);
+
         }
         catch (Exception exception)
         {
@@ -789,9 +793,7 @@ public class DAL_User {
     {
         try
         {
-
-
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date + "/"  );
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
 
 
             if(fragebogen.berufstätig>=0){
@@ -907,7 +909,7 @@ public class DAL_User {
         {
 
 
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date + "/"  );
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date );
 
 
             if(fragebogen.berufstätig>=0){

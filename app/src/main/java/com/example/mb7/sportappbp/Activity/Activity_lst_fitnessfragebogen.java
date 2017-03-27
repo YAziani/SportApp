@@ -1,8 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -18,7 +16,6 @@ import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.FitnessFrageViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
-import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
@@ -37,7 +34,7 @@ import java.util.List;
 
 public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
     Activity_lst_fitnessfragebogen activityLstFitnessfragebogen=null;
-    List<FitnessFragebogen> fitnessFragebogenList;
+    List<FitnessFragebogen> FitnessFragebogenList;
     RecyclerView rv;
     Activity_lst_fitnessfragebogen activity_lst_fitnessfragebogen=this;
     ProgressDialog pd;
@@ -105,7 +102,7 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
      */
     private void deleteFitnessFragebogen(FitnessFragebogen fitnessFragebogen)
     {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.mainUser.getName() + "/FitnessFragebogen" );
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/FitnessFragebogen/" );
         ref.child(fitnessFragebogen.FirebaseDate).removeValue();
     }
 
@@ -131,7 +128,7 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
 
     void readFitnessFragebogen() {
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.mainUser.getName() + "/FitnessFragebogen/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/FitnessFragebogen/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -142,7 +139,7 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
                     //final String sDate = dataSnapshot.getKey();
 
                     // dataSnapshot.getKey() declares which strategy the notification belongs to (Stimmungsabgabe....)
-                   fitnessFragebogenList = new LinkedList<FitnessFragebogen>();
+                   FitnessFragebogenList = new LinkedList<FitnessFragebogen>();
                     // the child.key of dataSnapshop declare the unique datetime of the notification
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         // Here I get the time
@@ -155,18 +152,18 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
                             FitnessFragebogen fitnessFragebogen = child2.getValue(FitnessFragebogen.class);
                             fitnessFragebogen.FirebaseDate = sDate;
                             fitnessFragebogen.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString(sDate);
-                            fitnessFragebogenList.add(fitnessFragebogen);
+                            FitnessFragebogenList.add(fitnessFragebogen);
                         }
 
 
-                        if (fitnessFragebogenList != null) {
+                        if (FitnessFragebogenList != null) {
                             // reverse the list to get the newest first
-                            Collections.reverse(fitnessFragebogenList);
+                            Collections.reverse(FitnessFragebogenList);
                             // fill the recycler
                             LinearLayoutManager lm = new LinearLayoutManager(activityLstFitnessfragebogen);
                             rv.setLayoutManager(lm);
                             // just create a list of tasks
-                            rv.setAdapter(new FitnessFrageViewAdapter(fitnessFragebogenList, activityLstFitnessfragebogen));
+                            rv.setAdapter(new FitnessFrageViewAdapter(FitnessFragebogenList, activityLstFitnessfragebogen));
                         }
                     }
 

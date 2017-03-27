@@ -46,9 +46,9 @@ public class ActivityFragebogen extends AppCompatActivity {
     private FragebogenViewAdapter2 adapter2;
 
     //Integer Werte für Scoring des Fragebogens
-    int scoringbewegungwert;
-    int scoringsportwert;
-    int scoringgesamtwert;
+    long scoringbewegungwert;
+    long scoringsportwert;
+    long scoringgesamtwert;
     int bewegungsaktivitätberuf;
 
     //Listviews
@@ -59,7 +59,7 @@ public class ActivityFragebogen extends AppCompatActivity {
     FragebogenListview lstsportlichaktiv;
 
     //Zeitaum für Fragen ab Block 4
-    static int wochenzeitraum=4;
+    static long wochenzeitraum;
 
 
     int itemsitzendetätigkeit;
@@ -75,19 +75,22 @@ public class ActivityFragebogen extends AppCompatActivity {
 
     public static void getWochenanzahlFromDb() {
 
-        try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/bsa/questionaryPeriodweeks");
-            Firebase root = new Firebase(url.toString());
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
+
+            //URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/bsa/questionaryPeriodweeks");
+            //Firebase root = new Firebase(url.toString());
+            Firebase root= new Firebase("https://sportapp-cbd6b.firebaseio.com/Administration/bsa/questionaryPeriodweeks");
+            try{root.addListenerForSingleValueEvent(new ValueEventListener() {
 
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
-                                                       wochenzeitraum=(int)dataSnapshot.getValue();
+                                                       if (dataSnapshot.getValue()!=null)
+                                                        //wochenzeitraum=(long)dataSnapshot.getValue();
+                                                        ActivityFragebogen.wochenzeitraum=convertToLong(dataSnapshot.getValue());
 
+                                                        else
+                                                            ActivityFragebogen.wochenzeitraum=4;
 
                                                     }
-
-
 
 
                                                     @Override
@@ -104,11 +107,21 @@ public class ActivityFragebogen extends AppCompatActivity {
 
     }
 
+
+
+    public static Long convertToLong(Object o){
+        String stringToConvert = String.valueOf(o);
+        Long convertedLong = Long.parseLong(stringToConvert);
+        return convertedLong;
+
+    }
+
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
+        this.getWochenanzahlFromDb();
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bsaquestions);
-
+        this.SetControlCaptions();
 
 
         // Now read the extra key - val
@@ -132,7 +145,9 @@ public class ActivityFragebogen extends AppCompatActivity {
         }
 
         mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
-        this.SetControlCaptions();
+        //this.getWochenanzahlFromDb();
+
+
         this.InitializeControlls();
         //super.onStart();
     }
@@ -142,12 +157,6 @@ public class ActivityFragebogen extends AppCompatActivity {
         super.onResume();
     }
 
-
-
-    void setControlData(StimmungsAngabe stimmungsAngabe)
-    {
-
-    }
 
 
     void removeNofiication(Context context, String notificationDate) {
@@ -189,7 +198,6 @@ public class ActivityFragebogen extends AppCompatActivity {
             case android.R.id.home:
                 finish();
                 return true;
-
             default:
                 finish();
                 return super.onOptionsItemSelected(item);
@@ -209,7 +217,7 @@ public class ActivityFragebogen extends AppCompatActivity {
                 SaveData();
                 finish();
                 Toast ausgabe= Toast.makeText(activityFragebogen,
-                        getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_LONG);
+                        getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_SHORT);
                 ausgabe.show();
             }
 
@@ -257,8 +265,11 @@ public class ActivityFragebogen extends AppCompatActivity {
         fragebogen.aktivitätcname = aktivitätcname();
         fragebogen.aktivitätc = aktivitätc();
 
+        if (INSERT){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        fragebogen.Date = sdf.format(new Date());
+        fragebogen.Date = sdf.format(new Date());}
+        else
+            fragebogen.Date=this.fragebogen.FirebaseDate;
 
         return fragebogen;
     }
@@ -268,9 +279,9 @@ public class ActivityFragebogen extends AppCompatActivity {
 
         Fragebogen fragebogen = getData();
         if (INSERT)
-            ActivityMain.getmainUser(this).InsertFragebogen(fragebogen);
+            ActivityMain.getMainUser(this).InsertFragebogen(fragebogen);
         else
-        ActivityMain.getmainUser(this).UpdateFragebogen(fragebogen);
+        ActivityMain.getMainUser(this).UpdateFragebogen(fragebogen);
 
         return true;
 
@@ -331,16 +342,22 @@ public class ActivityFragebogen extends AppCompatActivity {
         lstsportlichaktiv.visibility(sportlayout);
     }
 
+    public long getwochenzeitraum(){
+        getWochenanzahlFromDb();
+        return wochenzeitraum;
+    }
+
     /**
      * Inhalt der Textviews mit definiertem Zeitraum.
      */
     private void SetControlCaptions() {
-        ((TextView) findViewById(R.id.txtwieoftsport)).setText(getString(R.string.An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitäten_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeübt));
-        ((TextView) findViewById(R.id.txtsportlichaktiv)).setText(getString(R.string.Haben_Sie_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.regelmäßig_Sport_betrieben));
-        ((TextView) findViewById(R.id.txtzeitraum)).setText(getString(R.string.Folgende_Fragen_beziehen_sich_auf_den_Zeitraum_von) + " " + wochenzeitraum + " " + getString(R.string.Wochen) + "\n");
-        ((TextView) findViewById(R.id.txtaktivitätaanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_A_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeübt));
-        ((TextView) findViewById(R.id.txtaktivitätbanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_B_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeübt));
-        ((TextView) findViewById(R.id.txtaktivitätcanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_C_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeübt));
+        getwochenzeitraum();
+        ((TextView) findViewById(R.id.txtwieoftsport)).setText(getString(R.string.An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitäten_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeübt));
+        ((TextView) findViewById(R.id.txtsportlichaktiv)).setText(getString(R.string.Haben_Sie_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.regelmäßig_Sport_betrieben));
+        ((TextView) findViewById(R.id.txtzeitraum)).setText(getString(R.string.Folgende_Fragen_beziehen_sich_auf_den_Zeitraum_von) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen) + "\n");
+        ((TextView) findViewById(R.id.txtaktivitätaanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_A_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeübt));
+        ((TextView) findViewById(R.id.txtaktivitätbanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_B_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeübt));
+        ((TextView) findViewById(R.id.txtaktivitätcanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_C_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeübt));
     }
 
 
@@ -548,7 +565,7 @@ public class ActivityFragebogen extends AppCompatActivity {
      *
      * @return int scoringbewegungwert
      */
-    private int scoringbewegung() {
+    private long scoringbewegung() {
         scoringbewegungwert = ((zufußzurarbeit() + zufußeinkaufen() + radzurarbeit() + radfahren() + spazieren() + gartenarbeit() + hausarbeit() + pflegearbeit() + treppensteigen()) / wochenzeitraum) + bewegungberuf();
 
         return scoringbewegungwert;
@@ -593,7 +610,7 @@ public class ActivityFragebogen extends AppCompatActivity {
      *
      * @return (int) scoringsportwert
      */
-    private int scoringsport() {
+    private long scoringsport() {
         if (lstsportlichaktiv.getIndexBSA1() > 0)
             return 0;
         else
@@ -611,7 +628,7 @@ public class ActivityFragebogen extends AppCompatActivity {
      *
      * @return (int) scoringgesamt
      */
-    private int scoringgesamt() {
+    private long scoringgesamt() {
         return scoringgesamtwert = scoringbewegung() + scoringsport();
     }
 

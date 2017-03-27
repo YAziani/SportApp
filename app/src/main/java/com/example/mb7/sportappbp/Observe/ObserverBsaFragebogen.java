@@ -50,7 +50,7 @@ public class ObserverBsaFragebogen extends Observer {
                         context.getString( R.string.aktivitaetsfragebogen),
                         ActivityFitnessFragebogen.class,context.getString(R.string.aktivitaetsfragebogen),
                         context.getString(R.string.ntf_aktivitaetsfragebogen),
-                        R.mipmap.ic_aktivitaetfragebogen );
+                        R.mipmap.ic_aktivitaets_fragebogen);
             }
 
 

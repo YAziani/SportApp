@@ -109,7 +109,7 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
      */
     private void deleteFragebogen(Fragebogen fragebogen)
     {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.mainUser.getName() + "/BSAFragebogen" );
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/BSAFragebogen/" );
         ref.child(fragebogen.FirebaseDate).removeValue();
     }
 
@@ -137,7 +137,7 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
 
     void readFragebogen() {
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.mainUser.getName() + "/BSAFragebogen");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/BSAFragebogen");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -157,9 +157,9 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
                                                    // Here I have V or N
 
                                                     // create the object and insert it in the list
-                                                       for (DataSnapshot child3L : child.getChildren()) {
+                                                       for (DataSnapshot child2 : child.getChildren()) {
 
-                                                           Fragebogen fragebogen = child3L.getValue(Fragebogen.class);
+                                                           Fragebogen fragebogen = child2.getValue(Fragebogen.class);
                                                            fragebogen.FirebaseDate = sDate;
                                                            fragebogen.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString( sDate);
                                                            FragebogenList.add(fragebogen);

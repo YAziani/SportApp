@@ -32,7 +32,7 @@ public class Fragebogen implements Serializable {
     public String aktivitätcname;
     public Integer aktivitätc;
 
-    public Integer bewegungscoring;
-    public Integer sportscoring;
-    public Integer gesamtscoring;
+    public long bewegungscoring;
+    public long sportscoring;
+    public long gesamtscoring;
 }

@@ -65,7 +65,7 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
     public void onBindViewHolder(final BsaFragebogenViewAdapter.FragebogenHolder holder, final int position) {
         BsaFragebogenViewAdapter.FragebogenHolder fragebogenHolder = (BsaFragebogenViewAdapter.FragebogenHolder) holder;
         fragebogenHolder.txtTitle.setText(fragebogenList.get(position).Date);
-        fragebogenHolder.imageView.setImageResource(R.mipmap.ic_aktivitaetfragebogen);
+        fragebogenHolder.imageView.setImageResource(R.mipmap.ic_aktivitaets_fragebogen);
 
         if (position == selectedPosition)
         {

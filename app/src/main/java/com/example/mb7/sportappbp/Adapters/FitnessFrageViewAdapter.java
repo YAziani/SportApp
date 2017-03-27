@@ -65,7 +65,7 @@ public class FitnessFrageViewAdapter extends RecyclerView.Adapter<FitnessFrageVi
         fitnessFrageHolder.txtTitle.setText(fitnessFragebogenList.get(position).Date);
 
         //fitnessFrageHolder.txtSubText.setText(fitnessFragebogenList.get(position).Time   );
-        fitnessFrageHolder.imageView.setImageResource(R.mipmap.ic_fitness_fragebogen);
+        fitnessFrageHolder.imageView.setImageResource(R.mipmap.ic_fittnessfragebogen);
 
         if (position == selectedPosition)
         {

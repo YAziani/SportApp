@@ -8,12 +8,13 @@ import java.io.Serializable;
 
 public class FitnessFragebogen implements Serializable {
     public String Date;
+    public String FirebaseDate;
     public Integer scorekraft;
     public Integer scoreausdauer;
     public Integer scorekoordination;
     public Integer scorebeweglichkeit;
     public Integer scoregesamt;
-    public String FirebaseDate;
+
 
     public Integer stuhlaufstehen;
     public Integer einkaufskorb;

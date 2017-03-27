@@ -231,7 +231,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
 */
                 else {
                     //Create challenge object and set data
-                    userList.add(ActivityMain.getMainUser(this));
+                    //userList.add(ActivityMain.getMainUser(this));
                     Challenge challenge = new Challenge();
                     challenge.setName(editTextName.getText().toString());
                     challenge.setStartDate(startCalendar.getTime());
@@ -284,6 +284,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
                         userList.add(user);
                         newChallengeViewAdapter.notifyDataSetChanged();
                         addUserDialog.dismiss();
+                        inviteUsers();
                     }
                 }
                 //if user doesn't exist
@@ -432,6 +433,12 @@ public class ActivityNewChallenge extends AppCompatActivity {
                 result = true;
         }
         return result;
+    }
+
+    public void inviteUsers(){
+        for(User user : userList){
+
+        }
     }
 
     /**

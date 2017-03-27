@@ -190,4 +190,14 @@ public class Challenge implements Serializable {
         DAL_User.RemoveChallenge(user, this);
         return true;
     }
+
+    /**
+     * User to DAL_Challenge to save its to database
+     * @param user user to add
+     * @return
+     */
+    public boolean InviteUser(User user){
+        DAL_Challenges.InsertInvitation(user , this);
+        return true;
+    }
 }

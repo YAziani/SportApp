@@ -170,6 +170,22 @@ public class DAL_Challenges {
      */
     public static void RemoveUser(User user, Challenge challenge){
 
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "Users/" + user.getName() + "/Invitation");
+
+        Firebase admin = ref.child("Challenge");
+
+        Firebase adminChild = admin.child(challenge.getName());
+        adminChild.setValue(challenge.getName());
+    }
+
+
+    /**
+     * Removes the reference to user
+     * @param user to invite
+     * @param challenge current challen
+     */
+    public static void InsertInvitation(User user, Challenge challenge){
+
         Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "Challenges/" + challenge.getName() + "/Users/");
         ref.child(user.getName()).removeValue();
     }

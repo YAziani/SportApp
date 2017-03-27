@@ -14,6 +14,8 @@ import android.support.v4.app.NotificationCompat;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.Observe.Observer;
+import com.example.mb7.sportappbp.Observe.ObserverBsaFragebogen;
+import com.example.mb7.sportappbp.Observe.ObserverFitnessFragebogen;
 import com.example.mb7.sportappbp.Observe.ObserverMotivationMessage;
 import com.example.mb7.sportappbp.Observe.ObserverStimmungAngabe;
 import com.example.mb7.sportappbp.Observe.ObserverTrainQuestioning;
@@ -34,6 +36,8 @@ public  class   AlertReceiver extends BroadcastReceiver {
     ObserverTrainingReminder observerTrainingReminder = null;
     ObserverMotivationMessage observerMotivationMessage = null;
     ObserverTrainQuestioning observerTrainQuestioning = null;
+    ObserverFitnessFragebogen observerFitnessFragebogen = null;
+    ObserverBsaFragebogen observerBsaFragebogen = null;
 
     // Called when a broadcast is made targeting this class
     @Override
@@ -56,6 +60,14 @@ public  class   AlertReceiver extends BroadcastReceiver {
         if (observerTrainQuestioning == null)
             observerTrainQuestioning = new ObserverTrainQuestioning();
         observerTrainQuestioning.update(context);
+
+        if (observerFitnessFragebogen ==null)
+            observerFitnessFragebogen = new ObserverFitnessFragebogen();
+        observerFitnessFragebogen.update(context);
+
+        if (observerBsaFragebogen==null)
+            observerBsaFragebogen=new ObserverBsaFragebogen();
+        observerBsaFragebogen.update(context);
 
         insertdb(context);
     }

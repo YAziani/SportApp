@@ -62,8 +62,18 @@
         <activity
             android:name=".Activity.ActivitySelectedExercises"
             android:label="@string/AusgewählteExercises" />
-        <activity android:name=".Activity.ActivityFragebogen" />
-        <activity android:name=".Activity.ActivityFitnessFragebogen" />
+        <activity android:name=".Activity.ActivityFragebogen"
+            android:parentActivityName=".Activity.ActivityMain">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.ActivityMain" />
+        </activity>
+        <activity android:name=".Activity.ActivityFitnessFragebogen"
+            android:parentActivityName=".Activity.ActivityMain">
+            <meta-data
+                android:name="android.support.PARENT_ACTIVITY"
+                android:value=".Activity.ActivityMain" />
+        </activity>
         <activity android:name=".Activity.ActivityMotivationMessage" />
         <activity android:name=".Activity.ActivityTrainQuestioning" />
         <activity android:name=".Activity.ActivityKompass" />
@@ -77,6 +87,8 @@
         <activity android:name=".Activity.Activity_lst_stimmungsabfrage" />
         <activity android:name=".Activity.ActivityAbout" />
         <activity android:name=".Activity.Activity_Stimmungsbarometer_rpt"></activity>
+        <activity android:name=".Activity.Activity_lst_fitnessfragebogen" />
+        <activity android:name=".Activity.Activity_lst_bsafragebogen" />
     </application>
 
 </manifest>

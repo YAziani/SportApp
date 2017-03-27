@@ -17,6 +17,8 @@ import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivitySettingInitializer;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
+import com.example.mb7.sportappbp.Activity.Activity_lst_bsafragebogen;
+import com.example.mb7.sportappbp.Activity.Activity_lst_fitnessfragebogen;
 import com.example.mb7.sportappbp.Activity.Activity_lst_stimmungsabfrage;
 import com.example.mb7.sportappbp.BusinessLayer.TaskCategory;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
@@ -60,11 +62,11 @@ public class TaskCategAdapter  extends RecyclerView.Adapter<TaskCategAdapter.Tas
                 context.startActivity(open);
 
             } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragebogen))) {
-                Intent open = new Intent(context.getActivity(), ActivityFitnessFragebogen.class);
+                Intent open = new Intent(context.getActivity(), Activity_lst_fitnessfragebogen.class);
                 // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
                 context.startActivity(open);
             } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.aktivitaetsfragebogen))) {
-                Intent open = new Intent(context.getActivity(), ActivityFragebogen.class);
+                Intent open = new Intent(context.getActivity(), Activity_lst_bsafragebogen.class);
                 // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
                 context.startActivity(open);
             } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.bewegen_sie_sich))) {

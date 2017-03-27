@@ -1,11 +1,14 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
+import java.io.Serializable;
+
 /**
  * Created by Felix on 02.02.2017.
  */
 
-public class Fragebogen {
+public class Fragebogen implements Serializable {
     public String Date;
+    public String FirebaseDate;
     public Integer berufstätig;
     public Integer sitzendetätigkeiten;
     public Integer mäßigebewegung;
@@ -29,7 +32,7 @@ public class Fragebogen {
     public String aktivitätcname;
     public Integer aktivitätc;
 
-    public Integer bewegungscoring;
-    public Integer sportscoring;
-    public Integer gesamtscoring;
+    public long bewegungscoring;
+    public long sportscoring;
+    public long gesamtscoring;
 }

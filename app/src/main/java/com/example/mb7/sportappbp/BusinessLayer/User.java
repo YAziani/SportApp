@@ -103,16 +103,29 @@ public class User {
     }
 
 
-    public boolean SaveFitnessFragebogen(FitnessFragebogen fitnessfragebogen, Date date)
+    public boolean InsertFitnessFragebogen(FitnessFragebogen fitnessfragebogen)
     {
-        DAL_User.InsertFitnessFragebogen(this,fitnessfragebogen,date);
+        DAL_User.InsertFitnessFragebogen(this,fitnessfragebogen);
         return true;
     }
-    public boolean SaveFragebogen(Fragebogen fragebogen, Date date)
+    public boolean UpdateFitnessFragebogen(FitnessFragebogen fitnessfragebogen)
     {
-        DAL_User.InsertFragebogen(this,fragebogen,date);
+        DAL_User.UpdateFitnessFragebogen(this,fitnessfragebogen);
         return true;
     }
+
+    public boolean InsertFragebogen(Fragebogen fragebogen){
+        DAL_User.InsertFragebogen(this,fragebogen);
+        return true;
+    }
+
+    public boolean UpdateFragebogen(Fragebogen fragebogen){
+        DAL_User.UpdateFragebogen(this, fragebogen);
+        return true;
+    }
+
+
+
 
     public StimmungsAngabe GetStimmnungsabfrage(String date){
         return DAL_User.GetStimmnungsabfrage(this,date);

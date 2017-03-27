@@ -8,6 +8,10 @@ import android.widget.AdapterView;
 import android.widget.LinearLayout;
 import android.widget.ListView;
 
+import com.example.mb7.sportappbp.Adapters.FitnessFragebogenViewAdapter;
+import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter;
+import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter2;
+import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.R;
 
 /**
@@ -16,6 +20,7 @@ import com.example.mb7.sportappbp.R;
 
 public class FragebogenListview extends ListView {
     private int index = -1;
+    FragebogenListview lst=this;
 
 
     public FragebogenListview(Context context) {super (context);}
@@ -31,6 +36,7 @@ public class FragebogenListview extends ListView {
         super (context,attrs,defStyleAttr,defStyleRes);
     }
 
+    /*
     public void Initialize()
     {
         // we do this to disable scrolling the listview
@@ -85,7 +91,103 @@ public class FragebogenListview extends ListView {
 
 
     public int getIndex(){return index;}
+*/
 
+
+    public void InitializeFitness()
+    {
+        // we do this to disable scrolling the listview
+        this.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    return true; // Indicates that this has been handled by you and will not be forwarded further.
+                }
+                return false;
+            }
+
+        });
+        // we do this so that the selected color remains after clicking on an item
+        this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                index = position;
+                String val = Integer.toString(index);
+                ((FitnessFragebogenViewAdapter)lst.getAdapter()).setSelectedIndex(position);
+                ((FitnessFragebogenViewAdapter)lst.getAdapter()).notifyDataSetChanged();
+                view.setSelected(true);
+            }
+        });
+    }
+
+    public int getIndexFitness(){
+        return ((FitnessFragebogenViewAdapter)getAdapter()).getSelectedIndex();
+    }
+
+    public void InitializeBSA()
+    {
+        // we do this to disable scrolling the listview
+        this.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    return true; // Indicates that this has been handled by you and will not be forwarded further.
+                }
+                return false;
+            }
+
+        });
+        // we do this so that the selected color remains after clicking on an item
+        this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                index = position;
+                String val = Integer.toString(index);
+                ((FragebogenViewAdapter2)lst.getAdapter()).setSelectedIndex(position);
+                ((FragebogenViewAdapter2)lst.getAdapter()).notifyDataSetChanged();
+                view.setSelected(true);
+            }
+        });
+    }
+
+    public void visibility(final LinearLayout llayout){
+        this.setOnTouchListener(new View.OnTouchListener() {
+            @Override
+            public boolean onTouch(View v, MotionEvent event) {
+                if (event.getAction() == MotionEvent.ACTION_MOVE) {
+                    return true; // Indicates that this has been handled by you and will not be forwarded further.
+                }
+                return false;
+            }
+
+        });
+
+        this.setOnItemClickListener(new AdapterView.OnItemClickListener(){
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                index = position;
+                String val = Integer.toString(index);
+                ((FragebogenViewAdapter)lst.getAdapter()).setSelectedIndex(position);
+                ((FragebogenViewAdapter)lst.getAdapter()).notifyDataSetChanged();
+
+                if (index>0){
+                    llayout.setVisibility(LinearLayout.GONE);}
+                else
+                    llayout.setVisibility(LinearLayout.VISIBLE);
+
+                view.setSelected(true);
+
+
+            }
+        });
+    }
+
+    public int getIndexBSA1(){
+        return ((FragebogenViewAdapter)getAdapter()).getSelectedIndex();
+    }
+    public int getIndexBSA2(){
+        return ((FragebogenViewAdapter2)getAdapter()).getSelectedIndex();
+    }
 
 
 }

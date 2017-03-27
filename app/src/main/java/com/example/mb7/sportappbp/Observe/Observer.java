@@ -43,7 +43,7 @@ public abstract class Observer {
         String sDate =  saveNotificationDB(context,strategyname, text);
         // now show the notification
         if (!sDate.equals(""))
-            createNotification(context, sDate, cls, title,text, icon    );
+            createNotification(context, sDate, cls, title,text, R.drawable.ic_notification   );
 
     }
 
@@ -122,7 +122,7 @@ public abstract class Observer {
         // Builds a notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(icon  )
+                        .setSmallIcon(  icon)
                         .setContentTitle(title)                         // The title that is displayed
                         .setContentText(text)              // This text is shown by the notification
                         .setTicker(text)  ;            // This is not shown since Android 5.0 but still usefull to accessibility services
@@ -282,7 +282,7 @@ public abstract class Observer {
      * @param context
      * @return
      */
-    public Integer getLastTrainingTime(Context context){
+    public Integer getLastTrainingTime(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String preferenceString = preferences.getString(getCurrentWeekday(), "");
         String lastTraining = "";
@@ -290,28 +290,30 @@ public abstract class Observer {
         int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
         // find next training start time
-        if(!preferenceString.equals("")) {
-            for(final String s : preferenceString.split(";")) {
+        if (!preferenceString.equals("")) {
+            for (final String s : preferenceString.split(";")) {
                 int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
                         + Integer.valueOf(s.split(":")[1]);
                 int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
                 // check if training is still noteworthy
-                if(currentMinuteOfDay <= trainingMinuteOfDay) {
-                    if(!lastTraining.equals("")) {
+                if (currentMinuteOfDay <= trainingMinuteOfDay) {
+                    if (!lastTraining.equals("")) {
                         return Integer.valueOf(lastTraining.split(":")[0]) * 60
                                 + Integer.valueOf(lastTraining.split(":")[1]);
-                    }else {
+                    } else {
                         break;
                     }
-                }else {
+                } else {
                     lastTraining = s;
                 }
             }
         }
-        if(lastTraining.equals(""))
+        if (lastTraining.equals(""))
             return 0;
-        else
-            return Integer.valueOf(lastTraining.split(":")[0]) * 60
-                + Integer.valueOf(lastTraining.split(":")[1]);
+        else{
+                return Integer.valueOf(lastTraining.split(":")[0]) * 60
+                        + Integer.valueOf(lastTraining.split(":")[1]);
+            }
+
     }
 }

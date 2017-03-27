@@ -17,6 +17,7 @@ import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.widget.ImageView;
 import android.widget.TextView;
+import android.widget.Toast;
 
 import com.example.mb7.sportappbp.BusinessLayer.BackgroundClock;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_TrainQuestioningTexts;
@@ -84,6 +85,18 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
         imageView.setAlpha(1f);
     }
 
+    public void cancel(String s) {
+        Toast.makeText(
+                ActivityTrainQuestioning.this,
+                s,
+                Toast.LENGTH_SHORT
+
+        ).show();
+        Intent i = new Intent(ActivityTrainQuestioning.this,ActivityMain.class);
+        i.putExtra("startTab",1);
+        startActivity(i);
+    }
+
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // set up save button
@@ -130,9 +143,7 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
                 }
             }
         }else {
-            Intent i = new Intent(this, ActivityMain.class);
-            finish();
-            startActivity(i);
+            cancel("Datenbankzugriff fehlgeschlagen");
         }
     }
 

@@ -9,7 +9,7 @@ import java.io.Serializable;
 public class Fragebogen implements Serializable {
     public String Date;
     public String FirebaseDate;
-    public Integer berufstätig;
+    public Integer Berufstätig;
     public Integer sitzendetätigkeiten;
     public Integer mäßigebewegung;
     public Integer intensivebewegung;
@@ -34,5 +34,5 @@ public class Fragebogen implements Serializable {
 
     public long bewegungscoring;
     public long sportscoring;
-    public long gesamtscoring;
+    public long Gesamtscoring;
 }

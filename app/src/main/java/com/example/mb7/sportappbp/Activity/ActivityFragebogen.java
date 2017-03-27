@@ -1,14 +1,12 @@
 package com.example.mb7.sportappbp.Activity;
 
 
-import android.app.Activity;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.os.Bundle;
 import android.preference.PreferenceManager;
-import android.support.design.widget.TextInputLayout;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
@@ -23,8 +21,6 @@ import android.widget.Toast;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter2;
-import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.DataSnapshot;
@@ -32,7 +28,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -235,7 +230,7 @@ public class ActivityFragebogen extends AppCompatActivity {
         Fragebogen fragebogen = new Fragebogen();
 
         //Indexwerte der Listview Elemente
-        fragebogen.berufstätig = lstberufstätig.getIndexBSA1();
+        fragebogen.Berufstätig = lstberufstätig.getIndexBSA1();
         fragebogen.sitzendetätigkeiten = lstsitzendetätigkeiten.getIndexBSA2();
         fragebogen.mäßigebewegung = lstmäßigebewegung.getIndexBSA2();
         fragebogen.intensivebewegung = lstintensivebewegung.getIndexBSA2();
@@ -244,7 +239,7 @@ public class ActivityFragebogen extends AppCompatActivity {
         //Integerwerte des Scorings
         fragebogen.bewegungscoring = scoringbewegung();
         fragebogen.sportscoring = scoringsport();
-        fragebogen.gesamtscoring = scoringgesamt();
+        fragebogen.Gesamtscoring = scoringgesamt();
 
         //Integerwerte mit Anzahl der Minuten pro Woche
         fragebogen.zufußzurarbeit = zufußzurarbeit();
@@ -307,22 +302,22 @@ public class ActivityFragebogen extends AppCompatActivity {
 
         adapter = new FragebogenViewAdapter(this);
         adapter.setAntworten(fragebogen,getString(R.string.Sind_Sie_berufstätig_oder_in_Ausbildung));
-        adapter.setSelectedIndex(fragebogen!=null && fragebogen.berufstätig!=null? fragebogen.berufstätig:-1);
+        adapter.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null? fragebogen.Berufstätig :-1);
         lstberufstätig.setAdapter(adapter);
 
         adapter2 = new FragebogenViewAdapter2(this);
         adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstätigkeit_sitzende_Tätigkeiten));
-        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.berufstätig!=null && fragebogen.sitzendetätigkeiten!=null? fragebogen.sitzendetätigkeiten:-1);
+        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.sitzendetätigkeiten!=null? fragebogen.sitzendetätigkeiten:-1);
         lstsitzendetätigkeiten.setAdapter(adapter2);
 
         adapter2 = new FragebogenViewAdapter2(this);
         adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstätigkeit_Ausbildung_mäßige_Bewegung));
-        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.berufstätig!=null && fragebogen.mäßigebewegung!=null? fragebogen.mäßigebewegung:-1);
+        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.mäßigebewegung!=null? fragebogen.mäßigebewegung:-1);
         lstmäßigebewegung.setAdapter(adapter2);
 
         adapter2 = new FragebogenViewAdapter2(this);
         adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstätigkeit_Ausbildung_intensive_Bewegung));
-        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.berufstätig!=null && fragebogen.intensivebewegung!=null? fragebogen.intensivebewegung:-1);
+        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.intensivebewegung!=null? fragebogen.intensivebewegung:-1);
         lstintensivebewegung.setAdapter(adapter2);
 
         adapter = new FragebogenViewAdapter(this);

@@ -3,7 +3,6 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 import android.util.Log;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
-import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
@@ -27,8 +26,6 @@ import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 import java.util.List;
-
-import static com.example.mb7.sportappbp.R.string.fitnessfragebogen;
 
 /**
  * Created by MB7 on 31.01.2017.
@@ -796,19 +793,19 @@ public class DAL_User {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
 
 
-            if(fragebogen.berufstätig>=0){
+            if(fragebogen.Berufstätig >=0){
             Firebase childberufstätig = ref.child("Berufstätig");
-            childberufstätig.setValue(fragebogen.berufstätig);}
+            childberufstätig.setValue(fragebogen.Berufstätig);}
 
-            if (fragebogen.berufstätig==0 && fragebogen.sitzendetätigkeiten>=0)
+            if (fragebogen.Berufstätig ==0 && fragebogen.sitzendetätigkeiten>=0)
             {Firebase childsitzendetätigkeiten = ref.child("Sitzende Tätigkeiten");
             childsitzendetätigkeiten.setValue(fragebogen.sitzendetätigkeiten);}
 
-            if (fragebogen.berufstätig==0 && fragebogen.mäßigebewegung>=0){
+            if (fragebogen.Berufstätig ==0 && fragebogen.mäßigebewegung>=0){
             Firebase childmäßigebewegung = ref.child("Mäßige Bewegung");
             childmäßigebewegung.setValue(fragebogen.mäßigebewegung);}
 
-            if (fragebogen.berufstätig==0 && fragebogen.intensivebewegung>=0){
+            if (fragebogen.Berufstätig ==0 && fragebogen.intensivebewegung>=0){
             Firebase childintensivebewegung = ref.child("Intensive Bewegung");
             childintensivebewegung.setValue(fragebogen.intensivebewegung);}
 
@@ -883,7 +880,7 @@ public class DAL_User {
             childsportscore.setValue(fragebogen.sportscoring);
 
             Firebase childscore = ref.child("Gesamtscore");
-            childscore.setValue(fragebogen.gesamtscoring);
+            childscore.setValue(fragebogen.Gesamtscoring);
 
         }
         catch (Exception exception)
@@ -912,19 +909,19 @@ public class DAL_User {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date );
 
 
-            if(fragebogen.berufstätig>=0){
+            if(fragebogen.Berufstätig >=0){
                 Firebase childberufstätig = ref.child("Berufstätig");
-                childberufstätig.setValue(fragebogen.berufstätig);}
+                childberufstätig.setValue(fragebogen.Berufstätig);}
 
-            if (fragebogen.berufstätig==0 && fragebogen.sitzendetätigkeiten>=0)
+            if (fragebogen.Berufstätig ==0 && fragebogen.sitzendetätigkeiten>=0)
             {Firebase childsitzendetätigkeiten = ref.child("Sitzende Tätigkeiten");
                 childsitzendetätigkeiten.setValue(fragebogen.sitzendetätigkeiten);}
 
-            if (fragebogen.berufstätig==0 && fragebogen.mäßigebewegung>=0){
+            if (fragebogen.Berufstätig ==0 && fragebogen.mäßigebewegung>=0){
                 Firebase childmäßigebewegung = ref.child("Mäßige Bewegung");
                 childmäßigebewegung.setValue(fragebogen.mäßigebewegung);}
 
-            if (fragebogen.berufstätig==0 && fragebogen.intensivebewegung>=0){
+            if (fragebogen.Berufstätig ==0 && fragebogen.intensivebewegung>=0){
                 Firebase childintensivebewegung = ref.child("Intensive Bewegung");
                 childintensivebewegung.setValue(fragebogen.intensivebewegung);}
 
@@ -999,7 +996,7 @@ public class DAL_User {
             childsportscore.setValue(fragebogen.sportscoring);
 
             Firebase childscore = ref.child("Gesamtscore");
-            childscore.setValue(fragebogen.gesamtscoring);
+            childscore.setValue(fragebogen.Gesamtscoring);
 
         }
         catch (Exception exception)

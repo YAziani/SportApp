@@ -34,6 +34,17 @@ public class DAL_Utilities {
         }
         return dateString;
     }
+    public static String ConvertDateToString(Date date)
+    {
+        String dateString = null;
+        SimpleDateFormat sdfr = new SimpleDateFormat("dd.MM.yyyy");
+        try{
+            dateString = sdfr.format( date );
+        }catch (Exception ex ){
+            System.out.println(ex);
+        }
+        return dateString;
+    }
     public static String ConvertDateTimeToFirebaseString(Date date)
     {
         String dateString = null;
@@ -56,6 +67,18 @@ public class DAL_Utilities {
         }
         return convertedDate;
     }
+    public  static Date ConvertFirebaseKeyStringToDateTime(String date)
+    {
+        SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd HH_mm_ss");
+        Date convertedDate = new Date();
+        try {
+            convertedDate = dateFormat.parse(date);
+        } catch (ParseException e) {
+            e.printStackTrace();
+        }
+        return convertedDate;
+    }
+
     public  static String ConvertFirebaseStringNoSpaceToDateString(String date)
     {
         SimpleDateFormat dateFormat = new SimpleDateFormat("yyyyMMdd");

@@ -28,7 +28,6 @@ import java.util.Date;
 
 public class ExampleUnitTest   {
 
-    private static FireApp application;
 
     @Before
     //@Override

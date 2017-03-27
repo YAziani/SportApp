@@ -1,6 +1,5 @@
 package com.example.mb7.sportappbp.Activity;
 
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +18,6 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
-import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.BusinessLayer.LeistungstestsExercise;
 import com.example.mb7.sportappbp.BusinessLayer.ReinerAufenthaltExercise;
@@ -114,7 +112,7 @@ public class ActivityExercises extends AppCompatActivity {
                     numberPicker(exercise);
                 }
                 else
-                    Toast.makeText(ActivityExercises.this, R.string.KategorieNeuWählen , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityExercises.this, R.string.KategorieNeuWaehlen, Toast.LENGTH_SHORT).show();
 
 
             }
@@ -225,7 +223,7 @@ public class ActivityExercises extends AppCompatActivity {
             exerciseViewAdapter.notifyDataSetChanged();
         }
         else
-            Toast.makeText(ActivityExercises.this, R.string.KategorieWurdNichtRichtigGewählt, Toast.LENGTH_LONG).show();
+            Toast.makeText(ActivityExercises.this, R.string.KategorieWurdNichtRichtigGewaehlt, Toast.LENGTH_LONG).show();
 
     }
 
@@ -254,7 +252,7 @@ public class ActivityExercises extends AppCompatActivity {
             */
         }
         else
-            Toast.makeText(ActivityExercises.this, R.string.KategorieWurdNichtRichtigGewählt, Toast.LENGTH_LONG).show();
+            Toast.makeText(ActivityExercises.this, R.string.KategorieWurdNichtRichtigGewaehlt, Toast.LENGTH_LONG).show();
 
     }
 
@@ -339,7 +337,7 @@ public class ActivityExercises extends AppCompatActivity {
                     returnResult(exercise);
                 }
                 else
-                    Toast.makeText(ActivityExercises.this, R.string.ungültigeZeit , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityExercises.this, R.string.ungueltigeZeit, Toast.LENGTH_SHORT).show();
             }
         });
 

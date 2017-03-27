@@ -18,14 +18,14 @@ import java.util.Random;
 
 public class ObserverMotivationMessage extends Observer {
 
-    private short timeOutCounter = 0;
+    private static short timeOutCounter = 0;
 
     @Override
     public void update(Context context) {
         this.context = context;
 
         // check if method allocated
-        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if(!preferences.getString("allocatedMethods","").contains("motivationimages")) {
             return;
         }
@@ -33,7 +33,6 @@ public class ObserverMotivationMessage extends Observer {
         if(timeOutCounter > 0) {
             timeOutCounter--;
         }else {
-            //sendNotification(context,"a",ActivityMain.class,String.valueOf(getNextTrainingTimeString(context)),String.valueOf(MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))),R.mipmap.ic_tagebuch_eintrag);
             if(!getNextTrainingTimeString(context).equals("")
                     && MotivationMethod.timeTillTraining(getNextTrainingTimeString(context)) == 5) {
                 if(checkIntensifier()) {
@@ -66,7 +65,9 @@ public class ObserverMotivationMessage extends Observer {
             for(String s : intensifier.split(";")) {
                 try {
                     if(s.split(",").length == 3 &&
-                            !s.split(",")[0].equals("") && !s.split(",")[1].equals("") && !s.split(",")[2].equals("")) {
+                            !s.split(",")[0].equals("")
+                            && !s.split(",")[1].equals("")
+                            && !s.split(",")[2].equals("")) {
                         if(daysFromStart > Integer.valueOf(s.split(",")[0])) {
                             daysFromStart -= Integer.valueOf(s.split(",")[0]);
                             continue;

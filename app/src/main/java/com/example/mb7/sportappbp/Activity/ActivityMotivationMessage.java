@@ -109,7 +109,8 @@ public class ActivityMotivationMessage extends AppCompatActivity {
      */
     public void showImage(String imgName) {
         // reference for the firebase storage image
-        StorageReference storageRef = FirebaseStorage.getInstance().getReference().child("motivationImage/" + imgName);
+        StorageReference storageRef =
+                FirebaseStorage.getInstance().getReference().child("motivationImage/" + imgName);
 
         final ImageView imageView0 = (ImageView)findViewById(R.id.imageMotivationMessage0);
         final ImageView imageView1 = (ImageView)findViewById(R.id.imageMotivationMessage1);

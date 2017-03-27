@@ -235,7 +235,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
 
                 }
                 else
-                    Toast.makeText(ActivitySelectedExercises.this, R.string.ungültigeZeit, Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivitySelectedExercises.this, R.string.ungueltigeZeit, Toast.LENGTH_SHORT).show();
             }
         });
 

@@ -124,9 +124,16 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
     public void returnTexts(DataSnapshot dataSnapshot) {
         if(dataSnapshot != null && dataSnapshot.getChildrenCount() > 0){
             int textIndex;
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
-            textIndex = preferences.getInt("trainQuestioningTextIndex",0) % ((int)dataSnapshot.getChildrenCount());
-            preferences.edit().putInt("trainQuestioningTextIndex", (textIndex+1) % ((int)dataSnapshot.getChildrenCount())).apply();
+            SharedPreferences preferences =
+                    PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            textIndex = preferences
+                    .getInt("trainQuestioningTextIndex",0) % ((int)dataSnapshot.getChildrenCount());
+            preferences
+                    .edit()
+                    .putInt(
+                            "trainQuestioningTextIndex",
+                            (textIndex+1) % ((int)dataSnapshot.getChildrenCount()))
+                    .apply();
             // get the text with the index textIndex
             Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
             for(int i = 0; i < dataSnapshot.getChildrenCount(); i++) {
@@ -174,7 +181,9 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
             for(String s : intensifier.split(";")) {
                 try {
                     if(s.split(",").length == 3 &&
-                            !s.split(",")[0].equals("") && !s.split(",")[1].equals("") && !s.split(",")[2].equals("")) {
+                            !s.split(",")[0].equals("")
+                            && !s.split(",")[1].equals("")
+                            && !s.split(",")[2].equals("")) {
                         if(daysFromStart > Integer.valueOf(s.split(",")[0])) {
                             daysFromStart -= Integer.valueOf(s.split(",")[0]);
                             continue;

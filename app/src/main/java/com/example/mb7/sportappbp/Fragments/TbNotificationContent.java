@@ -51,9 +51,9 @@ public class TbNotificationContent extends TabFragment {
         // Set the title of
         setTitle(getString( R.string.notifikationen));
 
-
-       view = inflater.inflate(R.layout.tbnotificationcontent, container, false);
-
+        if(isAdded()) {
+            view = inflater.inflate(R.layout.tbnotificationcontent, container, false);
+        }
         tbNotificationContent = this;
         return view;
     }
@@ -75,42 +75,15 @@ public class TbNotificationContent extends TabFragment {
     // when the fragment becomes visible to the user
     @Override
     public void onStart() {
-      /*  if(rv != null && notifications != null) {
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-            // setup notifications that appear only on specific occasions
-            final Notification nMotivationMessage = new Notification(
-                    getString( R.string.bewegen_sie_sich),
-                    getString( R.string.ihr_korper_ihnen_danken),R.drawable.trainingseinheit);
-            if(preferences.getBoolean("motivationMessage",false)) {
-                notifications.add(nMotivationMessage);
-                preferences.edit().remove("motivationMessage").commit();
-            }
-
-            String nextTrainingTime = preferences.getString("nextTrainingTime", "");
-            final Notification nPendingTraining = new Notification(
-                    getString( R.string.naechstes_training),
-                    getString( R.string.ihr_naechstes_train_begin_um)
-                            + nextTrainingTime, R.drawable.trainingseinheit);
-            if(preferences.getBoolean("reminderNotified", false) && !nextTrainingTime.equals("")){
-                boolean notify = true;
-                for(Notification n : notifications) {
-                    if(n.getTitle().equals(getString( R.string.naechstes_training))) {
-                        notify = false;
-                        break;
-                    }
-                }
-                if(notify) {
-                    notifications.add(nPendingTraining);
-                }
-            }
-
-            rv.setAdapter(new NotificationAdapter(notifications, this));
-        }*/
         super.onStart();
-
     }
 
     void readNotifications(){
+
+        if(!isAdded()) {
+            return;
+        }
+
         try
         {
             URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this.getContext()).getName()+ "/Notifications/");
@@ -196,14 +169,10 @@ public class TbNotificationContent extends TabFragment {
 
                 }
             });
-
-            return ;
-
         }
         catch (Exception e)
         {
             Log.d("ERROR", e.getMessage());
-            return ;
         }
     }
 

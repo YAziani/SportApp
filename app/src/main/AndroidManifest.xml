@@ -54,14 +54,14 @@
         <activity android:name=".Activity.ActivityChallenge" />
         <activity
             android:name=".Activity.ActivityCategories"
-            android:label="@string/KategorieAuswählen..." />
+            android:label="@string/KategorieAuswaehlen..." />
         android:parentActivityName=".Activity.ActivitySelectedExercises" />
         <activity
             android:name=".Activity.ActivityExercises"
             android:parentActivityName=".Activity.ActivityCategories" />
         <activity
             android:name=".Activity.ActivitySelectedExercises"
-            android:label="@string/AusgewählteExercises" />
+            android:label="@string/AusgewaehlteExercises" />
         <activity android:name=".Activity.ActivityFragebogen"
             android:parentActivityName=".Activity.ActivityMain">
             <meta-data

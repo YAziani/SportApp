@@ -39,11 +39,10 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
         public View view   ;
         ChallengeHolder(View itemView) {
             super(itemView);
-            //// TODO: 26.03.2017  
-            txtTitle = (TextView) itemView.findViewById(R.id.txtDateStmAbfrage);
-            txtSubText = (TextView) itemView.findViewById(R.id.txtTimeStmAbfrage);
-            cv = (CardView) itemView.findViewById(R.id.card_view_stmAbgabe);
-            imageView = (ImageView) itemView.findViewById(R.id.imgViewstimmungabgabe);
+            txtTitle = (TextView) itemView.findViewById(R.id.txtDateLstChallenge);
+            txtSubText = (TextView) itemView.findViewById(R.id.txtTimeLstChallenge);
+            cv = (CardView) itemView.findViewById(R.id.card_view_lstchallenge);
+            imageView = (ImageView) itemView.findViewById(R.id.imgViewLstChallenge);
             view = itemView;
         }
 
@@ -60,8 +59,7 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
 
     @Override
     public ChallengeHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        //// TODO: 26.03.2017  
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_stimmungabgabe, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_lstchallenge, viewGroup, false);
         ChallengeHolder bvh = new ChallengeHolder(v);
         return bvh;
     }

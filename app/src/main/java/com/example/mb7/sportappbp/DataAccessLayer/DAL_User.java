@@ -1085,7 +1085,7 @@ public class DAL_User {
         nameChildStart.setValue(sdf.format(challenge.getStartDate()));
 
         Firebase nameChildEnd =  name.child("endDate");
-        nameChildEnd.setValue(sdf.format(challenge.getStartDate()));
+        nameChildEnd.setValue(sdf.format(challenge.getEndDate()));
     }
 
     /**

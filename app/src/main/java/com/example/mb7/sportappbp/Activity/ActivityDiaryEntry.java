@@ -42,7 +42,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_diaryentry);
 
-        //todo make diary Entry parceable
         diaryEntry = new DiaryEntry();
 
         // Now read the extra key - exerciseList

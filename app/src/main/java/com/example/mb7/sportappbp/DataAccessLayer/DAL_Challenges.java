@@ -51,6 +51,34 @@ public class DAL_Challenges {
         }
     }
 
+    /**
+     * get registered challenges and hand it to the activity
+     *
+     * @param activity the displaying activity
+     */
+    public static void getRegisteredUsersToChallenge(
+            final ActivityChallenge activity, String challengeName) {
+        // access data in database and hand it to activity
+        try {
+            URL url = new URL(DAL_Utilities.DatabaseURL + "/Challenges/" + challengeName + "/Users/");
+            Firebase root = new Firebase(url.toString());
+
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    activity.returnRegisteredUsers(dataSnapshot);
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * get registered challenges and hand it to the activity

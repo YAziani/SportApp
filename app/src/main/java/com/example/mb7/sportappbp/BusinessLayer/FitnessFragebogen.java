@@ -9,44 +9,44 @@ import java.io.Serializable;
 public class FitnessFragebogen implements Serializable {
     public String Date;
     public String FirebaseDate;
-    public Integer scorekraft;
-    public Integer scoreausdauer;
-    public Integer scorekoordination;
-    public Integer scorebeweglichkeit;
-    public Integer scoregesamt;
+    public Integer Score_Kraft;
+    public Integer Score_Ausdauer;
+    public Integer Score_Koordination;
+    public Integer Score_Beweglichkeit;
+    public Integer Score_Gesamt;
 
 
-    public Integer stuhlaufstehen;
-    public Integer einkaufskorb;
-    public Integer kistetragen;
-    public Integer situp;
-    public Integer kofferheben;
-    public Integer koffertragen;
-    public Integer hantelstemmen;
+    public Integer vom_Stuhl_aufstehen;
+    public Integer Einkaufskorb_tragen;
+    public Integer Kiste_tragen;
+    public Integer Situp;
+    public Integer Koffer_hoch_heben;
+    public Integer Koffer_tragen;
+    public Integer Hantel_stemmen;
 
-    public Integer flottgehen;
-    public Integer treppengehen;
-    public Integer zweikmgehen;
-    public Integer einkmjoggen;
-    public Integer dreißigminjoggen;
-    public Integer sechzigminjoggen;
-    public Integer marathon;
+    public Integer flott_gehen;
+    public Integer Treppen_gehen;
+    public Integer Zwei_km_gehen;
+    public Integer Ein_km_joggen;
+    public Integer Dreißig_min_joggen;
+    public Integer Sechzig_min_joggen;
+    public Integer Marathon;
 
-    public Integer anziehen;
-    public Integer sitzendboden;
-    public Integer schuhebinden;
-    public Integer rueckenberuehren;
-    public Integer stehendboden;
-    public Integer kopfknie;
-    public Integer bruecke;
+    public Integer Socken_anziehen;
+    public Integer Boden_im_Sitzen_berühren;
+    public Integer Schuhe_binden;
+    public Integer Rücken_beruhren;
+    public Integer Im_Stehen_Boden_berühren;
+    public Integer Mit_Kopf_das_Knie_berühren;
+    public Integer Brücke;
 
-    public Integer trepperunter;
-    public Integer einbeinstand;
-    public Integer purzelbaum;
-    public Integer ballprellen;
-    public Integer zaunsprung;
-    public Integer kurveohnehand;
-    public Integer radschlagen;
+    public Integer Treppe_runter_gehen;
+    public Integer Einbeinstand;
+    public Integer Purzelbaum;
+    public Integer Ball_prellen;
+    public Integer Zaunsprung;
+    public Integer Kurve_fahren_ohne_Hand;
+    public Integer Rad_schlagen;
 
 
 }

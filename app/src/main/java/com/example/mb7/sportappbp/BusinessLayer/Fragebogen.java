@@ -10,29 +10,35 @@ public class Fragebogen implements Serializable {
     public String Date;
     public String FirebaseDate;
     public Integer berufstätig;
-    public Integer sitzendetätigkeiten;
-    public Integer mäßigebewegung;
-    public Integer intensivebewegung;
-    public Integer sportlichaktiv;
+    public Integer sitzende_Tätigkeiten;
+    public Integer mäßige_Bewegung;
+    public Integer intensive_Bewegung;
+    public Integer sportlich_aktiv;
 
-    public Integer zufußzurarbeit;
-    public Integer zufußeinkaufen;
-    public Integer radzurarbeit;
-    public Integer radfahren;
-    public Integer spazieren;
-    public Integer gartenarbeit;
-    public Integer hausarbeit;
-    public Integer pflegearbeit;
-    public Integer treppensteigen;
+    public Integer zu_Fuß_zur_Arbeit;
+    public Integer zu_Fuß_einkaufen;
+    public Integer Rad_zur_Arbeit;
+    public Integer Rad_fahren;
+    public Integer Spazieren;
+    public Integer Gartenarbeit;
+    public Integer Hausarbeit;
+    public Integer Pflegearbeit;
+    public Integer Treppensteigen;
 
-    public String aktivitätaname;
-    public Integer aktivitäta;
-    public String aktivitätbname;
-    public Integer aktivitätb;
-    public String aktivitätcname;
-    public Integer aktivitätc;
+    public String Aktivität_A_Name;
+    public Integer Aktivität_A_Zeit;
+    public Integer Aktivität_A_Einheiten;
+    public Integer Aktivität_A_Minuten;
+    public String Aktivität_B_Name;
+    public Integer Aktivität_B_Zeit;
+    public Integer Aktivität_B_Einheiten;
+    public Integer Aktivität_B_Minuten;
+    public String Aktivität_C_Name;
+    public Integer Aktivität_C_Zeit;
+    public Integer Aktivität_C_Einheiten;
+    public Integer Aktivität_C_Minuten;
 
-    public long bewegungscoring;
-    public long sportscoring;
-    public long gesamtscoring;
+    public long Bewegungsscoring;
+    public long Sportscoring;
+    public long Gesamtscoring;
 }

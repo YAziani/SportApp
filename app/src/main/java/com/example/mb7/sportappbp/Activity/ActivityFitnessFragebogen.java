@@ -13,13 +13,11 @@ import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
-import android.widget.ScrollView;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.FitnessFragebogenViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.Firebase;
@@ -74,7 +72,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     int gesamtscore;
 
     private Firebase mRootRef;
-    ActivityFitnessFragebogen activityFitnessFragebogen = this;
+    private ActivityFitnessFragebogen activityFitnessFragebogen = this;
     FitnessFragebogen fitnessFragebogen=null;
 
     boolean INSERT=true;
@@ -116,10 +114,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     @Override
     protected void onResume(){super.onResume();}
 
-    void setControlData(Fragebogen fragebogen)
-    {
-
-    }
 
     void removeNofiication(Context context, String notificationDate)
     {
@@ -212,54 +206,51 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     private FitnessFragebogen getData(){
         FitnessFragebogen fitnessfragebogen=new FitnessFragebogen();
 
-        fitnessfragebogen.scorekraft=kraftscoring();
-        fitnessfragebogen.scoreausdauer=ausdauerscoring();
-        fitnessfragebogen.scorebeweglichkeit=bewglichkeitsscoring();
-        fitnessfragebogen.scorekoordination=koordinationscoring();
-        fitnessfragebogen.scoregesamt=scoringwert();
+        //Indexwerte der Listview Elemente
+        fitnessfragebogen.vom_Stuhl_aufstehen =lststuhlaufstehen.getIndexFitness();
+        fitnessfragebogen.Einkaufskorb_tragen =lsteinkaufskorb.getIndexFitness();
+        fitnessfragebogen.Kiste_tragen =lstkistetragen.getIndexFitness();
+        fitnessfragebogen.Situp =lstsitup.getIndexFitness();
+        fitnessfragebogen.Koffer_hoch_heben =lstkofferheben.getIndexFitness();
+        fitnessfragebogen.Koffer_tragen =lstkoffertragen.getIndexFitness();
+        fitnessfragebogen.Hantel_stemmen =lsthantelstemmen.getIndexFitness();
 
-        fitnessfragebogen.stuhlaufstehen=lststuhlaufstehen.getIndexFitness();
-        fitnessfragebogen.einkaufskorb=lsteinkaufskorb.getIndexFitness();
-        fitnessfragebogen.kistetragen=lstkistetragen.getIndexFitness();
-        fitnessfragebogen.situp=lstsitup.getIndexFitness();
-        fitnessfragebogen.kofferheben=lstkofferheben.getIndexFitness();
-        fitnessfragebogen.koffertragen=lstkoffertragen.getIndexFitness();
-        fitnessfragebogen.hantelstemmen=lsthantelstemmen.getIndexFitness();
+        fitnessfragebogen.flott_gehen =lstflottgehen.getIndexFitness();
+        fitnessfragebogen.Treppen_gehen =lsttreppengehen.getIndexFitness();
+        fitnessfragebogen.Zwei_km_gehen =lst2kmgehen.getIndexFitness();
+        fitnessfragebogen.Ein_km_joggen =lst1kmjoggen.getIndexFitness();
+        fitnessfragebogen.Dreißig_min_joggen =lst30minjoggen.getIndexFitness();
+        fitnessfragebogen.Sechzig_min_joggen =lst60minjoggen.getIndexBSA2();
+        fitnessfragebogen.Marathon =lstmarathon.getIndexFitness();
 
-        fitnessfragebogen.flottgehen=lstflottgehen.getIndexFitness();
-        fitnessfragebogen.treppengehen=lsttreppengehen.getIndexFitness();
-        fitnessfragebogen.zweikmgehen=lst2kmgehen.getIndexFitness();
-        fitnessfragebogen.einkmjoggen=lst1kmjoggen.getIndexFitness();
-        fitnessfragebogen.dreißigminjoggen=lst30minjoggen.getIndexFitness();
-        fitnessfragebogen.sechzigminjoggen=lst60minjoggen.getIndexBSA2();
-        fitnessfragebogen.marathon=lstmarathon.getIndexFitness();
+        fitnessfragebogen.Socken_anziehen =lstanziehen.getIndexFitness();
+        fitnessfragebogen.Boden_im_Sitzen_berühren =lstsitzendboden.getIndexFitness();
+        fitnessfragebogen.Schuhe_binden =lstschuhebinden.getIndexFitness();
+        fitnessfragebogen.Rücken_beruhren =lstrueckenberuehren.getIndexFitness();
+        fitnessfragebogen.Im_Stehen_Boden_berühren =lststehendboden.getIndexFitness();
+        fitnessfragebogen.Mit_Kopf_das_Knie_berühren =lstkopfknie.getIndexFitness();
+        fitnessfragebogen.Brücke =lstbruecke.getIndexFitness();
 
-        fitnessfragebogen.anziehen=lstanziehen.getIndexFitness();
-        fitnessfragebogen.sitzendboden=lstsitzendboden.getIndexFitness();
-        fitnessfragebogen.schuhebinden=lstschuhebinden.getIndexFitness();
-        fitnessfragebogen.rueckenberuehren=lstrueckenberuehren.getIndexFitness();
-        fitnessfragebogen.stehendboden=lststehendboden.getIndexFitness();
-        fitnessfragebogen.kopfknie=lstkopfknie.getIndexFitness();
-        fitnessfragebogen.bruecke=lstbruecke.getIndexFitness();
+        fitnessfragebogen.Treppe_runter_gehen =lsttrepperunter.getIndexFitness();
+        fitnessfragebogen.Einbeinstand =lsteinbeinstand.getIndexFitness();
+        fitnessfragebogen.Purzelbaum =lstpurzelbaum.getIndexFitness();
+        fitnessfragebogen.Ball_prellen =lstballprellen.getIndexFitness();
+        fitnessfragebogen.Zaunsprung =lstzaunsprung.getIndexFitness();
+        fitnessfragebogen.Kurve_fahren_ohne_Hand =lstkurveohnehand.getIndexFitness();
+        fitnessfragebogen.Rad_schlagen =lstradschlagen.getIndexFitness();
 
-        fitnessfragebogen.trepperunter=lsttrepperunter.getIndexFitness();
-        fitnessfragebogen.einbeinstand=lsteinbeinstand.getIndexFitness();
-        fitnessfragebogen.purzelbaum=lstpurzelbaum.getIndexFitness();
-        fitnessfragebogen.ballprellen=lstballprellen.getIndexFitness();
-        fitnessfragebogen.zaunsprung=lstzaunsprung.getIndexFitness();
-        fitnessfragebogen.kurveohnehand=lstkurveohnehand.getIndexFitness();
-        fitnessfragebogen.radschlagen=lstradschlagen.getIndexFitness();
+        //Berechnete Scoringwerte
+        fitnessfragebogen.Score_Kraft =kraftscoring();
+        fitnessfragebogen.Score_Ausdauer =ausdauerscoring();
+        fitnessfragebogen.Score_Beweglichkeit =bewglichkeitsscoring();
+        fitnessfragebogen.Score_Koordination =koordinationscoring();
+        fitnessfragebogen.Score_Gesamt =scoringwert();
 
         if(INSERT){
-
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         fitnessfragebogen.Date = sdf.format(new Date());}
         else
-        {
             fitnessfragebogen.Date=this.fitnessFragebogen.FirebaseDate;
-
-        }
-
 
         return fitnessfragebogen;
     }
@@ -283,8 +274,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     private void InitializeControlls(){
 
         // set the listivew
-        // first create the adapters
-
 
         lststuhlaufstehen = (FragebogenListview)findViewById( R.id.lvstuhlaufstehen);
         lsteinkaufskorb = (FragebogenListview)findViewById( R.id.lveinkaufskorb);
@@ -318,148 +307,147 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         lstkurveohnehand=(FragebogenListview)findViewById( R.id.lvkurveohnehand);
         lstradschlagen=(FragebogenListview)findViewById( R.id.lvradschlagen);
 
-        /**
-         * Adapter setzen
-         */
+
+        // Adapter setzen
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.auf_einem_Stuhl_sitzend_ohne_Hilfe_aufstehen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.stuhlaufstehen!=null? fitnessFragebogen.stuhlaufstehen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.vom_Stuhl_aufstehen !=null? fitnessFragebogen.vom_Stuhl_aufstehen :-1);
         lststuhlaufstehen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_schweren_Einkaufskorb_über_mehrere_Etagen_tragen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.einkaufskorb!=null? fitnessFragebogen.einkaufskorb:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Einkaufskorb_tragen !=null? fitnessFragebogen.Einkaufskorb_tragen :-1);
         lsteinkaufskorb.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.eine_volle_Bierkiste_in_den_Keller_tragen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.kistetragen!=null? fitnessFragebogen.kistetragen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Kiste_tragen !=null? fitnessFragebogen.Kiste_tragen :-1);
         lstkistetragen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.aus_der_Rückenlage_ohne_Hilfe_der_Arme_den_Oberkörper_aufrichten));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.situp!=null? fitnessFragebogen.situp:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Situp !=null? fitnessFragebogen.Situp :-1);
         lstsitup.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_schweren_Koffer_über_Kopfhöhe_heben));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.kofferheben!=null? fitnessFragebogen.kofferheben:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Koffer_hoch_heben !=null? fitnessFragebogen.Koffer_hoch_heben :-1);
         lstkofferheben.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.zwei_schwere_Koffer_über_mehrere_Etagen_tragen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.koffertragen!=null? fitnessFragebogen.koffertragen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Koffer_tragen !=null? fitnessFragebogen.Koffer_tragen :-1);
         lstkoffertragen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.eine_Hantel_mit_mehr_als_Ihrem_Körpergewicht_hochstemmen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.hantelstemmen!=null? fitnessFragebogen.hantelstemmen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Hantel_stemmen !=null? fitnessFragebogen.Hantel_stemmen :-1);
         lsthantelstemmen.setAdapter(adapter);
 
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.um_mehrere_Blocks_flott_gehen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.flottgehen!=null? fitnessFragebogen.flottgehen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.flott_gehen !=null? fitnessFragebogen.flott_gehen :-1);
         lstflottgehen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.mehrere_Treppen_hochgehen_ohne_sich_auszuruhen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.treppengehen!=null? fitnessFragebogen.treppengehen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Treppen_gehen !=null? fitnessFragebogen.Treppen_gehen :-1);
         lsttreppengehen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.zwei_Kilometer_schnell_gehen_ohne_sich_auszuruhen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.zweikmgehen!=null? fitnessFragebogen.zweikmgehen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Zwei_km_gehen !=null? fitnessFragebogen.Zwei_km_gehen :-1);
         lst2kmgehen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_Kilometer_ohne_Pause_joggen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.einkmjoggen!=null? fitnessFragebogen.einkmjoggen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Ein_km_joggen !=null? fitnessFragebogen.Ein_km_joggen :-1);
         lst1kmjoggen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.Minuten_ohne_Pause_joggen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.dreißigminjoggen!=null? fitnessFragebogen.dreißigminjoggen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Dreißig_min_joggen !=null? fitnessFragebogen.Dreißig_min_joggen :-1);
         lst30minjoggen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.eine_Stunde_ohne_Pause_joggen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.sechzigminjoggen!=null? fitnessFragebogen.sechzigminjoggen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Sechzig_min_joggen !=null? fitnessFragebogen.Sechzig_min_joggen :-1);
         lst60minjoggen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_Marathon_laufen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.marathon!=null? fitnessFragebogen.marathon:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Marathon !=null? fitnessFragebogen.Marathon :-1);
         lstmarathon.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_engen_Pulli_und_Socken_alleine_aus_und_anziehen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.anziehen!=null? fitnessFragebogen.anziehen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Socken_anziehen !=null? fitnessFragebogen.Socken_anziehen :-1);
         lstanziehen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.auf_einem_Stuhl_sitzend_mit_den_Händen_den_Boden_erreichen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.sitzendboden!=null? fitnessFragebogen.sitzendboden:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Boden_im_Sitzen_berühren !=null? fitnessFragebogen.Boden_im_Sitzen_berühren :-1);
         lstsitzendboden.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.im_Stehen_Schuhe_binden));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.schuhebinden!=null? fitnessFragebogen.schuhebinden:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Schuhe_binden !=null? fitnessFragebogen.Schuhe_binden :-1);
         lstschuhebinden.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.mit_der_Hand_von_unten_auf_dem_Rücken_ein_Schulterblatt_berühren));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.rueckenberuehren!=null? fitnessFragebogen.rueckenberuehren:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Rücken_beruhren !=null? fitnessFragebogen.Rücken_beruhren :-1);
         lstrueckenberuehren.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.aus_dem_Stand_mit_den_Händen_den_Boden_erreichen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.stehendboden!=null? fitnessFragebogen.stehendboden:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Im_Stehen_Boden_berühren !=null? fitnessFragebogen.Im_Stehen_Boden_berühren :-1);
         lststehendboden.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.im_Stehen_mit_dem_Kopf_die_gestreckten_Knie_berühren));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.kopfknie!=null? fitnessFragebogen.kopfknie:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Mit_Kopf_das_Knie_berühren !=null? fitnessFragebogen.Mit_Kopf_das_Knie_berühren :-1);
         lstkopfknie.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.rückwärts_bis_in_die_Brücke_abbeugen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.bruecke!=null? fitnessFragebogen.bruecke:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Brücke !=null? fitnessFragebogen.Brücke :-1);
         lstbruecke.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.eine_Treppe_hinab_gehen_ohne_sich_festzuhalten));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.trepperunter!=null? fitnessFragebogen.trepperunter:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Treppe_runter_gehen !=null? fitnessFragebogen.Treppe_runter_gehen :-1);
         lsttrepperunter.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.auf_einem_Bein_stehen_ohne_sich_festzuhalten));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.einbeinstand!=null? fitnessFragebogen.einbeinstand:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Einbeinstand !=null? fitnessFragebogen.Einbeinstand :-1);
         lsteinbeinstand.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_Purzelbaum));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.purzelbaum!=null? fitnessFragebogen.purzelbaum:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Purzelbaum !=null? fitnessFragebogen.Purzelbaum :-1);
         lstpurzelbaum.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.im_schnellen_Gehen_einen_Ball_prellen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.ballprellen!=null? fitnessFragebogen.ballprellen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Ball_prellen !=null? fitnessFragebogen.Ball_prellen :-1);
         lstballprellen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.mit_Abstützen_über_einen_ein_Meter_hohen_Zaun_springen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.zaunsprung!=null? fitnessFragebogen.zaunsprung:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Zaunsprung !=null? fitnessFragebogen.Zaunsprung :-1);
         lstzaunsprung.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.freihändig_mit_dem_Fahrrad_um_eine_Kurve_fahren));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.kurveohnehand!=null? fitnessFragebogen.kurveohnehand:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Kurve_fahren_ohne_Hand !=null? fitnessFragebogen.Kurve_fahren_ohne_Hand :-1);
         lstkurveohnehand.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.ein_Rad_schlagen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.radschlagen!=null? fitnessFragebogen.radschlagen:-1);
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Rad_schlagen !=null? fitnessFragebogen.Rad_schlagen :-1);
         lstradschlagen.setAdapter(adapter);
 
         /**

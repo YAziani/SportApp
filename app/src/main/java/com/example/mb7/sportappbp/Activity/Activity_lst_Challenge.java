@@ -3,6 +3,7 @@ package com.example.mb7.sportappbp.Activity;
 import android.app.ProgressDialog;
 import android.content.Intent;
 import android.os.Bundle;
+import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
@@ -16,6 +17,7 @@ import android.widget.Toast;
 import com.example.mb7.sportappbp.Adapters.ChallengeLstViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
+import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
@@ -40,6 +42,8 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     RecyclerView rv;
     Activity_lst_Challenge activity_lst_challenge = this;
     ProgressDialog pd;
+
+    Challenge challenge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -109,7 +113,7 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     private void deleteChallenge(Challenge challenge)
     {
         //// TODO: 26.03.2017 stuaryt ab
-        challenge.RemoveUser(ActivityMain.mainUser);
+        challenge.RemoveUser(ActivityMain.getMainUser(this));
         strChallengeList.remove(challenge.getName());
 
     }
@@ -127,19 +131,56 @@ public class Activity_lst_Challenge extends AppCompatActivity {
 
     private void loadChallenges(){
 
+        final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
+
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.mainUser.getName()+ "/Challenges/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName()+ "/Challenges/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    dataSnapshot.getChildren();
+                    challenges = new LinkedList<Challenge>();
 
-                    for(DataSnapshot child : dataSnapshot.getChildren()){
-                        readChallengesDate(child.getKey().toString());
+
+                    for(DataSnapshot name : dataSnapshot.getChildren()){
+                        Challenge challenge = new Challenge();
+                        challenge.setName(name.getKey());
+
+                        for(DataSnapshot childName : name.getChildren()){
+
+                            //start date
+                            if(childName.getKey().equals("startDate")){
+                                try {
+                                    challenge.setStartDate(sdfDate.parse(childName.getValue().toString()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                            //set end date
+                            if(childName.getKey().equals("endDate")){
+                                try {
+                                    challenge.setEndDate(sdfDate.parse(childName.getValue().toString()));
+                                } catch (ParseException e) {
+                                    e.printStackTrace();
+                                }
+                            }
+                        }
+                        challenges.add(challenge);
                     }
+
+                    if (challenges.size() > 0) {
+                        // reverse the list to get the newest first
+                        Collections.reverse(challenges);
+                        // fill the recycler
+                        LinearLayoutManager lm = new LinearLayoutManager(activity_lst_challenge);
+                        rv.setLayoutManager(lm);
+                        // just create a list of tasks
+                        rv.setAdapter(new ChallengeLstViewAdapter(challenges, activity_lst_challenge));
+                    }
+                    // close the progress dialog
+                    pd.dismiss();
 
                 }
 
@@ -153,60 +194,6 @@ public class Activity_lst_Challenge extends AppCompatActivity {
             e.printStackTrace();
         }
 
-
     }
-
-
-    void readChallengesDate(String name) {
-        URL url = null;
-        final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-        challenges = new LinkedList<Challenge>();
-
-            try {
-                url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.mainUser.getName() + "/Challenges/" + name + "/");
-                final Firebase root = new Firebase(url.toString());
-
-                root.addValueEventListener(new ValueEventListener() {
-                    @Override
-                    public void onDataChange(DataSnapshot dataSnapshot) {
-
-                        dataSnapshot.getChildren();
-
-                            Challenge challenge = new Challenge();
-                            challenge.setName(dataSnapshot.getKey());
-                            try {
-                                challenge.setEndDate(sdf.parse(dataSnapshot.getValue().toString()));
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                            challenges.add(challenge);
-
-
-                        if (challenges != null) {
-                            // reverse the list to get the newest first
-                            Collections.reverse(challenges);
-                            // fill the recycler
-                            LinearLayoutManager lm = new LinearLayoutManager(activity_lst_challenge);
-                            rv.setLayoutManager(lm);
-                            // just create a list of tasks
-                            rv.setAdapter(new ChallengeLstViewAdapter(challenges, activity_lst_challenge));
-                            pd.dismiss();
-                        }
-                    }
-
-                    @Override
-                    public void onCancelled(FirebaseError firebaseError) {
-
-                    }
-                });
-
-            } catch (MalformedURLException e) {
-                e.printStackTrace();
-            }
-
-    }
-
-
-
 
 }

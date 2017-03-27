@@ -231,7 +231,7 @@ public class ActivityNewChallenge extends AppCompatActivity {
 */
                 else {
                     //Create challenge object and set data
-                    userList.add(ActivityMain.mainUser);
+                    userList.add(ActivityMain.getMainUser(this));
                     Challenge challenge = new Challenge();
                     challenge.setName(editTextName.getText().toString());
                     challenge.setStartDate(startCalendar.getTime());
@@ -241,9 +241,9 @@ public class ActivityNewChallenge extends AppCompatActivity {
                     //Save challenge to firebase
                     challenge.SaveNewChallenge();
                     //Add user too challenge
-                    challenge.AddUser(ActivityMain.mainUser);
+                    challenge.AddUser(ActivityMain.getMainUser(this));
                     //The creator is automatically the admin
-                    challenge.AddAdmin(ActivityMain.mainUser);
+                    challenge.AddAdmin(ActivityMain.getMainUser(this));
 
                     Toast.makeText(ActivityNewChallenge.this, R.string.ChallengeWurdeErstellt , Toast.LENGTH_SHORT).show();
 

@@ -20,7 +20,7 @@
                 android:id="@+id/imgViewDiary"
                 android:layout_width="64dp"
                 android:layout_height="match_parent"
-                app:srcCompat="@drawable/stimmungsabgabe" />
+                app:srcCompat="@mipmap/ic_stimmungs_abgabe" />
             <TextView
                 android:id="@+id/txtDateDiary"
                 android:layout_toRightOf="@id/imgViewDiary"

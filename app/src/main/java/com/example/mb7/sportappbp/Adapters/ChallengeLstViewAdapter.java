@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp.Adapters;
 
 import android.app.Activity;
+import android.content.Intent;
 import android.graphics.Color;
 import android.support.v7.widget.CardView;
 import android.support.v7.widget.RecyclerView;
@@ -10,10 +11,13 @@ import android.view.ViewGroup;
 import android.widget.ImageView;
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.Activity.ActivityChallenge;
+import com.example.mb7.sportappbp.Activity.Activity_lst_Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.R;
 
 import java.text.SimpleDateFormat;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -68,7 +72,7 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
         challengeHolder.txtTitle.setText(challenges.get(position).getName());
         challengeHolder.txtSubText.setText(getDateOrFinished(challenges.get(position)));
         //// TODO: 26.03.2017  
-        challengeHolder.imageView.setImageResource(R.mipmap.ic_stimmungsabgabe);
+        challengeHolder.imageView.setImageResource(R.mipmap.ic_stimmungs_abgabe);
 
         if (position == selectedPosition)
         {
@@ -105,20 +109,15 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
 
                 }
                 else {
-                    /*
+
                     // if nothing is longclicked -> go to the ActivityStimmung of the selected item
-                    Intent open = new Intent(context, ActivityStimmungsAbgabe.class);
-                    // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
-                    if (challenges.get(position).Vor)
-                        open.putExtra("Vor", "1");
-                    else
-                        open.putExtra("Vor", "0");
+                    Intent open = new Intent(context, ActivityChallenge.class);
 
                     // pass the clicked stimmungsangabe to the activity
-                    StimmungsAngabe stimmungsAngabe = challenges.get(position);
-                    open.putExtra(context.getString(R.string.stimmungsabgabe), stimmungsAngabe);
+                    Challenge challenge = challenges.get(position);
+                    open.putExtra(context.getString(R.string.Challenges), challenge);
                     context.startActivity(open);
-                    */
+
                 }
             }
         });

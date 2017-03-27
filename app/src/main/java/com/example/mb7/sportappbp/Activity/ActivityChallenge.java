@@ -1,19 +1,7 @@
 package com.example.mb7.sportappbp.Activity;
-/* Sample List
-        userList = new ArrayList<User>();
-        User u1 = User.Create("Bernd");
-        u1.setPoints(250);
-        User u2 = User.Create("Peter");
-        u2.setPoints(40);
-        User u3 = User.Create("Hans");
-        u3.setPoints(500);
-
-        userList.add(u1);
-        userList.add(u2);
-        userList.add(u3);
-        */
 
 import android.app.Activity;
+import android.app.ProgressDialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
@@ -27,19 +15,28 @@ import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Challenges;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
 
+import java.net.MalformedURLException;
+import java.net.URL;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.Iterator;
+import java.util.List;
 
 public class ActivityChallenge extends AppCompatActivity {
 
     ChallengeViewAdapter challengeViewAdapter;
     ListView listView;
-    ArrayList<User> userList;
+    List<User> userList;
     Challenge challenge;
     TextView textViewCountdown;
     Calendar calendar = Calendar.getInstance();
@@ -57,7 +54,7 @@ public class ActivityChallenge extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge);
 
-        challenge = new Challenge();
+        //challenge = new Challenge();
 
         // Now read the extra key - exerciseList
         Intent iin = getIntent();
@@ -65,47 +62,135 @@ public class ActivityChallenge extends AppCompatActivity {
         Log.e("Oncreate","We have reached it");
         if(extras!=null ) {
 
-            /*
+
             //Get unpack the exerciseList und date
-            exerciseList = extras.getParcelableArrayList("oldExercises");
-            date = (Date) extras.getSerializable("date");
-            //set attribute
-            diaryEntry.setExerciseList(exerciseList);
-            diaryEntry.setDate(date);
-            */
+            challenge = (Challenge) extras.getSerializable(getString(R.string.Challenges));
+
         }
         else{
 
+            challenge = new Challenge();
             Toast.makeText(this,getString(R.string.ChallengeKonnteNichtGeladenWerdenVersuchenSieBitteErneut),Toast.LENGTH_SHORT).show();
-            finish();
+            //finish();
 
         }
 
-        DAL_Challenges.getRegisteredChallengesToChallenge(ActivityChallenge.this);
+        //DAL_Challenges.getRegisteredChallengesToChallenge(ActivityChallenge.this);
 
-        challengeName = ActivityMain.mainUser.getChallangeName();
+        //challengeName = ActivityMain.mainUser.getChallangeName();
 
         //todo load challenge and user from database
         //challenge = ActivityMain.mainUser.getChallenge();
 
         userList = challenge.getUserList();
 
+        /*
         //Create listview
         listView = (ListView) findViewById(R.id.listViewChallenge);
         challengeViewAdapter = new ChallengeViewAdapter(ActivityChallenge.this, userList);
         listView.setAdapter(challengeViewAdapter);
-
+*/
         //set TextView
-        textViewCountdown = (TextView) findViewById(R.id.textViewChallengeCountDown);
+        //textViewCountdown = (TextView) findViewById(R.id.textViewChallengeCountDown);
 
         //calculate the difference between today and the end date
-        todayDate = calendar.getTime();
-        endDate = challenge.getEndDate();
-        String  remainingDays = String.valueOf(challenge.getRemainingDays());
+        //todayDate = calendar.getTime();
+       // endDate = challenge.getEndDate();
+        //String  remainingDays = String.valueOf(challenge.getRemainingDays());
         //set the difference to the textview
-        textViewCountdown.setText(getString(R.string.VerbleibendeTage) + " " + remainingDays);
+        //textViewCountdown.setText(getString(R.string.VerbleibendeTage) + " " + remainingDays);
 
     }
+
+
+    @Override
+    protected void onStart() {
+        super.onStart();
+       // pd = new ProgressDialog(this);
+        //pd.setMessage(getString( R.string.wird_geladen));
+        //pd.show();
+
+    }
+
+
+    private void loadUsers(){
+
+        try {
+            URL url = new URL(DAL_Utilities.DatabaseURL + "Challenges/" + challenge.getName() + "/Users/" );
+            final Firebase root = new Firebase(url.toString());
+
+            root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    dataSnapshot.getChildren();
+
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                        readUsers(child.getKey().toString());
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private void readUsers(String username){
+
+        final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
+
+        try {
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/Diary/");
+            final Firebase root = new Firebase(url.toString());
+
+            root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+
+                    dataSnapshot.getChildren();
+
+                    for(DataSnapshot child : dataSnapshot.getChildren()){
+
+                        try {
+                            Date curDate = sdf.parse(child.getKey());
+
+                            if(curDate.after(challenge.getStartDate()) || curDate.equals(challenge.getStartDate())  || curDate.before(challenge.getEndDate()) || curDate.equals(challenge.getEndDate())){
+
+                            }
+                        } catch (ParseException e) {
+                            e.printStackTrace();
+                        }
+                    }
+
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+
+                }
+            });
+
+        } catch (MalformedURLException e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+
+
+
+
+
 
     /**
      * This method checks, if a challenge already and returns true. When the challenge name doesn't

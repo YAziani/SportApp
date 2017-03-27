@@ -693,9 +693,13 @@ public class DAL_User {
                 append(sdf.format(challenge.getEndDate()));
 
         //add challenge to user challenges
-        Firebase newChild = ref.child(challenge.getName());
-        newChild.setValue(sdf.format(challenge.getEndDate()));
+        Firebase name = ref.child(challenge.getName());
 
+        Firebase nameChildStart =  name.child("startDate");
+        nameChildStart.setValue(sdf.format(challenge.getStartDate()));
+
+        Firebase nameChildEnd =  name.child("endDate");
+        nameChildEnd.setValue(sdf.format(challenge.getStartDate()));
     }
 
     /**

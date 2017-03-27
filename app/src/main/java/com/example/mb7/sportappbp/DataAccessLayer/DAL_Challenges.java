@@ -138,7 +138,7 @@ public class DAL_Challenges {
     /**
      * Removes the reference to user
      * @param user to remove
-     * @param challenge current challenge
+     * @param challenge current challen
      */
     public static void RemoveUser(User user, Challenge challenge){
 

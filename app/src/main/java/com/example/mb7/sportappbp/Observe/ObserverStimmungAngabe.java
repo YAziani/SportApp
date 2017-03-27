@@ -29,6 +29,11 @@ public class ObserverStimmungAngabe extends Observer{
         this.context = context;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
+        // check if method allocated
+        if(!preferences.getString("allocatedMethods","").contains("moodquery")) {
+            return;
+        }
+
         // User has to fill Stimmungsabgabe if ->
         // show Notification if we are in the interval [trainingtime - abstand, trainingtime]
         shouldNotifyBefore();

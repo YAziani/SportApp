@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp.Observe;
 
 import android.content.Context;
+import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 import android.util.Log;
 
@@ -24,6 +25,13 @@ public class ObserverFitnessFragebogen extends Observer {
      */
     @Override
     public void update(Context context) {
+
+        // check if method allocated
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        if(!preferences.getString("allocatedMethods","").contains("fitnessQuestionary")) {
+            return;
+        }
+
         this.context = context;
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
 

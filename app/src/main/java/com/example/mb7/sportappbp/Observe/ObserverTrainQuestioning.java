@@ -46,7 +46,12 @@ public class ObserverTrainQuestioning extends Observer{
     }
 
     @Override
-    public void createNotification(Context context, String NotificationDate, Class<?> cls,String title, String text, Integer icon ){
+    public void createNotification(Context context,
+                                   String NotificationDate,
+                                   Class<?> cls,
+                                   String title,
+                                   String text,
+                                   Integer icon ){
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
@@ -57,7 +62,6 @@ public class ObserverTrainQuestioning extends Observer{
         TaskStackBuilder tStackBuilder = TaskStackBuilder.create(context);
 
         // Add all parents of this activity to the stack
-        // The parentstck of MoreInfoNotifaction is defined in the Manifest -> <android:parentActivityName=".MainActivity">
         tStackBuilder.addParentStack(cls);
 
         // Add our new Intent to the stack
@@ -75,7 +79,8 @@ public class ObserverTrainQuestioning extends Observer{
             Intent intent = new Intent(context,ActivityMain.class);
             intent.putExtra("startTab",1);
             intent.putExtra("notificationId", 331);
-            PendingIntent pendingIntent = PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntent =
+                    PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.setContentIntent(pendingIntent);
 
             // setting up buttons for question (will you go to training?)
@@ -83,14 +88,16 @@ public class ObserverTrainQuestioning extends Observer{
             intentYes.setAction("YES_ACTION");
             intentYes.putExtra("notificationId", 331);
             intentYes.putExtra("praiseOrWarn", 0);
-            PendingIntent pendingIntentYes = PendingIntent.getActivity(context,0,intentYes,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntentYes =
+                    PendingIntent.getActivity(context,0,intentYes,PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.addAction(R.drawable.box,"Ja",pendingIntentYes);
 
             Intent intentNo = new Intent(context,ActivityTrainQuestioning.class);
             intentNo.setAction("NO_ACTION");
             intentNo.putExtra("notificationId", 331);
             intentNo.putExtra("praiseOrWarn", 1);
-            PendingIntent pendingIntentNo = PendingIntent.getActivity(context,0,intentNo,PendingIntent.FLAG_UPDATE_CURRENT);
+            PendingIntent pendingIntentNo =
+                    PendingIntent.getActivity(context,0,intentNo,PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.addAction(R.drawable.box,"Nein",pendingIntentNo);
 
             notificationBuilder.setAutoCancel(true);

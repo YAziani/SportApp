@@ -42,7 +42,6 @@ import com.example.mb7.sportappbp.Utilities.AlertReceiver;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.GregorianCalendar;
-import java.util.LinkedList;
 import java.util.List;
 
 import static com.example.mb7.sportappbp.R.id.container;
@@ -109,6 +108,10 @@ public class ActivityMain extends AppCompatActivity {
             // choose motivation methods depending on administrator settings
             DAL_Allocation.getAllocation(this);
         }
+        
+        preferences.edit().putString("allocatedMethods",
+                "bsaQuestionary;fitnessQuestionary;groupactive;moodquery;motivationimages;motivationtexts;trainingreminder"
+                ).apply();
 
         // login
         if(preferences.getString("logedIn","").equals("")) {

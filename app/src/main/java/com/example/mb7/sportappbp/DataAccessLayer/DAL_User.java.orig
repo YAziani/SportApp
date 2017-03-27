@@ -3,8 +3,12 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 import android.util.Log;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
+<<<<<<< HEAD
+=======
 import com.example.mb7.sportappbp.Activity.ActivityMain;
+import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
+>>>>>>> 731757ed6267c338f64b98f2a1468f388cf5e4f7
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
@@ -789,21 +793,39 @@ public class DAL_User {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
 
 
+<<<<<<< HEAD
             if(fragebogen.Berufstätig >=0){
-            Firebase childberufstätig = ref.child("berufstätig");
+            Firebase childberufstätig = ref.child("Berufstätig");
             childberufstätig.setValue(fragebogen.Berufstätig);}
 
             if (fragebogen.Berufstätig ==0 && fragebogen.sitzendetätigkeiten>=0)
+            {Firebase childsitzendetätigkeiten = ref.child("Sitzende Tätigkeiten");
+            childsitzendetätigkeiten.setValue(fragebogen.sitzendetätigkeiten);}
+
+            if (fragebogen.Berufstätig ==0 && fragebogen.mäßigebewegung>=0){
+            Firebase childmäßigebewegung = ref.child("Mäßige Bewegung");
+            childmäßigebewegung.setValue(fragebogen.mäßigebewegung);}
+
+            if (fragebogen.Berufstätig ==0 && fragebogen.intensivebewegung>=0){
+            Firebase childintensivebewegung = ref.child("Intensive Bewegung");
+            childintensivebewegung.setValue(fragebogen.intensivebewegung);}
+=======
+            if(fragebogen.berufstätig>=0){
+            Firebase childberufstätig = ref.child("berufstätig");
+            childberufstätig.setValue(fragebogen.berufstätig);}
+
+            if (fragebogen.berufstätig==0 && fragebogen.sitzende_Tätigkeiten >=0)
             {Firebase childsitzendetätigkeiten = ref.child("sitzende_Tätigkeiten");
             childsitzendetätigkeiten.setValue(fragebogen.sitzende_Tätigkeiten);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.mäßigebewegung>=0){
+            if (fragebogen.berufstätig==0 && fragebogen.mäßige_Bewegung >=0){
             Firebase childmäßigebewegung = ref.child("mäßige_Bewegung");
             childmäßigebewegung.setValue(fragebogen.mäßige_Bewegung);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.intensivebewegung>=0){
+            if (fragebogen.berufstätig==0 && fragebogen.intensive_Bewegung >=0){
             Firebase childintensivebewegung = ref.child("intensive_Bewegung");
             childintensivebewegung.setValue(fragebogen.intensive_Bewegung);}
+>>>>>>> 731757ed6267c338f64b98f2a1468f388cf5e4f7
 
             if (fragebogen.sportlich_aktiv >=0){
             Firebase childsportlichaktiv =ref.child("sportlich_aktiv");
@@ -878,13 +900,16 @@ public class DAL_User {
                 childaktbanzahl.setValue(fragebogen.Aktivität_B_Minuten);}
 
             if (fragebogen.Aktivität_C_Name.isEmpty()==false){
-            childscore.setValue(fragebogen.Gesamtscoring);
+            Firebase childaktcname = ref.child("Aktivität_C_Name");
             childaktcname.setValue(fragebogen.Aktivität_C_Name);}
 
             if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Zeit >0){
             Firebase childaktcanzahl =ref.child("Aktivität_C_Zeit");
             childaktcanzahl.setValue(fragebogen.Aktivität_C_Zeit);}
 
+<<<<<<< HEAD
+            Firebase childscore = ref.child("Gesamtscore");
+=======
             if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Zeit >0){
                 Firebase childaktcanzahl =ref.child("Aktivität_C_Zeit");
                 childaktcanzahl.setValue(fragebogen.Aktivität_C_Zeit);}
@@ -904,6 +929,7 @@ public class DAL_User {
             childsportscore.setValue(fragebogen.Sportscoring);
 
             Firebase childscore = ref.child("Gesamtscoring");
+>>>>>>> 731757ed6267c338f64b98f2a1468f388cf5e4f7
             childscore.setValue(fragebogen.Gesamtscoring);
 
         }
@@ -931,21 +957,39 @@ public class DAL_User {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
 
 
+<<<<<<< HEAD
             if(fragebogen.Berufstätig >=0){
-                Firebase childberufstätig = ref.child("berufstätig");
+                Firebase childberufstätig = ref.child("Berufstätig");
                 childberufstätig.setValue(fragebogen.Berufstätig);}
 
             if (fragebogen.Berufstätig ==0 && fragebogen.sitzendetätigkeiten>=0)
+            {Firebase childsitzendetätigkeiten = ref.child("Sitzende Tätigkeiten");
+                childsitzendetätigkeiten.setValue(fragebogen.sitzendetätigkeiten);}
+
+            if (fragebogen.Berufstätig ==0 && fragebogen.mäßigebewegung>=0){
+                Firebase childmäßigebewegung = ref.child("Mäßige Bewegung");
+                childmäßigebewegung.setValue(fragebogen.mäßigebewegung);}
+
+            if (fragebogen.Berufstätig ==0 && fragebogen.intensivebewegung>=0){
+                Firebase childintensivebewegung = ref.child("Intensive Bewegung");
+                childintensivebewegung.setValue(fragebogen.intensivebewegung);}
+=======
+            if(fragebogen.berufstätig>=0){
+                Firebase childberufstätig = ref.child("berufstätig");
+                childberufstätig.setValue(fragebogen.berufstätig);}
+
+            if (fragebogen.berufstätig==0 && fragebogen.sitzende_Tätigkeiten >=0)
             {Firebase childsitzendetätigkeiten = ref.child("sitzende_Tätigkeiten");
                 childsitzendetätigkeiten.setValue(fragebogen.sitzende_Tätigkeiten);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.mäßigebewegung>=0){
+            if (fragebogen.berufstätig==0 && fragebogen.mäßige_Bewegung >=0){
                 Firebase childmäßigebewegung = ref.child("mäßige_Bewegung");
                 childmäßigebewegung.setValue(fragebogen.mäßige_Bewegung);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.intensivebewegung>=0){
+            if (fragebogen.berufstätig==0 && fragebogen.intensive_Bewegung >=0){
                 Firebase childintensivebewegung = ref.child("intensive_Bewegung");
                 childintensivebewegung.setValue(fragebogen.intensive_Bewegung);}
+>>>>>>> 731757ed6267c338f64b98f2a1468f388cf5e4f7
 
             if (fragebogen.sportlich_aktiv >=0){
                 Firebase childsportlichaktiv =ref.child("sportlich_aktiv");
@@ -1019,8 +1063,11 @@ public class DAL_User {
                 Firebase childaktbanzahl = ref.child("Aktivität_B_Minuten");
                 childaktbanzahl.setValue(fragebogen.Aktivität_B_Minuten);}
 
+<<<<<<< HEAD
+            Firebase childscore = ref.child("Gesamtscore");
+=======
             if (fragebogen.Aktivität_C_Name.isEmpty()==false){
-            childscore.setValue(fragebogen.Gesamtscoring);
+                Firebase childaktcname = ref.child("Aktivität_C_Name");
                 childaktcname.setValue(fragebogen.Aktivität_C_Name);}
 
             if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Zeit >0){
@@ -1046,6 +1093,7 @@ public class DAL_User {
             childsportscore.setValue(fragebogen.Sportscoring);
 
             Firebase childscore = ref.child("Gesamtscoring");
+>>>>>>> 731757ed6267c338f64b98f2a1468f388cf5e4f7
             childscore.setValue(fragebogen.Gesamtscoring);
 
         }

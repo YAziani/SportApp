@@ -88,7 +88,6 @@ public class ActivityCategories extends AppCompatActivity {
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 String category = (String) adapterView.getItemAtPosition(position);
-                //todo change String
                 switch (category){
                     case "Leistungstests":
                         forwardOldExerciseList(R.string.Leistungstests);

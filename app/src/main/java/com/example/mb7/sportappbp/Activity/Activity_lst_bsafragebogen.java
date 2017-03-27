@@ -157,15 +157,15 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
                                                    // Here I have V or N
 
                                                     // create the object and insert it in the list
-                                                       for (DataSnapshot child2 : child.getChildren()) {
 
-                                                           Fragebogen fragebogen = child2.getValue(Fragebogen.class);
+
+                                                           Fragebogen fragebogen = child.getValue(Fragebogen.class);
                                                            fragebogen.FirebaseDate = sDate;
                                                            fragebogen.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString( sDate);
                                                            FragebogenList.add(fragebogen);
                                                        }
 
-                                                   }
+
 
 
 

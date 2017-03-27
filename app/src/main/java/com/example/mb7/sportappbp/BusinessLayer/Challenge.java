@@ -1,27 +1,38 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
 import com.example.mb7.sportappbp.Comparator.UserSortPoints;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Challenges;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 
+import java.io.Serializable;
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
+import java.util.List;
 
 /**
  * When you want to add a user to the challenge, you have to use the addUser() method. Otherwise the list will not be sorted.
  * Created by Basti on 21.03.2017.
  */
 
-public class Challenge {
+public class Challenge implements Serializable {
 
 
 
     private String name;
-    private ArrayList<User> userList;
+    private List<User> userList;
     private Date startDate;
     private Date endDate;
+    private String admin;
     private Boolean active;
     final Calendar todayCalendar = Calendar.getInstance();
+
+    public Challenge(){
+        this.userList = new LinkedList<>();
+    }
 
     public String getName() {
         return name;
@@ -31,7 +42,11 @@ public class Challenge {
         this.name = name;
     }
 
-    public ArrayList<User> getUserList() {
+    public void setUserList(List<User> list){
+        this.userList = list;
+    }
+
+    public List<User> getUserList() {
         return userList;
     }
 
@@ -116,4 +131,73 @@ public class Challenge {
             return false;
     }
 
+    /**
+     * Checks if the challenge has been finished and returns true
+     * @return true if finished
+     */
+    public Boolean finished(){
+        String result;
+        Calendar calendar = Calendar.getInstance();
+
+        SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
+
+        if(todayCalendar.getTime().after(endDate))
+            return true;
+        else
+            return false;
+    }
+
+
+    /**
+     * Challenge to DAL_Challenge to save its to database
+     * @return
+     */
+    public boolean SaveNewChallenge(){
+        DAL_Challenges.InsertChallenge(this);
+        return true;
+    }
+
+    /**
+     * User to DAL_Challenge to add reference to user on database
+     * challenge to DAL_User to add reference to challenge on database
+     * @param user user to add
+     * @return
+     */
+    public boolean AddUser(User user){
+        DAL_Challenges.InsertUser(user, this);
+        DAL_User.InsertChallenge(user, this);
+        return true;
+    }
+
+    /**
+     * User to DAL_Challenge to save its to database
+     * @param user user to add
+     * @return
+     */
+    public boolean AddAdmin(User user){
+        DAL_Challenges.InsertAdmin(user , this);
+        return true;
+    }
+
+    /**
+     * User to DAL_Challenge to remove reference to user on database
+     * challenge to DAL_User to remove reference to challenge on database
+     * @param user user to add
+     * @return
+     */
+    public boolean RemoveUser(User user){
+        DAL_Challenges.RemoveUser(user, this);
+        DAL_User.RemoveChallenge(user, this);
+        return true;
+    }
+
+    /**
+     * User to DAL_Challenge to save its to database
+     * @param user user to add
+     * @return
+     */
+    public boolean InviteUser(User user){
+        DAL_Challenges.InsertInvitation(user , this);
+        return true;
+    }
 }

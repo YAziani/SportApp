@@ -51,6 +51,9 @@ public class ActivityMotivationMessage extends AppCompatActivity {
 
     }
 
+    /**
+     * behavior if database is not available
+     */
     public void cancel() {
         pd.dismiss();
         Toast.makeText(
@@ -65,7 +68,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
     }
 
     /**
-     * get the names of all images in the database
+     * get the names of all images in the database and choose a random one to show
      */
     public void getImgName() {
         try {
@@ -74,9 +77,11 @@ public class ActivityMotivationMessage extends AppCompatActivity {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
+                    // choose random index to show
                     Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
                     int index = (int)dataSnapshot.getChildrenCount();
                     index = new Random().nextInt(index);
+                    // iterate through the names
                     for(int i = 0; i < index; i++) {
                         if(iterator.hasNext()) {
                             iterator.next();
@@ -85,7 +90,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
                             return;
                         }
                     }
-                    showImage((String)iterator.next().getValue());
+                    showImage((String)iterator.next().child("imagename").getValue());
                 }
 
                 @Override

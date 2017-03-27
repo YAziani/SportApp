@@ -147,9 +147,9 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
 
 
                         // create the object and insert it in the list
-                        for (DataSnapshot child2 : child.getChildren()) {
 
-                            FitnessFragebogen fitnessFragebogen = child2.getValue(FitnessFragebogen.class);
+
+                            FitnessFragebogen fitnessFragebogen = child.getValue(FitnessFragebogen.class);
                             fitnessFragebogen.FirebaseDate = sDate;
                             fitnessFragebogen.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString(sDate);
                             FitnessFragebogenList.add(fitnessFragebogen);
@@ -165,7 +165,7 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
                             // just create a list of tasks
                             rv.setAdapter(new FitnessFrageViewAdapter(FitnessFragebogenList, activityLstFitnessfragebogen));
                         }
-                    }
+
 
 
                     // close the progress dialog

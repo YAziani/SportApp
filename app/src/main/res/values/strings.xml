@@ -252,6 +252,7 @@
 
     <!-- ActivityChallenge-->
     <string name="VerbleibendeTage">Verbleibende Tage:</string>
+    <string name="ChallengeKonnteNichtGeladenWerdenVersuchenSieBitteErneut">Challenge konnte nicht geladen werden. Versuchen Sie es bitte erneut!</string>
 
     <!-- ActivityNewChallenge-->
     <string name="WieLangeSolldieChallengeGehen">Wie lange soll die Challenge gehen?</string>
@@ -263,11 +264,20 @@
     <string name="ChallengeWurdeErstellt">Challenge wurde erstellt!</string>
     <string name="MindestensEinBenutzerMussHinzugefügtWerden">Mindestens ein Benutzer muss zur Challenge hinzugefügt werden!</string>
 
+    <!-- ActivityLstChallenge-->
+    <string name="Challenges">Challenges</string>
+
+    <!-- ChallengeLstViewAdapter-->
+    <string name="ChallengeBeendet">Challenge beendet</string>
+    <string name="EndetAm">Endet am </string>
+
+
     <!-- Menu items -->
     <string name="Loeschen">Löschen</string>
     <string name="hinzufuegen">Hinzufügen</string>
     <string name="bearbeiten">Bearbeiten</string>
     <string name="speichern">Speichern</string>
+    <string name="ChallengeVerlassen">Challenge verlassen</string>
 
     <!-- Stimmungsabgabe -->
     <string name="stimm_vor_nach_question">Ist diese Stimmungsabgabe für vor oder nach dem Training vorgesehen?</string>

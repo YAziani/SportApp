@@ -3,7 +3,6 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 import android.util.Log;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
-import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
@@ -22,7 +21,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
@@ -543,29 +541,29 @@ public class DAL_User {
                 Firebase childanziehen = ref.child("Socken_anziehen");
                 childanziehen.setValue(finessfragebogen.Socken_anziehen);}
 
-            if(finessfragebogen.Boden_im_Sitzen_berühren >=0){
-                Firebase childsitzendboden = ref.child("Boden_im_Sitzen_berühren");
-                childsitzendboden.setValue(finessfragebogen.Boden_im_Sitzen_berühren);}
+            if(finessfragebogen.Boden_im_Sitzen_beruehren >=0){
+                Firebase childsitzendboden = ref.child("Boden_im_Sitzen_beruehren");
+                childsitzendboden.setValue(finessfragebogen.Boden_im_Sitzen_beruehren);}
 
             if(finessfragebogen.Schuhe_binden >=0){
                 Firebase childschuhebinden = ref.child("Schuhe_binden");
                 childschuhebinden.setValue(finessfragebogen.Schuhe_binden);}
 
-            if(finessfragebogen.Rücken_beruhren >=0){
-                Firebase childrueckenberuehren =ref.child("Rücken_beruhren");
-                childrueckenberuehren.setValue(finessfragebogen.Rücken_beruhren);}
+            if(finessfragebogen.Ruecken_beruehren >=0){
+                Firebase childrueckenberuehren =ref.child("Ruecken_beruehren");
+                childrueckenberuehren.setValue(finessfragebogen.Ruecken_beruehren);}
 
-            if(finessfragebogen.Im_Stehen_Boden_berühren >=0){
-                Firebase childstehendboden = ref.child("Im_Stehen_Boden_berühren");
-                childstehendboden.setValue(finessfragebogen.Im_Stehen_Boden_berühren);}
+            if(finessfragebogen.Im_Stehen_Boden_beruehren >=0){
+                Firebase childstehendboden = ref.child("Im_Stehen_Boden_beruehren");
+                childstehendboden.setValue(finessfragebogen.Im_Stehen_Boden_beruehren);}
 
-            if(finessfragebogen.Mit_Kopf_das_Knie_berühren >=0){
-                Firebase childkopfknie = ref.child("Mit_Kopf_das_Knie_berühren");
-                childkopfknie.setValue(finessfragebogen.Mit_Kopf_das_Knie_berühren);}
+            if(finessfragebogen.Mit_Kopf_das_Knie_beruehren >=0){
+                Firebase childkopfknie = ref.child("Mit_Kopf_das_Knie_beruehren");
+                childkopfknie.setValue(finessfragebogen.Mit_Kopf_das_Knie_beruehren);}
 
-            if(finessfragebogen.Brücke >=0){
-                Firebase childbruecke = ref.child("Brücke");
-                childbruecke.setValue(finessfragebogen.Brücke);}
+            if(finessfragebogen.Bruecke >=0){
+                Firebase childbruecke = ref.child("Bruecke");
+                childbruecke.setValue(finessfragebogen.Bruecke);}
 
             if(finessfragebogen.Treppe_runter_gehen >=0){
                 Firebase childtrepperunter =ref.child("etrepperunter");
@@ -696,29 +694,29 @@ public class DAL_User {
                 Firebase childanziehen = ref.child("Socken_anziehen");
                 childanziehen.setValue(finessfragebogen.Socken_anziehen);}
 
-            if(finessfragebogen.Boden_im_Sitzen_berühren >=0){
-                Firebase childsitzendboden = ref.child("Boden_im_Sitzen_berühren");
-                childsitzendboden.setValue(finessfragebogen.Boden_im_Sitzen_berühren);}
+            if(finessfragebogen.Boden_im_Sitzen_beruehren >=0){
+                Firebase childsitzendboden = ref.child("Boden_im_Sitzen_beruehren");
+                childsitzendboden.setValue(finessfragebogen.Boden_im_Sitzen_beruehren);}
 
             if(finessfragebogen.Schuhe_binden >=0){
                 Firebase childschuhebinden = ref.child("Schuhe_binden");
                 childschuhebinden.setValue(finessfragebogen.Schuhe_binden);}
 
-            if(finessfragebogen.Rücken_beruhren >=0){
-                Firebase childrueckenberuehren =ref.child("Rücken_beruhren");
-                childrueckenberuehren.setValue(finessfragebogen.Rücken_beruhren);}
+            if(finessfragebogen.Ruecken_beruehren >=0){
+                Firebase childrueckenberuehren =ref.child("Ruecken_beruehren");
+                childrueckenberuehren.setValue(finessfragebogen.Ruecken_beruehren);}
 
-            if(finessfragebogen.Im_Stehen_Boden_berühren >=0){
-                Firebase childstehendboden = ref.child("Im_Stehen_Boden_berühren");
-                childstehendboden.setValue(finessfragebogen.Im_Stehen_Boden_berühren);}
+            if(finessfragebogen.Im_Stehen_Boden_beruehren >=0){
+                Firebase childstehendboden = ref.child("Im_Stehen_Boden_beruehren");
+                childstehendboden.setValue(finessfragebogen.Im_Stehen_Boden_beruehren);}
 
-            if(finessfragebogen.Mit_Kopf_das_Knie_berühren >=0){
-                Firebase childkopfknie = ref.child("Mit_Kopf_das_Knie_berühren");
-                childkopfknie.setValue(finessfragebogen.Mit_Kopf_das_Knie_berühren);}
+            if(finessfragebogen.Mit_Kopf_das_Knie_beruehren >=0){
+                Firebase childkopfknie = ref.child("Mit_Kopf_das_Knie_beruehren");
+                childkopfknie.setValue(finessfragebogen.Mit_Kopf_das_Knie_beruehren);}
 
-            if(finessfragebogen.Brücke >=0){
-                Firebase childbruecke = ref.child("Brücke");
-                childbruecke.setValue(finessfragebogen.Brücke);}
+            if(finessfragebogen.Bruecke >=0){
+                Firebase childbruecke = ref.child("Bruecke");
+                childbruecke.setValue(finessfragebogen.Bruecke);}
 
             if(finessfragebogen.Treppe_runter_gehen >=0){
                 Firebase childtrepperunter =ref.child("etrepperunter");
@@ -790,160 +788,18 @@ public class DAL_User {
 
 
             if(fragebogen.Berufstätig >=0){
-            Firebase childberufstätig = ref.child("berufstätig");
-            childberufstätig.setValue(fragebogen.Berufstätig);}
-
-            if (fragebogen.Berufstätig ==0 && fragebogen.sitzendetätigkeiten>=0)
-            {Firebase childsitzendetätigkeiten = ref.child("sitzende_Tätigkeiten");
-            childsitzendetätigkeiten.setValue(fragebogen.sitzende_Tätigkeiten);}
-
-            if (fragebogen.Berufstätig ==0 && fragebogen.mäßigebewegung>=0){
-            Firebase childmäßigebewegung = ref.child("mäßige_Bewegung");
-            childmäßigebewegung.setValue(fragebogen.mäßige_Bewegung);}
-
-            if (fragebogen.Berufstätig ==0 && fragebogen.intensivebewegung>=0){
-            Firebase childintensivebewegung = ref.child("intensive_Bewegung");
-            childintensivebewegung.setValue(fragebogen.intensive_Bewegung);}
-
-            if (fragebogen.sportlich_aktiv >=0){
-            Firebase childsportlichaktiv =ref.child("sportlich_aktiv");
-            childsportlichaktiv.setValue(fragebogen.sportlich_aktiv);}
-
-            if(fragebogen.zu_Fuß_zur_Arbeit >0){
-            Firebase childzufußzurarbeit = ref.child("zu_Fuß_zur_Arbeit");
-            childzufußzurarbeit.setValue(fragebogen.zu_Fuß_zur_Arbeit);}
-
-            if(fragebogen.zu_Fuß_einkaufen >0){
-            Firebase childzufußeinkaufen = ref.child("zu_Fuß_einkaufen");
-            childzufußeinkaufen.setValue(fragebogen.zu_Fuß_einkaufen);}
-
-            if (fragebogen.Rad_zur_Arbeit >0){
-            Firebase childradzurarbeit = ref.child("Rad_zur_Arbeit");
-            childradzurarbeit.setValue(fragebogen.Rad_zur_Arbeit);}
-
-            if (fragebogen.Rad_fahren >0){
-            Firebase childradfahren = ref.child("Rad_fahren");
-            childradfahren.setValue(fragebogen.Rad_fahren);}
-
-            if(fragebogen.Spazieren >0){
-            Firebase childspazieren = ref.child("Spazieren");
-            childspazieren.setValue(fragebogen.Spazieren);}
-
-            if(fragebogen.Gartenarbeit >0){
-            Firebase childgartenarbeit = ref.child("Gartenarbeit");
-            childgartenarbeit.setValue(fragebogen.Gartenarbeit);}
-
-            if(fragebogen.Hausarbeit >0){
-            Firebase childhausarbeit = ref.child("Hausarbeit");
-            childhausarbeit.setValue(fragebogen.Hausarbeit);}
-
-            if(fragebogen.Pflegearbeit >0){
-            Firebase childpflegearbeit = ref.child("Pflegearbeit");
-            childpflegearbeit.setValue(fragebogen.Pflegearbeit);}
-
-            if(fragebogen.Treppensteigen >0){
-            Firebase childtreppensteigen = ref.child("Treppensteigen");
-            childtreppensteigen.setValue(fragebogen.Treppensteigen);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false){
-            Firebase childaktaname = ref.child("Aktivität_A_Name");
-            childaktaname.setValue(fragebogen.Aktivität_A_Name);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_A_Zeit >0){
-            Firebase childaktaanzahl = ref.child("Aktivität_A_Zeit");
-            childaktaanzahl.setValue(fragebogen.Aktivität_A_Zeit);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_A_Einheiten >0){
-                Firebase childaktaanzahl = ref.child("Aktivität_A_Einheiten");
-                childaktaanzahl.setValue(fragebogen.Aktivität_A_Einheiten);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_A_Minuten >0){
-                Firebase childaktaanzahl = ref.child("Aktivität_A_Minuten");
-                childaktaanzahl.setValue(fragebogen.Aktivität_A_Minuten);}
-
-            if (fragebogen.Aktivität_B_Name.isEmpty()==false){
-            Firebase childaktbname = ref.child("Aktivität_B_Name");
-            childaktbname.setValue(fragebogen.Aktivität_B_Name);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_B_Zeit >0){
-            Firebase childaktbanzahl = ref.child("Aktivität_B_Zeit");
-            childaktbanzahl.setValue(fragebogen.Aktivität_B_Zeit);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_B_Einheiten >0){
-                Firebase childaktbanzahl = ref.child("Aktivität_B_Einheiten");
-                childaktbanzahl.setValue(fragebogen.Aktivität_B_Einheiten);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_B_Minuten >0){
-                Firebase childaktbanzahl = ref.child("Aktivität_B_Minuten");
-                childaktbanzahl.setValue(fragebogen.Aktivität_B_Minuten);}
-
-            if (fragebogen.Aktivität_C_Name.isEmpty()==false){
-            childscore.setValue(fragebogen.Gesamtscoring);
-            childaktcname.setValue(fragebogen.Aktivität_C_Name);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Zeit >0){
-            Firebase childaktcanzahl =ref.child("Aktivität_C_Zeit");
-            childaktcanzahl.setValue(fragebogen.Aktivität_C_Zeit);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Zeit >0){
-                Firebase childaktcanzahl =ref.child("Aktivität_C_Zeit");
-                childaktcanzahl.setValue(fragebogen.Aktivität_C_Zeit);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Einheiten >0){
-                Firebase childaktcanzahl =ref.child("Aktivität_C_Einheiten");
-                childaktcanzahl.setValue(fragebogen.Aktivität_C_Einheiten);}
-
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Minuten >0){
-                Firebase childaktcanzahl =ref.child("Aktivität_C_Minuten");
-                childaktcanzahl.setValue(fragebogen.Aktivität_C_Minuten);}
-
-            Firebase childbewegungscore = ref.child("Bewegungsscoring");
-            childbewegungscore.setValue(fragebogen.Bewegungsscoring);
-
-            Firebase childsportscore = ref.child("Sportscoring");
-            childsportscore.setValue(fragebogen.Sportscoring);
-
-            Firebase childscore = ref.child("Gesamtscoring");
-            childscore.setValue(fragebogen.Gesamtscoring);
-
-        }
-        catch (Exception exception)
-        {
-            String s = exception.getMessage();
-            System.out.println(s);
-        }
-        finally
-        {
-
-        }
-
-    }
-
-    /**
-     * Speichert Antworten und Scoring des BSA Fragebogens.
-     * @param user
-     * @param fragebogen
-     */
-    static public void UpdateFragebogen(User user, Fragebogen fragebogen)
-    {
-        try
-        {
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
-
-
-            if(fragebogen.Berufstätig >=0){
                 Firebase childberufstätig = ref.child("berufstätig");
                 childberufstätig.setValue(fragebogen.Berufstätig);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.sitzendetätigkeiten>=0)
-            {Firebase childsitzendetätigkeiten = ref.child("sitzende_Tätigkeiten");
-                childsitzendetätigkeiten.setValue(fragebogen.sitzende_Tätigkeiten);}
+            if (fragebogen.Berufstätig ==0 && fragebogen.sitzende_Taetigkeiten >=0)
+            {Firebase childsitzendetätigkeiten = ref.child("sitzende_Taetigkeiten");
+                childsitzendetätigkeiten.setValue(fragebogen.sitzende_Taetigkeiten);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.mäßigebewegung>=0){
-                Firebase childmäßigebewegung = ref.child("mäßige_Bewegung");
-                childmäßigebewegung.setValue(fragebogen.mäßige_Bewegung);}
+            if (fragebogen.Berufstätig ==0 && fragebogen.maeßige_Bewegung >=0){
+                Firebase childmäßigebewegung = ref.child("maeßige_Bewegung");
+                childmäßigebewegung.setValue(fragebogen.maeßige_Bewegung);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.intensivebewegung>=0){
+            if (fragebogen.Berufstätig ==0 && fragebogen.intensive_Bewegung>=0){
                 Firebase childintensivebewegung = ref.child("intensive_Bewegung");
                 childintensivebewegung.setValue(fragebogen.intensive_Bewegung);}
 
@@ -987,57 +843,191 @@ public class DAL_User {
                 Firebase childtreppensteigen = ref.child("Treppensteigen");
                 childtreppensteigen.setValue(fragebogen.Treppensteigen);}
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false){
-                Firebase childaktaname = ref.child("Aktivität_A_Name");
-                childaktaname.setValue(fragebogen.Aktivität_A_Name);}
+            if (fragebogen.Aktivitaet_A_Name.isEmpty()==false){
+                Firebase childaktaname = ref.child("Aktivitaet_A_Name");
+                childaktaname.setValue(fragebogen.Aktivitaet_A_Name);}
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_A_Zeit >0){
-                Firebase childaktaanzahl = ref.child("Aktivität_A_Zeit");
-                childaktaanzahl.setValue(fragebogen.Aktivität_A_Zeit);}
+            if (fragebogen.Aktivitaet_A_Name.isEmpty()==false && fragebogen.Aktivitaet_A_Zeit >0){
+                Firebase childaktaanzahl = ref.child("Aktivitaet_A_Zeit");
+                childaktaanzahl.setValue(fragebogen.Aktivitaet_A_Zeit);}
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_A_Einheiten >0){
-                Firebase childaktaanzahl = ref.child("Aktivität_A_Einheiten");
-                childaktaanzahl.setValue(fragebogen.Aktivität_A_Einheiten);}
+            if (fragebogen.Aktivitaet_A_Name.isEmpty()==false && fragebogen.Aktivitaet_A_Einheiten >0){
+                Firebase childaktaeinheiten = ref.child("Aktivitaet_A_Einheiten");
+                childaktaeinheiten.setValue(fragebogen.Aktivitaet_A_Einheiten);}
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_A_Minuten >0){
-                Firebase childaktaanzahl = ref.child("Aktivität_A_Minuten");
-                childaktaanzahl.setValue(fragebogen.Aktivität_A_Minuten);}
+            if (fragebogen.Aktivitaet_A_Name.isEmpty()==false && fragebogen.Aktivitaet_A_Minuten >0){
+                Firebase childaktaminuten = ref.child("Aktivitaet_A_Minuten");
+                childaktaminuten.setValue(fragebogen.Aktivitaet_A_Minuten);}
 
-            if (fragebogen.Aktivität_B_Name.isEmpty()==false){
-                Firebase childaktbname = ref.child("Aktivität_B_Name");
-                childaktbname.setValue(fragebogen.Aktivität_B_Name);}
+            if (fragebogen.Aktivitaet_B_Name.isEmpty()==false){
+                Firebase childaktbname = ref.child("Aktivitaet_B_Name");
+                childaktbname.setValue(fragebogen.Aktivitaet_B_Name);}
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_B_Zeit >0){
-                Firebase childaktbanzahl = ref.child("Aktivität_B_Zeit");
-                childaktbanzahl.setValue(fragebogen.Aktivität_B_Zeit);}
+            if (fragebogen.Aktivitaet_B_Name.isEmpty()==false && fragebogen.Aktivitaet_B_Zeit >0){
+                Firebase childaktbanzahl = ref.child("Aktivitaet_B_Zeit");
+                childaktbanzahl.setValue(fragebogen.Aktivitaet_B_Zeit);}
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_B_Einheiten >0){
-                Firebase childaktbanzahl = ref.child("Aktivität_B_Einheiten");
-                childaktbanzahl.setValue(fragebogen.Aktivität_B_Einheiten);}
+            if (fragebogen.Aktivitaet_B_Name.isEmpty()==false && fragebogen.Aktivitaet_B_Einheiten >0){
+                Firebase childaktbeinheiten = ref.child("Aktivitaet_B_Einheiten");
+                childaktbeinheiten.setValue(fragebogen.Aktivitaet_B_Einheiten);}
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_B_Minuten >0){
-                Firebase childaktbanzahl = ref.child("Aktivität_B_Minuten");
-                childaktbanzahl.setValue(fragebogen.Aktivität_B_Minuten);}
+            if (fragebogen.Aktivitaet_B_Name.isEmpty()==false && fragebogen.Aktivitaet_B_Minuten >0){
+                Firebase childaktbminuten = ref.child("Aktivitaet_B_Minuten");
+                childaktbminuten.setValue(fragebogen.Aktivitaet_B_Minuten);}
 
-            if (fragebogen.Aktivität_C_Name.isEmpty()==false){
+            if (fragebogen.Aktivitaet_C_Name.isEmpty()==false){
+                Firebase childaktcname = ref.child("Aktivitaet_C_Name");
+                childaktcname.setValue(fragebogen.Aktivitaet_C_Name);}
+
+            if (fragebogen.Aktivitaet_C_Name.isEmpty()==false && fragebogen.Aktivitaet_C_Zeit >0){
+                Firebase childaktcanzahl =ref.child("Aktivitaet_C_Zeit");
+                childaktcanzahl.setValue(fragebogen.Aktivitaet_C_Zeit);}
+
+            if (fragebogen.Aktivitaet_C_Name.isEmpty()==false && fragebogen.Aktivitaet_C_Zeit >0){
+                Firebase childaktceinheiten =ref.child("Aktivitaet_C_Einheiten");
+                childaktceinheiten.setValue(fragebogen.Aktivitaet_C_Einheiten);}
+
+            if (fragebogen.Aktivitaet_C_Name.isEmpty()==false && fragebogen.Aktivitaet_C_Minuten >0){
+                Firebase childaktcanzahl =ref.child("Aktivitaet_C_Minuten");
+                childaktcanzahl.setValue(fragebogen.Aktivitaet_C_Minuten);}
+
+            Firebase childbewegungscore = ref.child("Bewegungsscoring");
+            childbewegungscore.setValue(fragebogen.Bewegungsscoring);
+
+            Firebase childsportscore = ref.child("Sportscoring");
+            childsportscore.setValue(fragebogen.Sportscoring);
+
+            Firebase childscore = ref.child("Gesamtscoring");
             childscore.setValue(fragebogen.Gesamtscoring);
-                childaktcname.setValue(fragebogen.Aktivität_C_Name);}
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Zeit >0){
-                Firebase childaktcanzahl =ref.child("Aktivität_C_Zeit");
-                childaktcanzahl.setValue(fragebogen.Aktivität_C_Zeit);}
+        }
+        catch (Exception exception)
+        {
+            String s = exception.getMessage();
+            System.out.println(s);
+        }
+        finally
+        {
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Zeit >0){
-                Firebase childaktcanzahl =ref.child("Aktivität_C_Zeit");
-                childaktcanzahl.setValue(fragebogen.Aktivität_C_Zeit);}
+        }
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Einheiten >0){
-                Firebase childaktcanzahl =ref.child("Aktivität_C_Einheiten");
-                childaktcanzahl.setValue(fragebogen.Aktivität_C_Einheiten);}
+    }
 
-            if (fragebogen.Aktivität_A_Name.isEmpty()==false && fragebogen.Aktivität_C_Minuten >0){
-                Firebase childaktcanzahl =ref.child("Aktivität_C_Minuten");
-                childaktcanzahl.setValue(fragebogen.Aktivität_C_Minuten);}
+    /**
+     * Speichert Antworten und Scoring des BSA Fragebogens.
+     * @param user
+     * @param fragebogen
+     */
+    static public void UpdateFragebogen(User user, Fragebogen fragebogen)
+    {
+        try
+        {
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
+
+
+            if(fragebogen.Berufstätig >=0){
+                Firebase childberufstätig = ref.child("berufstätig");
+                childberufstätig.setValue(fragebogen.Berufstätig);}
+
+            if (fragebogen.Berufstätig ==0 && fragebogen.sitzende_Taetigkeiten >=0)
+            {Firebase childsitzendetätigkeiten = ref.child("sitzende_Taetigkeiten");
+                childsitzendetätigkeiten.setValue(fragebogen.sitzende_Taetigkeiten);}
+
+            if (fragebogen.Berufstätig ==0 && fragebogen.maeßige_Bewegung >=0){
+                Firebase childmäßigebewegung = ref.child("maeßige_Bewegung");
+                childmäßigebewegung.setValue(fragebogen.maeßige_Bewegung);}
+
+            if (fragebogen.Berufstätig ==0 && fragebogen.intensive_Bewegung>=0){
+                Firebase childintensivebewegung = ref.child("intensive_Bewegung");
+                childintensivebewegung.setValue(fragebogen.intensive_Bewegung);}
+
+            if (fragebogen.sportlich_aktiv >=0){
+                Firebase childsportlichaktiv =ref.child("sportlich_aktiv");
+                childsportlichaktiv.setValue(fragebogen.sportlich_aktiv);}
+
+            if(fragebogen.zu_Fuß_zur_Arbeit >0){
+                Firebase childzufußzurarbeit = ref.child("zu_Fuß_zur_Arbeit");
+                childzufußzurarbeit.setValue(fragebogen.zu_Fuß_zur_Arbeit);}
+
+            if(fragebogen.zu_Fuß_einkaufen >0){
+                Firebase childzufußeinkaufen = ref.child("zu_Fuß_einkaufen");
+                childzufußeinkaufen.setValue(fragebogen.zu_Fuß_einkaufen);}
+
+            if (fragebogen.Rad_zur_Arbeit >0){
+                Firebase childradzurarbeit = ref.child("Rad_zur_Arbeit");
+                childradzurarbeit.setValue(fragebogen.Rad_zur_Arbeit);}
+
+            if (fragebogen.Rad_fahren >0){
+                Firebase childradfahren = ref.child("Rad_fahren");
+                childradfahren.setValue(fragebogen.Rad_fahren);}
+
+            if(fragebogen.Spazieren >0){
+                Firebase childspazieren = ref.child("Spazieren");
+                childspazieren.setValue(fragebogen.Spazieren);}
+
+            if(fragebogen.Gartenarbeit >0){
+                Firebase childgartenarbeit = ref.child("Gartenarbeit");
+                childgartenarbeit.setValue(fragebogen.Gartenarbeit);}
+
+            if(fragebogen.Hausarbeit >0){
+                Firebase childhausarbeit = ref.child("Hausarbeit");
+                childhausarbeit.setValue(fragebogen.Hausarbeit);}
+
+            if(fragebogen.Pflegearbeit >0){
+                Firebase childpflegearbeit = ref.child("Pflegearbeit");
+                childpflegearbeit.setValue(fragebogen.Pflegearbeit);}
+
+            if(fragebogen.Treppensteigen >0){
+                Firebase childtreppensteigen = ref.child("Treppensteigen");
+                childtreppensteigen.setValue(fragebogen.Treppensteigen);}
+
+            if (fragebogen.Aktivitaet_A_Name.isEmpty()==false){
+                Firebase childaktaname = ref.child("Aktivitaet_A_Name");
+                childaktaname.setValue(fragebogen.Aktivitaet_A_Name);}
+
+            if (fragebogen.Aktivitaet_A_Name.isEmpty()==false && fragebogen.Aktivitaet_A_Zeit >0){
+                Firebase childaktaanzahl = ref.child("Aktivitaet_A_Zeit");
+                childaktaanzahl.setValue(fragebogen.Aktivitaet_A_Zeit);}
+
+            if (fragebogen.Aktivitaet_A_Name.isEmpty()==false && fragebogen.Aktivitaet_A_Einheiten >0){
+                Firebase childaktaeinheiten = ref.child("Aktivitaet_A_Einheiten");
+                childaktaeinheiten.setValue(fragebogen.Aktivitaet_A_Einheiten);}
+
+            if (fragebogen.Aktivitaet_A_Name.isEmpty()==false && fragebogen.Aktivitaet_A_Minuten >0){
+                Firebase childaktaminuten = ref.child("Aktivitaet_A_Minuten");
+                childaktaminuten.setValue(fragebogen.Aktivitaet_A_Minuten);}
+
+            if (fragebogen.Aktivitaet_B_Name.isEmpty()==false){
+                Firebase childaktbname = ref.child("Aktivitaet_B_Name");
+                childaktbname.setValue(fragebogen.Aktivitaet_B_Name);}
+
+            if (fragebogen.Aktivitaet_B_Name.isEmpty()==false && fragebogen.Aktivitaet_B_Zeit >0){
+                Firebase childaktbanzahl = ref.child("Aktivitaet_B_Zeit");
+                childaktbanzahl.setValue(fragebogen.Aktivitaet_B_Zeit);}
+
+            if (fragebogen.Aktivitaet_B_Name.isEmpty()==false && fragebogen.Aktivitaet_B_Einheiten >0){
+                Firebase childaktbeinheiten = ref.child("Aktivitaet_B_Einheiten");
+                childaktbeinheiten.setValue(fragebogen.Aktivitaet_B_Einheiten);}
+
+            if (fragebogen.Aktivitaet_B_Name.isEmpty()==false && fragebogen.Aktivitaet_B_Minuten >0){
+                Firebase childaktbminuten = ref.child("Aktivitaet_B_Minuten");
+                childaktbminuten.setValue(fragebogen.Aktivitaet_B_Minuten);}
+
+            if (fragebogen.Aktivitaet_C_Name.isEmpty()==false){
+                Firebase childaktcname = ref.child("Aktivitaet_C_Name");
+                childaktcname.setValue(fragebogen.Aktivitaet_C_Name);}
+
+            if (fragebogen.Aktivitaet_C_Name.isEmpty()==false && fragebogen.Aktivitaet_C_Zeit >0){
+                Firebase childaktcanzahl =ref.child("Aktivitaet_C_Zeit");
+                childaktcanzahl.setValue(fragebogen.Aktivitaet_C_Zeit);}
+
+            if (fragebogen.Aktivitaet_C_Name.isEmpty()==false && fragebogen.Aktivitaet_C_Zeit >0){
+                Firebase childaktceinheiten =ref.child("Aktivitaet_C_Einheiten");
+                childaktceinheiten.setValue(fragebogen.Aktivitaet_C_Einheiten);}
+
+            if (fragebogen.Aktivitaet_C_Name.isEmpty()==false && fragebogen.Aktivitaet_C_Minuten >0){
+                Firebase childaktcanzahl =ref.child("Aktivitaet_C_Minuten");
+                childaktcanzahl.setValue(fragebogen.Aktivitaet_C_Minuten);}
 
             Firebase childbewegungscore = ref.child("Bewegungsscoring");
             childbewegungscore.setValue(fragebogen.Bewegungsscoring);

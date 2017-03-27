@@ -230,8 +230,8 @@ public class ActivityFragebogen extends AppCompatActivity {
 
         //Indexwerte der Listview Elemente
         fragebogen.Berufstätig = lstberufstätig.getIndexBSA1();
-        fragebogen.sitzende_Tätigkeiten = lstsitzendetätigkeiten.getIndexBSA2();
-        fragebogen.mäßige_Bewegung = lstmäßigebewegung.getIndexBSA2();
+        fragebogen.sitzende_Taetigkeiten = lstsitzendetätigkeiten.getIndexBSA2();
+        fragebogen.maeßige_Bewegung = lstmäßigebewegung.getIndexBSA2();
         fragebogen.intensive_Bewegung = lstintensivebewegung.getIndexBSA2();
         fragebogen.sportlich_aktiv = lstsportlichaktiv.getIndexBSA1();
 
@@ -252,18 +252,18 @@ public class ActivityFragebogen extends AppCompatActivity {
         fragebogen.Treppensteigen = treppensteigen();
 
         //String mit Namen der Aktivität + Integerwert mit Anzahl der Minuten pro Woche
-        fragebogen.Aktivität_A_Name = aktivitätaname();
-        fragebogen.Aktivität_A_Zeit = aktivitäta();
-        fragebogen.Aktivität_A_Einheiten = strtoint((EditText) findViewById(R.id.edittextaktivitätaanzahl));
-        fragebogen.Aktivität_A_Minuten =strtoint((EditText) findViewById(R.id.edittextaktivitätaminuten));
-        fragebogen.Aktivität_B_Name = aktivitätbname();
-        fragebogen.Aktivität_B_Zeit = aktivitätb();
-        fragebogen.Aktivität_B_Einheiten = strtoint((EditText) findViewById(R.id.edittextaktivitätbanzahl));
-        fragebogen.Aktivität_B_Minuten =strtoint((EditText) findViewById(R.id.edittextaktivitätbminuten));
-        fragebogen.Aktivität_C_Name = aktivitätcname();
-        fragebogen.Aktivität_C_Zeit = aktivitätc();
-        fragebogen.Aktivität_C_Einheiten = strtoint((EditText) findViewById(R.id.edittextaktivitätcanzahl));
-        fragebogen.Aktivität_C_Minuten =strtoint((EditText) findViewById(R.id.edittextaktivitätcminuten));
+        fragebogen.Aktivitaet_A_Name = aktivitätaname();
+        fragebogen.Aktivitaet_A_Zeit = aktivitäta();
+        fragebogen.Aktivitaet_A_Einheiten = strtoint((EditText) findViewById(R.id.edittextaktivitätaanzahl));
+        fragebogen.Aktivitaet_A_Minuten =strtoint((EditText) findViewById(R.id.edittextaktivitätaminuten));
+        fragebogen.Aktivitaet_B_Name = aktivitätbname();
+        fragebogen.Aktivitaet_B_Zeit = aktivitätb();
+        fragebogen.Aktivitaet_B_Einheiten = strtoint((EditText) findViewById(R.id.edittextaktivitätbanzahl));
+        fragebogen.Aktivitaet_B_Minuten =strtoint((EditText) findViewById(R.id.edittextaktivitätbminuten));
+        fragebogen.Aktivitaet_C_Name = aktivitätcname();
+        fragebogen.Aktivitaet_C_Zeit = aktivitätc();
+        fragebogen.Aktivitaet_C_Einheiten = strtoint((EditText) findViewById(R.id.edittextaktivitätcanzahl));
+        fragebogen.Aktivitaet_C_Minuten =strtoint((EditText) findViewById(R.id.edittextaktivitätcminuten));
 
         if (INSERT){
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
@@ -305,27 +305,27 @@ public class ActivityFragebogen extends AppCompatActivity {
 
         //Adapter setzen
         adapter = new FragebogenViewAdapter(this);
-        adapter.setAntworten(fragebogen,getString(R.string.Sind_Sie_berufstätig_oder_in_Ausbildung));
+        adapter.setAntworten(fragebogen,getString(R.string.Sind_Sie_berufstaetig_oder_in_Ausbildung));
         adapter.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null? fragebogen.Berufstätig :-1);
         lstberufstätig.setAdapter(adapter);
 
         adapter2 = new FragebogenViewAdapter2(this);
-        adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstätigkeit_sitzende_Tätigkeiten));
+        adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstaetigkeit_sitzende_Taetigkeiten));
         adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.sitzendetätigkeiten!=null? fragebogen.sitzendetätigkeiten:-1);
         lstsitzendetätigkeiten.setAdapter(adapter2);
 
         adapter2 = new FragebogenViewAdapter2(this);
-        adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstätigkeit_Ausbildung_mäßige_Bewegung));
+        adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstaetigkeit_Ausbildung_maeßige_Bewegung));
         adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.mäßigebewegung!=null? fragebogen.mäßigebewegung:-1);
         lstmäßigebewegung.setAdapter(adapter2);
 
         adapter2 = new FragebogenViewAdapter2(this);
-        adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstätigkeit_Ausbildung_intensive_Bewegung));
+        adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstaetigkeit_Ausbildung_intensive_Bewegung));
         adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.intensivebewegung!=null? fragebogen.intensivebewegung:-1);
         lstintensivebewegung.setAdapter(adapter2);
 
         adapter = new FragebogenViewAdapter(this);
-        adapter.setAntworten(fragebogen,getString(R.string.regelmäßig_Sport_betrieben));
+        adapter.setAntworten(fragebogen,getString(R.string.regelmaeßig_Sport_betrieben));
         adapter.setSelectedIndex(fragebogen!=null && fragebogen.sportlich_aktiv !=null? fragebogen.sportlich_aktiv :-1);
         lstsportlichaktiv.setAdapter(adapter);
 
@@ -352,12 +352,12 @@ public class ActivityFragebogen extends AppCompatActivity {
      */
     private void SetControlCaptions() {
         getwochenzeitraum();
-        ((TextView) findViewById(R.id.txtwieoftsport)).setText(getString(R.string.An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitäten_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeübt));
-        ((TextView) findViewById(R.id.txtsportlichaktiv)).setText(getString(R.string.Haben_Sie_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.regelmäßig_Sport_betrieben));
+        ((TextView) findViewById(R.id.txtwieoftsport)).setText(getString(R.string.An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitaeten_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeuebt));
+        ((TextView) findViewById(R.id.txtsportlichaktiv)).setText(getString(R.string.Haben_Sie_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.regelmaeßig_Sport_betrieben));
         ((TextView) findViewById(R.id.txtzeitraum)).setText(getString(R.string.Folgende_Fragen_beziehen_sich_auf_den_Zeitraum_von) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen) + "\n");
-        ((TextView) findViewById(R.id.txtaktivitätaanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_A_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeübt));
-        ((TextView) findViewById(R.id.txtaktivitätbanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_B_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeübt));
-        ((TextView) findViewById(R.id.txtaktivitätcanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivität_C_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeübt));
+        ((TextView) findViewById(R.id.txtaktivitätaanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivitaet_A_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeuebt));
+        ((TextView) findViewById(R.id.txtaktivitätbanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivitaet_B_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeuebt));
+        ((TextView) findViewById(R.id.txtaktivitätcanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivitaet_C_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeuebt));
     }
 
 

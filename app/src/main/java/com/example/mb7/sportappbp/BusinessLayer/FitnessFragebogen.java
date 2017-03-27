@@ -33,12 +33,12 @@ public class FitnessFragebogen implements Serializable {
     public Integer Marathon;
 
     public Integer Socken_anziehen;
-    public Integer Boden_im_Sitzen_berühren;
+    public Integer Boden_im_Sitzen_beruehren;
     public Integer Schuhe_binden;
-    public Integer Rücken_beruhren;
-    public Integer Im_Stehen_Boden_berühren;
-    public Integer Mit_Kopf_das_Knie_berühren;
-    public Integer Brücke;
+    public Integer Ruecken_beruehren;
+    public Integer Im_Stehen_Boden_beruehren;
+    public Integer Mit_Kopf_das_Knie_beruehren;
+    public Integer Bruecke;
 
     public Integer Treppe_runter_gehen;
     public Integer Einbeinstand;

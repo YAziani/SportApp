@@ -17,7 +17,6 @@ import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.FitnessFragebogenViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
-import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.Firebase;
@@ -224,12 +223,12 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         fitnessfragebogen.Marathon =lstmarathon.getIndexFitness();
 
         fitnessfragebogen.Socken_anziehen =lstanziehen.getIndexFitness();
-        fitnessfragebogen.Boden_im_Sitzen_berühren =lstsitzendboden.getIndexFitness();
+        fitnessfragebogen.Boden_im_Sitzen_beruehren =lstsitzendboden.getIndexFitness();
         fitnessfragebogen.Schuhe_binden =lstschuhebinden.getIndexFitness();
-        fitnessfragebogen.Rücken_beruhren =lstrueckenberuehren.getIndexFitness();
-        fitnessfragebogen.Im_Stehen_Boden_berühren =lststehendboden.getIndexFitness();
-        fitnessfragebogen.Mit_Kopf_das_Knie_berühren =lstkopfknie.getIndexFitness();
-        fitnessfragebogen.Brücke =lstbruecke.getIndexFitness();
+        fitnessfragebogen.Ruecken_beruehren =lstrueckenberuehren.getIndexFitness();
+        fitnessfragebogen.Im_Stehen_Boden_beruehren =lststehendboden.getIndexFitness();
+        fitnessfragebogen.Mit_Kopf_das_Knie_beruehren =lstkopfknie.getIndexFitness();
+        fitnessfragebogen.Bruecke =lstbruecke.getIndexFitness();
 
         fitnessfragebogen.Treppe_runter_gehen =lsttrepperunter.getIndexFitness();
         fitnessfragebogen.Einbeinstand =lsteinbeinstand.getIndexFitness();
@@ -315,7 +314,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         lststuhlaufstehen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_schweren_Einkaufskorb_über_mehrere_Etagen_tragen));
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_schweren_Einkaufskorb_ueber_mehrere_Etagen_tragen));
         adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Einkaufskorb_tragen !=null? fitnessFragebogen.Einkaufskorb_tragen :-1);
         lsteinkaufskorb.setAdapter(adapter);
 
@@ -325,22 +324,22 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         lstkistetragen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.aus_der_Rückenlage_ohne_Hilfe_der_Arme_den_Oberkörper_aufrichten));
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.aus_der_Rueckenlage_ohne_Hilfe_der_Arme_den_Oberkoerper_aufrichten));
         adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Situp !=null? fitnessFragebogen.Situp :-1);
         lstsitup.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_schweren_Koffer_über_Kopfhöhe_heben));
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.einen_schweren_Koffer_ueber_Kopfhoehe_heben));
         adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Koffer_hoch_heben !=null? fitnessFragebogen.Koffer_hoch_heben :-1);
         lstkofferheben.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.zwei_schwere_Koffer_über_mehrere_Etagen_tragen));
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.zwei_schwere_Koffer_ueber_mehrere_Etagen_tragen));
         adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Koffer_tragen !=null? fitnessFragebogen.Koffer_tragen :-1);
         lstkoffertragen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.eine_Hantel_mit_mehr_als_Ihrem_Körpergewicht_hochstemmen));
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.eine_Hantel_mit_mehr_als_Ihrem_Koerpergewicht_hochstemmen));
         adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Hantel_stemmen !=null? fitnessFragebogen.Hantel_stemmen :-1);
         lsthantelstemmen.setAdapter(adapter);
 
@@ -386,8 +385,8 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         lstanziehen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.auf_einem_Stuhl_sitzend_mit_den_Händen_den_Boden_erreichen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Boden_im_Sitzen_berühren !=null? fitnessFragebogen.Boden_im_Sitzen_berühren :-1);
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.auf_einem_Stuhl_sitzend_mit_den_Haenden_den_Boden_erreichen));
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Boden_im_Sitzen_beruehren !=null? fitnessFragebogen.Boden_im_Sitzen_beruehren :-1);
         lstsitzendboden.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
@@ -396,23 +395,23 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         lstschuhebinden.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.mit_der_Hand_von_unten_auf_dem_Rücken_ein_Schulterblatt_berühren));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Rücken_beruhren !=null? fitnessFragebogen.Rücken_beruhren :-1);
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.mit_der_Hand_von_unten_auf_dem_Ruecken_ein_Schulterblatt_beruehren));
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Ruecken_beruehren !=null? fitnessFragebogen.Ruecken_beruehren :-1);
         lstrueckenberuehren.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.aus_dem_Stand_mit_den_Händen_den_Boden_erreichen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Im_Stehen_Boden_berühren !=null? fitnessFragebogen.Im_Stehen_Boden_berühren :-1);
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.aus_dem_Stand_mit_den_Haenden_den_Boden_erreichen));
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Im_Stehen_Boden_beruehren !=null? fitnessFragebogen.Im_Stehen_Boden_beruehren :-1);
         lststehendboden.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.im_Stehen_mit_dem_Kopf_die_gestreckten_Knie_berühren));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Mit_Kopf_das_Knie_berühren !=null? fitnessFragebogen.Mit_Kopf_das_Knie_berühren :-1);
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.im_Stehen_mit_dem_Kopf_die_gestreckten_Knie_beruehren));
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Mit_Kopf_das_Knie_beruehren !=null? fitnessFragebogen.Mit_Kopf_das_Knie_beruehren :-1);
         lstkopfknie.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.rückwärts_bis_in_die_Brücke_abbeugen));
-        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Brücke !=null? fitnessFragebogen.Brücke :-1);
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.rueckwaerts_bis_in_die_Bruecke_abbeugen));
+        adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Bruecke !=null? fitnessFragebogen.Bruecke :-1);
         lstbruecke.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
@@ -436,12 +435,12 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         lstballprellen.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.mit_Abstützen_über_einen_ein_Meter_hohen_Zaun_springen));
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.mit_Abstuetzen_ueber_einen_ein_Meter_hohen_Zaun_springen));
         adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Zaunsprung !=null? fitnessFragebogen.Zaunsprung :-1);
         lstzaunsprung.setAdapter(adapter);
 
         adapter = new FitnessFragebogenViewAdapter(this);
-        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.freihändig_mit_dem_Fahrrad_um_eine_Kurve_fahren));
+        adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.freihaendig_mit_dem_Fahrrad_um_eine_Kurve_fahren));
         adapter.setSelectedIndex(fitnessFragebogen!=null && fitnessFragebogen.Kurve_fahren_ohne_Hand !=null? fitnessFragebogen.Kurve_fahren_ohne_Hand :-1);
         lstkurveohnehand.setAdapter(adapter);
 

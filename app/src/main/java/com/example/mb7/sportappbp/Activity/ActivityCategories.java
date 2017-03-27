@@ -1,7 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
 import android.app.ActionBar;
-import android.app.Activity;
 import android.app.Dialog;
 import android.content.Intent;
 import android.support.v7.app.AppCompatActivity;
@@ -19,7 +18,6 @@ import android.widget.NumberPicker;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
-import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
 
@@ -289,7 +287,7 @@ public class ActivityCategories extends AppCompatActivity {
 
                 }
                 else
-                    Toast.makeText(ActivityCategories.this, R.string.ungültigeZeit , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityCategories.this, R.string.ungueltigeZeit, Toast.LENGTH_SHORT).show();
             }
         });
 

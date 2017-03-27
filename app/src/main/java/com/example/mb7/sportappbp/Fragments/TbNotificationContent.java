@@ -113,7 +113,7 @@ public class TbNotificationContent extends TabFragment {
     void readNotifications(){
         try
         {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.mainUser.getName()+ "/Notifications/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this.getContext()).getName()+ "/Notifications/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {

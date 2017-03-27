@@ -89,7 +89,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.trNotiTitle))) {
                 notifications.remove(notifications.get(getAdapterPosition()));
                 String nextTrainingTime = PreferenceManager
+<<<<<<< HEAD
                         .getDefaultSharedPreferences(context.getContext()).getString("nextTrainingTime","");
+=======
+                        .getDefaultSharedPreferences(ActivityMain.activityMain.getApplicationContext())
+                        .getString("nextTrainingTime","");
+>>>>>>> 13899b0d3013c58f3fb5f837be192530892f4d7d
                 if(!nextTrainingTime.equals("")) {
                     Toast.makeText(
                             context.getContext(),

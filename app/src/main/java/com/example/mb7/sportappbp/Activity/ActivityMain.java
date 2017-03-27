@@ -54,6 +54,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import static com.example.mb7.sportappbp.R.id.container;
+import static com.example.mb7.sportappbp.R.id.main;
 
 public class ActivityMain extends AppCompatActivity {
 
@@ -73,11 +74,23 @@ public class ActivityMain extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout tabLayout;
     private final String mainColor = "#2648FF";
-    public  static  User mainUser ;
-    public static ActivityMain activityMain;
+    private   static  User mainUser ;
     private SharedPreferences preferences;
     private FloatingActionButton fab1;
 
+    public static User getMainUser(Context context){
+        if (mainUser == null)
+        {
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            ActivityMain.mainUser = User.Create( preferences.getString("logedIn",""));
+            return mainUser;
+        }
+        else
+            return  mainUser;
+    }
+    public User getMainUser(){
+        return getMainUser(this);
+    }
 
     private final int  LOCATION_PERMISSION_REQUEST = 1440;
 
@@ -93,12 +106,7 @@ public class ActivityMain extends AppCompatActivity {
         );
 
 
-        // set the main URL
-        DAL_Utilities.DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/";
 
-        // create the current User
-        mainUser = User.Create("TestUser");
-        activityMain = this;
 
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 

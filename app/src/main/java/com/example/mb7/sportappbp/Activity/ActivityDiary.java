@@ -166,7 +166,7 @@ public class ActivityDiary extends AppCompatActivity {
      */
     private void deleteDiaryEntry(DiaryEntry diaryEntry)
     {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.mainUser.getName() + "/Diary/" );
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/Diary/" );
 
         ref.child(firebasedate.format(diaryEntry.getDate())).child(firebasetime.format(diaryEntry.getDate())).removeValue();
     }
@@ -187,7 +187,7 @@ public class ActivityDiary extends AppCompatActivity {
 
         try
         {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.mainUser.getName()+ "/Diary/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName()+ "/Diary/");
             final Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {

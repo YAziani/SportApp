@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
 import android.app.Activity;
+import android.content.Context;
 import android.content.SharedPreferences;
 import android.os.Handler;
 import android.preference.PreferenceManager;
@@ -28,7 +29,7 @@ public class BackgroundClock{
     private Random random;
     private MotivationMethod nextRandomMethod = null;
     private static LinkedList<MotivationMethod> runningMethods;
-
+    private Activity activity;
     /**
      * start the clock to perform regular checks to determine the moment of motivation
      * @param activity the activity calling the method, needed to access shared preferences
@@ -38,6 +39,7 @@ public class BackgroundClock{
     public void startClock(final Activity activity,
                            final LinkedList<MotivationMethod> fixMotivationMethods,
                            final LinkedList<MotivationMethod> variableMotivationMethods) {
+        this.activity = activity;
         runningMethods = new LinkedList<>();
         random = new Random();
         calendar = Calendar.getInstance();
@@ -105,7 +107,7 @@ public class BackgroundClock{
      * let methods rate themself and hand the rating over to be saved into the data base
      * @param didTrain boolean representing if user did train or not
      */
-    public static void startRating(boolean didTrain) {
+    public static void startRating(boolean didTrain, Context context) {
 
         LinkedList<String> listMethod = new LinkedList<>();
         LinkedList<String> listRating = new LinkedList<>();
@@ -119,7 +121,7 @@ public class BackgroundClock{
        }
 
         // hand the ratings to the user object
-        ActivityMain.mainUser.saveRating(listMethod,listRating);
+        ActivityMain.getMainUser(context).saveRating(listMethod,listRating);
 
     }
 

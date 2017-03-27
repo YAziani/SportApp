@@ -5,6 +5,7 @@ import com.example.mb7.sportappbp.Activity.ActivityLogin;
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
+import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
@@ -114,19 +115,19 @@ public class DAL_RegisteredUsers {
         }
     }
 
-    public static void loadRegistration(final ActivityMain activity, final RegisterCatcher registerCatcher) {
+    public static void loadRegistration( final RegisterCatcher registerCatcher) {
         try {
             URL url = new URL("https://kompass-8720f.firebaseio.com/users");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    registerCatcher.returnRegistrations(activity,dataSnapshot);
+                    registerCatcher.returnRegistrations(dataSnapshot);
                 }
 
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
-                    registerCatcher.returnRegistrations(activity,null);
+                    registerCatcher.returnRegistrations(null);
                 }
             });
         } catch (Exception e) {
@@ -134,9 +135,9 @@ public class DAL_RegisteredUsers {
         }
     }
 
-    public static void insertMail(String mail) {
+    public static void insertMail(String mail, User user) {
         try {
-            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/users/" + ActivityMain.mainUser.getName());
+            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/users/" + user.getName());
             Firebase root = new Firebase(url.toString());
             // insert user
             root.child("email").setValue(mail);

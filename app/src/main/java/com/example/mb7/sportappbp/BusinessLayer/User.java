@@ -1,6 +1,9 @@
 package com.example.mb7.sportappbp.BusinessLayer;
 
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_Challenges;
+import android.content.Context;
+import android.content.SharedPreferences;
+import android.preference.PreferenceManager;
+
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 
@@ -18,7 +21,7 @@ public class User {
     private Challenge challenge = null;
     private String email;
     private String challangeName;
-
+    private Context context;
 
 
 
@@ -29,6 +32,14 @@ public class User {
         User user = new User(Name);
         return user;
     }
+
+    static public User createUser(String username, Context context) {
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
+        User mainUser = User.Create(username);
+        preferences.edit().putString("logedIn",username).commit();
+        return mainUser;
+    }
+
     private User (String Name)
     {
         name =Name;
@@ -114,6 +125,10 @@ public class User {
 
     public boolean SaveDiaryEntry(DiaryEntry diaryEntry) {
         DAL_User.InsertDiaryEntry(this, diaryEntry);
+        return true;
+    }
+    public boolean LoadCompleteDiry(){
+        DAL_User.LoadCompleteDiary(this);
         return true;
     }
 

@@ -17,7 +17,6 @@ import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityKompass;
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
-import com.example.mb7.sportappbp.Activity.Activity_lst_Challenge;
 import com.example.mb7.sportappbp.ClientIF;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 import com.example.mb7.sportappbp.R;
@@ -56,12 +55,11 @@ public class TbReportContent extends TabFragment{
         txtRequest = (TextView) view.findViewById(R.id.txtRequestTest);
 
         btnDiary = (Button) view.findViewById(R.id.btndiary);
-
         btnDiary.setOnClickListener(new View.OnClickListener(){
             @Override
             public void onClick(View view){
-
-                Intent open = new Intent(getActivity(), Activity_lst_Challenge.class);
+                DAL_User.GetStimmnungsabfrage(ActivityMain.getMainUser(getContext()),"20170325");
+                Intent open = new Intent(getActivity(), ActivityDiary.class);
                 startActivity(open);
 
             }
@@ -112,8 +110,8 @@ public class TbReportContent extends TabFragment{
             @Override
             public void onClick(View v) {
 
-                Intent open = new Intent(ActivityMain.activityMain, ActivityKompass.class);
-                ActivityMain.activityMain.startActivity(open);
+                Intent open = new Intent(getContext() ,ActivityKompass.class);
+               getContext().startActivity(open);
 
             }
         });

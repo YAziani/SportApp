@@ -220,7 +220,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         fitnessfragebogen.Zwei_km_gehen =lst2kmgehen.getIndexFitness();
         fitnessfragebogen.Ein_km_joggen =lst1kmjoggen.getIndexFitness();
         fitnessfragebogen.Dreißig_min_joggen =lst30minjoggen.getIndexFitness();
-        fitnessfragebogen.Sechzig_min_joggen =lst60minjoggen.getIndexBSA2();
+        fitnessfragebogen.Sechzig_min_joggen =lst60minjoggen.getIndexFitness();
         fitnessfragebogen.Marathon =lstmarathon.getIndexFitness();
 
         fitnessfragebogen.Socken_anziehen =lstanziehen.getIndexFitness();

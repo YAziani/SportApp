@@ -17,6 +17,7 @@ import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivitySettingInitializer;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
+import com.example.mb7.sportappbp.Activity.Activity_lst_Challenge;
 import com.example.mb7.sportappbp.Activity.Activity_lst_bsafragebogen;
 import com.example.mb7.sportappbp.Activity.Activity_lst_fitnessfragebogen;
 import com.example.mb7.sportappbp.Activity.Activity_lst_stimmungsabfrage;
@@ -76,7 +77,10 @@ public class TaskCategAdapter  extends RecyclerView.Adapter<TaskCategAdapter.Tas
             }else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.trainingszeiten_und_studioadresse))) {
                 Intent open = new Intent(context.getActivity(), ActivitySettingInitializer.class);
                 context.startActivity(open);
-            }
+            }else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.Challenges))) {
+            Intent open = new Intent(context.getActivity(), Activity_lst_Challenge.class);
+            context.startActivity(open);
+        }
 
 
         }

@@ -35,6 +35,7 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
         public View view   ;
         DiaryEntryHolder(View itemView) {
             super(itemView);
+            //// TODO: 26.03.2017  
             txtTitle = (TextView) itemView.findViewById(R.id.txtDateStmAbfrage);
             txtSubText = (TextView) itemView.findViewById(R.id.txtTimeStmAbfrage);
             cv = (CardView) itemView.findViewById(R.id.card_view_stmAbgabe);
@@ -55,6 +56,7 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
 
     @Override
     public DiaryEntryHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
+        //// TODO: 26.03.2017  
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_stimmungabgabe, viewGroup, false);
         DiaryEntryHolder bvh = new DiaryEntryHolder(v);
         return bvh;

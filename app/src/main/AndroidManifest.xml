@@ -89,6 +89,7 @@
         <activity android:name=".Activity.Activity_Stimmungsbarometer_rpt"></activity>
         <activity android:name=".Activity.Activity_lst_fitnessfragebogen" />
         <activity android:name=".Activity.Activity_lst_bsafragebogen" />
+        <activity android:name=".Activity.Activity_lst_Challenge"/>
     </application>
 
 </manifest>

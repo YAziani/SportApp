@@ -16,6 +16,11 @@ public class Fragebogen implements Serializable {
     public Integer sportlich_aktiv;
 
     public Integer zu_Fuß_zur_Arbeit;
+
+    //public Integer Zu_Fuß_zur_Arbeit_Tag;
+    //public Integer Zu_Fuß_zur_Arbeit_Minuten;
+
+
     public Integer zu_Fuß_einkaufen;
     public Integer Rad_zur_Arbeit;
     public Integer Rad_fahren;

@@ -1,6 +1,7 @@
 package com.example.mb7.sportappbp.Activity;
 
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
 import android.content.Intent;
@@ -9,6 +10,7 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
+import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,9 +20,11 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Adapters.BsaFragebogenViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter2;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.DataSnapshot;
@@ -28,8 +32,11 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
+import java.net.URL;
 import java.text.SimpleDateFormat;
+import java.util.Collections;
 import java.util.Date;
+import java.util.LinkedList;
 
 
 /**
@@ -40,6 +47,7 @@ public class ActivityFragebogen extends AppCompatActivity {
     private FragebogenViewAdapter adapter;
     private FragebogenViewAdapter2 adapter2;
 
+    ProgressDialog pd;
     //Integer Werte für Scoring des Fragebogens
     long scoringbewegungwert;
     long scoringsportwert;
@@ -67,40 +75,8 @@ public class ActivityFragebogen extends AppCompatActivity {
     boolean INSERT=true;
     Fragebogen fragebogen=null;
 
+    Fragebogen antwortendb;
 
-    public static void getWochenanzahlFromDb() {
-
-
-        //URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/bsa/questionaryPeriodweeks");
-        //Firebase root = new Firebase(url.toString());
-        Firebase root= new Firebase("https://sportapp-cbd6b.firebaseio.com/Administration/bsa/questionaryPeriodweeks");
-        try{root.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                                                    @Override
-                                                    public void onDataChange(DataSnapshot dataSnapshot) {
-                                                        if (dataSnapshot.getValue()!=null)
-                                                            //wochenzeitraum=(long)dataSnapshot.getValue();
-                                                            ActivityFragebogen.wochenzeitraum=convertToLong(dataSnapshot.getValue());
-
-                                                        else
-                                                            ActivityFragebogen.wochenzeitraum=4;
-
-                                                    }
-
-
-                                                    @Override
-                                                    public void onCancelled(FirebaseError firebaseError) {
-                                                        Log.d("Fragebogen",firebaseError.getMessage());
-                                                    }
-                                                }
-        );
-
-        } catch (Exception e) {
-            e.printStackTrace();
-
-        }
-
-    }
 
 
 
@@ -112,8 +88,17 @@ public class ActivityFragebogen extends AppCompatActivity {
     }
 
     @Override
+    protected void onStart(){
+        super.onStart();
+        pd = new ProgressDialog(this);
+        pd.setMessage(getString( R.string.wird_geladen));
+        pd.show();
+        getWochenanzahlFromDb();
+    }
+
+    @Override
     protected void onCreate(Bundle savedInstanceState) {
-        this.getWochenanzahlFromDb();
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_bsaquestions);
         this.SetControlCaptions();
@@ -140,11 +125,44 @@ public class ActivityFragebogen extends AppCompatActivity {
         }
 
         mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
-        //this.getWochenanzahlFromDb();
+
 
 
         this.InitializeControlls();
         //super.onStart();
+    }
+
+    void getWochenanzahlFromDb() {
+
+        try{
+        //URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/bsa/questionaryPeriodweeks");
+        //Firebase root = new Firebase(url.toString());
+        Firebase root= new Firebase("https://sportapp-cbd6b.firebaseio.com/Administration/bsa/questionaryPeriodweeks");
+        root.addValueEventListener(new ValueEventListener() {
+
+                                                    @Override
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+
+                                                        //wochenzeitraum=(long)dataSnapshot.getValue();
+                                                        wochenzeitraum=convertToLong(dataSnapshot.getValue());
+                                                        //ActivityFragebogen.SetControlCaptions();
+                                                        SetControlCaptions();
+                                                        pd.dismiss();
+                                                    }
+
+
+                                                    @Override
+                                                    public void onCancelled(FirebaseError firebaseError) {
+                                                        Log.d("Fragebogen",firebaseError.getMessage());
+                                                    }
+                                                }
+        );
+
+        } catch (Exception e) {
+            e.printStackTrace();
+
+        }
+
     }
 
     @Override
@@ -242,6 +260,10 @@ public class ActivityFragebogen extends AppCompatActivity {
 
         //Integerwerte mit Anzahl der Minuten pro Woche
         fragebogen.zu_Fuß_zur_Arbeit = zufußzurarbeit();
+
+        //fragebogen.Zu_Fuß_zur_Arbeit_Tag=strtoint((EditText) findViewById(R.id.edittextzufußzurarbeittag));
+        //fragebogen.Zu_Fuß_zur_Arbeit_Minuten=strtoint((EditText) findViewById(R.id.edittextzufußzurarbeitminuten));
+
         fragebogen.zu_Fuß_einkaufen = zufußeinkaufen();
         fragebogen.Rad_zur_Arbeit = radzurarbeit();
         fragebogen.Rad_fahren = radfahren();
@@ -329,7 +351,23 @@ public class ActivityFragebogen extends AppCompatActivity {
         adapter.setSelectedIndex(fragebogen!=null && fragebogen.sportlich_aktiv !=null? fragebogen.sportlich_aktiv :-1);
         lstsportlichaktiv.setAdapter(adapter);
 
+        /*
+        if (!INSERT) {
+            EditText zufußzurarbeittag = (EditText) findViewById(R.id.edittextzufußzurarbeittag);
+            EditText zufußzurarbeitminuten = (EditText) findViewById(R.id.edittextzufußzurarbeitminuten);
 
+            if (fragebogen.Zu_Fuß_zur_Arbeit_Tag != null && fragebogen.Zu_Fuß_zur_Arbeit_Minuten!=null)
+            {zufußzurarbeittag.setText(antwortendb.Zu_Fuß_zur_Arbeit_Tag);
+             zufußzurarbeitminuten.setText(antwortendb.Zu_Fuß_zur_Arbeit_Minuten); }
+    */
+
+    /*
+     if (antwortendb.Zu_Fuß_zur_Arbeit_Tag!=null)
+         zufußzurarbeittag.setText(antwortendb.Zu_Fuß_zur_Arbeit_Tag);
+
+
+        }
+*/
         // set the onTouch Event to disable scrolling
         //lstberufstätig.Initialize();
         lstsitzendetätigkeiten.InitializeBSA();
@@ -341,23 +379,18 @@ public class ActivityFragebogen extends AppCompatActivity {
         lstsportlichaktiv.visibility(sportlayout);
     }
 
-    public static long getwochenzeitraum(){
-        getWochenanzahlFromDb();
-        return wochenzeitraum;
-    }
 
 
     /**
      * Inhalt der Textviews mit definiertem Zeitraum.
      */
     private void SetControlCaptions() {
-        getwochenzeitraum();
-        ((TextView) findViewById(R.id.txtwieoftsport)).setText(getString(R.string.An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitaeten_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeuebt));
-        ((TextView) findViewById(R.id.txtsportlichaktiv)).setText(getString(R.string.Haben_Sie_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.regelmaeßig_Sport_betrieben));
-        ((TextView) findViewById(R.id.txtzeitraum)).setText(getString(R.string.Folgende_Fragen_beziehen_sich_auf_den_Zeitraum_von) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen) + "\n");
-        ((TextView) findViewById(R.id.txtaktivitätaanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivitaet_A_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeuebt));
-        ((TextView) findViewById(R.id.txtaktivitätbanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivitaet_B_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeuebt));
-        ((TextView) findViewById(R.id.txtaktivitätcanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivitaet_C_in_den_letzten) + " " + getwochenzeitraum() + " " + getString(R.string.Wochen_ausgeuebt));
+        ((TextView) findViewById(R.id.txtwieoftsport)).setText(getString(R.string.An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitaeten_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeuebt));
+        ((TextView) findViewById(R.id.txtsportlichaktiv)).setText(getString(R.string.Haben_Sie_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.regelmaeßig_Sport_betrieben));
+        ((TextView) findViewById(R.id.txtzeitraum)).setText(getString(R.string.Folgende_Fragen_beziehen_sich_auf_den_Zeitraum_von) + " " + wochenzeitraum + " " + getString(R.string.Wochen) + "\n");
+        ((TextView) findViewById(R.id.txtaktivitätaanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivitaet_A_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeuebt));
+        ((TextView) findViewById(R.id.txtaktivitätbanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivitaet_B_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeuebt));
+        ((TextView) findViewById(R.id.txtaktivitätcanzahl)).setText(getString(R.string.Wie_oft_haben_Sie_Aktivitaet_C_in_den_letzten) + " " + wochenzeitraum + " " + getString(R.string.Wochen_ausgeuebt));
     }
 
 
@@ -632,6 +665,53 @@ public class ActivityFragebogen extends AppCompatActivity {
         return scoringgesamtwert = scoringbewegung() + scoringsport();
     }
 
+
+
+
+
+
+    void Fragebogendb() {
+        try {
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/BSAFragebogen");
+            final Firebase root = new Firebase(url.toString());
+
+            root.addValueEventListener(new ValueEventListener() {
+
+                                           // Hier kriegst du den Knoten date zurueck
+                                           @Override
+                                           public void onDataChange(DataSnapshot dataSnapshot) {
+                                               //final String sDate = dataSnapshot.getKey();
+
+                                               // the child.key of dataSnapshop declare the unique datetime of the notification
+                                               for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                                   // Here I get the time
+                                                   final String sDate= child.getKey();// Date
+
+                                                   // Here I have V or N
+
+                                                   // create the object and insert it in the list
+
+
+                                                   Fragebogen fragebogendb = child.getValue(Fragebogen.class);
+                                                   fragebogendb.FirebaseDate = sDate;
+                                                   fragebogendb.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString( sDate);
+                                                   antwortendb=fragebogendb;
+
+                                               }
+
+                                           }
+                                           @Override
+                                           public void onCancelled(FirebaseError firebaseError) {
+
+                                           }
+                                       }
+            );
+        }
+        catch (Exception ex)
+        {
+            Log.e("Exc",ex.getMessage());
+        }
+    }
 
 
 

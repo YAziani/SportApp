@@ -108,7 +108,7 @@ public class ActivityMain extends AppCompatActivity {
             // choose motivation methods depending on administrator settings
             DAL_Allocation.getAllocation(this);
         }
-        
+
         preferences.edit().putString("allocatedMethods",
                 "bsaQuestionary;fitnessQuestionary;groupactive;moodquery;motivationimages;motivationtexts;trainingreminder"
                 ).apply();

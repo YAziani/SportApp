@@ -18,7 +18,7 @@ import java.util.Random;
 
 public class ObserverMotivationMessage extends Observer {
 
-    private short timeOutCounter = 0;
+    private static short timeOutCounter = 0;
 
     @Override
     public void update(Context context) {

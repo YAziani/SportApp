@@ -43,7 +43,7 @@ public class ObserverTrainingReminder extends Observer {
     private static Location userLocation;
     private static Location studioLocation;
 
-    private short timeOutCounter = 0;
+    private static short timeOutCounter = 0;
 
     public ObserverTrainingReminder(Context context) {
         this.context = context;
@@ -180,7 +180,7 @@ public class ObserverTrainingReminder extends Observer {
         intentYes.putExtra("preTrain", true);
         PendingIntent pendingIntentYes =
                 PendingIntent.getActivity(context,0,intentYes,PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.addAction(R.drawable.box,"Ja",pendingIntentYes);
+        notificationBuilder.addAction(R.drawable.transparent,"Ja",pendingIntentYes);
 
         Intent intentNo = new Intent(context,ActivityTrainQuestioning.class);
         intentNo.setAction("NO_ACTION");
@@ -189,7 +189,7 @@ public class ObserverTrainingReminder extends Observer {
         intentYes.putExtra("preTrain", true);
         PendingIntent pendingIntentNo =
                 PendingIntent.getActivity(context,0,intentNo,PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.addAction(R.drawable.box,"Nein",pendingIntentNo);
+        notificationBuilder.addAction(R.drawable.transparent,"Nein",pendingIntentNo);
 
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setDefaults(Notification.DEFAULT_ALL);

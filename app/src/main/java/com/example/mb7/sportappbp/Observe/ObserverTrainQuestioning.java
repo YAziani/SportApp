@@ -22,7 +22,7 @@ import com.example.mb7.sportappbp.R;
 
 public class ObserverTrainQuestioning extends Observer{
 
-    private short timeOutCounter = 0;
+    private static short timeOutCounter = 0;
 
     @Override
     public void update(Context context) {
@@ -90,7 +90,7 @@ public class ObserverTrainQuestioning extends Observer{
             intentYes.putExtra("praiseOrWarn", 0);
             PendingIntent pendingIntentYes =
                     PendingIntent.getActivity(context,0,intentYes,PendingIntent.FLAG_UPDATE_CURRENT);
-            notificationBuilder.addAction(R.drawable.box,"Ja",pendingIntentYes);
+            notificationBuilder.addAction(R.drawable.transparent,"Ja",pendingIntentYes);
 
             Intent intentNo = new Intent(context,ActivityTrainQuestioning.class);
             intentNo.setAction("NO_ACTION");
@@ -98,7 +98,7 @@ public class ObserverTrainQuestioning extends Observer{
             intentNo.putExtra("praiseOrWarn", 1);
             PendingIntent pendingIntentNo =
                     PendingIntent.getActivity(context,0,intentNo,PendingIntent.FLAG_UPDATE_CURRENT);
-            notificationBuilder.addAction(R.drawable.box,"Nein",pendingIntentNo);
+            notificationBuilder.addAction(R.drawable.transparent,"Nein",pendingIntentNo);
 
             notificationBuilder.setAutoCancel(true);
             notificationBuilder.setDefaults(Notification.DEFAULT_ALL);

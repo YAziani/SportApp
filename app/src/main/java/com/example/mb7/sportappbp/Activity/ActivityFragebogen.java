@@ -229,7 +229,7 @@ public class ActivityFragebogen extends AppCompatActivity {
         Fragebogen fragebogen = new Fragebogen();
 
         //Indexwerte der Listview Elemente
-        fragebogen.Berufstätig = lstberufstätig.getIndexBSA1();
+        fragebogen.Berufstaetig = lstberufstätig.getIndexBSA1();
         fragebogen.sitzende_Taetigkeiten = lstsitzendetätigkeiten.getIndexBSA2();
         fragebogen.maeßige_Bewegung = lstmäßigebewegung.getIndexBSA2();
         fragebogen.intensive_Bewegung = lstintensivebewegung.getIndexBSA2();
@@ -306,22 +306,22 @@ public class ActivityFragebogen extends AppCompatActivity {
         //Adapter setzen
         adapter = new FragebogenViewAdapter(this);
         adapter.setAntworten(fragebogen,getString(R.string.Sind_Sie_berufstaetig_oder_in_Ausbildung));
-        adapter.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null? fragebogen.Berufstätig :-1);
+        adapter.setSelectedIndex(fragebogen!=null && fragebogen.Berufstaetig !=null? fragebogen.Berufstaetig :-1);
         lstberufstätig.setAdapter(adapter);
 
         adapter2 = new FragebogenViewAdapter2(this);
         adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstaetigkeit_sitzende_Taetigkeiten));
-        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.sitzende_Taetigkeiten!=null? fragebogen.sitzende_Taetigkeiten:-1);
+        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstaetig !=null && fragebogen.sitzende_Taetigkeiten!=null? fragebogen.sitzende_Taetigkeiten:-1);
         lstsitzendetätigkeiten.setAdapter(adapter2);
 
         adapter2 = new FragebogenViewAdapter2(this);
         adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstaetigkeit_Ausbildung_maeßige_Bewegung));
-        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.maeßige_Bewegung!=null? fragebogen.maeßige_Bewegung:-1);
+        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstaetig !=null && fragebogen.maeßige_Bewegung!=null? fragebogen.maeßige_Bewegung:-1);
         lstmäßigebewegung.setAdapter(adapter2);
 
         adapter2 = new FragebogenViewAdapter2(this);
         adapter2.setAntworten(fragebogen,getString(R.string.Umfasst_Ihre_Berufstaetigkeit_Ausbildung_intensive_Bewegung));
-        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstätig !=null && fragebogen.intensive_Bewegung!=null? fragebogen.intensive_Bewegung:-1);
+        adapter2.setSelectedIndex(fragebogen!=null && fragebogen.Berufstaetig !=null && fragebogen.intensive_Bewegung!=null? fragebogen.intensive_Bewegung:-1);
         lstintensivebewegung.setAdapter(adapter2);
 
         adapter = new FragebogenViewAdapter(this);

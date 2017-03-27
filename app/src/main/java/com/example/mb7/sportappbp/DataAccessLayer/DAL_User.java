@@ -481,6 +481,7 @@ public class DAL_User {
         {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/FitnessFragebogen/" + finessfragebogen.Date );
 
+
             if(finessfragebogen.vom_Stuhl_aufstehen >=0){
                 Firebase childstuhlaufstehen = ref.child("vom_Stuhl_aufstehen");
                 childstuhlaufstehen.setValue(finessfragebogen.vom_Stuhl_aufstehen);}
@@ -506,7 +507,7 @@ public class DAL_User {
                 childkoffertragen.setValue(finessfragebogen.Koffer_tragen);}
 
             if(finessfragebogen.Hantel_stemmen >=0){
-                Firebase childhantelstemmen = ref.child("ehantelstemmen");
+                Firebase childhantelstemmen = ref.child("Hantel_stemmen");
                 childhantelstemmen.setValue(finessfragebogen.Hantel_stemmen);}
 
             if(finessfragebogen.flott_gehen >=0){
@@ -566,11 +567,11 @@ public class DAL_User {
                 childbruecke.setValue(finessfragebogen.Bruecke);}
 
             if(finessfragebogen.Treppe_runter_gehen >=0){
-                Firebase childtrepperunter =ref.child("etrepperunter");
+                Firebase childtrepperunter =ref.child("Treppe_runter_gehen");
                 childtrepperunter.setValue(finessfragebogen.Treppe_runter_gehen);}
 
             if(finessfragebogen.Einbeinstand >=0){
-                Firebase childeinbeinstand =ref.child("aeinbeinstand");
+                Firebase childeinbeinstand =ref.child("Einbeinstand");
                 childeinbeinstand.setValue(finessfragebogen.Einbeinstand);}
 
             if(finessfragebogen.Purzelbaum >=0){
@@ -659,7 +660,7 @@ public class DAL_User {
                 childkoffertragen.setValue(finessfragebogen.Koffer_tragen);}
 
             if(finessfragebogen.Hantel_stemmen >=0){
-                Firebase childhantelstemmen = ref.child("ehantelstemmen");
+                Firebase childhantelstemmen = ref.child("Hantel_stemmen");
                 childhantelstemmen.setValue(finessfragebogen.Hantel_stemmen);}
 
             if(finessfragebogen.flott_gehen >=0){
@@ -719,11 +720,11 @@ public class DAL_User {
                 childbruecke.setValue(finessfragebogen.Bruecke);}
 
             if(finessfragebogen.Treppe_runter_gehen >=0){
-                Firebase childtrepperunter =ref.child("etrepperunter");
+                Firebase childtrepperunter =ref.child("Treppe_runter_gehen");
                 childtrepperunter.setValue(finessfragebogen.Treppe_runter_gehen);}
 
             if(finessfragebogen.Einbeinstand >=0){
-                Firebase childeinbeinstand =ref.child("aeinbeinstand");
+                Firebase childeinbeinstand =ref.child("Einbeinstand");
                 childeinbeinstand.setValue(finessfragebogen.Einbeinstand);}
 
             if(finessfragebogen.Purzelbaum >=0){
@@ -787,19 +788,19 @@ public class DAL_User {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
 
 
-            if(fragebogen.Berufstätig >=0){
-                Firebase childberufstätig = ref.child("berufstätig");
-                childberufstätig.setValue(fragebogen.Berufstätig);}
+            if(fragebogen.Berufstaetig >=0){
+                Firebase childberufstätig = ref.child("Berufstaetig");
+                childberufstätig.setValue(fragebogen.Berufstaetig);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.sitzende_Taetigkeiten >=0)
+            if (fragebogen.Berufstaetig ==0 && fragebogen.sitzende_Taetigkeiten >=0)
             {Firebase childsitzendetätigkeiten = ref.child("sitzende_Taetigkeiten");
                 childsitzendetätigkeiten.setValue(fragebogen.sitzende_Taetigkeiten);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.maeßige_Bewegung >=0){
+            if (fragebogen.Berufstaetig ==0 && fragebogen.maeßige_Bewegung >=0){
                 Firebase childmäßigebewegung = ref.child("maeßige_Bewegung");
                 childmäßigebewegung.setValue(fragebogen.maeßige_Bewegung);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.intensive_Bewegung>=0){
+            if (fragebogen.Berufstaetig ==0 && fragebogen.intensive_Bewegung>=0){
                 Firebase childintensivebewegung = ref.child("intensive_Bewegung");
                 childintensivebewegung.setValue(fragebogen.intensive_Bewegung);}
 
@@ -925,19 +926,19 @@ public class DAL_User {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
 
 
-            if(fragebogen.Berufstätig >=0){
-                Firebase childberufstätig = ref.child("berufstätig");
-                childberufstätig.setValue(fragebogen.Berufstätig);}
+            if(fragebogen.Berufstaetig >=0){
+                Firebase childberufstätig = ref.child("Berufstaetig");
+                childberufstätig.setValue(fragebogen.Berufstaetig);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.sitzende_Taetigkeiten >=0)
+            if (fragebogen.Berufstaetig ==0 && fragebogen.sitzende_Taetigkeiten >=0)
             {Firebase childsitzendetätigkeiten = ref.child("sitzende_Taetigkeiten");
                 childsitzendetätigkeiten.setValue(fragebogen.sitzende_Taetigkeiten);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.maeßige_Bewegung >=0){
+            if (fragebogen.Berufstaetig ==0 && fragebogen.maeßige_Bewegung >=0){
                 Firebase childmäßigebewegung = ref.child("maeßige_Bewegung");
                 childmäßigebewegung.setValue(fragebogen.maeßige_Bewegung);}
 
-            if (fragebogen.Berufstätig ==0 && fragebogen.intensive_Bewegung>=0){
+            if (fragebogen.Berufstaetig ==0 && fragebogen.intensive_Bewegung>=0){
                 Firebase childintensivebewegung = ref.child("intensive_Bewegung");
                 childintensivebewegung.setValue(fragebogen.intensive_Bewegung);}
 

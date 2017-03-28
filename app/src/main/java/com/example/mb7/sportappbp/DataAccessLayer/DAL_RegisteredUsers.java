@@ -2,7 +2,6 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 
 import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityLogin;
-import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
 import com.example.mb7.sportappbp.BusinessLayer.User;
@@ -74,6 +73,7 @@ public class DAL_RegisteredUsers {
             e.printStackTrace();
         }
     }
+
 
     /**
      * get registered users and hand it to the activity

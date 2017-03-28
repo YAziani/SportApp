@@ -120,6 +120,9 @@ public class TbNotificationContent extends TabFragment {
                             else if(title.equals(getString(R.string.aktivitaetsfragebogen))){
                                 notification = new Notification( title,subtext,R.mipmap.ic_fittnessfragebogen,date);
                             }
+                            else if(title.equals(getString(R.string.Challenge))){
+                                notification = new Notification( title,subtext,R.mipmap.ic_fittnessfragebogen,date);
+                            }
 
 
                             if (notification != null)

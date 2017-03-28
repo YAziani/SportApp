@@ -251,8 +251,14 @@
     <string name="BenötigteZeit">Benötigte Zeit:</string>
 
     <!-- ActivityChallenge-->
+    <string name="Challenge">Challenge</string>
     <string name="VerbleibendeTage">Verbleibende Tage:</string>
     <string name="ChallengeKonnteNichtGeladenWerdenVersuchenSieBitteErneut">Challenge konnte nicht geladen werden. Versuchen Sie es bitte erneut!</string>
+    <string name="ntf_ChallengeEinladung">Sie wurden zu einer Challenge eingeladen.</string>
+    <string name="MöchtenSieAnDerChallenge">Möchten Sie dieser Challenge</string>
+    <string name="vom">vom</string>
+    <string name="bisZum">bis zum</string>
+    <string name="teilnehmen">teilnehmen?</string>
 
     <!-- ActivityNewChallenge-->
     <string name="WieLangeSolldieChallengeGehen">Wie lange soll die Challenge gehen?</string>
@@ -270,6 +276,11 @@
     <!-- ChallengeLstViewAdapter-->
     <string name="ChallengeBeendet">Challenge beendet</string>
     <string name="EndetAm">Endet am </string>
+
+
+    <!-- ObserverStudioNotification-->
+    <string name="IstGeradeImFitnessStudio">Ist gerade im Fitnessstudio!</string>
+
 
 
     <!-- Menu items -->

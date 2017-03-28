@@ -15,9 +15,13 @@ import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.Observe.Observer;
 import com.example.mb7.sportappbp.Observe.ObserverBsaFragebogen;
+import com.example.mb7.sportappbp.Observe.ObserverChallengeInvitation;
+import com.example.mb7.sportappbp.Observe.ObserverChallengeWinner;
 import com.example.mb7.sportappbp.Observe.ObserverFitnessFragebogen;
 import com.example.mb7.sportappbp.Observe.ObserverMotivationMessage;
 import com.example.mb7.sportappbp.Observe.ObserverStimmungAngabe;
+import com.example.mb7.sportappbp.Observe.ObserverStudioNotification;
+import com.example.mb7.sportappbp.Observe.ObserverStudioSetRemoveNotification;
 import com.example.mb7.sportappbp.Observe.ObserverTrainQuestioning;
 import com.example.mb7.sportappbp.Observe.ObserverTrainingReminder;
 import com.example.mb7.sportappbp.R;
@@ -38,6 +42,10 @@ public  class   AlertReceiver extends BroadcastReceiver {
     ObserverTrainQuestioning observerTrainQuestioning = null;
     ObserverFitnessFragebogen observerFitnessFragebogen = null;
     ObserverBsaFragebogen observerBsaFragebogen = null;
+    ObserverChallengeInvitation observerChallengeInvite = null;
+    ObserverStudioSetRemoveNotification observerStudioSetRemoveNotification = null;
+    ObserverStudioNotification observerStudioNotification = null;
+    ObserverChallengeWinner observerChallengeWinner = null;
 
     // Called when a broadcast is made targeting this class
     @Override
@@ -68,6 +76,22 @@ public  class   AlertReceiver extends BroadcastReceiver {
         if (observerBsaFragebogen==null)
             observerBsaFragebogen=new ObserverBsaFragebogen();
         observerBsaFragebogen.update(context);
+
+        if (observerChallengeInvite==null)
+            observerChallengeInvite=new ObserverChallengeInvitation();
+        observerChallengeInvite.update(context);
+
+        if(observerStudioSetRemoveNotification==null)
+            observerStudioSetRemoveNotification=new ObserverStudioSetRemoveNotification(context);
+        observerStudioSetRemoveNotification.update(context);
+
+        if(observerStudioNotification==null)
+            observerStudioNotification = new ObserverStudioNotification();
+        observerStudioNotification.update(context);
+
+        if(observerChallengeWinner==null)
+            observerChallengeWinner = new ObserverChallengeWinner();
+        observerChallengeWinner.update(context);
 
         insertdb(context);
     }

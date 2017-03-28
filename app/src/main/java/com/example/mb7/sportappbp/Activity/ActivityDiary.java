@@ -196,105 +196,81 @@ public class ActivityDiary extends AppCompatActivity {
 
                     diaryEntries = new LinkedList<DiaryEntry>();
 
-                    for(DataSnapshot child : dataSnapshot.getChildren()){
+                    for (DataSnapshot childDate : dataSnapshot.getChildren()) {
                         //date yyyyMMdd
-                        final String strDate = child.getKey();
+                        final String strDate = childDate.getKey();
 
-                        root.child(strDate).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
+                        for (DataSnapshot childTime : childDate.getChildren()) {
+                            //time
+                            final String strTime = childTime.getKey();
 
-                                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                    //time
-                                    final String strTime = child.getKey();
+                            //create object
+                            DiaryEntry diaryEntry = new DiaryEntry();
 
-                                    root.child(strDate).child(strTime).addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            //get instance to add all diaryentries after restore
+                            //restore date from diaryEntry
+                            try {
+                                Date date = sdfDate.parse(strDate + "," + strTime);
+                                diaryEntry.setDate(date);
+                                diaryEntry.setDate(date);
+                                diaryEntry.sDate = sdfDateDiary.format(date);
+                                diaryEntry.sTime = strTime;
+                            } catch (ParseException e) {
+                                e.printStackTrace();
+                            }
 
-                                            //create object
-                                            DiaryEntry diaryEntry = new DiaryEntry();
-
-                                            //restore date from diaryEntry
-                                            try {
-                                                Date date = sdfDate.parse(strDate + "," + strTime);
-                                                diaryEntry.setDate(date);
-                                                diaryEntry.setDate(date);
-                                                diaryEntry.sDate = sdfDateDiary.format(date);
-                                                diaryEntry.sTime = strTime;
-                                            } catch (ParseException e) {
-                                                e.printStackTrace();
-                                            }
+                            diaryEntries.add(diaryEntry);
 
 
-                                            diaryEntries.add(diaryEntry);
+                            //restore diaryEntry object
+                            for (DataSnapshot child : childTime.getChildren()) {
 
+                                //restore totalPoints from diaryEntry
+                                if (child.getKey().equals("totalpoints"))
+                                    diaryEntry.setTotalPoints(Integer.getInteger(child.getValue().toString()));
+                                    //restore exercises from diaryEntry
+                                else if (child.getKey().startsWith("exercise")) {
+                                    //get the category of the stores exercise
+                                    String category = child.getChildren().iterator().next().getValue().toString();
 
-                                            //restore diaryEntry object
-                                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-
-                                                //restore totalPoints from diaryEntry
-                                                if (child.getKey().equals("totalpoints"))
-                                                    diaryEntry.setTotalPoints(Integer.getInteger(child.getValue().toString()));
-                                                    //restore exercises from diaryEntry
-                                                else if (child.getKey().startsWith("exercise")) {
-                                                    //get the category of the stores exercise
-                                                    String category = child.getChildren().iterator().next().getValue().toString();
-
-                                                    Exercise exercise = null;
-                                                    //create the exercise object from the right class and restore the attribute
-                                                    if (category.equals("Training")) {
-                                                        exercise = new TrainingExercise();
-                                                        exercise = child.getValue(TrainingExercise.class);
-                                                    } else if (category.equals("Leistungstests")) {
-                                                        exercise = new LeistungstestsExercise();
-                                                        exercise = child.getValue(LeistungstestsExercise.class);
-                                                    } else if (category.equals("ReinerAufenthalt")) {
-                                                        exercise = new ReinerAufenthaltExercise();
-                                                        exercise = child.getValue(ReinerAufenthaltExercise.class);
-                                                    } else if (category.equals("Wellness")) {
-                                                        exercise = new WellnessExercise();
-                                                        exercise = child.getValue(WellnessExercise.class);
-                                                    }
-                                                    //after restoring of the exercise, these has to be added to the diaryEntry
-                                                    if (exercise != null)
-                                                        diaryEntry.addExercise(exercise);
-                                                }
-
-
-                                            }
-
-                                            if (diaryEntries != null) {
-                                                // reverse the list to get the newest first
-                                                Collections.reverse(diaryEntries);
-                                                // fill the recycler
-                                                LinearLayoutManager lm = new LinearLayoutManager(activityDiary);
-                                                rv.setLayoutManager(lm);
-                                                // just create a list of tasks
-                                                rv.setAdapter(new DiaryViewAdapter(diaryEntries, activityDiary));
-                                            }
-                                            pd.dismiss();
-                                        }
-
-                                            @Override
-                                            public void onCancelled(FirebaseError firebaseError) {
-
-                                        }
-
-                                    });
+                                    Exercise exercise = null;
+                                    //create the exercise object from the right class and restore the attribute
+                                    if (category.equals("Training")) {
+                                        exercise = new TrainingExercise();
+                                        exercise = child.getValue(TrainingExercise.class);
+                                    } else if (category.equals("Leistungstests")) {
+                                        exercise = new LeistungstestsExercise();
+                                        exercise = child.getValue(LeistungstestsExercise.class);
+                                    } else if (category.equals("ReinerAufenthalt")) {
+                                        exercise = new ReinerAufenthaltExercise();
+                                        exercise = child.getValue(ReinerAufenthaltExercise.class);
+                                    } else if (category.equals("Wellness")) {
+                                        exercise = new WellnessExercise();
+                                        exercise = child.getValue(WellnessExercise.class);
+                                    }
+                                    //after restoring of the exercise, these has to be added to the diaryEntry
+                                    if (exercise != null)
+                                        diaryEntry.addExercise(exercise);
                                 }
-                            }
 
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
 
                             }
-                        });
+                        }
                     }
 
 
+                    if (diaryEntries != null) {
+                        // reverse the list to get the newest first
+                        Collections.reverse(diaryEntries);
+                        // fill the recycler
+                        LinearLayoutManager lm = new LinearLayoutManager(activityDiary);
+                        rv.setLayoutManager(lm);
+                        // just create a list of tasks
+                        rv.setAdapter(new DiaryViewAdapter(diaryEntries, activityDiary));
+                    }
+                    pd.dismiss();
                 }
+
+
 
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
@@ -311,5 +287,4 @@ public class ActivityDiary extends AppCompatActivity {
 
         }
     }
-
 }

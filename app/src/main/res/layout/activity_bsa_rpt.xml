@@ -7,7 +7,7 @@
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
     android:paddingTop="@dimen/activity_vertical_margin"
-    tools:context=".Activity.Activity_Stimmungsbarometer_rpt">
+    tools:context=".Activity.Activity_bsa_rpt">
 
     <com.github.mikephil.charting.charts.LineChart
         android:layout_width="match_parent"

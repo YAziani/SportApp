@@ -64,7 +64,7 @@ public class ActivityMain extends AppCompatActivity {
     private final String mainColor = "#2648FF";
     private   static  User mainUser ;
     private SharedPreferences preferences;
-    private FloatingActionButton fab1;
+
 
     public static User getMainUser(Context context){
         if (mainUser == null)
@@ -134,14 +134,6 @@ public class ActivityMain extends AppCompatActivity {
         setTabLayout();
 
 
-        fab1 = (FloatingActionButton) findViewById(R.id.fab);
-        fab1.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-                Intent intent = new Intent(ActivityMain.this, ActivityDiaryEntry.class);
-                startActivity(intent);
-            }
-        });
     }
 
     @Override

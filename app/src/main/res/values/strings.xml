@@ -299,7 +299,7 @@
     <string name="energieindex_dgr_ttl">Energieindexdiagramm</string>
     <string name="differenzwert_dgr_ttl">Differenzwertdiagramm</string>
     <string name="punkteproWoche_dgr_ttl">Trainingsdiagramm</string>
-    <string name="fittnessfragen_dgr_ttl">Diagramm über Fitnesszustand</string>
+    <string name="fitnessfragen_dgr_ttl">Diagramm über Fitnesszustand</string>
     <string name="bsa_dgr_ttl">BSA Diagramm</string>
     <string name="stimmungsbarometer_dgr_text">Sehen Sie, wie sich ihre Stimmung im Laufe der Zeit geändert hat</string>
     <string name="energieeindex_dgr_text">Ihre Fitness hat direkten Einfluss darauf, wie energiereich sie agieren.</string>
@@ -307,4 +307,20 @@
     <string name="punkteproWoche_dgr_text">Zusammenfassung der Gesamtpunkte, die Sie erreicht haben</string>
     <string name="fittnessfragen_dgr_text">Lassen Sie sich Ihre Fortschritte anzeigen, in wie weit Sie fitter geworden sind</string>
     <string name="bsa_dgr_text">Durch BSA sehen Sie hier Ihre Fortschritte</string>
+    <string name="werte_fuer_stimmungsbarometer">Ihre Werte für Stimmungsbarometer</string>
+    <string name="werte_fuer_energieindex">Ihre Werte für Energieindex</string>
+    <string name="gesamtscore_fitnessfragebogen">Ihre Gesamtwerte für Fitnessfragebogen</string>
+    <string name="erzielte_punkte">Erzielte Punkte durch das Training</string>
+    <string name="differenz_der_werte">Differenz der Stimmungsbarometer</string>
+    <string name="die_letzten_sieben_tage">Die letzten sieben Tage</string>
+    <string name="die_letzten_vierzeht_tage">Die letzten vierzehn Tage</string>
+    <string name="die_letzten_dreissig_tage">Die letzten dreißig Tage</string>
+    <string name="bewegungswerte">Bewegungswerte</string>
+    <string name="gesagmtewerte">Gesamtwerte</string>
+    <string name="sportwerte">Sportwerte</string>
+    <string name="ausdauer">Ausdauer</string>
+    <string name="beweglichkeit">Beweglichkeit</string>
+    <string name="gesamt">Gesamtwert</string>
+    <string name="kooridination">Koordination</string>
+    <string name="kraft">Kraft</string>
 </resources>

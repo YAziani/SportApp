@@ -106,6 +106,16 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
         Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/Stimmungsabfrage/" );
         String V_N = (stimmungsAngabe.Vor)?"V":"N";
         ref.child(stimmungsAngabe.FirebaseDate).child(stimmungsAngabe.Time).child(V_N).removeValue();
+        try
+        {
+            ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/StimmungabfrageScore/" );
+            ref.child(stimmungsAngabe.FirebaseDate).child(stimmungsAngabe.Time).child(V_N).removeValue();
+
+        }
+        catch (Exception ex)
+        {
+            Log.e("Exception",ex.getMessage());
+        }
     }
 
 

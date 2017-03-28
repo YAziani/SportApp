@@ -18,7 +18,12 @@ import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
+import com.example.mb7.sportappbp.Activity.Activity_Differenz_rpt;
+import com.example.mb7.sportappbp.Activity.Activity_EnergieIndex_rpt;
+import com.example.mb7.sportappbp.Activity.Activity_FitnessFragebogen_rpt;
 import com.example.mb7.sportappbp.Activity.Activity_Stimmungsbarometer_rpt;
+import com.example.mb7.sportappbp.Activity.Activity_Trainings_rpt;
+import com.example.mb7.sportappbp.Activity.Activity_bsa_rpt;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.BusinessLayer.Report;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
@@ -57,6 +62,26 @@ public class ReportAdapter  extends RecyclerView.Adapter<ReportAdapter.ReportHol
         public void onClick(View view) {
             if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.stimmungsbarometer_dgr_ttl))){
                 Intent open = new Intent(context.getActivity(),Activity_Stimmungsbarometer_rpt.class                );
+                context.startActivity(open);
+            }
+            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.energieindex_dgr_ttl))){
+                Intent open = new Intent(context.getActivity(),Activity_EnergieIndex_rpt.class                );
+                context.startActivity(open);
+            }
+            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.differenzwert_dgr_ttl))){
+                Intent open = new Intent(context.getActivity(),Activity_Differenz_rpt.class                );
+                context.startActivity(open);
+            }
+            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.punkteproWoche_dgr_ttl))){
+                Intent open = new Intent(context.getActivity(),Activity_Trainings_rpt.class                );
+                context.startActivity(open);
+            }
+            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.bsa_dgr_ttl))){
+                Intent open = new Intent(context.getActivity(),Activity_bsa_rpt.class                );
+                context.startActivity(open);
+            }
+            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragen_dgr_ttl))){
+                Intent open = new Intent(context.getActivity(),Activity_FitnessFragebogen_rpt.class                );
                 context.startActivity(open);
             }
             /*

@@ -152,7 +152,7 @@ public class ObserverStudioNotification extends Observer {
                                             context.getString(R.string.Challenge),
                                             ActivityMain.class, context.getString(R.string.stimmungsabgabe),
                                             (usrName + " " + context.getString(R.string.IstGeradeImFitnessStudio)),
-                                            R.mipmap.ic_stimmungs_abgabe);
+                                            R.mipmap.ic_challenge);
                                 }
                             }
 

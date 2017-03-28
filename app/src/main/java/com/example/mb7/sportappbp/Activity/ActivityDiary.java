@@ -190,7 +190,7 @@ public class ActivityDiary extends AppCompatActivity {
             URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName()+ "/Diary/");
             final Firebase root = new Firebase(url.toString());
 
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
+            root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 

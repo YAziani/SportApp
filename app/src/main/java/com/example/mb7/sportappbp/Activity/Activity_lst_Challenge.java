@@ -1,12 +1,16 @@
 package com.example.mb7.sportappbp.Activity;
 
 import android.app.ProgressDialog;
+import android.content.Context;
 import android.content.Intent;
+import android.content.SharedPreferences;
 import android.os.Bundle;
+import android.preference.PreferenceManager;
 import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
+import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -18,6 +22,8 @@ import com.example.mb7.sportappbp.Adapters.ChallengeLstViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.BusinessLayer.User;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Challenges;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
@@ -51,6 +57,18 @@ public class Activity_lst_Challenge extends AppCompatActivity {
         setContentView(R.layout.activity_lst_challenge);
 
         setTitle(getString(R.string.Challenges));
+
+
+        Intent iin = getIntent();
+        Bundle extras = iin.getExtras();
+        Log.e("Oncreate","We have reached it");
+        if(extras!=null ) {
+            // read the datetime as this is the unique value in the db for the notification
+            String notificationDate =(String) extras.get("NotificationDate");
+            if (notificationDate != null){
+                removeNofication(this,notificationDate);
+            }
+        }
 
         activityLstChallenge = this;
         strChallengeList = new ArrayList<String>();
@@ -106,6 +124,16 @@ public class Activity_lst_Challenge extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
+    void removeNofication(Context context, String notificationDate)
+    {
+        // get the current user
+        SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+
+        // build the current URL
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/Notifications/" );
+        ref.child(context.getString( R.string.Challenge)).child(notificationDate).removeValue();
+
+    }
     /**
      * delete all reverences from user to challenge and the other way round
      * @param challenge the object to remove
@@ -130,6 +158,8 @@ public class Activity_lst_Challenge extends AppCompatActivity {
 
 
     private void loadChallenges(){
+
+
 
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
 

@@ -15,20 +15,41 @@ public class Fragebogen implements Serializable {
     public Integer intensive_Bewegung;
     public Integer sportlich_aktiv;
 
-    public Integer zu_Fuß_zur_Arbeit;
+    public Integer Zu_Fuß_zur_Arbeit;
+    public Integer Zu_Fuß_zur_Arbeit_Tag;
+    public Integer Zu_Fuß_zur_Arbeit_Minuten;
 
-    //public Integer Zu_Fuß_zur_Arbeit_Tag;
-    //public Integer Zu_Fuß_zur_Arbeit_Minuten;
+    public Integer Zu_Fuß_einkaufen;
+    public Integer Zu_Fuß_einkaufen_Tag;
+    public Integer Zu_Fuß_einkaufen_Minuten;
 
-
-    public Integer zu_Fuß_einkaufen;
     public Integer Rad_zur_Arbeit;
-    public Integer Rad_fahren;
+    public Integer Rad_zur_Arbeit_Tag;
+    public Integer Rad_zur_Arbeit_Minuten;
+
+    public Integer Radfahren;
+    public Integer Radfahren_Tag;
+    public Integer Radfahren_Minuten;
+
     public Integer Spazieren;
+    public Integer Spazieren_Tag;
+    public Integer Spazieren_Minuten;
+
     public Integer Gartenarbeit;
+    public Integer Gartenarbeit_Tag;
+    public Integer Gartenarbeit_Minuten;
+
     public Integer Hausarbeit;
+    public Integer Hausarbeit_Tag;
+    public Integer Hausarbeit_Minuten;
+
     public Integer Pflegearbeit;
+    public Integer Pflegearbeit_Tag;
+    public Integer Pflegearbeit_Minuten;
+
     public Integer Treppensteigen;
+    public Integer Treppensteigen_Tag;
+    public Integer Treppensteigen_Stockwerke;
 
     public String Aktivitaet_A_Name;
     public Integer Aktivitaet_A_Zeit;

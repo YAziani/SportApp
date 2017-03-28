@@ -25,28 +25,26 @@ public class ObserverFitnessFragebogen extends Observer {
      */
     @Override
     public void update(Context context) {
-
+         this.context=context;
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
         // check if method allocated
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
         if(!preferences.getString("allocatedMethods","").contains("fitnessQuestionary")) {
             return;
         }
 
-        this.context = context;
-        preferences = PreferenceManager.getDefaultSharedPreferences(context);
+       shouldNotify();
+
 
     }
 
 
     /**
-     * show Notification if we are in the interval [trainingtime - abstand, trainingtime]
+     * show Notification
      * if it is show notification and save that you have showed it in the preferences to not repeat it for the same event
      * @return
      */
     private  void shouldNotify(){
-
-
-
 
             // we are in the interval where we should raise a notification
             // just check if the user hasn't got a notification before

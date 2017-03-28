@@ -2,7 +2,6 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 
 import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityLogin;
-import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
 import com.example.mb7.sportappbp.BusinessLayer.User;
@@ -59,7 +58,7 @@ public class DAL_RegisteredUsers {
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "/users");
             Firebase root = new Firebase(url.toString());
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
+            root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     activity.returnRegisteredUsers(dataSnapshot);
@@ -75,6 +74,7 @@ public class DAL_RegisteredUsers {
         }
     }
 
+
     /**
      * get registered users and hand it to the activity
      *
@@ -86,7 +86,7 @@ public class DAL_RegisteredUsers {
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "/users");
             Firebase root = new Firebase(url.toString());
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
+            root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     activity.returnRegisteredUsers(dataSnapshot);

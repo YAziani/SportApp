@@ -1,18 +1,14 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
 import com.example.mb7.sportappbp.Activity.ActivityChallenge;
-import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
-import com.example.mb7.sportappbp.Activity.Activity_lst_Challenge;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
-import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import java.net.MalformedURLException;
 import java.net.URL;
 import java.text.SimpleDateFormat;
 
@@ -66,7 +62,7 @@ public class DAL_Challenges {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    activity.returnRegisteredUsers(dataSnapshot);
+                    activity.returnRegisteredChallengeUsers(dataSnapshot);
                 }
 
                 @Override
@@ -166,27 +162,45 @@ public class DAL_Challenges {
     /**
      * Removes the reference to user
      * @param user to remove
-     * @param challenge current challen
+     * @param challenge current challenge
      */
-    public static void RemoveUser(User user, Challenge challenge){
+    public static void InsertInvitation(User user, Challenge challenge){
 
-        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "Users/" + user.getName() + "/Invitation");
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Invitations/Challenges");
 
-        Firebase admin = ref.child("Challenge");
+        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
-        Firebase adminChild = admin.child(challenge.getName());
-        adminChild.setValue(challenge.getName());
+        Firebase name = ref.child(challenge.getName());
+
+        Firebase nameChildStart =  name.child("startDate");
+        nameChildStart.setValue(sdf.format(challenge.getStartDate()));
+
+        Firebase nameChildEnd =  name.child("endDate");
+        nameChildEnd.setValue(sdf.format(challenge.getEndDate()));
+    }
+
+    /**
+     * Removes the reference to user
+     * @param user to invite
+     * @param challenge current challenge
+     */
+    public static void RemoveInvitation(User user, Challenge challenge){
+
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Invitations/Challenges/");
+        ref.child(challenge.getName()).removeValue();
     }
 
 
     /**
      * Removes the reference to user
      * @param user to invite
-     * @param challenge current challen
+     * @param challenge current challenge
      */
-    public static void InsertInvitation(User user, Challenge challenge){
+    public static void RemoveUser(User user, Challenge challenge){
 
         Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "Challenges/" + challenge.getName() + "/Users/");
         ref.child(user.getName()).removeValue();
     }
+
+
 }

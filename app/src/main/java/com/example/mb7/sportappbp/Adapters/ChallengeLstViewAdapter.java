@@ -70,7 +70,7 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
         challengeHolder.txtTitle.setText(challenges.get(position).getName());
         challengeHolder.txtSubText.setText(getDateOrFinished(challenges.get(position)));
         //// TODO: 26.03.2017  
-        challengeHolder.imageView.setImageResource(R.mipmap.ic_stimmungs_abgabe);
+        challengeHolder.imageView.setImageResource(R.mipmap.ic_challenge);
 
         if (position == selectedPosition)
         {

@@ -258,7 +258,7 @@
     <string name="MöchtenSieAnDerChallenge">Möchten Sie dieser Challenge</string>
     <string name="vom">vom</string>
     <string name="bisZum">bis zum</string>
-    <string name="teilnehmen">teilnehmen?</string>
+    <string name="beitreten">beitreten?</string>
 
     <!-- ActivityNewChallenge-->
     <string name="WieLangeSolldieChallengeGehen">Wie lange soll die Challenge gehen?</string>

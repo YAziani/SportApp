@@ -305,7 +305,7 @@
     <string name="energieeindex_dgr_text">Ihr Fitness hat direkten Einfluss, wie energiereich sie agieren.</string>
     <string name="differenzwert_dgr_text">Sehen Sie den Unterschied vor und nach dem Training</string>
     <string name="punkteproWoche_dgr_text">Zusammenfassung der Gesamtpunkte die Sie erreicht haben</string>
-    <string name="fittnessfragen_dgr_text">Lassen Sie sich ihre Fortschritte anzeigen, in wie weit Sie fitter geworden sind</string>
+    <string name="fittnessfragen_dgr_text">Lassen Sie sich ihre Fortschritte anzeigen</string>
     <string name="bsa_dgr_text">Durch BSA sehen Sie hier Ihre Fortschritte</string>
     <string name="werte_fuer_stimmungsbarometer">Ihre Werte für Stimmungsbarometer</string>
     <string name="werte_fuer_energieindex">Ihre Werte für Energieindex</string>

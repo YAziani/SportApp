@@ -96,9 +96,15 @@ public class User {
         DAL_User.UpdateStimmung(this, stimmungsAngabe);
         return true;
     }
-    public boolean SaveStimmungScore(StimmungAbfrageScore stimmungAbfrageScore, Date date)
+    public boolean InsertStimmungScore(StimmungAbfrageScore stimmungAbfrageScore)
     {
-        DAL_User.InsertStimmungScore(this,stimmungAbfrageScore, date);
+        DAL_User.InsertStimmungScore(this,stimmungAbfrageScore);
+        return true;
+    }
+
+    public boolean UpdateStimmungScore(StimmungAbfrageScore stimmungAbfrageScore)
+    {
+        DAL_User.UpdateStimmungScore(this,stimmungAbfrageScore);
         return true;
     }
 

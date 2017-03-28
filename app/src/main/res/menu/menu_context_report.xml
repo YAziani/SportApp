@@ -1,0 +1,16 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    tools:context="com.example.mb7.sportappbp.Activity.ActivityMain">
+    <item
+        android:id="@+id/sevendays"
+        android:title="@string/die_letzten_sieben_tage"
+        />
+    <item
+        android:id="@+id/fourteendays"
+        android:title="@string/die_letzten_vierzeht_tage"></item>
+    <item
+        android:id="@+id/thirtydays"
+        android:title="@string/die_letzten_dreissig_tage"
+        />
+</menu>

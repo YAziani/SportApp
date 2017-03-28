@@ -9,10 +9,10 @@ import android.widget.AdapterView;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
 import com.github.mikephil.charting.charts.LineChart;
-;
+
 import java.util.Date;
 
-public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
+public class Activity_Trainings_rpt extends Activity_LineChartReports {
 
     @Override
     float convertValue(DataSnapshot object) {
@@ -31,7 +31,7 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__stimmungsbarometer_rpt);
+        setContentView(R.layout.activity_trainings_rpt);
         lineChart = (LineChart)findViewById(R.id.lineChart);
     }
 
@@ -53,14 +53,14 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
         switch (item.getItemId()) {
 
             case R.id.thirtydays:
-                computeDraw(addDays(new Date(),-30), new Date(),lineChart,"Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+                computeScores(addDays(new Date(),-30), new Date(),lineChart,"totalPoints",Activity_Trainings_rpt.this.getString(R.string.erzielte_punkte));
 
                 return true;
             case R.id.fourteendays:
-                computeDraw(addDays(new Date(),-14), new Date(),lineChart,"Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+                computeScores(addDays(new Date(),-14), new Date(),lineChart,"totalPoints",Activity_Trainings_rpt.this.getString(R.string.erzielte_punkte));
                 return  true;
             case R.id.sevendays:
-                computeDraw(addDays(new Date(),-7), new Date(),lineChart,"Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+                computeScores(addDays(new Date(),-7), new Date(),lineChart,"totalPoints",Activity_Trainings_rpt.this.getString(R.string.erzielte_punkte));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -70,12 +70,10 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
     @Override
     protected void onStart() {
         super.onStart();
-        computeDraw(addDays(new Date(),-7) ,new Date(), lineChart, "Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+        computeScores(addDays(new Date(),-7) ,new Date(), lineChart, "totalPoints",Activity_Trainings_rpt.this.getString(R.string.erzielte_punkte));
     }
 
 
 
 
 }
-
-

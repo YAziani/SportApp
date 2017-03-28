@@ -223,40 +223,41 @@ public class DAL_User {
 
     }
 
-    static public void InsertStimmungScore(User user, StimmungAbfrageScore stimmungAbfrageScore, Date date)
+    static public void InsertStimmungScore(User user, StimmungAbfrageScore stimmungAbfrageScore)
     {
         try
         {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/StimmungabfrageScore/"+ stimmungAbfrageScore.Date + "/"  + DAL_Utilities.GetTimeAsString() );
+            String V_N = stimmungAbfrageScore.Vor?"/V":"/N";
 
-            Firebase childscoreangespannt = ref.child("Score Angespannt");
+            Firebase childscoreangespannt = ref.child(V_N).child("Score Angespannt");
             childscoreangespannt.setValue(stimmungAbfrageScore.AngespanntScore);
 
-            Firebase childscoretraurig = ref.child("Score Traurig");
+            Firebase childscoretraurig = ref.child(V_N).child("Score Traurig");
             childscoretraurig.setValue(stimmungAbfrageScore.TraurigScore);
 
-            Firebase childscoretatkraeftig = ref.child("Score Tatkräftig");
+            Firebase childscoretatkraeftig = ref.child(V_N).child("Score Tatkräftig");
             childscoretatkraeftig.setValue(stimmungAbfrageScore.TatkraeftigScore);
 
-            Firebase childscorezerstreut = ref.child("Score Zerstreut");
+            Firebase childscorezerstreut = ref.child(V_N).child("Score Zerstreut");
             childscorezerstreut.setValue(stimmungAbfrageScore.ZerstreutScore);
 
-            Firebase childscorewuetend = ref.child("Score Wütend");
+            Firebase childscorewuetend = ref.child(V_N).child("Score Wütend");
             childscorewuetend.setValue(stimmungAbfrageScore.WuetendScore);
 
-            Firebase childscoremuede = ref.child("Score Müde");
+            Firebase childscoremuede = ref.child(V_N).child("Score Müde");
             childscoremuede.setValue(stimmungAbfrageScore.MuedeScore);
 
-            Firebase childscoreselbstsicher = ref.child("Score Selbstsicher");
+            Firebase childscoreselbstsicher = ref.child(V_N).child("Score Selbstsicher");
             childscoreselbstsicher.setValue(stimmungAbfrageScore.SelbstsicherScore);
 
-            Firebase childscoremitteilsam = ref.child("Score Mitteilsam");
+            Firebase childscoremitteilsam = ref.child(V_N).child("Score Mitteilsam");
             childscoremitteilsam.setValue(stimmungAbfrageScore.MitteilsamScore);
 
-            Firebase childscorebarometer = ref.child("Score Stimmungsbarometer");
+            Firebase childscorebarometer = ref.child(V_N).child("Score Stimmungsbarometer");
             childscorebarometer.setValue(stimmungAbfrageScore.StimmungsBarometerScore);
 
-            Firebase childscoreenergieindex = ref.child("Energieindex");
+            Firebase childscoreenergieindex = ref.child(V_N).child("Energieindex");
             childscoreenergieindex.setValue(stimmungAbfrageScore.EnergieIndexScore);
 
 
@@ -274,6 +275,57 @@ public class DAL_User {
 
     }
 
+    static public void UpdateStimmungScore(User user, StimmungAbfrageScore stimmungAbfrageScore)
+    {
+        try
+        {
+
+
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/StimmungabfrageScore/" + stimmungAbfrageScore.Date + "/"  + stimmungAbfrageScore.Time + "/");
+            String V_N = stimmungAbfrageScore.Vor?"/V":"/N";
+
+            Firebase childscoreangespannt = ref.child(V_N).child("Score Angespannt");
+            childscoreangespannt.setValue(stimmungAbfrageScore.AngespanntScore);
+
+            Firebase childscoretraurig = ref.child(V_N).child("Score Traurig");
+            childscoretraurig.setValue(stimmungAbfrageScore.TraurigScore);
+
+            Firebase childscoretatkraeftig = ref.child(V_N).child("Score Tatkräftig");
+            childscoretatkraeftig.setValue(stimmungAbfrageScore.TatkraeftigScore);
+
+            Firebase childscorezerstreut = ref.child(V_N).child("Score Zerstreut");
+            childscorezerstreut.setValue(stimmungAbfrageScore.ZerstreutScore);
+
+            Firebase childscorewuetend = ref.child(V_N).child("Score Wütend");
+            childscorewuetend.setValue(stimmungAbfrageScore.WuetendScore);
+
+            Firebase childscoremuede = ref.child(V_N).child("Score Müde");
+            childscoremuede.setValue(stimmungAbfrageScore.MuedeScore);
+
+            Firebase childscoreselbstsicher = ref.child(V_N).child("Score Selbstsicher");
+            childscoreselbstsicher.setValue(stimmungAbfrageScore.SelbstsicherScore);
+
+            Firebase childscoremitteilsam = ref.child(V_N).child("Score Mitteilsam");
+            childscoremitteilsam.setValue(stimmungAbfrageScore.MitteilsamScore);
+
+            Firebase childscorebarometer = ref.child(V_N).child("Score Stimmungsbarometer");
+            childscorebarometer.setValue(stimmungAbfrageScore.StimmungsBarometerScore);
+
+            Firebase childscoreenergieindex = ref.child(V_N).child("Energieindex");
+            childscoreenergieindex.setValue(stimmungAbfrageScore.EnergieIndexScore);
+
+        }
+        catch (Exception ex)
+        {
+            String s = ex.getMessage();
+        }
+        finally
+        {
+
+        }
+
+
+    }
 
     static public void LoadCompleteDiary(User user)
     {

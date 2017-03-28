@@ -63,7 +63,7 @@ public class TbReportContent extends TabFragment{
         Report r2 = new Report(getString( R.string.energieindex_dgr_ttl), getString( R.string.energieeindex_dgr_text), R.mipmap.ic_report_green);
         Report r3 = new Report(getString( R.string.differenzwert_dgr_ttl), getString( R.string.differenzwert_dgr_text),R.mipmap.ic_report_orange);
         Report r4 = new Report(getString( R.string.punkteproWoche_dgr_ttl), getString( R.string.punkteproWoche_dgr_text),R.mipmap.ic_report_rosa);
-        Report r5 = new Report(getString( R.string.fittnessfragen_dgr_ttl), getString(R.string.fittnessfragen_dgr_text),R.mipmap.ic_report_blue);
+        Report r5 = new Report(getString( R.string.fitnessfragen_dgr_ttl), getString(R.string.fittnessfragen_dgr_text),R.mipmap.ic_report_blue);
         Report r6 = new Report(getString( R.string.bsa_dgr_ttl), getString(R.string.bsa_dgr_text),R.mipmap.ic_report_red);
         reports =new LinkedList<Report>(Arrays.asList(r1,r2,r3,r4,r5,r6));
 

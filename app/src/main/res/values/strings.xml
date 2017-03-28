@@ -6,12 +6,12 @@
     <string name="aktivitaeten">Aktivitäten</string>
     <string name="title_activity_login">Anmeldung</string>
     <string name="tagebucheintrag">Tagebucheintrag</string>
-    <string name="tagebucheintrag_desc">Die sportlichen Aktivitäten, die sie durchgeführt haben</string>
+    <string name="tagebucheintrag_desc">Die sportlichen Aktivitäten, die Sie durchgeführt haben</string>
     <string name="nun_ist_es_soweit">Nun ist es soweit. Haben Sie heute trainert?</string>
     <string name="stimmungsabgabe">Stimmungsabgabe</string>
     <string name="stimmungsabgaben">Stimmungsabgaben</string>
     <string name="stimmungsabgabe_desc">Ihre Stimmung vor und nach dem Training</string>
-    <string name="wie_fuhlen_sie_moment">Wie fühlen Sie sich in dem Moment?</string>
+    <string name="wie_fuhlen_sie_moment">Wie fühlen Sie sich in diesem Moment?</string>
     <string name="wie_aktiv">Wie aktiv sind Sie?</string>
     <string name="wie_ist_fitnesstand">Wie ist Ihr Fitnessstand?</string>
     <string name="bewegen_sie_sich">Bewegen Sie sich!</string>
@@ -23,7 +23,7 @@
     <string name="aktivitaetsfragebogen">Aktivitätsfragebogen</string>
     <string name="aktivitaetsfragebogen_desc">Bewertung der Bewegungs- und Sportaktivität</string>
     <!-- Strings related to login -->
-    <string name="prompt_email">E-mail</string>
+    <string name="prompt_email">E-Mail</string>
     <string name="prompt_password">Passwort</string>
     <string name="action_sign_in">Anmelden oder Registrieren</string>
     <string name="action_sign_in_short">Anmelden</string>
@@ -56,7 +56,7 @@
     <string name="taetigkeiten">Tätigkeiten</string>
     <!-- Strings related to alert -->
     <string name="ntf_title">Fit up</string>
-    <string name="ntf_stimmungsabgabe">Es ist bald Zeit zum trainiern. Wie fühlen Sie sich?</string>
+    <string name="ntf_stimmungsabgabe">Es ist bald Zeit zum trainieren. Wie fühlen Sie sich?</string>
     <string name="ntf_stimmungsabgabe_nach">Sie sind fertig mit dem Training. Wie fühlen Sie sich?</string>
     <string name="ntf_fitnessfragebogen">Wie gut ist ihr Fitnessstand? Beantworten Sie den Fragebogen.</string>
     <string name="ntf_aktivitaetsfragebogen">Wie aktiv sind Sie? Beantworten Sie den Fragebogen.</string>
@@ -206,7 +206,7 @@
     <string name="sisettingsaved">Einstellungen gespeichert.</string>
     <string name="siaddresssaved">Addresse gespeichert.</string>
     <string name="siaddressnotfound">Addresse konnte nicht bestimmt werden.</string>
-    <string name="sitextview">Bitte tragen Sie Ihre Trainingszeiten und die Adresse ihres Fitnessstudios ein.</string>
+    <string name="sitextview">Bitte tragen Sie Ihre Trainingszeiten und die Adresse Ihres Fitnessstudios ein.</string>
 
     <!-- ActivityDiary -->
     <string name="Tagebuch">Tagebuch</string>
@@ -312,11 +312,11 @@
     <string name="punkteproWoche_dgr_ttl">Trainingsdiagramm</string>
     <string name="fitnessfragen_dgr_ttl">Diagramm über Fitnesszustand</string>
     <string name="bsa_dgr_ttl">BSA Diagramm</string>
-    <string name="stimmungsbarometer_dgr_text">Sehen Sie wie sich ihre Stimmung im Laufe der Zeit geändert hat</string>
-    <string name="energieeindex_dgr_text">Ihr Fitness hat direkten Einfluss, wie energiereich sie agieren.</string>
+    <string name="stimmungsbarometer_dgr_text">Sehen Sie, wie sich ihre Stimmung im Laufe der Zeit geändert hat</string>
+    <string name="energieeindex_dgr_text">Ihre Fitness hat direkten Einfluss darauf, wie energiereich sie agieren.</string>
     <string name="differenzwert_dgr_text">Sehen Sie den Unterschied vor und nach dem Training</string>
-    <string name="punkteproWoche_dgr_text">Zusammenfassung der Gesamtpunkte die Sie erreicht haben</string>
-    <string name="fittnessfragen_dgr_text">Lassen Sie sich ihre Fortschritte anzeigen, in wie weit Sie fitter geworden sind</string>
+    <string name="punkteproWoche_dgr_text">Zusammenfassung der Gesamtpunkte, die Sie erreicht haben</string>
+    <string name="fittnessfragen_dgr_text">Lassen Sie sich Ihre Fortschritte anzeigen, in wie weit Sie fitter geworden sind</string>
     <string name="bsa_dgr_text">Durch BSA sehen Sie hier Ihre Fortschritte</string>
     <string name="werte_fuer_stimmungsbarometer">Ihre Werte für Stimmungsbarometer</string>
     <string name="werte_fuer_energieindex">Ihre Werte für Energieindex</string>

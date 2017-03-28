@@ -124,10 +124,10 @@ public class ObserverChallengeInvitation extends Observer {
                             // just check if the user hasn't got a notification before
                             preferences = PreferenceManager.getDefaultSharedPreferences(context);
                             String date = android.text.format.DateFormat.format("yyyy-MM-dd", new Date()).toString();
-                            Boolean sendNotif = preferences.getBoolean(challenge.getName(), false);
+                            Boolean sendNotif = preferences.getBoolean(challenge.getName()+ ActivityMain.getMainUser(context), false);
                             if (!sendNotif) {
                                 // insert in the preferences that notification has been sent
-                                preferences.edit().putBoolean(challenge.getName() , true).commit();
+                                preferences.edit().putBoolean(challenge.getName() + ActivityMain.getMainUser(context), true).commit();
                                 ;
                                 // send notification
 

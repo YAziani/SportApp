@@ -136,14 +136,14 @@ public class ActivityChallenge extends AppCompatActivity {
                 getString(R.string.bisZum) + " " +
                 sdf.format(challenge.getEndDate()).toString() + " \n"
                 + getString(R.string.teilnehmen))
-                .setPositiveButton(R.string.OK, new DialogInterface.OnClickListener() {
+                .setPositiveButton(R.string.Ja, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         challenge.AddUser(ActivityMain.getMainUser(ActivityChallenge.this));
                         challenge.RemoveInvitation(ActivityMain.getMainUser(ActivityChallenge.this));
 
                     }
                 })
-                .setNegativeButton(R.string.Abbrechen, new DialogInterface.OnClickListener() {
+                .setNegativeButton(R.string.Nein, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
                         challenge.RemoveInvitation(ActivityMain.getMainUser(ActivityChallenge.this));
@@ -234,8 +234,7 @@ public class ActivityChallenge extends AppCompatActivity {
                         //add user and close dialog
                     else {
                         //Add User on Database
-                        challenge.AddUser(user);
-                        userList.add(user);
+                        challenge.InviteUser(user);
                         challengeViewAdapter.notifyDataSetChanged();
                         addUserDialog.dismiss();
                     }

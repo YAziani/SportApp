@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Adapters;
 
+import android.app.Activity;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
@@ -11,6 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
@@ -18,6 +20,7 @@ import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivitySettingInitializer;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
+import com.example.mb7.sportappbp.Activity.Activity_lst_Challenge;
 import com.example.mb7.sportappbp.Activity.Activity_lst_bsafragebogen;
 import com.example.mb7.sportappbp.Activity.Activity_lst_fitnessfragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
@@ -106,6 +109,12 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                             .remove("nextTrainingTime").apply();
                 }
 
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.Challenge))) {
+                Intent open = new Intent(context.getActivity(), Activity_lst_Challenge.class);
+                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
+                open.putExtra("NotificationDate", NotificationDate);
+                context.startActivity(open);
             }
 
             // remove the notification that has been read

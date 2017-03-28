@@ -43,7 +43,7 @@
             android:paddingLeft="8dp"
             android:paddingStart="8dp"
             android:paddingTop="8dp"
-            android:text="string @android:string/cancel" />
+            android:text="@string/Abbrechen" />
 
         <Button
             android:id="@+id/btnChallengeOk"

@@ -115,6 +115,25 @@ public class Challenge implements Serializable {
     }
 
     /**
+     * Returns the place of the challenge from a user. If the user is not in the list, the method
+     * returns 0
+     * @param user search user
+     * @return position or 0 if user not in list
+     */
+    public int getPositionOfTheChallenge(User user){
+        sortUserList();
+        int  i = 0;
+        for(User p : userList){
+            i++;
+            if(p.getName().equals(user.getName()))
+                return i;
+
+
+        }
+        return 0;
+    }
+
+    /**
      * This method checks whether the end date was achieved and returns then true or false
      * @return true if the end date has been achieved
      */
@@ -198,6 +217,16 @@ public class Challenge implements Serializable {
      */
     public boolean InviteUser(User user){
         DAL_Challenges.InsertInvitation(user , this);
+        return true;
+    }
+
+    /**
+     * User to DAL_Challenge to delete invitation from database
+     * @param user user to add
+     * @return
+     */
+    public boolean RemoveInvitation(User user){
+        DAL_Challenges.RemoveInvitation(user , this);
         return true;
     }
 }

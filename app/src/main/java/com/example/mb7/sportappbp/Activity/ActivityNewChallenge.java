@@ -225,19 +225,21 @@ public class ActivityNewChallenge extends AppCompatActivity {
                 else if(checkChallengeName(challengename)){
                     Toast.makeText(ActivityNewChallenge.this, R.string.NameExistiertBereits , Toast.LENGTH_LONG).show();
                 }
-                /*
+
                 else if(userList.size() == 0)
                    Toast.makeText(ActivityNewChallenge.this, R.string.MindestensEinBenutzerMussHinzugefügtWerden , Toast.LENGTH_LONG).show();
-*/
+
                 else {
                     //Create challenge object and set data
-                    //userList.add(ActivityMain.getMainUser(this));
                     Challenge challenge = new Challenge();
                     challenge.setName(editTextName.getText().toString());
                     challenge.setStartDate(startCalendar.getTime());
                     challenge.setEndDate(endCalendar.getTime());
                     challenge.setUserList(userList);
 
+
+                    //invite user to challenge
+                    inviteUsers(challenge);
                     //Save challenge to firebase
                     challenge.SaveNewChallenge();
                     //Add user too challenge
@@ -284,7 +286,6 @@ public class ActivityNewChallenge extends AppCompatActivity {
                         userList.add(user);
                         newChallengeViewAdapter.notifyDataSetChanged();
                         addUserDialog.dismiss();
-                        inviteUsers();
                     }
                 }
                 //if user doesn't exist
@@ -435,9 +436,13 @@ public class ActivityNewChallenge extends AppCompatActivity {
         return result;
     }
 
-    public void inviteUsers(){
+    /**
+     * Send an invitation to users
+     * @param challenge
+     */
+    public void inviteUsers(Challenge challenge){
         for(User user : userList){
-
+            challenge.InviteUser(user);
         }
     }
 

@@ -1,6 +1,8 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
+
 import android.util.Log;
+
 
 import com.example.mb7.sportappbp.Activity.ActivityDiary;
 import com.example.mb7.sportappbp.BusinessLayer.Challenge;
@@ -839,7 +841,6 @@ public class DAL_User {
         {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
 
-
             if(fragebogen.Berufstaetig >=0){
                 Firebase childberufstätig = ref.child("Berufstaetig");
                 childberufstätig.setValue(fragebogen.Berufstaetig);}
@@ -860,50 +861,96 @@ public class DAL_User {
                 Firebase childsportlichaktiv =ref.child("sportlich_aktiv");
                 childsportlichaktiv.setValue(fragebogen.sportlich_aktiv);}
 
-            if(fragebogen.zu_Fuß_zur_Arbeit >0){
-                Firebase childzufußzurarbeit = ref.child("zu_Fuß_zur_Arbeit");
-                childzufußzurarbeit.setValue(fragebogen.zu_Fuß_zur_Arbeit);}
-/*
-            if(fragebogen.zu_Fuß_zur_Arbeit >0){
+            if(fragebogen.Zu_Fuß_zur_Arbeit >0){
+                Firebase childzufußzurarbeit = ref.child("Zu_Fuß_zur_Arbeit");
+                childzufußzurarbeit.setValue(fragebogen.Zu_Fuß_zur_Arbeit);}
+
+            if(fragebogen.Zu_Fuß_zur_Arbeit_Tag >0){
                 Firebase childzufußzurarbeittag = ref.child("Zu_Fuß_zur_Arbeit_Tag");
                 childzufußzurarbeittag.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Tag);}
-            if(fragebogen.zu_Fuß_zur_Arbeit >0){
+            if(fragebogen.Zu_Fuß_zur_Arbeit_Minuten >0){
                 Firebase childzufußzurarbeitminuten = ref.child("Zu_Fuß_zur_Arbeit_Minuten");
                 childzufußzurarbeitminuten.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Minuten);}
-*/
 
-
-            if(fragebogen.zu_Fuß_einkaufen >0){
-                Firebase childzufußeinkaufen = ref.child("zu_Fuß_einkaufen");
-                childzufußeinkaufen.setValue(fragebogen.zu_Fuß_einkaufen);}
+            if(fragebogen.Zu_Fuß_einkaufen >0){
+                Firebase childzufußeinkaufen = ref.child("Zu_Fuß_einkaufen");
+                childzufußeinkaufen.setValue(fragebogen.Zu_Fuß_einkaufen);}
+            if(fragebogen.Zu_Fuß_einkaufen_Tag >0){
+                Firebase childzufußeinkaufen = ref.child("Zu_Fuß_einkaufen_Tag");
+                childzufußeinkaufen.setValue(fragebogen.Zu_Fuß_einkaufen_Tag);}
+            if(fragebogen.Zu_Fuß_einkaufen_Minuten >0){
+                Firebase childzufußeinkaufen = ref.child("Zu_Fuß_einkaufen_Minuten");
+                childzufußeinkaufen.setValue(fragebogen.Zu_Fuß_einkaufen_Minuten);}
 
             if (fragebogen.Rad_zur_Arbeit >0){
                 Firebase childradzurarbeit = ref.child("Rad_zur_Arbeit");
                 childradzurarbeit.setValue(fragebogen.Rad_zur_Arbeit);}
+            if (fragebogen.Rad_zur_Arbeit_Tag >0){
+                Firebase childradzurarbeit = ref.child("Rad_zur_Arbeit_Tag");
+                childradzurarbeit.setValue(fragebogen.Rad_zur_Arbeit_Tag);}
+            if (fragebogen.Rad_zur_Arbeit_Minuten >0){
+                Firebase childradzurarbeit = ref.child("Rad_zur_Arbeit_Minuten");
+                childradzurarbeit.setValue(fragebogen.Rad_zur_Arbeit_Minuten);}
 
-            if (fragebogen.Rad_fahren >0){
-                Firebase childradfahren = ref.child("Rad_fahren");
-                childradfahren.setValue(fragebogen.Rad_fahren);}
+            if (fragebogen.Radfahren >0){
+                Firebase childradfahren = ref.child("Radfahren");
+                childradfahren.setValue(fragebogen.Radfahren);}
+            if (fragebogen.Radfahren_Tag >0){
+                Firebase childradfahren = ref.child("Radfahren_Tag");
+                childradfahren.setValue(fragebogen.Radfahren_Tag);}
+            if (fragebogen.Radfahren_Minuten >0){
+                Firebase childradfahren = ref.child("Radfahren_Minuten");
+                childradfahren.setValue(fragebogen.Radfahren_Minuten);}
 
             if(fragebogen.Spazieren >0){
                 Firebase childspazieren = ref.child("Spazieren");
                 childspazieren.setValue(fragebogen.Spazieren);}
+            if(fragebogen.Spazieren_Tag >0){
+                Firebase childspazieren = ref.child("Spazieren_Tag");
+                childspazieren.setValue(fragebogen.Spazieren_Tag);}
+            if(fragebogen.Spazieren_Minuten >0){
+                Firebase childspazieren = ref.child("Spazieren_Minuten");
+                childspazieren.setValue(fragebogen.Spazieren_Minuten);}
 
             if(fragebogen.Gartenarbeit >0){
                 Firebase childgartenarbeit = ref.child("Gartenarbeit");
                 childgartenarbeit.setValue(fragebogen.Gartenarbeit);}
+            if(fragebogen.Gartenarbeit_Tag >0){
+                Firebase childgartenarbeit = ref.child("Gartenarbeit_Tag");
+                childgartenarbeit.setValue(fragebogen.Gartenarbeit_Tag);}
+            if(fragebogen.Gartenarbeit_Minuten >0){
+                Firebase childgartenarbeit = ref.child("Gartenarbeit_Minuten");
+                childgartenarbeit.setValue(fragebogen.Gartenarbeit_Minuten);}
 
             if(fragebogen.Hausarbeit >0){
                 Firebase childhausarbeit = ref.child("Hausarbeit");
                 childhausarbeit.setValue(fragebogen.Hausarbeit);}
+            if(fragebogen.Hausarbeit_Tag >0){
+                Firebase childhausarbeit = ref.child("Hausarbeit_Tag");
+                childhausarbeit.setValue(fragebogen.Hausarbeit_Tag);}
+            if(fragebogen.Hausarbeit_Minuten >0){
+                Firebase childhausarbeit = ref.child("Hausarbeit_Minuten");
+                childhausarbeit.setValue(fragebogen.Hausarbeit_Minuten);}
 
             if(fragebogen.Pflegearbeit >0){
                 Firebase childpflegearbeit = ref.child("Pflegearbeit");
                 childpflegearbeit.setValue(fragebogen.Pflegearbeit);}
+            if(fragebogen.Pflegearbeit_Tag >0){
+                Firebase childpflegearbeit = ref.child("Pflegearbeit_Tag");
+                childpflegearbeit.setValue(fragebogen.Pflegearbeit_Tag);}
+            if(fragebogen.Pflegearbeit_Minuten >0){
+                Firebase childpflegearbeit = ref.child("Pflegearbeit_Minuten");
+                childpflegearbeit.setValue(fragebogen.Pflegearbeit_Minuten);}
 
             if(fragebogen.Treppensteigen >0){
                 Firebase childtreppensteigen = ref.child("Treppensteigen");
                 childtreppensteigen.setValue(fragebogen.Treppensteigen);}
+            if(fragebogen.Treppensteigen_Tag >0){
+                Firebase childtreppensteigen = ref.child("Treppensteigen_Tag");
+                childtreppensteigen.setValue(fragebogen.Treppensteigen_Tag);}
+            if(fragebogen.Treppensteigen_Stockwerke >0){
+                Firebase childtreppensteigen = ref.child("Treppensteigen_Stockwerke");
+                childtreppensteigen.setValue(fragebogen.Treppensteigen_Stockwerke);}
 
             if (fragebogen.Aktivitaet_A_Name.isEmpty()==false){
                 Firebase childaktaname = ref.child("Aktivitaet_A_Name");
@@ -980,20 +1027,13 @@ public class DAL_User {
      * @param user
      * @param fragebogen
      */
-    static public void UpdateFragebogen(User user, Fragebogen fragebogen)
+    public static void UpdateFragebogen(User user, Fragebogen fragebogen)
     {
         try
         {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
 
-/*
-            if(fragebogen.zu_Fuß_zur_Arbeit >0){
-                Firebase childzufußzurarbeittag = ref.child("Zu_Fuß_zur_Arbeit_Tag");
-                childzufußzurarbeittag.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Tag);}
-            if(fragebogen.zu_Fuß_zur_Arbeit >0){
-                Firebase childzufußzurarbeitminuten = ref.child("Zu_Fuß_zur_Arbeit_Minuten");
-                childzufußzurarbeitminuten.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Minuten);}
-*/
+
 
             if(fragebogen.Berufstaetig >=0){
                 Firebase childberufstätig = ref.child("Berufstaetig");
@@ -1015,41 +1055,96 @@ public class DAL_User {
                 Firebase childsportlichaktiv =ref.child("sportlich_aktiv");
                 childsportlichaktiv.setValue(fragebogen.sportlich_aktiv);}
 
-            if(fragebogen.zu_Fuß_zur_Arbeit >0){
-                Firebase childzufußzurarbeit = ref.child("zu_Fuß_zur_Arbeit");
-                childzufußzurarbeit.setValue(fragebogen.zu_Fuß_zur_Arbeit);}
+            if(fragebogen.Zu_Fuß_zur_Arbeit >0){
+                Firebase childzufußzurarbeit = ref.child("Zu_Fuß_zur_Arbeit");
+                childzufußzurarbeit.setValue(fragebogen.Zu_Fuß_zur_Arbeit);}
 
-            if(fragebogen.zu_Fuß_einkaufen >0){
-                Firebase childzufußeinkaufen = ref.child("zu_Fuß_einkaufen");
-                childzufußeinkaufen.setValue(fragebogen.zu_Fuß_einkaufen);}
+            if(fragebogen.Zu_Fuß_zur_Arbeit_Tag >0){
+                Firebase childzufußzurarbeittag = ref.child("Zu_Fuß_zur_Arbeit_Tag");
+                childzufußzurarbeittag.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Tag);}
+            if(fragebogen.Zu_Fuß_zur_Arbeit_Minuten >0){
+                Firebase childzufußzurarbeitminuten = ref.child("Zu_Fuß_zur_Arbeit_Minuten");
+                childzufußzurarbeitminuten.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Minuten);}
+
+            if(fragebogen.Zu_Fuß_einkaufen >0){
+                Firebase childzufußeinkaufen = ref.child("Zu_Fuß_einkaufen");
+                childzufußeinkaufen.setValue(fragebogen.Zu_Fuß_einkaufen);}
+            if(fragebogen.Zu_Fuß_einkaufen_Tag >0){
+                Firebase childzufußeinkaufen = ref.child("Zu_Fuß_einkaufen_Tag");
+                childzufußeinkaufen.setValue(fragebogen.Zu_Fuß_einkaufen_Tag);}
+            if(fragebogen.Zu_Fuß_einkaufen_Minuten >0){
+                Firebase childzufußeinkaufen = ref.child("Zu_Fuß_einkaufen_Minuten");
+                childzufußeinkaufen.setValue(fragebogen.Zu_Fuß_einkaufen_Minuten);}
 
             if (fragebogen.Rad_zur_Arbeit >0){
                 Firebase childradzurarbeit = ref.child("Rad_zur_Arbeit");
                 childradzurarbeit.setValue(fragebogen.Rad_zur_Arbeit);}
+            if (fragebogen.Rad_zur_Arbeit_Tag >0){
+                Firebase childradzurarbeit = ref.child("Rad_zur_Arbeit_Tag");
+                childradzurarbeit.setValue(fragebogen.Rad_zur_Arbeit_Tag);}
+            if (fragebogen.Rad_zur_Arbeit_Minuten >0){
+                Firebase childradzurarbeit = ref.child("Rad_zur_Arbeit_Minuten");
+                childradzurarbeit.setValue(fragebogen.Rad_zur_Arbeit_Minuten);}
 
-            if (fragebogen.Rad_fahren >0){
-                Firebase childradfahren = ref.child("Rad_fahren");
-                childradfahren.setValue(fragebogen.Rad_fahren);}
+            if (fragebogen.Radfahren >0){
+                Firebase childradfahren = ref.child("Radfahren");
+                childradfahren.setValue(fragebogen.Radfahren);}
+            if (fragebogen.Radfahren_Tag >0){
+                Firebase childradfahren = ref.child("Radfahren_Tag");
+                childradfahren.setValue(fragebogen.Radfahren_Tag);}
+            if (fragebogen.Radfahren_Minuten >0){
+                Firebase childradfahren = ref.child("Radfahren_Minuten");
+                childradfahren.setValue(fragebogen.Radfahren_Minuten);}
 
             if(fragebogen.Spazieren >0){
                 Firebase childspazieren = ref.child("Spazieren");
                 childspazieren.setValue(fragebogen.Spazieren);}
+            if(fragebogen.Spazieren_Tag >0){
+                Firebase childspazieren = ref.child("Spazieren_Tag");
+                childspazieren.setValue(fragebogen.Spazieren_Tag);}
+            if(fragebogen.Spazieren_Minuten >0){
+                Firebase childspazieren = ref.child("Spazieren_Minuten");
+                childspazieren.setValue(fragebogen.Spazieren_Minuten);}
 
             if(fragebogen.Gartenarbeit >0){
                 Firebase childgartenarbeit = ref.child("Gartenarbeit");
                 childgartenarbeit.setValue(fragebogen.Gartenarbeit);}
+            if(fragebogen.Gartenarbeit_Tag >0){
+                Firebase childgartenarbeit = ref.child("Gartenarbeit_Tag");
+                childgartenarbeit.setValue(fragebogen.Gartenarbeit_Tag);}
+            if(fragebogen.Gartenarbeit_Minuten >0){
+                Firebase childgartenarbeit = ref.child("Gartenarbeit_Minuten");
+                childgartenarbeit.setValue(fragebogen.Gartenarbeit_Minuten);}
 
             if(fragebogen.Hausarbeit >0){
                 Firebase childhausarbeit = ref.child("Hausarbeit");
                 childhausarbeit.setValue(fragebogen.Hausarbeit);}
+            if(fragebogen.Hausarbeit_Tag >0){
+                Firebase childhausarbeit = ref.child("Hausarbeit_Tag");
+                childhausarbeit.setValue(fragebogen.Hausarbeit_Tag);}
+            if(fragebogen.Hausarbeit_Minuten >0){
+                Firebase childhausarbeit = ref.child("Hausarbeit_Minuten");
+                childhausarbeit.setValue(fragebogen.Hausarbeit_Minuten);}
 
             if(fragebogen.Pflegearbeit >0){
                 Firebase childpflegearbeit = ref.child("Pflegearbeit");
                 childpflegearbeit.setValue(fragebogen.Pflegearbeit);}
+            if(fragebogen.Pflegearbeit_Tag >0){
+                Firebase childpflegearbeit = ref.child("Pflegearbeit_Tag");
+                childpflegearbeit.setValue(fragebogen.Pflegearbeit_Tag);}
+            if(fragebogen.Pflegearbeit_Minuten >0){
+                Firebase childpflegearbeit = ref.child("Pflegearbeit_Minuten");
+                childpflegearbeit.setValue(fragebogen.Pflegearbeit_Minuten);}
 
             if(fragebogen.Treppensteigen >0){
                 Firebase childtreppensteigen = ref.child("Treppensteigen");
                 childtreppensteigen.setValue(fragebogen.Treppensteigen);}
+            if(fragebogen.Treppensteigen_Tag >0){
+                Firebase childtreppensteigen = ref.child("Treppensteigen_Tag");
+                childtreppensteigen.setValue(fragebogen.Treppensteigen_Tag);}
+            if(fragebogen.Treppensteigen_Stockwerke >0){
+                Firebase childtreppensteigen = ref.child("Treppensteigen_Stockwerke");
+                childtreppensteigen.setValue(fragebogen.Treppensteigen_Stockwerke);}
 
             if (fragebogen.Aktivitaet_A_Name.isEmpty()==false){
                 Firebase childaktaname = ref.child("Aktivitaet_A_Name");

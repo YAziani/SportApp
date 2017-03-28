@@ -26,7 +26,6 @@ import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Comparator.UserSortPoints;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Challenges;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
@@ -71,7 +70,6 @@ public class ActivityChallenge extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_challenge);
 
-        //challenge = new Challenge();
 
         // Now read the extra key - exerciseList
         Intent iin = getIntent();
@@ -83,6 +81,7 @@ public class ActivityChallenge extends AppCompatActivity {
             strUSer = new LinkedList<String>();
             DAL_Challenges.getRegisteredUsersToChallenge(this, challenge.getName());
             DAL_RegisteredUsers.getRegisteredUsersChallenge(this);
+            setTitle(challenge.getName());
 
             // read the datetime as this is the unique value in the db for the notification
             String notificationDate =(String) extras.get("NotificationDate");
@@ -135,7 +134,7 @@ public class ActivityChallenge extends AppCompatActivity {
                 " " + getString(R.string.vom) + " " +  sdf.format(challenge.getStartDate()).toString()  + " " +
                 getString(R.string.bisZum) + " " +
                 sdf.format(challenge.getEndDate()).toString() + " \n"
-                + getString(R.string.teilnehmen))
+                + getString(R.string.beitreten))
                 .setPositiveButton(R.string.Ja, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
                         challenge.AddUser(ActivityMain.getMainUser(ActivityChallenge.this));
@@ -202,6 +201,9 @@ public class ActivityChallenge extends AppCompatActivity {
                         addUserDialog.dismiss();
                     }
                 });
+
+            case android.R.id.home:
+                finish();
         }
         return super.onOptionsItemSelected(item);
     }

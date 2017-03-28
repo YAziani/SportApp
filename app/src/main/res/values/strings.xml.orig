@@ -258,7 +258,7 @@
     <string name="MöchtenSieAnDerChallenge">Möchten Sie dieser Challenge</string>
     <string name="vom">vom</string>
     <string name="bisZum">bis zum</string>
-    <string name="beitreten">beitreten?</string>
+    <string name="teilnehmen">teilnehmen?</string>
 
     <!-- ActivityNewChallenge-->
     <string name="WieLangeSolldieChallengeGehen">Wie lange soll die Challenge gehen?</string>
@@ -315,8 +315,13 @@
     <string name="stimmungsbarometer_dgr_text">Sehen Sie, wie sich ihre Stimmung im Laufe der Zeit geändert hat</string>
     <string name="energieeindex_dgr_text">Ihre Fitness hat direkten Einfluss darauf, wie energiereich sie agieren.</string>
     <string name="differenzwert_dgr_text">Sehen Sie den Unterschied vor und nach dem Training</string>
-    <string name="punkteproWoche_dgr_text">Zusammenfassung der Gesamtpunkte, die Sie erreicht haben</string>
+<<<<<<< HEAD
+    <string name="punkteproWoche_dgr_text">Zusammenfassung der Gesamtpunkte die Sie erreicht haben</string>
     <string name="fittnessfragen_dgr_text">Lassen Sie sich ihre Fortschritte anzeigen</string>
+=======
+    <string name="punkteproWoche_dgr_text">Zusammenfassung der Gesamtpunkte, die Sie erreicht haben</string>
+    <string name="fittnessfragen_dgr_text">Lassen Sie sich Ihre Fortschritte anzeigen, in wie weit Sie fitter geworden sind</string>
+>>>>>>> a07674a5f6f98fa14ce5728379de56d386d88075
     <string name="bsa_dgr_text">Durch BSA sehen Sie hier Ihre Fortschritte</string>
     <string name="werte_fuer_stimmungsbarometer">Ihre Werte für Stimmungsbarometer</string>
     <string name="werte_fuer_energieindex">Ihre Werte für Energieindex</string>

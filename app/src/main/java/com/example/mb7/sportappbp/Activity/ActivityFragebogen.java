@@ -10,7 +10,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.v7.app.AlertDialog;
 import android.support.v7.app.AppCompatActivity;
-import android.support.v7.widget.LinearLayoutManager;
 import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
@@ -20,7 +19,6 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mb7.sportappbp.Adapters.BsaFragebogenViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter2;
@@ -34,9 +32,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.net.URL;
 import java.text.SimpleDateFormat;
-import java.util.Collections;
 import java.util.Date;
-import java.util.LinkedList;
 
 
 /**
@@ -48,6 +44,9 @@ public class ActivityFragebogen extends AppCompatActivity {
     private FragebogenViewAdapter2 adapter2;
 
     ProgressDialog pd;
+
+
+
     //Integer Werte für Scoring des Fragebogens
     long scoringbewegungwert;
     long scoringsportwert;
@@ -60,6 +59,27 @@ public class ActivityFragebogen extends AppCompatActivity {
     FragebogenListview lstmäßigebewegung;
     FragebogenListview lstintensivebewegung;
     FragebogenListview lstsportlichaktiv;
+
+    //EditTextFelder
+    EditText zufußzurarbeittag;
+    EditText zufußzurarbeitminuten;
+    EditText zufußeinkaufentag;
+    EditText zufußeinkaufenminuten;
+    EditText radzurarbeittag;
+    EditText readzurarbeitminuten;
+    EditText radfahrentag;
+    EditText radfahrenminuten;
+    EditText spazierentag;
+    EditText spazierenminuten;
+    EditText gartenarbeittag;
+    EditText gartenarbeitminuten;
+    EditText hausarbeittag;
+    EditText hausarbeitminuten;
+    EditText pflgearbeittag;
+    EditText pflegearbeitminuten;
+    EditText treppentag;
+    EditText treppenstockwerke;
+
 
     //Zeitaum für Fragen ab Block 4
     static long wochenzeitraum;
@@ -94,6 +114,7 @@ public class ActivityFragebogen extends AppCompatActivity {
         pd.setMessage(getString( R.string.wird_geladen));
         pd.show();
         getWochenanzahlFromDb();
+
     }
 
     @Override
@@ -132,20 +153,20 @@ public class ActivityFragebogen extends AppCompatActivity {
         //super.onStart();
     }
 
+    /**
+     * Wocehnanzahl für BSA Fragebogen aus DB lesen
+     */
     void getWochenanzahlFromDb() {
 
         try{
-        //URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/bsa/questionaryPeriodweeks");
-        //Firebase root = new Firebase(url.toString());
+
         Firebase root= new Firebase("https://sportapp-cbd6b.firebaseio.com/Administration/bsa/questionaryPeriodweeks");
         root.addValueEventListener(new ValueEventListener() {
 
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                                        //wochenzeitraum=(long)dataSnapshot.getValue();
                                                         wochenzeitraum=convertToLong(dataSnapshot.getValue());
-                                                        //ActivityFragebogen.SetControlCaptions();
                                                         SetControlCaptions();
                                                         pd.dismiss();
                                                     }
@@ -216,6 +237,9 @@ public class ActivityFragebogen extends AppCompatActivity {
         }
     }
 
+    /**
+     * Öffnet Dialog, welcher die Scores anzeigt und bei Bestätigung die Werte in Firebase speichert und bei Abbruch auf den Fragebogen zurück geht.
+     */
     private void speicheralert() {
         AlertDialog.Builder speicherbuilder = new AlertDialog.Builder(this);
         speicherbuilder.setTitle(getString(R.string.Ergebnis));
@@ -243,6 +267,10 @@ public class ActivityFragebogen extends AppCompatActivity {
         speicherbuilder.show();
     }
 
+    /**
+     * Werte für BuisnessLayer Fragebogen setzen.
+     * @return
+     */
     private Fragebogen getData() {
         Fragebogen fragebogen = new Fragebogen();
 
@@ -259,14 +287,30 @@ public class ActivityFragebogen extends AppCompatActivity {
         fragebogen.Gesamtscoring = scoringgesamt();
 
         //Integerwerte mit Anzahl der Minuten pro Woche
-        fragebogen.zu_Fuß_zur_Arbeit = zufußzurarbeit();
+        fragebogen.Zu_Fuß_zur_Arbeit = zufußzurarbeit();
 
-        //fragebogen.Zu_Fuß_zur_Arbeit_Tag=strtoint((EditText) findViewById(R.id.edittextzufußzurarbeittag));
-        //fragebogen.Zu_Fuß_zur_Arbeit_Minuten=strtoint((EditText) findViewById(R.id.edittextzufußzurarbeitminuten));
+        fragebogen.Zu_Fuß_zur_Arbeit_Tag=strtoint((EditText) findViewById(R.id.edittextzufußzurarbeittag));
+        fragebogen.Zu_Fuß_zur_Arbeit_Minuten=strtoint((EditText) findViewById(R.id.edittextzufußzurarbeitminuten));
+        fragebogen.Zu_Fuß_einkaufen_Tag =strtoint((EditText) findViewById(R.id.edittextzufußzumeinkaufentag));
+        fragebogen.Zu_Fuß_einkaufen_Minuten =strtoint((EditText) findViewById(R.id.edittextzufußzumeinkaufenminuten));
+        fragebogen.Rad_zur_Arbeit_Tag=strtoint((EditText) findViewById(R.id.edittextradzurarbeittag));
+        fragebogen.Rad_zur_Arbeit_Minuten=strtoint((EditText) findViewById(R.id.edittextradzurarbeitminuten));
+        fragebogen.Radfahren_Tag=strtoint((EditText) findViewById(R.id.edittextradfahrentag));
+        fragebogen.Radfahren_Minuten=strtoint((EditText) findViewById(R.id.edittextradfahrenminuten));
+        fragebogen.Spazieren_Tag=strtoint((EditText) findViewById(R.id.edittextspazierentag));
+        fragebogen.Spazieren_Minuten=strtoint((EditText) findViewById(R.id.edittextspazierenminuten));
+        fragebogen.Gartenarbeit_Tag=strtoint((EditText) findViewById(R.id.edittextgartenarbeittag));
+        fragebogen.Gartenarbeit_Minuten=strtoint((EditText) findViewById(R.id.edittextgartenarbeitminuten));
+        fragebogen.Hausarbeit_Tag=strtoint((EditText) findViewById(R.id.edittexthausarbeittag));
+        fragebogen.Hausarbeit_Minuten=strtoint((EditText) findViewById(R.id.edittexthausarbeitminuten));
+        fragebogen.Pflegearbeit_Tag=strtoint((EditText) findViewById(R.id.edittextpflegearbeittag));
+        fragebogen.Pflegearbeit_Minuten=strtoint((EditText) findViewById(R.id.edittextpflegearbeitminuten));
+        fragebogen.Treppensteigen_Tag=strtoint((EditText) findViewById(R.id.edittexttreppensteigentag));
+        fragebogen.Treppensteigen_Stockwerke=strtoint((EditText) findViewById(R.id.edittexttreppensteigenstockwerke));
 
-        fragebogen.zu_Fuß_einkaufen = zufußeinkaufen();
+        fragebogen.Zu_Fuß_einkaufen = zufußeinkaufen();
         fragebogen.Rad_zur_Arbeit = radzurarbeit();
-        fragebogen.Rad_fahren = radfahren();
+        fragebogen.Radfahren = radfahren();
         fragebogen.Spazieren = spazieren();
         fragebogen.Gartenarbeit = gartenarbeit();
         fragebogen.Hausarbeit = hausarbeit();
@@ -325,10 +369,39 @@ public class ActivityFragebogen extends AppCompatActivity {
         lstintensivebewegung = (FragebogenListview) findViewById(R.id.lvintensivebewegung);
         lstsportlichaktiv = (FragebogenListview) findViewById(R.id.lvsportlichaktiv);
 
+        zufußzurarbeittag = (EditText) findViewById(R.id.edittextzufußzurarbeittag);
+        zufußzurarbeitminuten = (EditText) findViewById(R.id.edittextzufußzurarbeitminuten);
+        zufußeinkaufentag= (EditText) findViewById(R.id.edittextzufußzumeinkaufentag);
+        zufußeinkaufenminuten= (EditText) findViewById(R.id.edittextzufußzumeinkaufenminuten);
+        radzurarbeittag= (EditText) findViewById(R.id.edittextradzurarbeittag);
+        readzurarbeitminuten= (EditText) findViewById(R.id.edittextradzurarbeitminuten);
+        radfahrentag= (EditText) findViewById(R.id.edittextradfahrentag);
+        radfahrenminuten= (EditText) findViewById(R.id.edittextradfahrenminuten);
+        spazierentag= (EditText) findViewById(R.id.edittextspazierentag);
+        spazierenminuten= (EditText) findViewById(R.id.edittextspazierenminuten);
+        gartenarbeittag= (EditText) findViewById(R.id.edittextgartenarbeittag);
+        gartenarbeitminuten= (EditText) findViewById(R.id.edittextgartenarbeitminuten);
+        hausarbeittag=(EditText) findViewById(R.id.edittexthausarbeittag);
+        hausarbeitminuten=(EditText) findViewById(R.id.edittexthausarbeitminuten);
+        pflgearbeittag= (EditText) findViewById(R.id.edittextpflegearbeittag);
+        pflegearbeitminuten= (EditText) findViewById(R.id.edittextpflegearbeitminuten);
+        treppentag= (EditText) findViewById(R.id.edittexttreppensteigentag);
+        treppenstockwerke= (EditText) findViewById(R.id.edittexttreppensteigenstockwerke);
+
+        EditText aktaname= (EditText) findViewById(R.id.edittextaktivitäta);
+        EditText aktaeinheit= (EditText) findViewById(R.id.edittextaktivitätaanzahl);
+        EditText aktaminunten= (EditText) findViewById(R.id.edittextaktivitätaminuten);
+        EditText aktbname= (EditText) findViewById(R.id.edittextaktivitätb);
+        EditText aktbeinheit= (EditText) findViewById(R.id.edittextaktivitätbanzahl);
+        EditText aktbminunten= (EditText) findViewById(R.id.edittextaktivitätbminuten);
+        EditText aktcname= (EditText) findViewById(R.id.edittextaktivitätc);
+        EditText aktceinheit= (EditText) findViewById(R.id.edittextaktivitätcanzahl);
+        EditText aktcminunten= (EditText) findViewById(R.id.edittextaktivitätcminuten);
+
         //Adapter setzen
         adapter = new FragebogenViewAdapter(this);
         adapter.setAntworten(fragebogen,getString(R.string.Sind_Sie_berufstaetig_oder_in_Ausbildung));
-        adapter.setSelectedIndex(fragebogen!=null && fragebogen.Berufstaetig !=null? fragebogen.Berufstaetig :-1);
+        adapter.setSelectedIndex(fragebogen!=null && fragebogen.Berufstaetig!=null? fragebogen.Berufstaetig:-1);
         lstberufstätig.setAdapter(adapter);
 
         adapter2 = new FragebogenViewAdapter2(this);
@@ -351,23 +424,67 @@ public class ActivityFragebogen extends AppCompatActivity {
         adapter.setSelectedIndex(fragebogen!=null && fragebogen.sportlich_aktiv !=null? fragebogen.sportlich_aktiv :-1);
         lstsportlichaktiv.setAdapter(adapter);
 
-        /*
+
         if (!INSERT) {
-            EditText zufußzurarbeittag = (EditText) findViewById(R.id.edittextzufußzurarbeittag);
-            EditText zufußzurarbeitminuten = (EditText) findViewById(R.id.edittextzufußzurarbeitminuten);
+            if (fragebogen.Zu_Fuß_zur_Arbeit_Tag!=null)
+            zufußzurarbeittag.setText(String.valueOf(fragebogen.Zu_Fuß_zur_Arbeit_Tag));
+            if (fragebogen.Zu_Fuß_zur_Arbeit_Minuten!=null)
+            zufußzurarbeitminuten.setText(String.valueOf(fragebogen.Zu_Fuß_zur_Arbeit_Minuten));
+            if (fragebogen.Zu_Fuß_einkaufen_Tag!=null)
+            zufußeinkaufentag.setText(String.valueOf(fragebogen.Zu_Fuß_einkaufen_Tag));
+            if (fragebogen.Zu_Fuß_einkaufen_Minuten!=null)
+            zufußeinkaufenminuten.setText(String.valueOf(fragebogen.Zu_Fuß_einkaufen_Minuten));
+            if (fragebogen.Rad_zur_Arbeit_Tag!=null)
+            radzurarbeittag.setText(String.valueOf(fragebogen.Rad_zur_Arbeit_Tag));
+            if (fragebogen.Rad_zur_Arbeit_Minuten!=null)
+            readzurarbeitminuten.setText(String.valueOf(fragebogen.Rad_zur_Arbeit_Minuten));
+            if (fragebogen.Radfahren_Tag!=null)
+            radfahrentag.setText(String.valueOf(fragebogen.Radfahren_Tag));
+            if (fragebogen.Radfahren_Minuten!=null)
+            radfahrenminuten.setText(String.valueOf(fragebogen.Radfahren_Minuten));
+            if (fragebogen.Spazieren_Tag!=null)
+            spazierentag.setText(String.valueOf(fragebogen.Spazieren_Tag));
+            if (fragebogen.Spazieren_Minuten!=null)
+            spazierenminuten.setText(String.valueOf(fragebogen.Spazieren_Minuten));
+            if (fragebogen.Gartenarbeit_Tag!=null)
+            gartenarbeittag.setText(String.valueOf(fragebogen.Gartenarbeit_Tag));
+            if (fragebogen.Gartenarbeit_Minuten!=null)
+            gartenarbeitminuten.setText(String.valueOf(fragebogen.Gartenarbeit_Minuten));
+            if (fragebogen.Hausarbeit_Tag!=null)
+            hausarbeittag.setText(String.valueOf(fragebogen.Hausarbeit_Tag));
+            if (fragebogen.Hausarbeit_Minuten!=null)
+            hausarbeitminuten.setText(String.valueOf(fragebogen.Hausarbeit_Minuten));
+            if (fragebogen.Pflegearbeit_Tag!=null)
+            pflgearbeittag.setText(String.valueOf(fragebogen.Pflegearbeit_Tag));
+            if (fragebogen.Pflegearbeit_Minuten!=null)
+            pflegearbeitminuten.setText(String.valueOf(fragebogen.Pflegearbeit_Minuten));
+            if (fragebogen.Treppensteigen_Tag!=null)
+            treppentag.setText(String.valueOf(fragebogen.Treppensteigen_Tag));
+            if (fragebogen.Treppensteigen_Stockwerke!=null)
+            treppenstockwerke.setText(String.valueOf(fragebogen.Treppensteigen_Stockwerke));
 
-            if (fragebogen.Zu_Fuß_zur_Arbeit_Tag != null && fragebogen.Zu_Fuß_zur_Arbeit_Minuten!=null)
-            {zufußzurarbeittag.setText(antwortendb.Zu_Fuß_zur_Arbeit_Tag);
-             zufußzurarbeitminuten.setText(antwortendb.Zu_Fuß_zur_Arbeit_Minuten); }
-    */
 
-    /*
-     if (antwortendb.Zu_Fuß_zur_Arbeit_Tag!=null)
-         zufußzurarbeittag.setText(antwortendb.Zu_Fuß_zur_Arbeit_Tag);
+            if (fragebogen.Aktivitaet_A_Name!=null)
+                aktaname.setText(String.valueOf(fragebogen.Aktivitaet_A_Name));
+            if (fragebogen.Aktivitaet_A_Einheiten!=null)
+                aktaeinheit.setText(String.valueOf(fragebogen.Aktivitaet_A_Einheiten));
+            if (fragebogen.Aktivitaet_A_Minuten!=null)
+                aktaminunten.setText(String.valueOf(fragebogen.Aktivitaet_A_Minuten));
+            if (fragebogen.Aktivitaet_B_Name!=null)
+                aktbname.setText(String.valueOf(fragebogen.Aktivitaet_B_Name));
+            if (fragebogen.Aktivitaet_B_Einheiten!=null)
+                aktbeinheit.setText(String.valueOf(fragebogen.Aktivitaet_B_Einheiten));
+            if (fragebogen.Aktivitaet_B_Minuten!=null)
+                aktbminunten.setText(String.valueOf(fragebogen.Aktivitaet_B_Minuten));
+            if (fragebogen.Aktivitaet_C_Name!=null)
+                aktcname.setText(String.valueOf(fragebogen.Aktivitaet_C_Name));
+            if (fragebogen.Aktivitaet_C_Einheiten!=null)
+                aktceinheit.setText(String.valueOf(fragebogen.Aktivitaet_C_Einheiten));
+            if (fragebogen.Aktivitaet_C_Minuten!=null)
+                aktcminunten.setText(String.valueOf(fragebogen.Aktivitaet_C_Minuten));
+            }
 
 
-        }
-*/
         // set the onTouch Event to disable scrolling
         //lstberufstätig.Initialize();
         lstsitzendetätigkeiten.InitializeBSA();
@@ -696,6 +813,8 @@ public class ActivityFragebogen extends AppCompatActivity {
                                                    fragebogendb.FirebaseDate = sDate;
                                                    fragebogendb.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString( sDate);
                                                    antwortendb=fragebogendb;
+
+
 
                                                }
 

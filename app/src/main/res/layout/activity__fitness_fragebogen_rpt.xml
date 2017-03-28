@@ -1,0 +1,56 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:paddingBottom="@dimen/activity_vertical_margin"
+    android:paddingLeft="25dp"
+    android:paddingRight="25dp"
+    android:paddingTop="@dimen/activity_vertical_margin"
+    tools:context=".Activity.Activity_FitnessFragebogen_rpt">
+
+    <com.github.mikephil.charting.charts.LineChart
+        android:layout_width="match_parent"
+        android:layout_height="400dp"
+        android:id="@+id/lineChart"></com.github.mikephil.charting.charts.LineChart>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#de0d0d"
+        android:text="@string/ausdauer"
+        android:layout_below="@id/lineChart"/>
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#073cda"
+        android:text="@string/beweglichkeit"
+        android:layout_below="@id/textView11"/>
+
+    <TextView
+        android:id="@+id/textView23"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#07da23"
+        android:text="@string/gesagmtewerte"
+        android:layout_below="@id/textView22"/>
+
+    <TextView
+        android:id="@+id/textView28"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#FFFF00FF"
+        android:text="@string/kooridination"
+        android:layout_below="@id/textView23"/>
+
+    <TextView
+        android:id="@+id/textView29"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#38f5ec"
+        android:text="@string/kraft"
+        android:layout_below="@id/textView28"/>
+</RelativeLayout>

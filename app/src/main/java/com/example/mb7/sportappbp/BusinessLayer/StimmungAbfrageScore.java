@@ -6,6 +6,7 @@ package com.example.mb7.sportappbp.BusinessLayer;
 
 public class StimmungAbfrageScore {
     public String Date;
+    public String FirebaseDate;
     public Integer AngespanntScore;
     public Integer TraurigScore;
     public Integer TatkraeftigScore;
@@ -16,4 +17,7 @@ public class StimmungAbfrageScore {
     public Integer MitteilsamScore;
     public Integer StimmungsBarometerScore;
     public float EnergieIndexScore;
+    public  String Time;
+    public Boolean Vor;
+
 }

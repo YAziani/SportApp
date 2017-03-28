@@ -71,18 +71,10 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
                 Vor  =((String) extras.get("Vor")).equals("1")?true:false;
 
             stimmungsAngabe = (StimmungsAngabe) iin.getSerializableExtra(getString(R.string.stimmungsabgabe));
+
             if (stimmungsAngabe != null)
             {
                 INSERT = false;
-
-               /* lstAngespannt.
-                        Integer mActivePosition = 2;
-                lstAngespannt.requestFocusFromTouch();
-                lstAngespannt.setSelection(mActivePosition);
-                lstAngespannt.performItemClick(
-                        lstAngespannt.getAdapter().getView(mActivePosition, null, null),
-                        mActivePosition,
-                        lstAngespannt.getAdapter().getItemId(mActivePosition));*/
             }
 
             // now we have delete this notification from the db cause it is read if there has been any
@@ -141,9 +133,9 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         //check which icon was hidden in the toolbar
         switch (item.getItemId()){
             case R.id.icon_save:
-                SaveData();
+                if (SaveData())
+                    Toast.makeText(this,getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_SHORT).show();
                 finish();
-                Toast.makeText(this,getString( R.string.Erfolgreich_gespeichert),Toast.LENGTH_SHORT).show();
                 return super.onOptionsItemSelected(item);
 
             case android.R.id.home:
@@ -159,6 +151,21 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
     }
 
 
+    private boolean containsDate()
+    {
+        if(
+                lstAngespannt.getIndex() == -1 &&
+                        lstMittelsam.getIndex() == -1 &&
+                        lstMuede.getIndex() == -1 &&
+                        lstSelbstsicher.getIndex() == -1 &&
+                        lstTatkraeftig.getIndex() == -1 &&
+                        lstTraurig.getIndex() == -1 &&
+                        lstWuetend.getIndex() == -1 &&
+                        lstZerstreut.getIndex() == -1
+                )
+            return false;
+        return true;
+    }
     private StimmungsAngabe getData()
     {
         StimmungsAngabe stimmungsAngabe = new StimmungsAngabe();
@@ -199,6 +206,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         stimmungAbfrageScore.MitteilsamScore=MitteilsamScore();
         stimmungAbfrageScore.StimmungsBarometerScore=StimmungsbarometerScore();
         stimmungAbfrageScore.EnergieIndexScore=EnergieIndex();
+        stimmungAbfrageScore.Vor = Vor;
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
         stimmungAbfrageScore.Date = sdf.format(new Date());
         return stimmungAbfrageScore;
@@ -206,13 +214,27 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
 
     private boolean SaveData()
     {
-        StimmungAbfrageScore stimmungAbfrageScore = getDataScore();
-        ActivityMain.getMainUser(this).SaveStimmungScore(stimmungAbfrageScore, new Date());
+        // first check if it contains data
+        if(!containsDate())
+            return false;
         StimmungsAngabe stimmungAbfrage  = getData();
-        if (INSERT)
+        StimmungAbfrageScore stimmungAbfrageScore = getDataScore();
+
+        if (INSERT) {
+            // sync date and time
+            stimmungAbfrageScore.Date = stimmungAbfrage.Date;
+            stimmungAbfrageScore.Time = stimmungAbfrage.Time;
             ActivityMain.getMainUser(this).InsertStimmung(stimmungAbfrage);
-        else
+            ActivityMain.getMainUser(this).InsertStimmungScore(stimmungAbfrageScore);
+        }
+        else {
+
+            stimmungAbfrageScore.Date = stimmungAbfrage.Date;
+            stimmungAbfrageScore.Time = stimmungAbfrage.Time;
             ActivityMain.getMainUser(this).UpdateStimmung(stimmungAbfrage);
+            ActivityMain.getMainUser(this).UpdateStimmungScore(stimmungAbfrageScore);
+
+        }
 
         return true;
     }

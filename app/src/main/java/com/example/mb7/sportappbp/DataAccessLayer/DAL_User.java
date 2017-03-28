@@ -1231,7 +1231,7 @@ public class DAL_User {
         try
         {
             // setting up url for the database
-            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/" + "users/" + user.getName() + "/methodRatings");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/methodRatings");
             Firebase root = new Firebase(url.toString());
             Firebase child;
             // insert ratings for each method
@@ -1254,7 +1254,7 @@ public class DAL_User {
         try
         {
             // setting up url for the database
-            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/" + "/Administration/assignment/altern/" + alternGroup + "/groups/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/assignment/altern/" + alternGroup + "/groups/");
             Firebase root = new Firebase(url.toString());
             // update group values
             root.child(currentActiveGroup).child("groupactive").setValue(false);
@@ -1297,7 +1297,7 @@ public class DAL_User {
      */
     public static void RemoveChallenge(User user, Challenge challenge){
 
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + user.getName() + "/Challenges/" );
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Challenges/" );
         ref.child(challenge.getName()).removeValue();
     }
 

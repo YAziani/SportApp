@@ -62,7 +62,7 @@ public class ActivityMain extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout tabLayout;
     private final String mainColor = "#2648FF";
-    private   static  User mainUser ;
+    private   static  User mainUser;
     private SharedPreferences preferences;
 
 
@@ -104,6 +104,9 @@ public class ActivityMain extends AppCompatActivity {
             DAL_Allocation.getAllocation(this);
         }
 
+        // load intensifier plan for notifications
+        DAL_Allocation.getIntensifier(this);
+
         if(preferences.getString("allocatedMethods","").equals("")) {
             // choose motivation methods depending on administrator settings
             DAL_Allocation.getAllocation(this);
@@ -113,7 +116,7 @@ public class ActivityMain extends AppCompatActivity {
                 "bsaQuestionary;fitnessQuestionary;groupactive;moodquery;motivationimages;motivationtexts;trainingreminder"
                 ).apply();
 
-        // login
+        // show login if user is not logged in
         if(preferences.getString("logedIn","").equals("")) {
             Intent loginIntent = new Intent(this,ActivityLogin.class);
             startActivity(loginIntent);
@@ -330,16 +333,6 @@ public class ActivityMain extends AppCompatActivity {
                 mSectionsPagerAdapter.getItem(startTab).onStart();
             }
         }
-    }
-
-    /**
-     * create a new user
-     * @param username the users username
-     */
-    public User createUser(String username) {
-        mainUser = User.Create(username);
-        preferences.edit().putString("logedIn",username).commit();
-        return mainUser;
     }
 
 

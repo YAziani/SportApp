@@ -28,7 +28,7 @@ public class DAL_Challenges {
             final ActivityNewChallenge activity) {
         // access data in database and hand it to activity
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/Challenges/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "Challenges/");
             Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -56,7 +56,7 @@ public class DAL_Challenges {
             final ActivityChallenge activity, String challengeName) {
         // access data in database and hand it to activity
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/Challenges/" + challengeName + "/Users/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "Challenges/" + challengeName + "/Users/");
             Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -85,7 +85,7 @@ public class DAL_Challenges {
             final ActivityChallenge activity) {
         // access data in database and hand it to activity
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/Challenges/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "Challenges/");
             Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -198,7 +198,7 @@ public class DAL_Challenges {
      */
     public static void RemoveUser(User user, Challenge challenge){
 
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "Challenges/" + challenge.getName() + "/Users/");
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "Challenges/" + challenge.getName() + "/Users/");
         ref.child(user.getName()).removeValue();
     }
 

@@ -10,11 +10,9 @@ import android.util.Log;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.ListView;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Adapters.NotificationAdapter;
-import com.example.mb7.sportappbp.Adapters.NotificationViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
@@ -25,7 +23,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.net.URL;
-import java.util.Arrays;
+import java.sql.SQLOutput;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
@@ -38,8 +36,6 @@ import java.util.List;
 public class TbNotificationContent extends TabFragment {
 
     List<Notification> notifications;
-    ListView lst;
-    NotificationViewAdapter adapter;
     RecyclerView rv;
     View view;
     ProgressDialog pd;
@@ -93,9 +89,13 @@ public class TbNotificationContent extends TabFragment {
 
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    String  strKey = "";
+
+                    if(!TbNotificationContent.this.isAdded()) {
+                        return;
+                    }
+
                     // dataSnapshot.getKey() declares which strategy the notification belongs to (Stimmungsabgabe....)
-                    notifications = new LinkedList<Notification>();
+                    notifications = new LinkedList<>();
                     // the child.key of dataSnapshop declare the unique datetime of the notification
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         String title = child.getKey();
@@ -103,8 +103,12 @@ public class TbNotificationContent extends TabFragment {
                         {
                             Date date = DAL_Utilities.ConvertFirebaseStringToDateTime(dates.getKey());
 
+                            if(dates.child("subText").getValue() == null) {
+                                continue;
+                            }
+
                             // Now we can read for each unique datetime the text
-                            String subtext = ((DataSnapshot) dates).child("subText").getValue().toString();
+                            String subtext = dates.child("subText").getValue().toString();
 
                             Notification notification = null;
                             // Now create our Notifications

@@ -30,7 +30,7 @@ public class DAL_Allocation {
 
         // access data in database and hand it to MethodChooser
         try {
-            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/" + "/Administration/assignment/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/assignment/");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -53,7 +53,7 @@ public class DAL_Allocation {
     public static void getIntensifier(final Context context) {
         try {
 
-            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/Administration/ruleintensifier/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/ruleintensifier/");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

@@ -122,15 +122,14 @@ public class Challenge implements Serializable {
      */
     public int getPositionOfTheChallenge(User user){
         sortUserList();
-        int  i = 0;
+        int  i = 1;
         for(User p : userList){
-            i++;
+
             if(p.getName().equals(user.getName()))
                 return i;
-
-
+            i++;
         }
-        return 0;
+        return 1;
     }
 
     /**

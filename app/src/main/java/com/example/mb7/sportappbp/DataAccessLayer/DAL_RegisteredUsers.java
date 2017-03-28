@@ -58,7 +58,7 @@ public class DAL_RegisteredUsers {
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "/users");
             Firebase root = new Firebase(url.toString());
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
+            root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     activity.returnRegisteredUsers(dataSnapshot);
@@ -86,7 +86,7 @@ public class DAL_RegisteredUsers {
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "/users");
             Firebase root = new Firebase(url.toString());
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
+            root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     activity.returnRegisteredUsers(dataSnapshot);

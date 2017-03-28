@@ -23,6 +23,8 @@ public class ObserverBsaFragebogen extends Observer {
      */
     @Override
     public void update(Context context) {
+        this.context=context;
+        preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         // check if method allocated
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
@@ -30,13 +32,12 @@ public class ObserverBsaFragebogen extends Observer {
             return;
         }
 
-        this.context = context;
-
+        shouldNotify();
     }
 
 
       /**
-     * show Notification if we are in the interval [trainingtime - abstand, trainingtime]
+     * show Notification 
      * if it is show notification and save that you have showed it in the preferences to not repeat it for the same event
      * @return
      */

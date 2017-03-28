@@ -131,7 +131,7 @@ public class ObserverChallengeInvitation extends Observer {
                                 ;
                                 // send notification
 
-                                sendNotification(context, context.getString(R.string.Challenge),
+                                sendNotification(context,"Einladung " + context.getString(R.string.Challenge),
                                         ActivityChallenge.class ,
                                         context.getString(R.string.Challenge) ,
                                         context.getString(R.string.ntf_ChallengeEinladung),

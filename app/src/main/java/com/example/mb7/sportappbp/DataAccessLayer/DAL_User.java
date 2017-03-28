@@ -863,6 +863,15 @@ public class DAL_User {
             if(fragebogen.zu_Fuß_zur_Arbeit >0){
                 Firebase childzufußzurarbeit = ref.child("zu_Fuß_zur_Arbeit");
                 childzufußzurarbeit.setValue(fragebogen.zu_Fuß_zur_Arbeit);}
+/*
+            if(fragebogen.zu_Fuß_zur_Arbeit >0){
+                Firebase childzufußzurarbeittag = ref.child("Zu_Fuß_zur_Arbeit_Tag");
+                childzufußzurarbeittag.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Tag);}
+            if(fragebogen.zu_Fuß_zur_Arbeit >0){
+                Firebase childzufußzurarbeitminuten = ref.child("Zu_Fuß_zur_Arbeit_Minuten");
+                childzufußzurarbeitminuten.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Minuten);}
+*/
+
 
             if(fragebogen.zu_Fuß_einkaufen >0){
                 Firebase childzufußeinkaufen = ref.child("zu_Fuß_einkaufen");
@@ -977,6 +986,14 @@ public class DAL_User {
         {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +fragebogen.Date  );
 
+/*
+            if(fragebogen.zu_Fuß_zur_Arbeit >0){
+                Firebase childzufußzurarbeittag = ref.child("Zu_Fuß_zur_Arbeit_Tag");
+                childzufußzurarbeittag.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Tag);}
+            if(fragebogen.zu_Fuß_zur_Arbeit >0){
+                Firebase childzufußzurarbeitminuten = ref.child("Zu_Fuß_zur_Arbeit_Minuten");
+                childzufußzurarbeitminuten.setValue(fragebogen.Zu_Fuß_zur_Arbeit_Minuten);}
+*/
 
             if(fragebogen.Berufstaetig >=0){
                 Firebase childberufstätig = ref.child("Berufstaetig");

@@ -64,7 +64,7 @@ public class ActivityMain extends AppCompatActivity {
     private final String mainColor = "#2648FF";
     private   static  User mainUser ;
     private SharedPreferences preferences;
-    private FloatingActionButton fab1;
+
 
     public static User getMainUser(Context context){
         if (mainUser == null)

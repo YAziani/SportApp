@@ -105,7 +105,7 @@ public class ObserverTrainingReminder extends Observer {
             if(!getNextTrainingTimeString(context).equals("")) {
                 preferences = PreferenceManager.getDefaultSharedPreferences(context);
                 // update studio location
-                compareStudioPosition(preferences.getString("Studioadresse", ""));
+                compareStudioPosition(preferences.getString("Studioadresse", ""),context);
                 if(!(studioAddress == null) && !(userAddress == null)) {
                     // if necessary, notify user
                     if (checkNecessityOfNotification(getNextTrainingTimeString(context))) {
@@ -232,12 +232,13 @@ public class ObserverTrainingReminder extends Observer {
 
     /**
      * determines the address object of the given address and returns it for comparing
-     * @param givenPosition: the user entered name of the studio address
+     * @param givenPosition the user entered name of the studio address
+     * @param compareContext the context to hand to the GeoCoder
      * @return address object matching the user given address the most
      */
-    private String compareStudioPosition(String givenPosition) {
+    public static String compareStudioPosition(String givenPosition, Context compareContext) {
         List<Address> determinedAddresses = null;
-        Geocoder geocoder = new Geocoder(context, Locale.getDefault());
+        Geocoder geocoder = new Geocoder(compareContext, Locale.getDefault());
 
         // determine the address matching the given address the most
         try {
@@ -255,7 +256,8 @@ public class ObserverTrainingReminder extends Observer {
             studioLocation.setLatitude(studioAddress.getLatitude());
             studioLocation.setLongitude(studioAddress.getLongitude());
             return determinedAddresses.get(0).getAddressLine(0)
-                    + ", " + determinedAddresses.get(0).getLocality();
+                    + ", " + determinedAddresses.get(0).getPostalCode()
+                    + " " + determinedAddresses.get(0).getLocality();
         }else {
             System.err.println("ATTENTION: studio address could not be determined");
             return null;
@@ -267,7 +269,6 @@ public class ObserverTrainingReminder extends Observer {
      * @return distance in meter
      */
     private float getDistanceToStudio() {
-        // 2 * squareroot(2) = 2.8284f
         // approximate distance compared to beeline about 125%
         float cityBlockFactor = 1.25f;
 

@@ -33,7 +33,7 @@ import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Fragments.RadioButtonFragment;
 import com.example.mb7.sportappbp.Fragments.TimePickerFragment;
-import com.example.mb7.sportappbp.MotivationMethods.TrainingReminder;
+import com.example.mb7.sportappbp.Observe.ObserverTrainingReminder;
 import com.example.mb7.sportappbp.R;
 
 import java.util.Collections;
@@ -56,15 +56,11 @@ public class ActivitySettingInitializer extends AppCompatActivity {
     LinkedList<LinkedList<String>> inputList;
     SharedPreferences sharedPreferences;
     SharedPreferences.Editor editor;
-    TrainingReminder trainingReminder;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_setting_initializer);
-
-        // setup trainingReminder for studio address comparison
-        trainingReminder = new TrainingReminder(this);
 
         // setup preferences file
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
@@ -220,10 +216,15 @@ public class ActivitySettingInitializer extends AppCompatActivity {
                         AlertDialog.Builder builder = new AlertDialog.Builder(ActivitySettingInitializer.this);
                         builder.setTitle(getString(R.string.siaddyouraddress));
                         builder.setCancelable(true);
-                        // set up the input
+                        // set up the input field
                         final EditText input = new EditText(ActivitySettingInitializer.this);
                         input.setHint(getString(R.string.sihint));
                         input.setTextColor(Color.argb(255,0,0,0));
+                        String currentStudioAddress = sharedPreferences.getString(textArray[7],"");
+                        // put old address into input field if an old one exists
+                        if(!currentStudioAddress.equals("")) {
+                            input.setText(currentStudioAddress);
+                        }
                         // specify the type of input
                         input.setInputType(InputType.TYPE_CLASS_TEXT);
                         builder.setView(input);
@@ -301,7 +302,7 @@ public class ActivitySettingInitializer extends AppCompatActivity {
             editor.remove(textArray[userChoiceIndex]);
         }else {
             // determine next fitting address and put it into the displayed array and into preferences
-            address = trainingReminder.compareStudioPosition(address);
+            address = ObserverTrainingReminder.compareStudioPosition(address,this);
             if(address != null) {
                 studioAddress = address;
                 editor.putString(textArray[userChoiceIndex], address);

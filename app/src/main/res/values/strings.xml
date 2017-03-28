@@ -301,8 +301,8 @@
     <string name="punkteproWoche_dgr_ttl">Trainingsdiagramm</string>
     <string name="fitnessfragen_dgr_ttl">Diagramm über Fitnesszustand</string>
     <string name="bsa_dgr_ttl">BSA Diagramm</string>
-    <string name="stimmungsbarometer_dgr_text">Sehen Sie, wie sich ihre Stimmung im Laufe der Zeit geändert hat</string>
-    <string name="energieeindex_dgr_text">Ihre Fitness hat direkten Einfluss darauf, wie energiereich sie agieren.</string>
+    <string name="stimmungsbarometer_dgr_text">Sehen Sie, wie sich Ihre Stimmung im Laufe der Zeit geändert hat</string>
+    <string name="energieeindex_dgr_text">Ihre Fitness hat direkten Einfluss darauf, wie energiereich Sie agieren.</string>
     <string name="differenzwert_dgr_text">Sehen Sie den Unterschied vor und nach dem Training</string>
     <string name="punkteproWoche_dgr_text">Zusammenfassung der Gesamtpunkte, die Sie erreicht haben</string>
     <string name="fittnessfragen_dgr_text">Lassen Sie sich Ihre Fortschritte anzeigen, in wie weit Sie fitter geworden sind</string>

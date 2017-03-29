@@ -391,7 +391,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             if (fragebogen.Treppensteigen_Stockwerke != null)
                 treppenstockwerke.setText(String.valueOf(fragebogen.Treppensteigen_Stockwerke));
 
-            if (fragebogen.Aktivitaet_A_Name != null)
+            if (fragebogen.Aktivitaet_A_Name != null )
                 aktaname.setText(String.valueOf(fragebogen.Aktivitaet_A_Name));
             if (fragebogen.Aktivitaet_A_Einheiten != null)
                 aktaeinheit.setText(String.valueOf(fragebogen.Aktivitaet_A_Einheiten));

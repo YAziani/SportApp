@@ -18,6 +18,7 @@ import android.widget.Toast;
 import com.example.mb7.sportappbp.Adapters.StimmungsViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrageScore;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.StimmungListview;
 import com.firebase.client.Firebase;
@@ -84,7 +85,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
                 removeNofiication(this, notificationDate);
         }
 
-        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
+        mRootRef = new Firebase(DAL_Utilities.DatabaseURL + "users");
         this.InitializeControlls();
         this.SetControlCaptions();
 
@@ -106,7 +107,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
         // build the current URL
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + preferences.getString
                 ("logedIn", "") + "/Notifications/");
         ref.child(context.getString(R.string.stimmungsabgabe)).child(notificationDate).removeValue();
 

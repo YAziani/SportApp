@@ -105,7 +105,10 @@ public class ActivityFragebogen extends AppCompatActivity {
             if (notificationDate != null)
                 removeNofiication(this, notificationDate);
         }
-        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
+
+        mRootRef = new Firebase(DAL_Utilities.DatabaseURL +  "users");
+
+
         this.InitializeControlls();
     }
 
@@ -141,7 +144,9 @@ public class ActivityFragebogen extends AppCompatActivity {
 
     void removeNofiication(Context context, String notificationDate) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+
+        // build the current URL
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + preferences.getString
                 ("logedIn", "") + "/Notifications/");
         ref.child(context.getString(R.string.aktivitaetsfragebogen)).child(notificationDate).removeValue();
     }

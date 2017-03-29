@@ -102,7 +102,7 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
      * @param fragebogen the object to delete
      */
     private void deleteFragebogen(Fragebogen fragebogen) {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + ActivityMain.getMainUser
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser
                 (this).getName() + "/BSAFragebogen/");
         ref.child(fragebogen.FirebaseDate).removeValue();
     }

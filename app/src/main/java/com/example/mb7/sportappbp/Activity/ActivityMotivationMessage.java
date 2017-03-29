@@ -18,6 +18,7 @@ import com.bumptech.glide.Glide;
 import com.bumptech.glide.load.resource.drawable.GlideDrawable;
 import com.bumptech.glide.request.RequestListener;
 import com.bumptech.glide.request.target.Target;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -72,7 +73,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
      */
     public void getImgName() {
         try {
-            URL url = new URL("https://sportapp-cbd6b.firebaseio.com/Administration/motivationImages");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/motivationImages");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

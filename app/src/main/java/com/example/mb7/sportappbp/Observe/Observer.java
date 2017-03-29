@@ -92,7 +92,7 @@ public abstract class Observer {
                     .getApplicationContext());
 
             // build the current URL
-            Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + preferences.getString
                     ("logedIn", "") + "/Notifications/");
 
             // first the main node class of the class and the date as sub node
@@ -377,7 +377,7 @@ public abstract class Observer {
 
     private void insertTrainingdates(String dates) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + preferences.getString
                 ("logedIn", "") + "/");
         ref.child("TrainingDates").setValue(dates);
 

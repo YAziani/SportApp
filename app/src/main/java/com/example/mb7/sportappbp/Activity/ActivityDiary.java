@@ -164,7 +164,7 @@ public class ActivityDiary extends AppCompatActivity {
      * @param diaryEntry the object to delete
      */
     private void deleteDiaryEntry(DiaryEntry diaryEntry) {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + ActivityMain.getMainUser
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL+ "users/" + ActivityMain.getMainUser
                 (this).getName() + "/Diary/");
 
         ref.child(firebasedate.format(diaryEntry.getDate())).child(firebasetime.format(diaryEntry.getDate()))

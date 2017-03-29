@@ -22,7 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
- * Created by M.Braei on 24.03.2017.
+ * Created by Basti on 24.03.2017.
  */
 
 public class ObserverChallengeInvitation extends Observer {

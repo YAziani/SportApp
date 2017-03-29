@@ -22,6 +22,7 @@ import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.Firebase;
 
+import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -129,8 +130,7 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
                 finish();
                 return true;
             default:
-                finish();
-                return super.onOptionsItemSelected(item);
+                throw new InvalidParameterException("The menu items is not declared");
         }
     }
 

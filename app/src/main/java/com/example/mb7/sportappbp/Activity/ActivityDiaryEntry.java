@@ -17,6 +17,7 @@ import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.Firebase;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -129,7 +130,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
                 return true;
 
             default:
-                return super.onOptionsItemSelected(item);
+                throw new InvalidParameterException("The menu items is not declared");
         }
     }
 

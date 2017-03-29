@@ -30,7 +30,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by MB7 on 07.01.2017.
+ * Created by M.Braei on 07.01.2017.
  */
 
 public class TbNotificationContent extends TabFragment {
@@ -45,12 +45,13 @@ public class TbNotificationContent extends TabFragment {
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
-        // Set the title of
         setTitle(getString(R.string.notifikationen));
+
 
         if (isAdded()) {
             view = inflater.inflate(R.layout.tbnotificationcontent, container, false);
         }
+
         tbNotificationContent = this;
         return view;
     }
@@ -70,7 +71,6 @@ public class TbNotificationContent extends TabFragment {
     }
 
 
-    // when the fragment becomes visible to the user
     @Override
     public void onStart() {
         super.onStart();

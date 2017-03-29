@@ -6,12 +6,17 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 /**
- * Created by MB7 on 31.01.2017.
+ * Created by M.Braei on 31.01.2017.
  */
 
 public class DAL_Utilities {
 
     public static String DatabaseURL = "https://sportapp-cbd6b.firebaseio.com/";
+    public static String KompassURL = "https://kompass-8720f.firebaseapp.com/";
+
+    // helper functions
+
+    //region date conversion functions
 
     public static String ConvertDateToFirebaseDate(Date date) {
         String dateString = null;
@@ -114,5 +119,7 @@ public class DAL_Utilities {
         }
         return dateString;
     }
+    //endregion
+
 
 }

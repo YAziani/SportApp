@@ -62,6 +62,14 @@ public class FragebogenListview extends ListView {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
+<<<<<<< HEAD
+
+
+=======
+    /**
+     * Initialize ViewAdapter des Fitnessfragebogens
+     */
+>>>>>>> 735e5ea044e95738dd6c25ca890ef3212adfa09c
     public void InitializeFitness() {
         // we do this to disable scrolling the listview
         this.setOnTouchListener(new View.OnTouchListener() {

@@ -35,6 +35,11 @@ import java.util.List;
  */
 
 public class AlertReceiver extends BroadcastReceiver {
+    // Although we use some kind of observer pattern here,  it a little bit different, the observable has no
+    // add/remove observer functions. Because this class is called by another process, so it is not possible to add
+    // observers at runtime.
+    // so the observers has to be declare right here
+
     // Here delcare your observer
     ObserverStimmungAngabe observerStimmungAngabe = null;
     ObserverTrainingReminder observerTrainingReminder = null;
@@ -50,6 +55,9 @@ public class AlertReceiver extends BroadcastReceiver {
     // Called when a broadcast is made targeting this class
     @Override
     public void onReceive(Context context, Intent intent) {
+
+        // uncomment this line of code to debug notifications
+        // then use Run-> Attach to Debugger to Andrdoid process to fire breakpoints
         //android.os.Debug.waitForDebugger();
 
         // Initialize your observer and call its update method

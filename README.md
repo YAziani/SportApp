@@ -8,12 +8,15 @@ The app uses the webapp "Kompass", which is available through this repository <h
 * Version 1.0
 
 ### How do I get set up? ###
-* Install Android Studio
-* Clone the project
-* Sync the project with gradle
-* Build the application
-* switch to the main activity "ActivityMain"
-* run the project, using the Run option of your current Android Studio version
+* Install the newest version of Android Studio
+* Clone the project via VCS -> Git -> Clone
+* Sync the project with gradle (open "build.gradle" and click on the message "Sync now" in the top right corner)
+* Create a Firebase account and a Retrieving Database on Firebase
+* Set it's security rules to public
+* Change to the DAL_Utilities class in the project (inside the DataAccessLayer package) and set the DatabaseURL to your database's URL
+* Build the application via Build -> Make Projekt
+* Switch to the main activity "ActivityMain"
+* Run the project, using the Run option of your current Android Studio version
 
 ### Configuration ###
 The app has been configured for android use.
@@ -22,12 +25,14 @@ The app has been configured for android use.
 This prototype has been tested manually and with help of the JUnit framework.
 
 ### Deployment instructions ###
-* Install [Android Studio](https://developer.android.com/studio/index.html)
+* install [Android Studio](https://developer.android.com/studio/index.html)
 * update to the newest version
 * import the project via VCS -> Git -> Clone
 * syncronize the project's gradle files (open "build.gradle" and click on the message "Sync now" in the top right corner)
-* Run the program via Run -> Run'ActivityMain' 
-* choose an emulator to run the program on or connect a phone with USB Debugging enabled, choose it and run it 
+* set your database URL, as explained above
+* build the APK via Build -> Build APk or Build -> Generate Signed APK
+* load the APK onto an Android Smartphone with Android Version 7.0 or newer
+* install the application and run it
 
 ### Contribution guidelines ###
 

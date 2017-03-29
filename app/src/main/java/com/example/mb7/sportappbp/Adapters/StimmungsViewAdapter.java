@@ -13,7 +13,7 @@ import com.example.mb7.sportappbp.R;
 import java.util.ArrayList;
 
 /**
- * Created by MB7 on 17.01.2017.
+ * Created by M.Braei on 17.01.2017.
  */
 
 public class StimmungsViewAdapter extends BaseAdapter {
@@ -60,37 +60,12 @@ public class StimmungsViewAdapter extends BaseAdapter {
         TextView txtTitle = (TextView) view.findViewById(R.id.txtTitle);
         txtTitle.setText(nt);
 
+        // control and show the selected one as green while others as blue
         if (position == selectedIndex) {
             txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
         } else {
             txtTitle.setBackgroundColor(Color.parseColor("#4b6df2"));
         }
- /*       if (stimmungsAngabe != null) {
-            if (stimmungsAngabe.Angespannt != null && subject.equals( _context.getString(R.string.angespannt)) &&
-            stimmungsAngabe.Angespannt == position )
-                txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-            if (stimmungsAngabe.Mitteilsam != null && subject.equals( _context.getString(R.string.mitteilsam)) &&
-            stimmungsAngabe.Mitteilsam == position )
-                txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-            if (stimmungsAngabe.Muede != null && subject.equals( _context.getString(R.string.muede)) &&
-            stimmungsAngabe.Muede == position )
-                txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-            if (stimmungsAngabe.Selbstsicher != null && subject.equals( _context.getString(R.string.selbstsicher)) &&
-             stimmungsAngabe.Selbstsicher == position )
-                txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-            if (stimmungsAngabe.Tatkraeftig != null && subject.equals( _context.getString(R.string.tatkraeftig)) &&
-            stimmungsAngabe.Tatkraeftig == position )
-                txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-            if (stimmungsAngabe.Traurig != null && subject.equals( _context.getString(R.string.traurig)) &&
-            stimmungsAngabe.Traurig == position )
-                txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-            if (stimmungsAngabe.Wuetend != null && subject.equals( _context.getString(R.string.wuetend)) &&
-            stimmungsAngabe.Wuetend == position )
-                txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-            if (stimmungsAngabe.Zerstreut != null && subject.equals( _context.getString(R.string.zerstreut)) &&
-            stimmungsAngabe.Zerstreut == position )
-                txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-        }*/
 
         return view;
     }

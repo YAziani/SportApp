@@ -48,15 +48,16 @@ public class FirebaseTest {
             e.printStackTrace();
         }
 
+        // write data into database
         writeDAL_RegisteredUsers();
         writeAlternatingGroupsUpdate();
         writeFitnessFragebogen();
         writeBSAFragebogen();
         writeStimmung();
 
-        
+
         try {
-            Thread.sleep(2000);
+            Thread.sleep(3000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -135,12 +136,6 @@ public class FirebaseTest {
         } catch (Exception e) {
             e.printStackTrace();
             assertTrue(false);
-        }
-
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
         }
     }
 
@@ -785,9 +780,6 @@ public class FirebaseTest {
         return testfitness;
     }
 
-    /**
-     * Definition der BSA Fragebögen aus dem Ordner BuisnessLayer
-     */
 
     public static Fragebogen testbsa1(){
         Fragebogen fragebogen=new Fragebogen();
@@ -855,6 +847,3 @@ public class FirebaseTest {
     }
 
 }
-
-//Tests: BSA berufstätig=1 ; Sport=1
-// null

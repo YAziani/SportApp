@@ -79,12 +79,12 @@ public class ActivityMain extends AppCompatActivity {
         return getMainUser(this);
     }
 
-    private final int LOCATION_PERMISSION_REQUEST = 1440;
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
+        final int LOCATION_PERMISSION_REQUEST = 1440;
 
         ActivityCompat.requestPermissions(
                 this,
@@ -149,7 +149,6 @@ public class ActivityMain extends AppCompatActivity {
     public void setAlarm() {
 
         // Define a time value of 5 seconds
-        Long alertTime = new GregorianCalendar().getTimeInMillis() + 5 * 1000;
         Integer interval = 1000 * 10;
 
         // Define our intention of executing AlertReceiver
@@ -165,9 +164,6 @@ public class ActivityMain extends AppCompatActivity {
         alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, new GregorianCalendar().getTimeInMillis(), interval,
                 PendingIntent.getBroadcast(this, 1, alertIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT));
-/*        alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime,
-                PendingIntent.getBroadcast(this, 1, alertIntent,
-                        PendingIntent.FLAG_UPDATE_CURRENT));*/
 
     }
 
@@ -188,7 +184,6 @@ public class ActivityMain extends AppCompatActivity {
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem item = menu.findItem(R.id.action_settings);
         return true;
     }
 
@@ -237,9 +232,7 @@ public class ActivityMain extends AppCompatActivity {
          * number.
          */
         public static TabFragment newInstance(int sectionNumber, Activity activity) {
-            PlaceholderFragment fragment = new PlaceholderFragment();
-            Bundle args = new Bundle();
-            TabFragment tabFragment = null;
+            TabFragment tabFragment;
             switch (sectionNumber) {
                 case 1:
                     tabFragment = new TbTaskCategContent();
@@ -255,7 +248,7 @@ public class ActivityMain extends AppCompatActivity {
                     return tabFragment;
                 default:
                     tabFragment = new TbNotificationContent();
-                    tabFragment.Initialize(activity, "Notifikationen");
+                    tabFragment.Initialize(activity, "Aufgaben");
                     return tabFragment;
             }
         }
@@ -274,12 +267,12 @@ public class ActivityMain extends AppCompatActivity {
      * A {@link FragmentPagerAdapter} that returns a fragment corresponding to
      * one of the sections/tabs/pages.
      */
-    public class SectionsPagerAdapter extends FragmentPagerAdapter {
+    private class SectionsPagerAdapter extends FragmentPagerAdapter {
 
-        List<TabFragment> fragments = new ArrayList<TabFragment>();
+        List<TabFragment> fragments = new ArrayList<>();
         Activity activity;
 
-        public SectionsPagerAdapter(FragmentManager fm, Activity act) {
+        SectionsPagerAdapter(FragmentManager fm, Activity act) {
             super(fm);
             activity = act;
             for (int i = 1; i < 4; i++) {

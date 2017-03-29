@@ -1,6 +1,5 @@
 package com.example.mb7.sportappbp.Activity;
 
-import android.app.AlertDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.content.SharedPreferences;
@@ -8,7 +7,6 @@ import android.os.Bundle;
 import android.preference.PreferenceManager;
 import android.support.annotation.Nullable;
 import android.support.v7.app.AppCompatActivity;
-import android.util.Log;
 import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
@@ -16,13 +14,14 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.StimmungsViewAdapter;
-import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrageScore;
+import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.StimmungListview;
 import com.firebase.client.Firebase;
 
+import java.security.InvalidParameterException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
 
@@ -56,14 +55,13 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
-        Log.e("Oncreate enter", "Entered onCreate");
+
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_stimmung);
 
         // Now read the extra key - val
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
-        Log.e("Oncreate", "We have reached it");
         if (extras != null) {
             // read the datetime as this is the unique value in the db for the notification
             String notificationDate = (String) extras.get("NotificationDate");
@@ -113,11 +111,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
 
     }
 
-    /*    @Override
-        protected void onCreate(Bundle savedInstanceState) {
 
-            super.onStart();
-        }*/
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
@@ -142,9 +136,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
                 finish();
                 return true;
             default:
-                finish();
-                return super.onOptionsItemSelected(item);
-
+                throw new InvalidParameterException("The menu items is not declared");
 
         }
 
@@ -291,7 +283,6 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
                 .Mitteilsam : -1);
         lstMittelsam.setAdapter(adapter);
 
-        // set the onTouch Event to disable scrolling
         lstAngespannt.Initialize();
         lstTraurig.Initialize();
         lstTatkraeftig.Initialize();
@@ -307,8 +298,6 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
         ((TextView) findViewById(R.id.txtMainQuestion)).setText(getString(R.string.bitte_geben_sie_moment_fuhlen));
         ((TextView) findViewById(R.id.txtAngespannt)).setText(getString(R.string.angespannt));
         ((TextView) findViewById(R.id.txtTraurig)).setText(getString(R.string.traurig));
-
-
     }
 
     public int stimmungsbarometerPositiv(int index) {
@@ -324,7 +313,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
             case 0:
                 return 0;
             default:
-                return 0;
+                throw new InvalidParameterException("stimmungsbarometerPositiv: The index is undefined");
         }
     }
 
@@ -341,7 +330,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
             case 0:
                 return 4;
             default:
-                return 0;
+                throw new InvalidParameterException("stimmungsbarometerNegativ: The index is undefined");
         }
     }
 

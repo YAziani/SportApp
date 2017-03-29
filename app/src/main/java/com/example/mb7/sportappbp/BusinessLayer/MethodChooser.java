@@ -9,6 +9,7 @@ import com.firebase.client.DataSnapshot;
 
 import java.util.Calendar;
 import java.util.Date;
+import java.util.IllegalFormatException;
 import java.util.LinkedList;
 import java.util.Random;
 
@@ -89,11 +90,10 @@ public class MethodChooser {
         String start = parseTimeEntry((String) dataSnapshot.child("datefrom").getValue());
         String end = parseTimeEntry((String) dataSnapshot.child("dateto").getValue());
 
-        if (start == null || end == null) {
-            return false;
-        }
-        return Integer.valueOf(start) <= Integer.valueOf(currentTime) && Integer.valueOf(currentTime) <= Integer
-                .valueOf(end);
+
+        return !(start == null || end == null)
+                && Integer.valueOf(start) <= Integer.valueOf(currentTime)
+                && Integer.valueOf(currentTime) <= Integer .valueOf(end);
     }
 
     /**
@@ -152,7 +152,8 @@ public class MethodChooser {
                 month = "12";
                 break;
             default:
-                month = "01";
+                month = "12";
+                break;
         }
         parsedString += month;
         parsedString += splitString[2];

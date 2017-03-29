@@ -3,8 +3,8 @@ package com.example.mb7.sportappbp.Activity;
 import android.app.ActionBar;
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.MenuInflater;
@@ -21,6 +21,7 @@ import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -100,6 +101,7 @@ public class ActivityCategories extends AppCompatActivity {
                         forwardOldExerciseList(R.string.ReinerAufenthalt);
                         break;
                     default:
+                        throw new InvalidParameterException("The menu items is not declared");
 
                 }
 
@@ -157,7 +159,7 @@ public class ActivityCategories extends AppCompatActivity {
                 numberPicker(exerciseList.get(info.position));
                 return true;
             default:
-                return super.onContextItemSelected(item);
+                throw new InvalidParameterException("The menu items is not declared");
         }
     }
 

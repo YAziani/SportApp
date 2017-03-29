@@ -3,7 +3,7 @@ package com.example.mb7.sportappbp.BusinessLayer;
 import java.util.Date;
 
 /**
- * Created by MB7 on 17.01.2017.
+ * Created by M.Braei on 17.01.2017.
  */
 
 public class Notification {
@@ -47,6 +47,7 @@ public class Notification {
         return date;
     }
 
+    // compute the ellapsed time till member date and return it with its union as string
     public String getPresentationDate() {
         int diffDays = ((int) ((new Date().getTime() / (24 * 60 * 60 * 1000)) - (int) (date.getTime() / (24 * 60 * 60
                 * 1000))));

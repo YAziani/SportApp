@@ -2,8 +2,8 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -25,6 +25,7 @@ import com.example.mb7.sportappbp.BusinessLayer.TrainingExercise;
 import com.example.mb7.sportappbp.BusinessLayer.WellnessExercise;
 import com.example.mb7.sportappbp.R;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
@@ -149,7 +150,7 @@ public class ActivityExercises extends AppCompatActivity {
                 return true;
 
             default:
-                return super.onOptionsItemSelected(item);
+                throw new InvalidParameterException("The menu items is not declared");
         }
     }
 
@@ -177,7 +178,7 @@ public class ActivityExercises extends AppCompatActivity {
                 numberPicker(exerciseList.get(info.position));
                 return true;
             default:
-                return super.onContextItemSelected(item);
+                throw new InvalidParameterException("The context menu items is not declared");
         }
     }
 
@@ -383,7 +384,7 @@ public class ActivityExercises extends AppCompatActivity {
             case R.string.ReinerAufenthalt:
                 return R.array.ArrayReinerAufenthalt;
             default:
-                return 0;
+                throw new InvalidParameterException("The menu items is not declared");
 
 
         }

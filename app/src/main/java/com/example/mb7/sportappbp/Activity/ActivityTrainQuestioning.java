@@ -26,7 +26,6 @@ import com.firebase.client.DataSnapshot;
 import java.util.Calendar;
 import java.util.Iterator;
 import java.util.Random;
-import java.util.regex.Pattern;
 
 /**
  * activity that displays text if user does not want to train
@@ -82,6 +81,7 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
     }
 
     public void cancel(String s) {
+        // show error message and close activity
         Toast.makeText(
                 ActivityTrainQuestioning.this,
                 s,
@@ -127,6 +127,7 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
             int textIndex;
             SharedPreferences preferences =
                     PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
+            // get index for next motivation text from preferences
             textIndex = preferences
                     .getInt("trainQuestioningTextIndex", 0) % ((int) dataSnapshot.getChildrenCount());
             preferences
@@ -173,9 +174,12 @@ public class ActivityTrainQuestioning extends AppCompatActivity {
      * @return true if notification allowed
      */
     private boolean checkIntensifier() {
+        // get days between initializing of app and now
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         long daysFromStart = Calendar.getInstance().getTimeInMillis() - preferences.getLong("firstDay", 0);
         daysFromStart = daysFromStart / 86400000;
+
+        // get intensifier content from preferences
         String intensifier = preferences.getString("intensifier", "");
         if (intensifier.equals("")) {
             return true;

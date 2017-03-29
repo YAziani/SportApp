@@ -23,7 +23,10 @@ import com.example.mb7.sportappbp.Fragments.TabFragment;
 import com.example.mb7.sportappbp.Observe.Observer;
 import com.example.mb7.sportappbp.R;
 
+<<<<<<< HEAD
 import java.security.InvalidParameterException;
+=======
+>>>>>>> 735e5ea044e95738dd6c25ca890ef3212adfa09c
 import java.util.List;
 
 /**

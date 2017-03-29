@@ -77,7 +77,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         Bundle extras = iin.getExtras();
         Log.e("Oncreate", "We have reached it");
         if (extras != null) {
-            // read the datetime as this is the unique value in the db for the notification
             String notificationDate = (String) extras.get("NotificationDate");
             fitnessFragebogen = (FitnessFragebogen) iin.getSerializableExtra(getString(R.string.fitnessfragebogen));
             if (fitnessFragebogen != null) {

@@ -35,6 +35,7 @@ public class ObserverChallengeWinner extends Observer {
     /**
      * then main update method that is called from the Observable
      * Here you check your condition and do call then notify process
+     *
      * @param context
      */
     @Override
@@ -48,8 +49,7 @@ public class ObserverChallengeWinner extends Observer {
 
 
     // get the current time in minutes
-    private int getMinutesofDate(Date date  )
-    {
+    private int getMinutesofDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
@@ -60,6 +60,7 @@ public class ObserverChallengeWinner extends Observer {
 
     /**
      * This method searches all challenges, which are not finished and starts a notification for the challenge
+     *
      * @return
      */
 
@@ -71,7 +72,8 @@ public class ObserverChallengeWinner extends Observer {
         final Date today = calendar.getTime();
         //URL url = null;
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/users/" + ActivityMain.getMainUser(context).getName() + "/Challenges/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "/users/" + ActivityMain.getMainUser(context).getName() +
+                    "/Challenges/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -84,7 +86,7 @@ public class ObserverChallengeWinner extends Observer {
                     for (DataSnapshot nameChild : dataSnapshot.getChildren()) {
                         challenge = new Challenge();
                         //set end Date
-                       String EndDate = (nameChild.getChildren().iterator().next().getValue().toString());
+                        String EndDate = (nameChild.getChildren().iterator().next().getValue().toString());
                         //here is the start and end date of the challenge
                         for (DataSnapshot dateChild : nameChild.getChildren()) {
 
@@ -129,11 +131,13 @@ public class ObserverChallengeWinner extends Observer {
 
     /**
      * show Notification if we anyone of the challenges is in the gym
-     * if it is show notification and save that you have showed it in the preferences to not repeat it for the same event
+     * if it is show notification and save that you have showed it in the preferences to not repeat it for the same
+     * event
+     *
      * @return
      */
 
-    private void getUSers(final Challenge challenge){
+    private void getUSers(final Challenge challenge) {
 
 
         try {
@@ -146,7 +150,7 @@ public class ObserverChallengeWinner extends Observer {
 
                     LinkedList<User> users = new LinkedList<User>();
 
-                    for(DataSnapshot usersChild : dataSnapshot.getChildren()) {
+                    for (DataSnapshot usersChild : dataSnapshot.getChildren()) {
                         //save the username of the person
                         User usr = User.createUser(usersChild.getKey().toString(), context);
                         users.add(usr);
@@ -156,7 +160,7 @@ public class ObserverChallengeWinner extends Observer {
 
                     calcpoints(users, challenge);
 
-                    }
+                }
 
 
                 @Override
@@ -195,13 +199,15 @@ public class ObserverChallengeWinner extends Observer {
                                 //get date of exercise
                                 Date date = sdf.parse(child1Date.getKey());
                                 //check if the date of the exercise is in the interval of the challenge
-                                if (date.after(challenge.getStartDate()) || date.equals(challenge.getStartDate()) || date.equals(challenge.getEndDate()) || date.before(challenge.getEndDate())) {
+                                if (date.after(challenge.getStartDate()) || date.equals(challenge.getStartDate()) ||
+                                        date.equals(challenge.getEndDate()) || date.before(challenge.getEndDate())) {
                                     //for the case, that a user did more then one challenge on a day
                                     for (DataSnapshot child2 : child1Date.getChildren()) {
                                         //calculate the total points
                                         for (DataSnapshot child3 : child2.getChildren()) {
                                             if (child3.getKey().equals("totalPoints"))
-                                                totalPoints = totalPoints + Integer.valueOf(child3.getValue().toString());
+                                                totalPoints = totalPoints + Integer.valueOf(child3.getValue()
+                                                        .toString());
 
                                         }
                                     }
@@ -233,25 +239,25 @@ public class ObserverChallengeWinner extends Observer {
             // we are in the interval where we should raise a notification
             // just check if the user hasn't got a notification before
             preferences = PreferenceManager.getDefaultSharedPreferences(context);
-           Boolean sendNotif = preferences.getBoolean(challenge.getName(), false);
-           if (!sendNotif) {
+            Boolean sendNotif = preferences.getBoolean(challenge.getName(), false);
+            if (!sendNotif) {
                 // insert in the preferences that notification has been sent
                 preferences.edit().putBoolean(challenge.getName(), true).commit();
                 ;
                 // send notification
 
-            String place = String.valueOf(challenge.getPositionOfTheChallenge(ActivityMain.getMainUser(context)));
+                String place = String.valueOf(challenge.getPositionOfTheChallenge(ActivityMain.getMainUser(context)));
 
-            sendNotification(
-                    context,
-                    context.getString(R.string.Challenge),
-                    ActivityMain.class, context.getString(R.string.Challenge),
-                    ("Glückwunsch! " + challenge.getName()+ " Challenge auf dem "  + place + ". Platz beendet"),
-                    R.mipmap.ic_stimmungs_abgabe);
+                sendNotification(
+                        context,
+                        context.getString(R.string.Challenge),
+                        ActivityMain.class, context.getString(R.string.Challenge),
+                        ("Glückwunsch! " + challenge.getName() + " Challenge auf dem " + place + ". Platz beendet"),
+                        R.mipmap.ic_stimmungs_abgabe);
 
 
             }
         }
     }
-    }
+}
 

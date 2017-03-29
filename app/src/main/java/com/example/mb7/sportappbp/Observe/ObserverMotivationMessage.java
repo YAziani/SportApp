@@ -26,16 +26,16 @@ public class ObserverMotivationMessage extends Observer {
 
         // check if method allocated
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if(!preferences.getString("allocatedMethods","").contains("motivationimages")) {
+        if (!preferences.getString("allocatedMethods", "").contains("motivationimages")) {
             return;
         }
 
-        if(timeOutCounter > 0) {
+        if (timeOutCounter > 0) {
             timeOutCounter--;
-        }else {
-            if(!getNextTrainingTimeString(context).equals("")
+        } else {
+            if (!getNextTrainingTimeString(context).equals("")
                     && MotivationMethod.timeTillTraining(getNextTrainingTimeString(context)) == 5) {
-                if(checkIntensifier()) {
+                if (checkIntensifier()) {
                     sendNotification(
                             context,
                             "Motivationsbilder",
@@ -51,37 +51,38 @@ public class ObserverMotivationMessage extends Observer {
 
     /**
      * check if intensifier allows notification
+     *
      * @return true if notification allowed
      */
     private boolean checkIntensifier() {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        long daysFromStart = Calendar.getInstance().getTimeInMillis() - preferences.getLong("firstDay",0);
+        long daysFromStart = Calendar.getInstance().getTimeInMillis() - preferences.getLong("firstDay", 0);
         daysFromStart = daysFromStart / 86400000;
-        String intensifier = preferences.getString("intensifier","");
-        if(intensifier.equals("")) {
+        String intensifier = preferences.getString("intensifier", "");
+        if (intensifier.equals("")) {
             return true;
-        }else {
-            // go through all entries
-            for(String s : intensifier.split(";")) {
+        } else {
+            // go through all entries and evaluate intensifier settings
+            for (String s : intensifier.split(";")) {
                 try {
-                    if(s.split(",").length == 3 &&
+                    if (s.split(",").length == 3 &&
                             !s.split(",")[0].equals("")
                             && !s.split(",")[1].equals("")
                             && !s.split(",")[2].equals("")) {
-                        if(daysFromStart > Integer.valueOf(s.split(",")[0])) {
+                        if (daysFromStart > Integer.valueOf(s.split(",")[0])) {
                             daysFromStart -= Integer.valueOf(s.split(",")[0]);
                             continue;
                         }
-                        if(daysFromStart > Integer.valueOf(s.split(",")[1])) {
+                        if (daysFromStart > Integer.valueOf(s.split(",")[1])) {
                             Random random = new Random();
                             return Double.valueOf(s.split(",")[2]) > random.nextDouble();
-                        }else {
+                        } else {
                             return false;
                         }
-                    }else {
+                    } else {
                         return true;
                     }
-                }catch(Exception e) {
+                } catch (Exception e) {
                     e.printStackTrace();
                     return true;
                 }

@@ -9,39 +9,37 @@ import android.widget.AdapterView;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
 import com.github.mikephil.charting.charts.LineChart;
-
+;
 import java.security.InvalidParameterException;
 import java.util.Date;
 
-public class Activity_EnergieIndex_rpt extends Activity_LineChartReports {
+public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
 
-    LineChart lineChart;
-
-    // hook method of our template method computeDraw
+    @Override
     float convertValue(DataSnapshot object) {
-        // first try with double because it is the default value in firebase
-        // otherwise we try it with Long
         try {
-            return ((Double) object.getValue()).floatValue();
+            return ((Long) object.getValue()).floatValue();
 
         } catch (ClassCastException ex) {
-            return ((Long) object.getValue()).floatValue();
+            return ((Double) object.getValue()).floatValue();
         }
+        //return 0;
     }
-
 
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__energie_index_rpt);
+        setContentView(R.layout.activity__stimmungsbarometer_rpt);
         lineChart = (LineChart) findViewById(R.id.lineChart);
     }
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
+        //set an other menu xml
         inflater.inflate(R.menu.menu_context_report, menu);
+
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -52,33 +50,40 @@ public class Activity_EnergieIndex_rpt extends Activity_LineChartReports {
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
         switch (item.getItemId()) {
+
             case R.id.thirtydays:
-                computeDraw(addDays(new Date(), -30), new Date(), lineChart, "Energieindex",
-                        Activity_EnergieIndex_rpt.this.getString(R.string.werte_fuer_energieindex));
+                computeDraw(addDays(new Date(), -30), new Date(), lineChart, "Score Stimmungsbarometer",
+                        Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+<<<<<<< HEAD
+=======
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 return true;
             case R.id.fourteendays:
-                computeDraw(addDays(new Date(), -14), new Date(), lineChart, "Energieindex",
-                        Activity_EnergieIndex_rpt.this.getString(R.string.werte_fuer_energieindex));
+                computeDraw(addDays(new Date(), -14), new Date(), lineChart, "Score Stimmungsbarometer",
+                        Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
                 return true;
             case R.id.sevendays:
-                computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Energieindex", Activity_EnergieIndex_rpt
-                        .this.getString(R.string.werte_fuer_energieindex));
+                computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Score Stimmungsbarometer",
+                        Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+<<<<<<< HEAD
                 return true;
             case R.id.alldays:
-                computeDraw(null, new Date(), lineChart, "Score Energieindex", Activity_EnergieIndex_rpt.this
-                        .getString(R.string.werte_fuer_energieindex));
+                computeDraw(null, new Date(), lineChart, "Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string
+                        .werte_fuer_stimmungsbarometer));
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 return true;
             default:
                 throw new InvalidParameterException("The menu items is not declared");
         }
     }
 
-
     @Override
     protected void onStart() {
         super.onStart();
-        computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Energieindex", Activity_EnergieIndex_rpt.this
-                .getString(R.string.werte_fuer_energieindex));
+        computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Score Stimmungsbarometer",
+                Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
     }
 
 

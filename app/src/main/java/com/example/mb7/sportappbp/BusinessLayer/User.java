@@ -24,11 +24,7 @@ public class User {
     private Context context;
 
 
-
-
-
-    public static User Create(String Name)
-    {
+    public static User Create(String Name) {
         User user = new User(Name);
         return user;
     }
@@ -36,28 +32,27 @@ public class User {
     static public User createUser(String username, Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         User mainUser = User.Create(username);
-        preferences.edit().putString("logedIn",username).commit();
+        preferences.edit().putString("logedIn", username).commit();
         return mainUser;
     }
 
-    private User (String Name)
-    {
-        name =Name;
+    private User(String Name) {
+        name = Name;
     }
 
-    public void setEmail(String email){
+    public void setEmail(String email) {
         this.email = email;
     }
 
-    public void setChallangeName(String challangeName){
+    public void setChallangeName(String challangeName) {
         this.challangeName = challangeName;
     }
 
-    public String getChallangeName(){
+    public String getChallangeName() {
         return challangeName;
     }
 
-    public String getEmail(){
+    public String getEmail() {
         return this.email;
     }
 
@@ -69,8 +64,7 @@ public class User {
         this.challenge = challenge;
     }
 
-    public String getName()
-    {
+    public String getName() {
         return name;
     }
 
@@ -82,82 +76,79 @@ public class User {
         this.points = points;
     }
 
-    public void GetLastTodayStimmungsabfrage(Date date)
-    {
-        DAL_User.GetLastTodayStimmungsabfrage(this,date);
+    public void GetLastTodayStimmungsabfrage(Date date) {
+        DAL_User.GetLastTodayStimmungsabfrage(this, date);
     }
-    public boolean InsertStimmung(StimmungsAngabe stimmungsAngabe)
-    {
+
+    public boolean InsertStimmung(StimmungsAngabe stimmungsAngabe) {
         DAL_User.InsertStimmung(this, stimmungsAngabe);
         return true;
     }
-    public boolean UpdateStimmung(StimmungsAngabe stimmungsAngabe)
-    {
+
+    public boolean UpdateStimmung(StimmungsAngabe stimmungsAngabe) {
         DAL_User.UpdateStimmung(this, stimmungsAngabe);
         return true;
     }
-    public boolean InsertStimmungScore(StimmungAbfrageScore stimmungAbfrageScore)
-    {
-        DAL_User.InsertStimmungScore(this,stimmungAbfrageScore);
+
+    public boolean InsertStimmungScore(StimmungAbfrageScore stimmungAbfrageScore) {
+        DAL_User.InsertStimmungScore(this, stimmungAbfrageScore);
         return true;
     }
 
-    public boolean UpdateStimmungScore(StimmungAbfrageScore stimmungAbfrageScore)
-    {
-        DAL_User.UpdateStimmungScore(this,stimmungAbfrageScore);
+    public boolean UpdateStimmungScore(StimmungAbfrageScore stimmungAbfrageScore) {
+        DAL_User.UpdateStimmungScore(this, stimmungAbfrageScore);
         return true;
     }
 
 
-    public boolean InsertFitnessFragebogen(FitnessFragebogen fitnessfragebogen)
-    {
-        DAL_User.InsertFitnessFragebogen(this,fitnessfragebogen);
-        return true;
-    }
-    public boolean UpdateFitnessFragebogen(FitnessFragebogen fitnessfragebogen)
-    {
-        DAL_User.UpdateFitnessFragebogen(this,fitnessfragebogen);
+    public boolean InsertFitnessFragebogen(FitnessFragebogen fitnessfragebogen) {
+        DAL_User.InsertFitnessFragebogen(this, fitnessfragebogen);
         return true;
     }
 
-    public boolean InsertFragebogen(Fragebogen fragebogen){
-        DAL_User.InsertFragebogen(this,fragebogen);
+    public boolean UpdateFitnessFragebogen(FitnessFragebogen fitnessfragebogen) {
+        DAL_User.UpdateFitnessFragebogen(this, fitnessfragebogen);
         return true;
     }
 
-    public boolean UpdateFragebogen(Fragebogen fragebogen){
+    public boolean InsertFragebogen(Fragebogen fragebogen) {
+        DAL_User.InsertFragebogen(this, fragebogen);
+        return true;
+    }
+
+    public boolean UpdateFragebogen(Fragebogen fragebogen) {
         DAL_User.UpdateFragebogen(this, fragebogen);
         return true;
     }
 
 
-
-
-    public StimmungsAngabe GetStimmnungsabfrage(String date){
-        return DAL_User.GetStimmnungsabfrage(this,date);
+    public StimmungsAngabe GetStimmnungsabfrage(String date) {
+        return DAL_User.GetStimmnungsabfrage(this, date);
 
     }
-    public void GetLastTodayDiaryEntry(Date date)
-    {
-        DAL_User.GetLastTodayDiaryEntry(this,date);
+
+    public void GetLastTodayDiaryEntry(Date date) {
+        DAL_User.GetLastTodayDiaryEntry(this, date);
     }
 
     public boolean SaveDiaryEntry(DiaryEntry diaryEntry) {
         DAL_User.InsertDiaryEntry(this, diaryEntry);
         return true;
     }
-    public boolean LoadCompleteDiry(){
+
+    public boolean LoadCompleteDiry() {
         DAL_User.LoadCompleteDiary(this);
         return true;
     }
 
-    public boolean getTotalPointsFromTo(Date from, Date to){
-            //todo implement the firebase method
+    public boolean getTotalPointsFromTo(Date from, Date to) {
+        //todo implement the firebase method
         return true;
     }
 
     /**
      * challenge to DAL_User to save its into database
+     *
      * @param challenge challenge to add
      * @return
      */
@@ -169,11 +160,12 @@ public class User {
 
     /**
      * hand ratings to DAL_User to save them into database
+     *
      * @param listMethod list containing the rated methods
      * @param listRating list containing the ratings
      */
-    void saveRating(List<String> listMethod, List<String> listRating){
-        DAL_User.insertRating(this,listMethod,listRating);
+    void saveRating(List<String> listMethod, List<String> listRating) {
+        DAL_User.insertRating(this, listMethod, listRating);
     }
 
     public void saveRegistration(String username, String password) {

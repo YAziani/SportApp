@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 public class TrainingExercise extends Exercise {
 
-    public TrainingExercise(){
+    public TrainingExercise() {
         this.weighting = 2.0;
         this.category = "Training";
     }

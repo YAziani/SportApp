@@ -15,33 +15,36 @@ public class AllDiaryEntries {
     private ArrayList<DiaryEntry> diaryList;
 
     //set constructor private cause of singleton
-    private AllDiaryEntries(){
+    private AllDiaryEntries() {
         diaryList = new ArrayList<DiaryEntry>();
-    };
+    }
+
+    ;
 
     /**
      * This method returns the singleton object of AllDiaryEntires
+     *
      * @return the only one object
      */
-    public static AllDiaryEntries getInstance(){
-        if(allDiaryEntries == null)
+    public static AllDiaryEntries getInstance() {
+        if (allDiaryEntries == null)
             allDiaryEntries = new AllDiaryEntries();
 
         return allDiaryEntries;
     }
 
-    public void add(DiaryEntry diaryEntry){
+    public void add(DiaryEntry diaryEntry) {
         diaryList.add(diaryEntry);
     }
 
     /**
      * This method returns the list with all diary entries.
+     *
      * @return ArrayList with all diary entries
      */
-    public ArrayList<DiaryEntry> getDiaryList(){
+    public ArrayList<DiaryEntry> getDiaryList() {
         return diaryList;
     }
-
 
 
 }

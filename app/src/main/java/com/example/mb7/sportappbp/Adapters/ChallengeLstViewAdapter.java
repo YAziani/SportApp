@@ -31,12 +31,13 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
     Activity context;
     Integer selectedPosition = -1;
 
-    public  class ChallengeHolder extends RecyclerView.ViewHolder  {
+    public class ChallengeHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView txtTitle;
         TextView txtSubText;
         ImageView imageView;
-        public View view   ;
+        public View view;
+
         ChallengeHolder(View itemView) {
             super(itemView);
             txtTitle = (TextView) itemView.findViewById(R.id.txtDateLstChallenge);
@@ -47,7 +48,8 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
         }
 
     }
-    public ChallengeLstViewAdapter(List<Challenge> challenges, Activity context){
+
+    public ChallengeLstViewAdapter(List<Challenge> challenges, Activity context) {
         this.challenges = challenges;
         this.context = context;
     }
@@ -72,16 +74,13 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
         //// TODO: 26.03.2017  
         challengeHolder.imageView.setImageResource(R.mipmap.ic_challenge);
 
-        if (position == selectedPosition)
-        {
+        if (position == selectedPosition) {
             challengeHolder.itemView.setBackgroundColor(Color.GRAY);
-        }
-        else
-        {
+        } else {
             challengeHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        holder.view.setOnLongClickListener(new View.OnLongClickListener(){
+        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 // reset the previous item as unselected if exists
@@ -96,7 +95,7 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
             }
 
         });
-        holder.view.setOnClickListener(new View.OnClickListener(){
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -105,8 +104,7 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
                     notifyItemChanged(selectedPosition);
                     selectedPosition = -1;
 
-                }
-                else {
+                } else {
 
                     // if nothing is longclicked -> go to the ActivityStimmung of the selected item
                     Intent open = new Intent(context, ActivityChallenge.class);
@@ -121,8 +119,7 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
         });
     }
 
-    public Challenge getSelectedObject()
-    {
+    public Challenge getSelectedObject() {
         return challenges.get(selectedPosition);
     }
 
@@ -133,14 +130,15 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
 
     /**
      * Returns the string "Challenge beendet" if the challenge is finished. Else the end date
+     *
      * @param challenge challenge to check if finished
      * @return returns string
      */
-    private String getDateOrFinished(Challenge challenge){
+    private String getDateOrFinished(Challenge challenge) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yy");
 
-        if(challenge.finished())
+        if (challenge.finished())
             return context.getString(R.string.ChallengeBeendet);
         else
             return context.getString(R.string.EndetAm) + " " + sdf.format(challenge.getEndDate()).toString();

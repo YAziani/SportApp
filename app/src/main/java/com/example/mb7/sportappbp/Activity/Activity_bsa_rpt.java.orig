@@ -76,10 +76,13 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
             case R.id.sevendays:
                 computeDrawThree(addDays(new Date(), -7), new Date(), lineChart, Activity_bsa_rpt.this.getString(R
                         .string.erzielte_punkte));
+<<<<<<< HEAD
                 return true;
             case R.id.alldays:
                 computeDrawThree(null, new Date(), lineChart, Activity_bsa_rpt.this.getString(R.string
                         .erzielte_punkte));
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 return true;
             default:
                 throw new InvalidParameterException("The menu items is not declared");
@@ -94,12 +97,15 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
     }
 
 
+<<<<<<< HEAD
     /**
      * @param Startdate set that start interval for the data. Set this to null if you want all data be displayed
      * @param EndDate
      * @param lineChart
      * @param legend
      */
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
     protected void computeDrawThree(final Date Startdate, final Date EndDate, final LineChart lineChart, final String
             legend) {
         try {
@@ -142,8 +148,12 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                             d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime
                                                                     (sDate + " " + sTime);
 
+<<<<<<< HEAD
                                                             if (Startdate == null || (!d.before(Startdate) && !d
                                                                     .after(EndDate))) {
+=======
+                                                            if (!d.before(Startdate) && !d.after(EndDate)) {
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                                 int i = 0;
 
                                                                 i++;
@@ -159,10 +169,15 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                                             ("Sportscoring")) {
                                                                         y_SportScoring += convertValue(child2L);
                                                                         flag = true;
+<<<<<<< HEAD
+=======
                                                                     } else if (child2L.getKey().equals
-                                                                            ("Sportscoring")) {
-                                                                        y_SportScoring += convertValue(child2L);
+                                                                            ("Gesamtscoring")) {
+                                                                        // Gesamtscoring
+                                                                        y_Gesamt += convertValue(child2L);
                                                                         flag = true;
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
+                                                                    }
                                                                 }
 
                                                                 // get the average of on day
@@ -172,6 +187,7 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                                     // devider for all
                                                                     y_SportScoring = y_SportScoring / i;
                                                                     y_Bewegung = y_Bewegung / i;
+<<<<<<< HEAD
                                                                     // Now we have the days
                                                                     x = DAL_Utilities.ConvertDateToString
                                                                             (DAL_Utilities
@@ -182,23 +198,58 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                                     xAXES.add(x);
 
                                                                     yAXES_Bewegung.add(new Entry(y_Bewegung, j));
-                                                                    yAXES_Sportscoring.add(new Entry(y_SportScoring,                                                                            j));
+=======
+                                                                    y_Gesamt = y_Gesamt / i;
+                                                                    // Now we have the days
+                                                                    x = DAL_Utilities.ConvertDateToString
+                                                                            (DAL_Utilities
+                                                                                    .ConvertFirebaseKeyStringToDateTime(sDate + " 00:00:00"));
+                                                                    //x  = sDate ;
+                                                                    max_y = Math.max(y_SportScoring, Math.max
+                                                                            (y_Gesamt, Math.max(y_Bewegung, max_y)));
+                                                                    min_y = Math.min(y_SportScoring, Math.min
+                                                                            (y_Gesamt, Math.min(min_y, y_Bewegung)));
+                                                                    xAXES.add(x);
+
+                                                                    yAXES_Bewegung.add(new Entry(y_Bewegung, j));
+                                                                    yAXES_Gesamt.add(new Entry(y_Gesamt, j));
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
+                                                                    yAXES_Sportscoring.add(new Entry(y_SportScoring,
                                                                             j));
 
                                                                     flag = false;
                                                                     j++;
+<<<<<<< HEAD
                                                                      y_SportScoring = y_Bewegung = 0;
+=======
+                                                                    y_Gesamt = y_SportScoring = y_Bewegung = 0;
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                                 }
                                                             }
                                                         }
                                                         if (xAXES.size() != 0) {
                                                             // set the datasets of our chart
                                                             ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                             LineDataSet lineDataSet1 = new LineDataSet
                                                                     (yAXES_Bewegung, Activity_bsa_rpt.this.getString
                                                                             (R.string.bewegungswerte));
                                                             lineDataSet1.setDrawCircles(true);
                                                             lineDataSet1.setColor(Color.BLUE);
+<<<<<<< HEAD
+=======
+
+                                                            LineDataSet lineDataSet2 = new LineDataSet(yAXES_Gesamt,
+                                                                    Activity_bsa_rpt.this.getString(R.string
+                                                                            .gesagmtewerte));
+                                                            lineDataSet2.setDrawCircles(true);
+                                                            lineDataSet2.setColor(Color.RED);
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                             LineDataSet lineDataSet3 = new LineDataSet
                                                                     (yAXES_Sportscoring, Activity_bsa_rpt.this
                                                                             .getString(R.string.sportwerte));
@@ -208,8 +259,14 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                             lineDataSets.add(lineDataSet3);
 
                                                             lineChart.invalidate();
+<<<<<<< HEAD
 
                                                             // set the visual properties of the chart
+=======
+                                                            //lineChart.setVisibleYRangeMaximum(3f,YAxis
+                                                            // .AxisDependency.LEFT);
+                                                            //lineChart.getXAxis().setLabelsToSkip(0);
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                             lineChart.getAxisLeft().resetAxisMinValue();
                                                             lineChart.getAxisLeft().setAxisMinValue((float) Math
                                                                     .floor(min_y) - 0.5f);

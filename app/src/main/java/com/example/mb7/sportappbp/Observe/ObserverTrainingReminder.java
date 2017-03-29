@@ -43,17 +43,15 @@ public class ObserverTrainingReminder extends Observer {
     private static Location userLocation;
     private static Location studioLocation;
 
-    private static short timeOutCounter = 0;
-
     public ObserverTrainingReminder(Context context) {
         this.context = context;
 
-        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE) ;
+        LocationManager locationManager = (LocationManager) context.getSystemService(Context.LOCATION_SERVICE);
         LocationListener locationListener = new LocationListener() {
             @Override
             public void onLocationChanged(Location location) {
                 userLocation = location;
-                if(getUserAddress(location) != null) {
+                if (getUserAddress(location) != null) {
                     userAddress = getUserAddress(location);
                 }
             }
@@ -78,14 +76,12 @@ public class ObserverTrainingReminder extends Observer {
             Criteria criteria = new Criteria();
             criteria.setAccuracy(Criteria.ACCURACY_FINE);
             String best = locationManager.getBestProvider(criteria, false);
-            if(ContextCompat.checkSelfPermission(context,
-                    Manifest.permission.ACCESS_FINE_LOCATION)!= PackageManager.PERMISSION_GRANTED){
-                System.out.println("ATTENTION: permission denied");
-            }else{
-                System.out.println("ATTENTION: permission granted");
+            if (ContextCompat.checkSelfPermission(context,
+                    Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            } else {
                 locationManager.requestLocationUpdates(best, 0, 1, locationListener);
             }
-        }catch(SecurityException e){
+        } catch (SecurityException e) {
             e.printStackTrace();
         }
     }
@@ -95,45 +91,39 @@ public class ObserverTrainingReminder extends Observer {
 
         // check if method allocated
         preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        if(!preferences.getString("allocatedMethods","").contains("trainingreminder")) {
+        if (!preferences.getString("allocatedMethods", "").contains("trainingreminder")) {
             return;
         }
-
-        if(timeOutCounter > 0) {
-            timeOutCounter--;
-        }else {
-            if(!getNextTrainingTimeString(context).equals("")) {
-                preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                // update studio location
-                compareStudioPosition(preferences.getString("Studioadresse", ""),context);
-                if(!(studioAddress == null) && !(userAddress == null)) {
-                    // if necessary, notify user
-                    if (checkNecessityOfNotification(getNextTrainingTimeString(context))) {
-                        if(!preferences.getBoolean("reminderNotified", false)) {
-                            sendNotification(
-                                    context,
-                                    "Trainingserinnerung",
-                                    ActivityMain.class,
-                                    context.getString(R.string.trNotiTitle),
-                                    context.getString(R.string.trNotiSmallTitle1)
-                                            +" "+
-                                            MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))
-                                            +" "+ context.getString(R.string.trNotiSmallTitle2),
-                                    R.mipmap.ic_tagebuch_eintrag);
-                            timeOutCounter = 5;
-                            preferences.edit().putBoolean("reminderNotified", true).apply();
-                            preferences
-                                    .edit()
-                                    .putString("nextTrainingTime", getNextTrainingTimeString(context))
-                                    .apply();
-                            return;
-                        }
+        if (!getNextTrainingTimeString(context).equals("")) {
+            preferences = PreferenceManager.getDefaultSharedPreferences(context);
+            // update studio location
+            compareStudioPosition(preferences.getString("Studioadresse", ""), context);
+            if (!(studioAddress == null) && !(userAddress == null)) {
+                // if necessary/time is due, notify user
+                if (checkNecessityOfNotification(getNextTrainingTimeString(context))) {
+                    if (!preferences.getBoolean("reminderNotified", false)) {
+                        sendNotification(
+                                context,
+                                "Trainingserinnerung",
+                                ActivityMain.class,
+                                context.getString(R.string.trNotiTitle),
+                                context.getString(R.string.trNotiSmallTitle1)
+                                        + " " +
+                                        MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))
+                                        + " " + context.getString(R.string.trNotiSmallTitle2),
+                                R.mipmap.ic_tagebuch_eintrag);
+                        preferences.edit().putBoolean("reminderNotified", true).apply();
+                        preferences
+                                .edit()
+                                .putString("nextTrainingTime", getNextTrainingTimeString(context))
+                                .apply();
                         return;
                     }
+                    return;
                 }
-                preferences.edit().putBoolean("reminderNotified",false).apply();
-                preferences.edit().remove("nextTrainingTime").apply();
             }
+            preferences.edit().putBoolean("reminderNotified", false).apply();
+            preferences.edit().remove("nextTrainingTime").apply();
         }
     }
 
@@ -143,10 +133,10 @@ public class ObserverTrainingReminder extends Observer {
                                    Class<?> cls,
                                    String title,
                                    String text,
-                                   Integer icon ){
+                                   Integer icon) {
 
         Intent contentClass = new Intent(context, cls);
-        contentClass.putExtra("NotificationDate",NotificationDate);
+        contentClass.putExtra("NotificationDate", NotificationDate);
         // Used to stack tasks across activites so we go to the proper place when back is clicked
         // create(context): context is the context that will launch the new task stack or a PendingIndent
         TaskStackBuilder tStackBuilder = TaskStackBuilder.create(context);
@@ -165,31 +155,31 @@ public class ObserverTrainingReminder extends Observer {
                         .setContentText(text)
                         .setTicker(text);
         // specify which activity should be started upon clicking on the notification
-        Intent intent = new Intent(context,ActivityMain.class);
-        intent.putExtra("startTab",1);
+        Intent intent = new Intent(context, ActivityMain.class);
+        intent.putExtra("startTab", 1);
         intent.putExtra("notificationId", 133);
         PendingIntent pendingIntent =
-                PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
         notificationBuilder.setContentIntent(pendingIntent);
 
         // setting up buttons for question (will you go to training?)
-        Intent intentYes = new Intent(context,ActivityTrainQuestioning.class);
+        Intent intentYes = new Intent(context, ActivityTrainQuestioning.class);
         intentYes.setAction("YES_ACTION");
         intentYes.putExtra("notificationId", 133);
         intentYes.putExtra("praiseOrWarn", 0);
         intentYes.putExtra("preTrain", true);
         PendingIntent pendingIntentYes =
-                PendingIntent.getActivity(context,0,intentYes,PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.addAction(R.drawable.transparent,"Ja",pendingIntentYes);
+                PendingIntent.getActivity(context, 0, intentYes, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.addAction(R.drawable.transparent, "Ja", pendingIntentYes);
 
-        Intent intentNo = new Intent(context,ActivityTrainQuestioning.class);
+        Intent intentNo = new Intent(context, ActivityTrainQuestioning.class);
         intentNo.setAction("NO_ACTION");
         intentNo.putExtra("notificationId", 133);
         intentNo.putExtra("praiseOrWarn", 1);
         intentYes.putExtra("preTrain", true);
         PendingIntent pendingIntentNo =
-                PendingIntent.getActivity(context,0,intentNo,PendingIntent.FLAG_UPDATE_CURRENT);
-        notificationBuilder.addAction(R.drawable.transparent,"Nein",pendingIntentNo);
+                PendingIntent.getActivity(context, 0, intentNo, PendingIntent.FLAG_UPDATE_CURRENT);
+        notificationBuilder.addAction(R.drawable.transparent, "Nein", pendingIntentNo);
 
         notificationBuilder.setAutoCancel(true);
         notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
@@ -198,13 +188,14 @@ public class ObserverTrainingReminder extends Observer {
         final NotificationManager notificationManager =
                 (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
         // send notification
-        notificationManager.notify(133,notificationBuilder.build());
+        notificationManager.notify(133, notificationBuilder.build());
 
     }
 
 
     /**
      * determines the address object of the given location object
+     *
      * @param location: location object, describing the users position
      * @return address object describing users position
      */
@@ -216,23 +207,21 @@ public class ObserverTrainingReminder extends Observer {
         geocoder = new Geocoder(context, Locale.getDefault());
         try {
             addresses = geocoder.getFromLocation(location.getLatitude(), location.getLongitude(), 1);
-        } catch(IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
-            System.out.println("ATTENTION: user address could not be determined.");
         }
 
         // check if address is valid
-        if(addresses != null && addresses.size() > 0 && addresses.get(0) != null) {
+        if (addresses != null && addresses.size() > 0 && addresses.get(0) != null) {
             tmpUserAddress = addresses.get(0);
-        } else {
-            System.out.println("ATTENTION: Address equals null.");
         }
         return tmpUserAddress;
     }
 
     /**
      * determines the address object of the given address and returns it for comparing
-     * @param givenPosition the user entered name of the studio address
+     *
+     * @param givenPosition  the user entered name of the studio address
      * @param compareContext the context to hand to the GeoCoder
      * @return address object matching the user given address the most
      */
@@ -243,12 +232,12 @@ public class ObserverTrainingReminder extends Observer {
         // determine the address matching the given address the most
         try {
             determinedAddresses = geocoder.getFromLocationName(givenPosition, 1);
-        }catch(Exception e){
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
         // set the studio position to the determined address
-        if(determinedAddresses != null
+        if (determinedAddresses != null
                 && determinedAddresses.size() > 0
                 && determinedAddresses.get(0) != null) {
             studioAddress = determinedAddresses.get(0);
@@ -258,14 +247,14 @@ public class ObserverTrainingReminder extends Observer {
             return determinedAddresses.get(0).getAddressLine(0)
                     + ", " + determinedAddresses.get(0).getPostalCode()
                     + " " + determinedAddresses.get(0).getLocality();
-        }else {
-            System.err.println("ATTENTION: studio address could not be determined");
+        } else {
             return null;
         }
     }
 
     /**
      * determines the distance between the user position and the studio postition
+     *
      * @return distance in meter
      */
     private float getDistanceToStudio() {
@@ -273,7 +262,7 @@ public class ObserverTrainingReminder extends Observer {
         float cityBlockFactor = 1.25f;
 
         // return the approximate distance between user and studio
-        if(userLocation != null && studioLocation != null) {
+        if (userLocation != null && studioLocation != null) {
             return userLocation.distanceTo(studioLocation) * cityBlockFactor;
         }
         return 0;
@@ -281,6 +270,7 @@ public class ObserverTrainingReminder extends Observer {
 
     /**
      * determines time needed to get to the studio starting at the users position
+     *
      * @return time needed in minutes
      */
     private int getTimeToStudio() {
@@ -293,7 +283,7 @@ public class ObserverTrainingReminder extends Observer {
         float distance = getDistanceToStudio();
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-        String meansOfTransportation = preferences.getString("lstVerkehrsmittel","");
+        String meansOfTransportation = preferences.getString("lstVerkehrsmittel", "");
 
         // speed in meter/minutes
         float speed = 85.0f;
@@ -315,16 +305,17 @@ public class ObserverTrainingReminder extends Observer {
         time = distance / speed;
         // round time needed to the next lowest multiple of five
         time -= (time % 5);
-        return (int)(time + buffer);
+        return (int) (time + buffer);
     }
 
     /**
      * checks if the time has come to remember the user to go to the studio
+     *
      * @return boolean, which is true if user has to be reminded and false if not
      */
     private boolean checkNecessityOfNotification(String trainingStartTime) {
 
-        if(trainingStartTime == null || trainingStartTime.equals("")) {
+        if (trainingStartTime == null || trainingStartTime.equals("")) {
             return false;
         }
 

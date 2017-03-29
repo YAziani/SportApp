@@ -24,7 +24,7 @@ import static junit.framework.Assert.assertTrue;
 
 @RunWith(AndroidJUnit4.class)
 @MediumTest
-public class FirebaseTest{
+public class FirebaseTest {
 
     // context of the test
     private Context instrumentationCtx;
@@ -37,7 +37,7 @@ public class FirebaseTest{
         // wait for initializing of database
         try {
             Thread.sleep(1000);
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
 
@@ -45,10 +45,10 @@ public class FirebaseTest{
         // write values into database
         cloud.child("TestNode").child("testValue00").setValue("qwertz");
         cloud.child("TestNode").child("testValue01").setValue("qwerty");
-        DAL_RegisteredUsers.insertRegistration("TestRegistration","testPassword");
+        DAL_RegisteredUsers.insertRegistration("TestRegistration", "testPassword");
         try {
             Thread.sleep(1000);
-        }catch(Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -61,7 +61,7 @@ public class FirebaseTest{
      */
 
     @Test
-    public void testRead00(){
+    public void testRead00() {
         // define reading target
         Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/TestNode/testValue00");
         try {
@@ -86,7 +86,7 @@ public class FirebaseTest{
     }
 
     @Test
-    public void testRead01(){
+    public void testRead01() {
         Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/TestNode/testValue01");
         try {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -108,15 +108,15 @@ public class FirebaseTest{
     }
 
     @Test
-    public void testReadRegistration(){
+    public void testReadRegistration() {
         Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
         try {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     boolean containsValue = false;
-                    for(DataSnapshot d : dataSnapshot.getChildren()) {
-                        if(d.getKey().equals("TestRegistration")
+                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                        if (d.getKey().equals("TestRegistration")
                                 && d.child("password").getValue() != null
                                 && d.child("password").getValue().equals("testPassword")) {
                             containsValue = true;
@@ -140,6 +140,6 @@ public class FirebaseTest{
 
     @Test
     public void testAssert() {
-        assertEquals(9,3*3);
+        assertEquals(9, 3 * 3);
     }
 }

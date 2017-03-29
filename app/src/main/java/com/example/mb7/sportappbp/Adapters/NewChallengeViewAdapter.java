@@ -22,8 +22,7 @@ public class NewChallengeViewAdapter extends BaseAdapter {
     private Activity _context;
     private ArrayList<User> _users;
 
-    public NewChallengeViewAdapter(Activity context, ArrayList<User> users)
-    {
+    public NewChallengeViewAdapter(Activity context, ArrayList<User> users) {
         _users = users;
         _context = context;
     }

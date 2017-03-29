@@ -22,15 +22,17 @@ public class RadioButtonFragment extends DialogFragment {
     public Dialog onCreateDialog(Bundle savedInstanceState) {
 
         // array of displayed items
-        CharSequence[] charSequencesArray = new CharSequence[]{"zu Fuß","Fahrrad","Öffentliche Verkehrsmittel","Auto"};
+        CharSequence[] charSequencesArray = new CharSequence[]{"zu Fuß", "Fahrrad", "Öffentliche Verkehrsmittel",
+                "Auto"};
         preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
 
         AlertDialog.Builder builder = new AlertDialog.Builder(getActivity());
         // set the dialog title
         builder.setTitle("Fortbewegungsmittel zum Fitnessstudio")
                 // the listener through which to receive callbacks when item is selected
-                .setSingleChoiceItems(charSequencesArray,Integer.valueOf(preferences.getString("lstVerkehrsmittel","0")) - 1,
-                        new DialogInterface.OnClickListener(){
+                .setSingleChoiceItems(charSequencesArray, Integer.valueOf(preferences.getString("lstVerkehrsmittel",
+                        "0")) - 1,
+                        new DialogInterface.OnClickListener() {
                             @Override
                             public void onClick(DialogInterface dialog, int which) {
                                 //if the user checked the item, add it to the selected items
@@ -42,7 +44,7 @@ public class RadioButtonFragment extends DialogFragment {
                     @Override
                     public void onClick(DialogInterface dialog, int id) {
                         // User clicked OK, save the selected item
-                        preferences.edit().putString("lstVerkehrsmittel",String.valueOf(selectedItem)).apply();
+                        preferences.edit().putString("lstVerkehrsmittel", String.valueOf(selectedItem)).apply();
                         getActivity().finish();
                     }
                 })

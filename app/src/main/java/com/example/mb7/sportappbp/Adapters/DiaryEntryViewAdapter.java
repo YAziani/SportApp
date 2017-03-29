@@ -17,15 +17,15 @@ import java.util.ArrayList;
  * Created by Basti on 14.03.2017.
  */
 
-public class DiaryEntryViewAdapter extends BaseAdapter{
+public class DiaryEntryViewAdapter extends BaseAdapter {
 
     private Activity _context;
     private ArrayList<Integer> _categories;
     private DiaryEntry _diaryEntry;
     private ArrayList<Integer> _icons;
 
-    public DiaryEntryViewAdapter(Activity context, ArrayList<Integer> categories, DiaryEntry diaryEntry,  ArrayList<Integer> icons)
-    {
+    public DiaryEntryViewAdapter(Activity context, ArrayList<Integer> categories, DiaryEntry diaryEntry,
+                                 ArrayList<Integer> icons) {
         _categories = categories;
         _context = context;
         _diaryEntry = diaryEntry;
@@ -53,7 +53,7 @@ public class DiaryEntryViewAdapter extends BaseAdapter{
             view = _context.getLayoutInflater().inflate(R.layout.lst_totalactivity_cell, null);
 
         //Name the category name in the grid
-        TextView txtCategory =(TextView) view.findViewById(R.id.category);
+        TextView txtCategory = (TextView) view.findViewById(R.id.category);
         txtCategory.setText(category);
 
         //Place the icon for the category in the grid
@@ -67,7 +67,7 @@ public class DiaryEntryViewAdapter extends BaseAdapter{
         //for each grid/category set the total time, total point and the color
         DecimalFormat df = new DecimalFormat("00");
         int[] data;
-        switch(category){
+        switch (category) {
             case (R.string.Leistungstests):
                 //get the total time (hours, minutes) and total points as an array
                 data = _diaryEntry.getTotalTimePointsAsArrayLeistungstests();

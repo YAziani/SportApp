@@ -3,8 +3,10 @@ package com.example.mb7.sportappbp.BusinessLayer;
 import android.app.Activity;
 import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
+
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
 import com.firebase.client.DataSnapshot;
+
 import java.util.Calendar;
 import java.util.Date;
 import java.util.LinkedList;
@@ -21,8 +23,9 @@ public class MethodChooser {
 
     /**
      * choose methods depending on the settings in the database
+     *
      * @param dataSnapshot snapshot representing entries in database
-     * @param activity the calling activity
+     * @param activity     the calling activity
      */
     public static void chooseMethods(DataSnapshot dataSnapshot, Activity activity) {
         preferences = PreferenceManager.getDefaultSharedPreferences(activity.getApplicationContext());
@@ -31,22 +34,22 @@ public class MethodChooser {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
 
-        if(dataSnapshot == null) {
+        if (dataSnapshot == null) {
             return;
         }
 
         // iterate through the setting options
         String allocationType;
-        for(DataSnapshot abstractSet : dataSnapshot.getChildren()){
+        for (DataSnapshot abstractSet : dataSnapshot.getChildren()) {
             // save type of assignment
             allocationType = abstractSet.getKey();
 
             // go through concrete sets of assignment
-            for(DataSnapshot concreteSet : abstractSet.getChildren()) {
+            for (DataSnapshot concreteSet : abstractSet.getChildren()) {
                 // check if current date is part of this setting option
-                if(checkTimeSpan(concreteSet,calendar)) {
+                if (checkTimeSpan(concreteSet, calendar)) {
                     // determine the scheme of distribution wanted
-                    switch(allocationType) {
+                    switch (allocationType) {
                         case "same":
                             sameForAll(concreteSet.child("activities"));
                             break;
@@ -65,40 +68,43 @@ public class MethodChooser {
 
     /**
      * checks if current date is within time span of setting
+     *
      * @param dataSnapshot snapshot representing entries in database
-     * @param calendar calendar containing current date
+     * @param calendar     calendar containing current date
      * @return true if date is within time span, else false
      */
     private static boolean checkTimeSpan(DataSnapshot dataSnapshot, Calendar calendar) {
         // parse current date into comparable number
         String currentTime = String.valueOf(calendar.get(Calendar.YEAR));
-        if(calendar.get(Calendar.MONTH) + 1 < 10) {
+        if (calendar.get(Calendar.MONTH) + 1 < 10) {
             currentTime += "0";
         }
         currentTime += String.valueOf(calendar.get(Calendar.MONTH) + 1);
-        if(calendar.get(Calendar.DAY_OF_MONTH) < 10) {
+        if (calendar.get(Calendar.DAY_OF_MONTH) < 10) {
             currentTime += "0";
         }
         currentTime += String.valueOf(calendar.get(Calendar.DAY_OF_MONTH));
 
         // get the start and end of the time span
-        String start = parseTimeEntry((String)dataSnapshot.child("datefrom").getValue());
-        String end = parseTimeEntry((String)dataSnapshot.child("dateto").getValue());
+        String start = parseTimeEntry((String) dataSnapshot.child("datefrom").getValue());
+        String end = parseTimeEntry((String) dataSnapshot.child("dateto").getValue());
 
-        if(start == null || end == null) {
+        if (start == null || end == null) {
             return false;
         }
-        return Integer.valueOf(start) <= Integer.valueOf(currentTime) && Integer.valueOf(currentTime) <= Integer.valueOf(end);
+        return Integer.valueOf(start) <= Integer.valueOf(currentTime) && Integer.valueOf(currentTime) <= Integer
+                .valueOf(end);
     }
 
     /**
      * parse date into comparable number
+     *
      * @param s string representing the date
      * @return number representing date
      */
     private static String parseTimeEntry(String s) {
 
-        if(s == null || s.equals("")) {
+        if (s == null || s.equals("")) {
             return null;
         }
 
@@ -108,7 +114,7 @@ public class MethodChooser {
         // parse date
         String parsedString = splitString[3];
         // get month
-        switch(splitString[1]) {
+        switch (splitString[1]) {
             case "Jan":
                 month = "01";
                 break;
@@ -156,12 +162,13 @@ public class MethodChooser {
 
     /**
      * all users get the same methods
+     *
      * @param dataSnapshot snapshot representing entries in database
      */
-    private static void sameForAll( DataSnapshot dataSnapshot) {
+    private static void sameForAll(DataSnapshot dataSnapshot) {
         // iterate through all methods and put them into the list
-        for(DataSnapshot d : dataSnapshot.getChildren()) {
-            if(d.getValue() instanceof Boolean && (boolean)d.getValue()) {
+        for (DataSnapshot d : dataSnapshot.getChildren()) {
+            if (d.getValue() instanceof Boolean && (boolean) d.getValue()) {
                 putMethodInList(d.getKey());
             }
         }
@@ -169,22 +176,23 @@ public class MethodChooser {
 
     /**
      * users get random sets of methods
+     *
      * @param dataSnapshot snapshot representing entries in database
      */
     private static void randomised(DataSnapshot dataSnapshot) {
         // iterate through all methods and save them
         LinkedList<String> list = new LinkedList<>();
-        for(DataSnapshot d : dataSnapshot.getChildren()) {
-            if(d.getValue() instanceof Boolean && (boolean)d.getValue() && !d.getKey().equals("active")) {
+        for (DataSnapshot d : dataSnapshot.getChildren()) {
+            if (d.getValue() instanceof Boolean && (boolean) d.getValue() && !d.getKey().equals("active")) {
                 list.add(d.getKey());
             }
         }
 
         // put random methods into lists
-        int noOfUsedMethods = (int)Math.ceil(list.size() * 0.75);
+        int noOfUsedMethods = (int) Math.ceil(list.size() * 0.75);
         int listIndex;
         Random random = new Random();
-        for(int i = 0; i < noOfUsedMethods; i++) {
+        for (int i = 0; i < noOfUsedMethods; i++) {
             // get random index
             listIndex = random.nextInt(list.size());
             putMethodInList(list.get(listIndex));
@@ -195,58 +203,60 @@ public class MethodChooser {
 
     /**
      * users get alternating sets of methods
+     *
      * @param dataSnapshot snapshot representing entries in database
      */
-    private static void alternating( DataSnapshot dataSnapshot) {
+    private static void alternating(DataSnapshot dataSnapshot) {
         DataSnapshot currentActiveGroup = null;
         DataSnapshot nextActiveGroup = null;
         DataSnapshot firstGroup = null;
         boolean foundActiveGroup = false;
 
         //find active group
-        for(DataSnapshot group : dataSnapshot.child("groups").getChildren()) {
+        for (DataSnapshot group : dataSnapshot.child("groups").getChildren()) {
             // if found active group, save next active group
-            if(foundActiveGroup) {
+            if (foundActiveGroup) {
                 nextActiveGroup = group;
                 break;
             }
             // save first group
-            if(firstGroup == null && group.getKey().substring(0,5).equals("group")) {
+            if (firstGroup == null && group.getKey().substring(0, 5).equals("group")) {
                 firstGroup = group;
             }
-            if(group.getKey().substring(0,5).equals("group")
+            if (group.getKey().substring(0, 5).equals("group")
                     && group.child("groupactive").getValue() instanceof Boolean
-                    && (boolean)group.child("groupactive").getValue()) {
+                    && (boolean) group.child("groupactive").getValue()) {
                 currentActiveGroup = group;
                 foundActiveGroup = true;
             }
         }
 
         // if active group is last one, next group is first group
-        if(foundActiveGroup && nextActiveGroup == null) {
+        if (foundActiveGroup && nextActiveGroup == null) {
             nextActiveGroup = firstGroup;
         }
 
         // save methods into list
-        for(DataSnapshot d : currentActiveGroup.getChildren()) {
-            if(d.getValue() instanceof Boolean && (boolean) d.getValue() && !d.getKey().equals("groupactive")) {
+        for (DataSnapshot d : currentActiveGroup.getChildren()) {
+            if (d.getValue() instanceof Boolean && (boolean) d.getValue() && !d.getKey().equals("groupactive")) {
                 putMethodInList(d.getKey());
             }
         }
 
         // update alternating groups
-        DAL_User.insertAlternGroupUpdate(currentActiveGroup.getKey(),nextActiveGroup.getKey(),dataSnapshot.getKey());
+        DAL_User.insertAlternGroupUpdate(currentActiveGroup.getKey(), nextActiveGroup.getKey(), dataSnapshot.getKey());
     }
 
     /**
      * puts the method represented by s into it's list
+     *
      * @param s string representing the method
      */
     private static void putMethodInList(
             String s) {
         // check which method is represented by s and put it in it's list
         preferences.edit().putString(
-                "allocatedMethods", (preferences.getString("allocatedMethods","") + s + ";")
+                "allocatedMethods", (preferences.getString("allocatedMethods", "") + s + ";")
         ).commit();
     }
 }

@@ -23,27 +23,29 @@ import java.util.List;
  * Created by Felix on 26.03.2017.
  */
 
-public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogenViewAdapter.FragebogenHolder>{
+public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogenViewAdapter.FragebogenHolder> {
     List<Fragebogen> fragebogenList;
     Activity context;
     Integer selectedPosition = -1;
 
-    public  class FragebogenHolder extends RecyclerView.ViewHolder  {
+    public class FragebogenHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView txtTitle;
         TextView txtSubText;
         ImageView imageView;
-        public View view   ;
+        public View view;
+
         FragebogenHolder(View itemView) {
             super(itemView);
             txtTitle = (TextView) itemView.findViewById(R.id.txtDatebsasfragebogen);
-                        cv = (CardView) itemView.findViewById(R.id.card_view_bsafragebogen);
+            cv = (CardView) itemView.findViewById(R.id.card_view_bsafragebogen);
             imageView = (ImageView) itemView.findViewById(R.id.imgViewBsaFragebogen);
             view = itemView;
         }
 
     }
-    public BsaFragebogenViewAdapter(List<Fragebogen> fragebogenList, Activity context){
+
+    public BsaFragebogenViewAdapter(List<Fragebogen> fragebogenList, Activity context) {
         this.fragebogenList = fragebogenList;
         this.context = context;
     }
@@ -67,16 +69,13 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
         fragebogenHolder.txtTitle.setText(fragebogenList.get(position).Date);
         fragebogenHolder.imageView.setImageResource(R.mipmap.ic_aktivitaets_fragebogen);
 
-        if (position == selectedPosition)
-        {
+        if (position == selectedPosition) {
             fragebogenHolder.itemView.setBackgroundColor(Color.GRAY);
-        }
-        else
-        {
+        } else {
             fragebogenHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        holder.view.setOnLongClickListener(new View.OnLongClickListener(){
+        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 // reset the previous item as unselected if exists
@@ -91,7 +90,7 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
             }
 
         });
-        holder.view.setOnClickListener(new View.OnClickListener(){
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -100,11 +99,11 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
                     notifyItemChanged(selectedPosition);
                     selectedPosition = -1;
 
-                }
-                else {
+                } else {
                     // if nothing is longclicked -> go to the ActivityStimmung of the selected item
                     Intent open = new Intent(context, ActivityFragebogen.class);
-                    // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                    // insert the date of the notificatino in the extra which is the unique field to delete the
+                    // notification from the database
 
                     // pass the clicked stimmungsangabe to the activity
                     Fragebogen fragebogen = fragebogenList.get(position);
@@ -115,8 +114,7 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
         });
     }
 
-    public Fragebogen getSelectedObject()
-    {
+    public Fragebogen getSelectedObject() {
         return fragebogenList.get(selectedPosition);
     }
 

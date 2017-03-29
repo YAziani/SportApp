@@ -14,13 +14,13 @@ import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
  * Created by MB7 on 18.01.2017.
  */
 
-public class StimmungListview extends ListView  {
+public class StimmungListview extends ListView {
     private int index = -1;
     StimmungListview lst = this;
 
     public StimmungListview(Context context) {
-    super(context);
-}
+        super(context);
+    }
 
     public StimmungListview(Context context, AttributeSet attrs) {
         super(context, attrs);
@@ -29,13 +29,13 @@ public class StimmungListview extends ListView  {
     public StimmungListview(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
+
     public StimmungListview(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
-        super (context,attrs,defStyleAttr,defStyleRes);
+        super(context, attrs, defStyleAttr, defStyleRes);
     }
 
 
-    public void Initialize()
-    {
+    public void Initialize() {
         // we do this to disable scrolling the listview
         this.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -49,19 +49,19 @@ public class StimmungListview extends ListView  {
         });
         // we do this so that the selected color remains after clicking on an item
         this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-        @Override
-        public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-            index = position;
-            String val = Integer.toString(index);
-            ((StimmungsViewAdapter)lst.getAdapter()).setSelectedIndex(position);
-            ((StimmungsViewAdapter) lst.getAdapter()).notifyDataSetChanged();
-            view.setSelected(true);
-        }
-    });
+            @Override
+            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
+                index = position;
+                String val = Integer.toString(index);
+                ((StimmungsViewAdapter) lst.getAdapter()).setSelectedIndex(position);
+                ((StimmungsViewAdapter) lst.getAdapter()).notifyDataSetChanged();
+                view.setSelected(true);
+            }
+        });
     }
 
-    public int getIndex(){
-        return ((StimmungsViewAdapter)getAdapter()).getSelectedIndex();
+    public int getIndex() {
+        return ((StimmungsViewAdapter) getAdapter()).getSelectedIndex();
     }
 
 }

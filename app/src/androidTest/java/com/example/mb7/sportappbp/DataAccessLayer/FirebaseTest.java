@@ -47,13 +47,14 @@ public class FirebaseTest {
             e.printStackTrace();
         }
 
+        // write data into database
         writeDAL_RegisteredUsers();
         writeAlternatingGroupsUpdate();
         writeFitnessFragebogen();
 
-        
+
         try {
-            Thread.sleep(1000);
+            Thread.sleep(3000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -133,12 +134,6 @@ public class FirebaseTest {
             e.printStackTrace();
             assertTrue(false);
         }
-
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
     /**
@@ -150,11 +145,6 @@ public class FirebaseTest {
         DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness2());
         DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness3());
 
-        try {
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
     }
 
 

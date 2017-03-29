@@ -65,6 +65,7 @@ public class ActivitySettingInitializer extends AppCompatActivity {
         // setup preferences file
         sharedPreferences = PreferenceManager.getDefaultSharedPreferences(this.getApplicationContext());
         editor = sharedPreferences.edit();
+        editor.apply();
 
         // setup arrays with the displayed values
         textArray = new String[]{
@@ -132,7 +133,7 @@ public class ActivitySettingInitializer extends AppCompatActivity {
         // set color flash and OnClickListener
         for (int i = 0; i < 8; i++) {
             final int j = i;
-            // color flash
+
             imgButtonArray[j].setOnTouchListener(new View.OnTouchListener() {
                 Rect rect;
 
@@ -253,8 +254,6 @@ public class ActivitySettingInitializer extends AppCompatActivity {
                     }
                 }
             });
-
-            // set font and text size
             textViewArr[j].setTextSize(18);
         }
     }

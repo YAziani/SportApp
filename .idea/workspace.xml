@@ -16,7 +16,12 @@
     <list default="true" id="383739e4-0089-49df-99ae-4923f13d0f21" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/androidTest/java/com/example/mb7/sportappbp/DataAccessLayer/FirebaseTest.java" afterPath="$PROJECT_DIR$/app/src/androidTest/java/com/example/mb7/sportappbp/DataAccessLayer/FirebaseTest.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityFragebogen.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityFragebogen.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityLogin.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityLogin.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMain.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMain.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMotivationMessage.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMotivationMessage.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivitySettingInitializer.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivitySettingInitializer.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityTrainQuestioning.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityTrainQuestioning.java" />
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/MethodChooser.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/MethodChooser.java" />
     </list>
     <ignored path="SportApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -50,22 +55,14 @@
   </component>
   <component name="FileEditorManager">
     <leaf SIDE_TABS_SIZE_LIMIT_KEY="300">
-      <file leaf-file-name="Activity_Stimmungsbarometer_rpt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_Stimmungsbarometer_rpt.java">
+      <file leaf-file-name="ActivityMain.java" pinned="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMain.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1650">
-              <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity_Trainings_rpt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_Trainings_rpt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="427">
-              <caret line="68" column="28" selection-start-line="68" selection-start-column="28" selection-end-line="68" selection-end-column="28" />
-              <folding />
+            <state relative-caret-position="250">
+              <caret line="61" column="26" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+              <folding>
+                <element signature="method#getMainUser#0;class#ActivityMain#0" expanded="false" />
+              </folding>
             </state>
           </provider>
         </entry>
@@ -73,108 +70,20 @@
       <file leaf-file-name="FirebaseTest.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/mb7/sportappbp/DataAccessLayer/FirebaseTest.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="335">
-              <caret line="203" column="0" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
+            <state relative-caret-position="-699">
+              <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
               <folding>
+                <element signature="method#writeDAL_RegisteredUsers#0;class#FirebaseTest#0" expanded="false" />
                 <element signature="method#writeAlternatingGroupsUpdate#0;class#FirebaseTest#0" expanded="false" />
+                <element signature="method#writeFitnessFragebogen#0;class#FirebaseTest#0" expanded="false" />
                 <element signature="method#testReadRegistration#0;class#FirebaseTest#0" expanded="false" />
+                <element signature="method#testAlternatingGroupsUpdate#0;class#FirebaseTest#0" expanded="false" />
                 <element signature="method#testFitness1#0;class#FirebaseTest#0" expanded="false" />
                 <element signature="method#testFitness2#0;class#FirebaseTest#0" expanded="false" />
                 <element signature="method#testFitness3#0;class#FirebaseTest#0" expanded="false" />
                 <element signature="method#testfitness1#0;class#FirebaseTest#0" expanded="false" />
                 <element signature="method#testfitness2#0;class#FirebaseTest#0" expanded="false" />
                 <element signature="method#testfitness3#0;class#FirebaseTest#0" expanded="false" />
-                <marker date="1490806922753" expanded="false" signature="2356:2691" ph="{...}" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="ActivityFragebogen.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityFragebogen.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="-103">
-              <caret line="108" column="0" selection-start-line="108" selection-start-column="0" selection-end-line="108" selection-end-column="0" />
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity_LineChartReports.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_LineChartReports.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="7300">
-              <caret line="326" column="0" selection-start-line="326" selection-start-column="0" selection-end-line="326" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="docComment;class#Activity_LineChartReports#0" expanded="false" />
-                <element signature="docComment;method#computeDraw#0;class#Activity_LineChartReports#0" expanded="false" />
-                <element signature="docComment;method#computeDrawDiff#0;class#Activity_LineChartReports#0" expanded="false" />
-                <element signature="docComment;method#computeScores#0;class#Activity_LineChartReports#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity_bsa_rpt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_bsa_rpt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4850">
-              <caret line="226" column="0" selection-start-line="226" selection-start-column="0" selection-end-line="226" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="docComment;method#computeDrawThree#0;class#Activity_bsa_rpt#0" expanded="false" />
-                <element signature="e#6743#6786#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity_Differenz_rpt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_Differenz_rpt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1300">
-              <caret line="64" column="20" selection-start-line="64" selection-start-column="20" selection-end-line="64" selection-end-column="20" />
-              <folding>
-                <element signature="imports" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity_FitnessFragebogen_gesamt_rpt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_FitnessFragebogen_gesamt_rpt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="4475">
-              <caret line="209" column="42" selection-start-line="209" selection-start-column="42" selection-end-line="209" selection-end-column="42" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="docComment;method#computeDrawFive#0;class#Activity_FitnessFragebogen_gesamt_rpt#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity_FitnessFragebogen_rpt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_FitnessFragebogen_rpt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="6000">
-              <caret line="271" column="0" selection-start-line="271" selection-start-column="0" selection-end-line="271" selection-end-column="0" />
-              <folding>
-                <element signature="imports" expanded="false" />
-                <element signature="docComment;method#computeDrawFive#0;class#Activity_FitnessFragebogen_rpt#0" expanded="false" />
-              </folding>
-            </state>
-          </provider>
-        </entry>
-      </file>
-      <file leaf-file-name="Activity_EnergieIndex_rpt.java" pinned="false" current-in-tab="false">
-        <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_EnergieIndex_rpt.java">
-          <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="1700">
-              <caret line="79" column="81" selection-start-line="79" selection-start-column="69" selection-end-line="79" selection-end-column="81" />
-              <folding>
-                <element signature="imports" expanded="false" />
               </folding>
             </state>
           </provider>
@@ -710,11 +619,6 @@
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
                 <option name="name" value="generateReleaseResValues" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support.constraint:constraint-layout:1.0.2" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
-                <option name="name" value="prepareComAndroidSupportConstraintConstraintLayout102Library" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$" />
@@ -1579,11 +1483,6 @@
                 <option name="name" value="generateReleaseResValues" />
               </ExternalTaskPojo>
               <ExternalTaskPojo>
-                <option name="description" value="Prepare com.android.support.constraint:constraint-layout:1.0.2" />
-                <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
-                <option name="name" value="prepareComAndroidSupportConstraintConstraintLayout102Library" />
-              </ExternalTaskPojo>
-              <ExternalTaskPojo>
                 <option name="linkedExternalProjectPath" value="$PROJECT_DIR$/app" />
                 <option name="name" value="assembleReleaseUnitTest" />
               </ExternalTaskPojo>
@@ -1962,7 +1861,7 @@
     </option>
     <option name="modificationStamps">
       <map>
-        <entry key="D:\Development\AndroidStudioProjects\SportApp" value="4467404832186" />
+        <entry key="D:\Development\AndroidStudioProjects\SportApp" value="4467409676937" />
         <entry key="E:\Projects\SportApp" value="4471208634628" />
       </map>
     </option>
@@ -2271,11 +2170,6 @@
   <component name="IdeDocumentHistory">
     <option name="CHANGED_PATHS">
       <list>
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/StimmungAbfrageScore.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/DataAccessLayer/DAL_User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/User.java" />
-        <option value="$PROJECT_DIR$/app/src/main/res/layout/activity_differenz_rpt.xml" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/activity_trainings_rpt.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/ChallengeLstViewAdapter.java" />
         <option value="$PROJECT_DIR$/app/src/main/res/menu/menu_context_report.xml" />
         <option value="$PROJECT_DIR$/app/src/main/res/values/array.xml" />
@@ -2312,7 +2206,6 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityDiary.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityDiaryEntry.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityFitnessFragebogen.java" />
-        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMotivationMessage.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityStimmungsAbgabe.java" />
         <option value="$PROJECT_DIR$/app/build/generated/res/google-services/debug/values/values.xml" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_LineChartReports.java" />
@@ -2322,6 +2215,12 @@
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_FitnessFragebogen_rpt.java" />
         <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityFragebogen.java" />
         <option value="$PROJECT_DIR$/app/src/androidTest/java/com/example/mb7/sportappbp/DataAccessLayer/FirebaseTest.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMain.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityLogin.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityTrainQuestioning.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMotivationMessage.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivitySettingInitializer.java" />
+        <option value="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/MethodChooser.java" />
       </list>
     </option>
   </component>
@@ -2428,6 +2327,50 @@
               <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
             </PATH_ELEMENT>
             <PATH_ELEMENT>
+              <option name="myItemId" value="Observe" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SportApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sportappbp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="BusinessLayer" />
+              <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
+            </PATH_ELEMENT>
+          </PATH>
+          <PATH>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="SportApp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidViewProjectNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="app" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidModuleNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="java" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidSourceTypeNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
+              <option name="myItemId" value="sportappbp" />
+              <option name="myItemType" value="com.android.tools.idea.navigator.nodes.AndroidPsiDirectoryNode" />
+            </PATH_ELEMENT>
+            <PATH_ELEMENT>
               <option name="myItemId" value="Activity" />
               <option name="myItemType" value="com.intellij.ide.projectView.impl.nodes.PsiDirectoryNode" />
             </PATH_ELEMENT>
@@ -2473,33 +2416,7 @@
       <recent name="E:\Projects\SportApp\app\src\main\res\layout" />
     </key>
   </component>
-  <component name="RunManager" selected="Android Instrumented Tests.FirebaseTest">
-    <configuration default="false" name="DAL_UserTest" type="AndroidJUnit" factoryName="Android JUnit" temporary="true" nameIsGenerated="true">
-      <extension name="coverage" enabled="false" merge="false" sample_coverage="true" runner="idea">
-        <pattern>
-          <option name="PATTERN" value="com.example.mb7.sportappbp.DataAccessLayer.*" />
-          <option name="ENABLED" value="true" />
-        </pattern>
-      </extension>
-      <module name="app" />
-      <option name="ALTERNATIVE_JRE_PATH_ENABLED" value="false" />
-      <option name="ALTERNATIVE_JRE_PATH" />
-      <option name="PACKAGE_NAME" value="com.example.mb7.sportappbp.DataAccessLayer" />
-      <option name="MAIN_CLASS_NAME" value="com.example.mb7.sportappbp.DataAccessLayer.DAL_UserTest" />
-      <option name="METHOD_NAME" />
-      <option name="TEST_OBJECT" value="class" />
-      <option name="VM_PARAMETERS" />
-      <option name="PARAMETERS" />
-      <option name="WORKING_DIRECTORY" />
-      <option name="ENV_VARIABLES" />
-      <option name="PASS_PARENT_ENVS" value="true" />
-      <option name="TEST_SEARCH_SCOPE">
-        <value defaultName="singleModule" />
-      </option>
-      <envs />
-      <patterns />
-      <method />
-    </configuration>
+  <component name="RunManager" selected="Android App.ActivityMain">
     <configuration default="false" name="useAppContext()" type="AndroidTestRunConfigurationType" factoryName="Android Instrumented Tests" temporary="true" nameIsGenerated="true">
       <module name="app" />
       <option name="TESTING_TYPE" value="3" />
@@ -2690,6 +2607,55 @@
         <option name="SUPPORT_LIB_ENABLED" value="true" />
         <option name="INSTRUMENTATION_ENABLED" value="true" />
       </Profilers>
+      <method />
+    </configuration>
+    <configuration default="false" name="ActivityMain" type="AndroidRunConfigurationType" factoryName="Android App" activateToolWindowBeforeRun="false" temporary="true">
+      <module name="app" />
+      <option name="DEPLOY" value="true" />
+      <option name="ARTIFACT_NAME" value="" />
+      <option name="PM_INSTALL_OPTIONS" value="" />
+      <option name="ACTIVITY_EXTRA_FLAGS" value="" />
+      <option name="MODE" value="specific_activity" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="CLEAR_LOGCAT" value="false" />
+      <option name="SHOW_LOGCAT_AUTOMATICALLY" value="false" />
+      <option name="SKIP_NOOP_APK_INSTALLATIONS" value="true" />
+      <option name="FORCE_STOP_RUNNING_APP" value="true" />
+      <option name="TARGET_SELECTION_MODE" value="SHOW_DIALOG" />
+      <option name="USE_LAST_SELECTED_DEVICE" value="false" />
+      <option name="PREFERRED_AVD" value="" />
+      <option name="SELECTED_CLOUD_MATRIX_CONFIGURATION_ID" value="-1" />
+      <option name="SELECTED_CLOUD_MATRIX_PROJECT_ID" value="" />
+      <option name="DEBUGGER_TYPE" value="Auto" />
+      <Auto>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Auto>
+      <Hybrid>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Hybrid>
+      <Java />
+      <Native>
+        <option name="USE_JAVA_AWARE_DEBUGGER" value="false" />
+        <option name="SHOW_STATIC_VARS" value="true" />
+        <option name="WORKING_DIR" value="" />
+        <option name="TARGET_LOGGING_CHANNELS" value="lldb process:gdb-remote packets" />
+        <option name="SHOW_OPTIMIZED_WARNING" value="true" />
+      </Native>
+      <Profilers>
+        <option name="ENABLE_ADVANCED_PROFILING" value="true" />
+        <option name="SUPPORT_LIB_ENABLED" value="true" />
+        <option name="INSTRUMENTATION_ENABLED" value="true" />
+      </Profilers>
+      <option name="DEEP_LINK" value="" />
+      <option name="ACTIVITY_CLASS" value="com.example.mb7.sportappbp.Activity.ActivityMain" />
       <method />
     </configuration>
     <configuration default="true" type="AndroidJUnit" factoryName="Android JUnit">
@@ -3034,19 +3000,19 @@
       <item index="0" class="java.lang.String" itemvalue="Android App.app" />
       <item index="1" class="java.lang.String" itemvalue="Android JUnit.ExampleUnitTest.SampleTrueTest" />
       <item index="2" class="java.lang.String" itemvalue="Android JUnit.ExampleUnitTest" />
-      <item index="3" class="java.lang.String" itemvalue="Android JUnit.DAL_UserTest" />
-      <item index="4" class="java.lang.String" itemvalue="Android Instrumented Tests.useAppContext()" />
-      <item index="5" class="java.lang.String" itemvalue="Android Instrumented Tests.insertStimmung()" />
-      <item index="6" class="java.lang.String" itemvalue="Android Instrumented Tests.FirebaseTest" />
-      <item index="7" class="java.lang.String" itemvalue="Android Instrumented Tests.testRead00()" />
+      <item index="3" class="java.lang.String" itemvalue="Android Instrumented Tests.useAppContext()" />
+      <item index="4" class="java.lang.String" itemvalue="Android Instrumented Tests.insertStimmung()" />
+      <item index="5" class="java.lang.String" itemvalue="Android Instrumented Tests.FirebaseTest" />
+      <item index="6" class="java.lang.String" itemvalue="Android Instrumented Tests.testRead00()" />
+      <item index="7" class="java.lang.String" itemvalue="Android App.ActivityMain" />
     </list>
     <recent_temporary>
       <list size="5">
-        <item index="0" class="java.lang.String" itemvalue="Android Instrumented Tests.FirebaseTest" />
-        <item index="1" class="java.lang.String" itemvalue="Android Instrumented Tests.testRead00()" />
-        <item index="2" class="java.lang.String" itemvalue="Android Instrumented Tests.insertStimmung()" />
-        <item index="3" class="java.lang.String" itemvalue="Android Instrumented Tests.useAppContext()" />
-        <item index="4" class="java.lang.String" itemvalue="Android JUnit.DAL_UserTest" />
+        <item index="0" class="java.lang.String" itemvalue="Android App.ActivityMain" />
+        <item index="1" class="java.lang.String" itemvalue="Android Instrumented Tests.FirebaseTest" />
+        <item index="2" class="java.lang.String" itemvalue="Android Instrumented Tests.testRead00()" />
+        <item index="3" class="java.lang.String" itemvalue="Android Instrumented Tests.insertStimmung()" />
+        <item index="4" class="java.lang.String" itemvalue="Android Instrumented Tests.useAppContext()" />
       </list>
     </recent_temporary>
     <configuration name="&lt;template&gt;" type="Applet" default="true" selected="false">
@@ -3082,24 +3048,24 @@
       <option name="presentableId" value="Default" />
       <updated>1489658421034</updated>
     </task>
+    <task id="LOCAL-00001" summary="added tests">
+      <created>1490806989603</created>
+      <option name="number" value="00001" />
+      <option name="presentableId" value="LOCAL-00001" />
+      <option name="project" value="LOCAL" />
+      <updated>1490806989603</updated>
+    </task>
+    <task id="LOCAL-00002" summary="changes test layout">
+      <created>1490807136086</created>
+      <option name="number" value="00002" />
+      <option name="presentableId" value="LOCAL-00002" />
+      <option name="project" value="LOCAL" />
+      <updated>1490807136086</updated>
+    </task>
+    <option name="localTasksCounter" value="3" />
     <servers />
   </component>
   <component name="TestHistory">
-    <history-entry file="ExampleUnitTest_uploadstimmung - 2017.03.23 at 15h 49m 04s.xml">
-      <configuration name="ExampleUnitTest.uploadstimmung" configurationId="AndroidJUnit" />
-    </history-entry>
-    <history-entry file="FirebaseTest - 2017.03.29 at 17h 33m 09s.xml">
-      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="FirebaseTest - 2017.03.29 at 17h 38m 27s.xml">
-      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="FirebaseTest - 2017.03.29 at 17h 39m 09s.xml">
-      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
-    <history-entry file="FirebaseTest - 2017.03.29 at 18h 58m 34s.xml">
-      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
-    </history-entry>
     <history-entry file="FirebaseTest - 2017.03.29 at 18h 59m 23s.xml">
       <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
@@ -3112,8 +3078,23 @@
     <history-entry file="FirebaseTest - 2017.03.29 at 19h 02m 56s.xml">
       <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
-    <history-entry file="testRead00() - 2017.03.29 at 17h 40m 04s.xml">
-      <configuration name="testRead00()" configurationId="AndroidTestRunConfigurationType" />
+    <history-entry file="FirebaseTest - 2017.03.29 at 19h 08m 53s.xml">
+      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="FirebaseTest - 2017.03.29 at 19h 09m 12s.xml">
+      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="FirebaseTest - 2017.03.29 at 19h 36m 01s.xml">
+      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="FirebaseTest - 2017.03.29 at 19h 36m 20s.xml">
+      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="FirebaseTest - 2017.03.29 at 19h 36m 35s.xml">
+      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
+    </history-entry>
+    <history-entry file="FirebaseTest - 2017.03.29 at 19h 50m 47s.xml">
+      <configuration name="FirebaseTest" configurationId="AndroidTestRunConfigurationType" />
     </history-entry>
   </component>
   <component name="TodoView">
@@ -3137,7 +3118,7 @@
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.18369351" sideWeight="0.50852877" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Android Monitor" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.3783784" sideWeight="0.4936034" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907662" sideWeight="0.4978678" order="9" side_tool="false" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.76850766" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.30552292" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32907662" sideWeight="0.4978678" order="10" side_tool="false" content_ui="tabs" />
       <window_info id="Captures" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Capture Tool" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -3189,6 +3170,11 @@
   <component name="VcsContentAnnotationSettings">
     <option name="myLimit" value="2678400000" />
   </component>
+  <component name="VcsManagerConfiguration">
+    <MESSAGE value="added tests" />
+    <MESSAGE value="changes test layout" />
+    <option name="LAST_COMMIT_MESSAGE" value="changes test layout" />
+  </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
       <breakpoints>
@@ -3200,25 +3186,25 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_lst_bsafragebogen.java</url>
-          <line>138</line>
+          <line>141</line>
           <properties />
           <option name="timeStamp" value="246" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_lst_bsafragebogen.java</url>
-          <line>151</line>
+          <line>154</line>
           <properties />
           <option name="timeStamp" value="247" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_lst_bsafragebogen.java</url>
-          <line>171</line>
+          <line>174</line>
           <properties />
           <option name="timeStamp" value="248" />
         </line-breakpoint>
         <line-breakpoint enabled="true" type="java-line">
           <url>file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_lst_bsafragebogen.java</url>
-          <line>162</line>
+          <line>165</line>
           <properties />
           <option name="timeStamp" value="249" />
         </line-breakpoint>
@@ -3226,7 +3212,7 @@
       <breakpoints-dialog>
         <breakpoints-dialog />
       </breakpoints-dialog>
-      <option name="time" value="384" />
+      <option name="time" value="385" />
     </breakpoint-manager>
     <watches-manager>
       <configuration name="app">
@@ -3249,45 +3235,6 @@
     </watches-manager>
   </component>
   <component name="editorHistoryManager">
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/values/array.xml">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="311">
-          <caret line="20" column="53" selection-start-line="20" selection-start-column="24" selection-end-line="20" selection-end-column="53" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/menu/menu_context_report.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="153">
-          <caret line="9" column="20" selection-start-line="9" selection-start-column="20" selection-end-line="9" selection-end-column="20" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/content_activity_bsa_gesamt_rpt.xml" />
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/tbtaskcontent.xml">
-      <provider editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="0">
-          <caret line="0" column="0" selection-start-line="0" selection-start-column="0" selection-end-line="0" selection-end-column="0" />
-        </state>
-      </provider>
-    </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/res/layout/cardview_taskcateg.xml">
-      <provider selected="true" editor-type-id="android-designer2">
-        <state />
-      </provider>
-      <provider editor-type-id="text-editor">
-        <state relative-caret-position="357">
-          <caret line="21" column="44" selection-start-line="21" selection-start-column="44" selection-end-line="21" selection-end-column="44" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/res/values/dimens.xml">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="119">
@@ -3337,6 +3284,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="215">
           <caret line="35" column="0" selection-start-line="35" selection-start-column="0" selection-end-line="49" selection-end-column="47" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3347,6 +3295,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="34" column="0" selection-start-line="34" selection-start-column="0" selection-end-line="34" selection-end-column="0" />
+          <folding>
+            <element signature="e#1388#1418#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3357,6 +3308,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="612">
           <caret line="36" column="43" selection-start-line="36" selection-start-column="43" selection-end-line="36" selection-end-column="43" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3367,6 +3319,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="578">
           <caret line="34" column="50" selection-start-line="34" selection-start-column="50" selection-end-line="34" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3377,6 +3330,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="521">
           <caret line="34" column="31" selection-start-line="34" selection-start-column="31" selection-end-line="34" selection-end-column="31" />
+          <folding>
+            <element signature="e#1421#1445#0" expanded="false" />
+            <element signature="e#1719#1739#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3387,6 +3344,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="595">
           <caret line="35" column="50" selection-start-line="35" selection-start-column="50" selection-end-line="35" selection-end-column="50" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3397,6 +3355,9 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="318">
           <caret line="31" column="35" selection-start-line="31" selection-start-column="35" selection-end-line="31" selection-end-column="35" />
+          <folding>
+            <element signature="e#1382#1405#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3441,6 +3402,10 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="680">
           <caret line="40" column="43" selection-start-line="40" selection-start-column="43" selection-end-line="40" selection-end-column="43" />
+          <folding>
+            <element signature="e#771#804#0" expanded="false" />
+            <element signature="e#1389#1425#0" expanded="false" />
+          </folding>
         </state>
       </provider>
     </entry>
@@ -3452,21 +3417,11 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Observe/Observer.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="247">
-          <caret line="94" column="65" selection-start-line="94" selection-start-column="65" selection-end-line="94" selection-end-column="65" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_lst_bsafragebogen.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="255">
           <caret line="109" column="61" selection-start-line="109" selection-start-column="61" selection-end-line="109" selection-end-column="61" />
-          <folding>
-            <element signature="imports" expanded="false" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3520,13 +3475,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMotivationMessage.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="255">
-          <caret line="75" column="59" selection-start-line="75" selection-start-column="59" selection-end-line="75" selection-end-column="59" />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityStimmungsAbgabe.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="417">
@@ -3570,6 +3518,7 @@
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="136">
           <caret line="10" column="0" selection-start-line="10" selection-start-column="0" selection-end-line="10" selection-end-column="0" />
+          <folding />
         </state>
       </provider>
     </entry>
@@ -3660,14 +3609,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_Stimmungsbarometer_rpt.java">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="1650">
-          <caret line="66" column="21" selection-start-line="66" selection-start-column="21" selection-end-line="66" selection-end-column="21" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_Trainings_rpt.java">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="427">
@@ -3684,20 +3625,101 @@
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_Stimmungsbarometer_rpt.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="347">
+          <caret line="77" column="51" selection-start-line="77" selection-start-column="51" selection-end-line="77" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="e#2456#2567#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityLogin.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="350">
+          <caret line="14" column="33" selection-start-line="14" selection-start-column="33" selection-end-line="14" selection-end-column="33" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityTrainQuestioning.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="326">
+          <caret line="181" column="51" selection-start-line="181" selection-start-column="51" selection-end-line="181" selection-end-column="51" />
+          <folding>
+            <element signature="imports" expanded="false" />
+            <element signature="method#cancel#0;class#ActivityTrainQuestioning#0" expanded="false" />
+            <element signature="method#returnTexts#0;class#ActivityTrainQuestioning#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMotivationMessage.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="99">
+          <caret line="4" column="42" selection-start-line="4" selection-start-column="42" selection-end-line="4" selection-end-column="42" />
+          <folding>
+            <element signature="method#onCreateOptionsMenu#0;class#ActivityMotivationMessage#0" expanded="false" />
+            <element signature="method#onOptionsItemSelected#0;class#ActivityMotivationMessage#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityMain.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="250">
+          <caret line="61" column="26" selection-start-line="61" selection-start-column="26" selection-end-line="61" selection-end-column="26" />
+          <folding>
+            <element signature="method#getMainUser#0;class#ActivityMain#0" expanded="false" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Observe/Observer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-2885">
+          <caret line="98" column="56" selection-start-line="98" selection-start-column="56" selection-end-line="98" selection-end-column="56" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/MethodChooser.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="333">
+          <caret line="95" column="16" selection-start-line="95" selection-start-column="16" selection-end-line="95" selection-end-column="16" />
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivitySettingInitializer.java">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="-4387">
+          <caret line="51" column="26" selection-start-line="51" selection-start-column="26" selection-end-line="51" selection-end-column="26" />
+          <folding>
+            <element signature="imports" expanded="true" />
+            <element signature="docComment;class#ActivitySettingInitializer#0" expanded="true" />
+          </folding>
+        </state>
+      </provider>
+    </entry>
     <entry file="file://$PROJECT_DIR$/app/src/androidTest/java/com/example/mb7/sportappbp/DataAccessLayer/FirebaseTest.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="335">
-          <caret line="203" column="0" selection-start-line="203" selection-start-column="0" selection-end-line="203" selection-end-column="0" />
+        <state relative-caret-position="-699">
+          <caret line="45" column="31" selection-start-line="45" selection-start-column="31" selection-end-line="45" selection-end-column="31" />
           <folding>
+            <element signature="method#writeDAL_RegisteredUsers#0;class#FirebaseTest#0" expanded="false" />
             <element signature="method#writeAlternatingGroupsUpdate#0;class#FirebaseTest#0" expanded="false" />
+            <element signature="method#writeFitnessFragebogen#0;class#FirebaseTest#0" expanded="false" />
             <element signature="method#testReadRegistration#0;class#FirebaseTest#0" expanded="false" />
+            <element signature="method#testAlternatingGroupsUpdate#0;class#FirebaseTest#0" expanded="false" />
             <element signature="method#testFitness1#0;class#FirebaseTest#0" expanded="false" />
             <element signature="method#testFitness2#0;class#FirebaseTest#0" expanded="false" />
             <element signature="method#testFitness3#0;class#FirebaseTest#0" expanded="false" />
             <element signature="method#testfitness1#0;class#FirebaseTest#0" expanded="false" />
             <element signature="method#testfitness2#0;class#FirebaseTest#0" expanded="false" />
             <element signature="method#testfitness3#0;class#FirebaseTest#0" expanded="false" />
-            <marker date="1490806922753" expanded="false" signature="2356:2691" ph="{...}" />
           </folding>
         </state>
       </provider>

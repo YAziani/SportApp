@@ -49,19 +49,9 @@ public class FirebaseTest {
 
         writeDAL_RegisteredUsers();
         writeAlternatingGroupsUpdate();
+        writeFitnessFragebogen();
 
-        Firebase cloud = new Firebase(DAL_Utilities.DatabaseURL );
-        // write values into database
-        cloud.child("TestNode").child("testValue00").setValue("qwertz");
-        cloud.child("TestNode").child("testValue01").setValue("qwerty");
-        DAL_RegisteredUsers.insertRegistration("TestRegistration", "testPassword");
-
-
-
-        DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness1());
-        DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness2());
-        DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness3());
-
+        
         try {
             Thread.sleep(1000);
         } catch (Exception e) {
@@ -150,6 +140,23 @@ public class FirebaseTest {
             e.printStackTrace();
         }
     }
+
+    /**
+     * write data for fitness questineers
+     */
+    private static void writeFitnessFragebogen() {
+
+        DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness1());
+        DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness2());
+        DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness3());
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
 
     /**
      * save the alternating groups to compare them in the tests

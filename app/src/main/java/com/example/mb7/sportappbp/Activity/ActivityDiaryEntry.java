@@ -13,6 +13,7 @@ import android.widget.Toast;
 import com.example.mb7.sportappbp.Adapters.DiaryEntryViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.Firebase;
 
@@ -65,7 +66,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
 
         //Create Firebase reference
-        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
+        mRootRef = new Firebase(DAL_Utilities.DatabaseURL + "users");
 
         //allDiaryEntries = AllDiaryEntries.getInstance();
 

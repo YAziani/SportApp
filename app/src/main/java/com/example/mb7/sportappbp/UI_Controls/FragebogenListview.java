@@ -11,92 +11,60 @@ import android.widget.ListView;
 import com.example.mb7.sportappbp.Adapters.FitnessFragebogenViewAdapter;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter2;
-import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
-import com.example.mb7.sportappbp.R;
 
 /**
  * Created by Felix on 19.01.2017.
  */
-
 public class FragebogenListview extends ListView {
     private int index = -1;
+    /**
+     * The Lst.
+     */
     FragebogenListview lst = this;
 
+    /**
+     * Instantiates a new Fragebogen listview.
+     *
+     * @param context the context
+     */
+    public FragebogenListview(Context context) {super(context);}
 
-    public FragebogenListview(Context context) {
-        super(context);
-    }
-
+    /**
+     * Instantiates a new Fragebogen listview.
+     *
+     * @param context the context
+     * @param attrs the attrs
+     */
     public FragebogenListview(Context context, AttributeSet attrs) {
         super(context, attrs);
     }
 
+    /**
+     * Instantiates a new Fragebogen listview.
+     *
+     * @param context the context
+     * @param attrs the attrs
+     * @param defStyle the def style
+     */
     public FragebogenListview(Context context, AttributeSet attrs, int defStyle) {
         super(context, attrs, defStyle);
     }
 
+    /**
+     * Instantiates a new Fragebogen listview.
+     *
+     * @param context the context
+     * @param attrs the attrs
+     * @param defStyleAttr the def style attr
+     * @param defStyleRes the def style res
+     */
     public FragebogenListview(Context context, AttributeSet attrs, int defStyleAttr, int defStyleRes) {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    /*
-    public void Initialize()
-    {
-        // we do this to disable scrolling the listview
-        this.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    return true; // Indicates that this has been handled by you and will not be forwarded further.
-                }
-                return false;
-            }
-
-        });
-        // we do this so that the selected color remains after clicking on an item
-        this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                index = position;
-                String val = Integer.toString(index);
-
-                view.setSelected(true);
-            }
-        });
-    }
-
-    public void visibility(final LinearLayout llayout){
-        this.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    return true; // Indicates that this has been handled by you and will not be forwarded further.
-                }
-                return false;
-            }
-
-        });
-
-        this.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                index = position;
-                String val = Integer.toString(index);
-                if (index>0){
-                    llayout.setVisibility(LinearLayout.GONE);}
-                else
-                    llayout.setVisibility(LinearLayout.VISIBLE);
-
-                view.setSelected(true);
-            }
-        });
-    }
-
-
-    public int getIndex(){return index;}
-*/
-
-
+    /**
+     * Initialize ViewAdapter des Fitnessfragebogens
+     */
     public void InitializeFitness() {
         // we do this to disable scrolling the listview
         this.setOnTouchListener(new View.OnTouchListener() {
@@ -107,7 +75,6 @@ public class FragebogenListview extends ListView {
                 }
                 return false;
             }
-
         });
         // we do this so that the selected color remains after clicking on an item
         this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -122,10 +89,16 @@ public class FragebogenListview extends ListView {
         });
     }
 
+    /**
+     * @return selectedIndex
+     */
     public int getIndexFitness() {
         return ((FitnessFragebogenViewAdapter) getAdapter()).getSelectedIndex();
     }
 
+    /**
+     * Initiialize ViewAdapter des BSA-Fragebogens
+     */
     public void InitializeBSA() {
         // we do this to disable scrolling the listview
         this.setOnTouchListener(new View.OnTouchListener() {
@@ -136,7 +109,6 @@ public class FragebogenListview extends ListView {
                 }
                 return false;
             }
-
         });
         // we do this so that the selected color remains after clicking on an item
         this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -151,6 +123,12 @@ public class FragebogenListview extends ListView {
         });
     }
 
+    /**
+     * Genau wie Initialize BSA, nur dass das eingegebene Layout verschwindet, wenn der Index des gewählten Listviews
+     * > 0 ist
+     *
+     * @param llayout
+     */
     public void visibility(final LinearLayout llayout) {
         this.setOnTouchListener(new View.OnTouchListener() {
             @Override
@@ -160,7 +138,6 @@ public class FragebogenListview extends ListView {
                 }
                 return false;
             }
-
         });
 
         this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
@@ -177,19 +154,21 @@ public class FragebogenListview extends ListView {
                     llayout.setVisibility(LinearLayout.VISIBLE);
 
                 view.setSelected(true);
-
-
             }
         });
     }
 
+    /**
+     * @return selectedIndex
+     */
     public int getIndexBSA1() {
         return ((FragebogenViewAdapter) getAdapter()).getSelectedIndex();
     }
 
+    /**
+     * @return selected Index
+     */
     public int getIndexBSA2() {
         return ((FragebogenViewAdapter2) getAdapter()).getSelectedIndex();
     }
-
-
 }

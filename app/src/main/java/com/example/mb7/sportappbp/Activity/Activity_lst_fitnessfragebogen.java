@@ -31,7 +31,6 @@ import java.util.List;
 /**
  * Created by Felix on 26.03.2017.
  */
-
 public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
     Activity_lst_fitnessfragebogen activityLstFitnessfragebogen = null;
     List<FitnessFragebogen> FitnessFragebogenList;
@@ -44,10 +43,7 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lst_fitnessfragebogen);
         setTitle(getString(R.string.fitnessfragebogen));
-
         activityLstFitnessfragebogen = this;
-
-        // we want to make a context menu for our RecyclerView to show delete Button when long clicked
         rv = (RecyclerView) findViewById(R.id.recycler_fitnessfragebogen);
         registerForContextMenu(rv);
     }
@@ -64,10 +60,7 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
-
-        //set the menu with add and save icon
         inflater.inflate(R.menu.menu_add, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
@@ -83,37 +76,27 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
-
         switch (item.getItemId()) {
             case R.id.deleteItem:
                 deleteFitnessFragebogen(((FitnessFrageViewAdapter) rv.getAdapter()).getSelectedObject());
                 Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
                 break;
-
         }
         return super.onContextItemSelected(item);
     }
 
     /**
-     * delete a Fitnessfragebogen
-     *
      * @param fitnessFragebogen the object to delete
      */
     private void deleteFitnessFragebogen(FitnessFragebogen fitnessFragebogen) {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + ActivityMain.getMainUser
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser
                 (this).getName() + "/FitnessFragebogen/");
         ref.child(fitnessFragebogen.FirebaseDate).removeValue();
     }
 
-
-    /**
-     * open Fitnessfragebogen to insert a new one
-     */
     private void InsertFitnessFragebogen() {
-        //dialog.dismiss();
         Intent open = new Intent(activity_lst_fitnessfragebogen, ActivityFitnessFragebogen.class);
         startActivity(open);
-
     }
 
     @Override
@@ -125,6 +108,9 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
         readFitnessFragebogen();
     }
 
+    /**
+     * Read FitnessFragebogen out of Firebase
+     */
     void readFitnessFragebogen() {
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
@@ -133,57 +119,36 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
 
             root.addValueEventListener(new ValueEventListener() {
 
-                                           // Hier kriegst du den Knoten date zurueck
-                                           @Override
-                                           public void onDataChange(DataSnapshot dataSnapshot) {
-                                               //final String sDate = dataSnapshot.getKey();
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
 
-                                               // dataSnapshot.getKey() declares which strategy the notification
-                                               // belongs to (Stimmungsabgabe....)
-                                               FitnessFragebogenList = new LinkedList<FitnessFragebogen>();
-                                               // the child.key of dataSnapshop declare the unique datetime of the
-                                               // notification
-                                               for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                                   // Here I get the time
-                                                   final String sDate = child.getKey();// Date
+                    FitnessFragebogenList = new LinkedList<FitnessFragebogen>();
 
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
+                        final String sDate = child.getKey();
 
-                                                   // create the object and insert it in the list
+                        FitnessFragebogen fitnessFragebogen = child.getValue(FitnessFragebogen.class);
+                        fitnessFragebogen.FirebaseDate = sDate;
+                        fitnessFragebogen.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString(sDate);
+                        FitnessFragebogenList.add(fitnessFragebogen);
+                    }
 
+                    if (FitnessFragebogenList != null) {
+                        Collections.reverse(FitnessFragebogenList);
+                        LinearLayoutManager lm = new LinearLayoutManager(activityLstFitnessfragebogen);
+                        rv.setLayoutManager(lm);
+                        rv.setAdapter(new FitnessFrageViewAdapter(FitnessFragebogenList, activityLstFitnessfragebogen));
+                    }
 
-                                                   FitnessFragebogen fitnessFragebogen = child.getValue
-                                                           (FitnessFragebogen.class);
-                                                   fitnessFragebogen.FirebaseDate = sDate;
-                                                   fitnessFragebogen.Date = DAL_Utilities
-                                                           .ConvertFirebaseStringNoSpaceToDateString(sDate);
-                                                   FitnessFragebogenList.add(fitnessFragebogen);
-                                               }
+                    // close the progress dialog
+                    pd.dismiss();
+                }
 
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
 
-                                               if (FitnessFragebogenList != null) {
-                                                   // reverse the list to get the newest first
-                                                   Collections.reverse(FitnessFragebogenList);
-                                                   // fill the recycler
-                                                   LinearLayoutManager lm = new LinearLayoutManager
-                                                           (activityLstFitnessfragebogen);
-                                                   rv.setLayoutManager(lm);
-                                                   // just create a list of tasks
-                                                   rv.setAdapter(new FitnessFrageViewAdapter(FitnessFragebogenList, activityLstFitnessfragebogen));
-                                               }
-
-
-                                               // close the progress dialog
-                                               pd.dismiss();
-
-
-                                           }
-
-                                           @Override
-                                           public void onCancelled(FirebaseError firebaseError) {
-
-                                           }
-                                       }
-            );
+                }
+            });
         } catch (Exception ex) {
             Log.e("Exc", ex.getMessage());
         }

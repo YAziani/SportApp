@@ -17,6 +17,7 @@ import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.FitnessFragebogenViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.Firebase;
@@ -27,10 +28,8 @@ import java.util.Date;
 /**
  * Created by Felix on 01.03.2017.
  */
-
 public class ActivityFitnessFragebogen extends AppCompatActivity {
     private FitnessFragebogenViewAdapter adapter;
-
     FragebogenListview lststuhlaufstehen;
     FragebogenListview lsteinkaufskorb;
     FragebogenListview lstkistetragen;
@@ -38,7 +37,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     FragebogenListview lstkofferheben;
     FragebogenListview lstkoffertragen;
     FragebogenListview lsthantelstemmen;
-
     FragebogenListview lstflottgehen;
     FragebogenListview lsttreppengehen;
     FragebogenListview lst2kmgehen;
@@ -46,7 +44,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     FragebogenListview lst30minjoggen;
     FragebogenListview lst60minjoggen;
     FragebogenListview lstmarathon;
-
     FragebogenListview lstanziehen;
     FragebogenListview lstsitzendboden;
     FragebogenListview lstschuhebinden;
@@ -54,7 +51,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     FragebogenListview lststehendboden;
     FragebogenListview lstkopfknie;
     FragebogenListview lstbruecke;
-
     FragebogenListview lsttrepperunter;
     FragebogenListview lsteinbeinstand;
     FragebogenListview lstpurzelbaum;
@@ -62,18 +58,14 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
     FragebogenListview lstzaunsprung;
     FragebogenListview lstkurveohnehand;
     FragebogenListview lstradschlagen;
-
-
     int kraftscore;
     int ausdauerscore;
     int beweglichkeitsscore;
     int koordinationsscore;
     int gesamtscore;
-
     private Firebase mRootRef;
     private ActivityFitnessFragebogen activityFitnessFragebogen = this;
     FitnessFragebogen fitnessFragebogen = null;
-
     boolean INSERT = true;
 
     @Override
@@ -82,48 +74,35 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fitnessquestions);
 
-
-        // Now read the extra key - val
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
         Log.e("Oncreate", "We have reached it");
         if (extras != null) {
-            // read the datetime as this is the unique value in the db for the notification
             String notificationDate = (String) extras.get("NotificationDate");
             fitnessFragebogen = (FitnessFragebogen) iin.getSerializableExtra(getString(R.string.fitnessfragebogen));
             if (fitnessFragebogen != null) {
                 INSERT = false;
             }
 
-            // now we have delete this notification from the db cause it is read if there has been any
-            // we could enter this activity without clicking any notification!
-            // we delete it from the database, because now the notification is read and it should not be shown in the
-            // notification tab cardview
             if (notificationDate != null)
                 removeNofiication(this, notificationDate);
         }
 
-        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
+        mRootRef = new Firebase(DAL_Utilities.DatabaseURL + "users");
         this.InitializeControlls();
-
-        //super.onStart();
     }
 
     @Override
-    protected void onResume() {
-        super.onResume();
-    }
-
+    protected void onResume() {super.onResume();}
 
     void removeNofiication(Context context, String notificationDate) {
         // get the current user
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
         // build the current URL
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + preferences.getString
                 ("logedIn", "") + "/Notifications/");
         ref.child(context.getString(R.string.fitnessfragebogen)).child(notificationDate).removeValue();
-
     }
 
     @Override
@@ -135,12 +114,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         return super.onCreateOptionsMenu(menu);
     }
 
-    /**
-     * Spericherbutton
-     *
-     * @param item
-     * @return
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -161,6 +134,9 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         }
     }
 
+    /**
+     * Dialog für Infofeld.
+     */
     private void infoalert() {
         AlertDialog.Builder infobuilder = new AlertDialog.Builder(this);
         infobuilder.setTitle(getString(R.string.Information));
@@ -170,34 +146,32 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
             public void onClick(DialogInterface dialog, int which) {
 
             }
-
         });
         infobuilder.show();
     }
 
+    /**
+     * Dialog für Speicherbutton
+     * Speichere es in Firebase über SaveData()
+     */
     private void speicheralert() {
         AlertDialog.Builder speicherbuilder = new AlertDialog.Builder(this);
         speicherbuilder.setTitle(getString(R.string.Ergebnis));
-        speicherbuilder.setMessage(
-                getString(R.string.Kraftscore) + " " + kraftscoring() + " " + getString(R.string.von_Punkten) + "\n" +
-                        getString(R.string.Ausdauerscore) + " " + ausdauerscoring() + " " + getString(R.string
-                        .von_Punkten) + "\n" +
-                        getString(R.string.Bewglichkeitsscore) + " " + bewglichkeitsscoring() + " " + getString(R
-                        .string.von_Punkten) + "\n" +
-                        getString(R.string.Koordinationsscore) + " " + koordinationscoring() + " " + getString(R
-                        .string.von_Punkten) + "\n" +
-                        getString(R.string.Gesamtscore) + " " + scoringwert() + " " + getString(R.string
-                        .von_Gesamtpunkten));
+        speicherbuilder.setMessage(getString(R.string.Kraftscore) + " " + kraftscoring() + " " + getString(R.string
+                .von_Punkten) + "\n" + getString(R.string.Ausdauerscore) + " " + ausdauerscoring() + " " + getString
+                (R.string.von_Punkten) + "\n" + getString(R.string.Beweglichkeitsscore) + " " + bewglichkeitsscoring
+                () + " " + getString(R.string.von_Punkten) + "\n" + getString(R.string.Koordinationsscore) + " " +
+                koordinationscoring() + " " + getString(R.string.von_Punkten) + "\n" + getString(R.string
+                .Gesamtscore) + " " + scoringwert() + " " + getString(R.string.von_Gesamtpunkten));
         speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 SaveData();
                 finish();
-                Toast ausgabe = Toast.makeText(activityFitnessFragebogen,
-                        getString(R.string.Erfolgreich_gespeichert), Toast.LENGTH_SHORT);
+                Toast ausgabe = Toast.makeText(activityFitnessFragebogen, getString(R.string.Erfolgreich_gespeichert)
+                        , Toast.LENGTH_SHORT);
                 ausgabe.show();
             }
-
         });
         speicherbuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -267,17 +241,10 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         else
             ActivityMain.getMainUser(this).UpdateFitnessFragebogen(fitnessfragebogen);
 
-
         return true;
     }
 
-
-    /**
-     * Initialisiert die Listviews -> Über Funktionen aus Fragebogenlistview
-     */
     private void InitializeControlls() {
-
-        // set the listivew
 
         lststuhlaufstehen = (FragebogenListview) findViewById(R.id.lvstuhlaufstehen);
         lsteinkaufskorb = (FragebogenListview) findViewById(R.id.lveinkaufskorb);
@@ -311,8 +278,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         lstkurveohnehand = (FragebogenListview) findViewById(R.id.lvkurveohnehand);
         lstradschlagen = (FragebogenListview) findViewById(R.id.lvradschlagen);
 
-
-        // Adapter setzen
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string
                 .auf_einem_Stuhl_sitzend_ohne_Hilfe_aufstehen));
@@ -360,7 +325,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         adapter.setSelectedIndex(fitnessFragebogen != null && fitnessFragebogen.Hantel_stemmen != null ?
                 fitnessFragebogen.Hantel_stemmen : -1);
         lsthantelstemmen.setAdapter(adapter);
-
 
         adapter = new FitnessFragebogenViewAdapter(this);
         adapter.setFitnessFragebogen(fitnessFragebogen, getString(R.string.um_mehrere_Blocks_flott_gehen));
@@ -499,10 +463,6 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
                 fitnessFragebogen.Rad_schlagen : -1);
         lstradschlagen.setAdapter(adapter);
 
-        /**
-         * Initialsieren
-         */
-
         lststuhlaufstehen.InitializeFitness();
         lsteinkaufskorb.InitializeFitness();
         lstkistetragen.InitializeFitness();
@@ -536,7 +496,11 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         lstradschlagen.InitializeFitness();
     }
 
-
+    /**
+     * Berechnet für die Indexe der gesetzten Listviews den jeweiligen Scoringwert
+     *
+     * @param index
+     */
     private int scoringrechnung(int index) {
         switch (index) {
             case 4:
@@ -554,6 +518,9 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         }
     }
 
+    /**
+     * @return int kraftscore
+     */
     public int kraftscoring() {
         kraftscore = scoringrechnung(lststuhlaufstehen.getIndexFitness()) + scoringrechnung(lsteinkaufskorb
                 .getIndexFitness()) + scoringrechnung(lstkistetragen.getIndexFitness()) + scoringrechnung(lstsitup
@@ -562,6 +529,9 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         return kraftscore;
     }
 
+    /**
+     * @return int ausdauerscore
+     */
     private int ausdauerscoring() {
         ausdauerscore = scoringrechnung(lstflottgehen.getIndexFitness()) + scoringrechnung(lsttreppengehen
                 .getIndexFitness()) + scoringrechnung(lst2kmgehen.getIndexFitness()) + scoringrechnung(lst1kmjoggen
@@ -570,6 +540,9 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         return ausdauerscore;
     }
 
+    /**
+     * @return int beweglichkeitsscore
+     */
     private int bewglichkeitsscoring() {
         beweglichkeitsscore = scoringrechnung(lstanziehen.getIndexFitness()) + scoringrechnung(lstsitzendboden
                 .getIndexFitness()) + scoringrechnung(lstschuhebinden.getIndexFitness()) + scoringrechnung
@@ -578,18 +551,24 @@ public class ActivityFitnessFragebogen extends AppCompatActivity {
         return beweglichkeitsscore;
     }
 
+    /**
+     * @return int koordinationsscore
+     */
     private int koordinationscoring() {
         koordinationsscore = scoringrechnung(lsttrepperunter.getIndexFitness()) + scoringrechnung(lsteinbeinstand
                 .getIndexFitness()) + scoringrechnung(lstpurzelbaum.getIndexFitness()) + scoringrechnung
-                (lstballprellen.getIndexFitness()) + scoringrechnung(lstzaunsprung.getIndexFitness()) + scoringrechnung(lstkurveohnehand.getIndexFitness()) + scoringrechnung(lstradschlagen.getIndexFitness());
+                (lstballprellen.getIndexFitness()) + scoringrechnung(lstzaunsprung.getIndexFitness()) +
+                scoringrechnung(lstkurveohnehand.getIndexFitness()) + scoringrechnung(lstradschlagen.getIndexFitness());
         return koordinationsscore;
     }
 
+    /**
+     * @return int gesamtscore
+     */
     private int scoringwert() {
         gesamtscore = kraftscoring() + ausdauerscoring() + bewglichkeitsscoring() + koordinationscoring();
 
         return gesamtscore;
     }
-
 }
 

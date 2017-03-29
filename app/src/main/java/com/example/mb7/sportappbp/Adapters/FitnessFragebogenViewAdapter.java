@@ -15,7 +15,6 @@ import java.util.ArrayList;
 /**
  * Created by Felix on 03.03.2017.
  */
-
 public class FitnessFragebogenViewAdapter extends BaseAdapter {
     private Activity _context;
     private ArrayList<String> antworten;
@@ -24,6 +23,11 @@ public class FitnessFragebogenViewAdapter extends BaseAdapter {
     private String subject;
     private Integer selectedIndex = -1;
 
+    /**
+     * Instantiates a new Fitness fragebogen view adapter.
+     *
+     * @param context
+     */
     public FitnessFragebogenViewAdapter(Activity context) {
         antworten = new ArrayList<String>();
         antworten.add(context.getString(R.string.Ich_kann_diese_Taetigkeit_nicht));
@@ -33,19 +37,19 @@ public class FitnessFragebogenViewAdapter extends BaseAdapter {
         antworten.add(context.getString(R.string.Ich_habe_keine_Probleme));
 
         _context = context;
-
     }
 
+    /**
+      * @param fitnessFragebogen
+     * @param subject
+     */
     public void setFitnessFragebogen(FitnessFragebogen fitnessFragebogen, String subject) {
         this.fitnessFragebogen = fitnessFragebogen;
         this.subject = subject;
     }
 
-
     @Override
-    public Object getItem(int position) {
-        return antworten.get(position);
-    }
+    public Object getItem(int position) {return antworten.get(position);}
 
     @Override
     public long getItemId(int position) {
@@ -71,10 +75,16 @@ public class FitnessFragebogenViewAdapter extends BaseAdapter {
         return view;
     }
 
+    /**
+     * @param position
+     */
     public void setSelectedIndex(Integer position) {
         selectedIndex = position;
     }
 
+    /**
+     * @return the selected index
+     */
     public Integer getSelectedIndex() {
         return selectedIndex;
     }

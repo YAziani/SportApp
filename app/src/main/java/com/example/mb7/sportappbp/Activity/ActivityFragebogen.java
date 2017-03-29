@@ -1,6 +1,5 @@
 package com.example.mb7.sportappbp.Activity;
 
-
 import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.DialogInterface;
@@ -19,10 +18,9 @@ import android.widget.LinearLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter;
 import com.example.mb7.sportappbp.Adapters.FragebogenViewAdapter2;
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
+import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.UI_Controls.FragebogenListview;
 import com.firebase.client.DataSnapshot;
@@ -30,36 +28,22 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
-import java.net.URL;
 import java.text.SimpleDateFormat;
 import java.util.Date;
-
-
-/**
- * Created by Felix on 19.01.2017.
- */
 
 public class ActivityFragebogen extends AppCompatActivity {
     private FragebogenViewAdapter adapter;
     private FragebogenViewAdapter2 adapter2;
-
     ProgressDialog pd;
-
-
-    //Integer Werte für Scoring des Fragebogens
     long scoringbewegungwert;
     long scoringsportwert;
     long scoringgesamtwert;
     int bewegungsaktivitätberuf;
-
-    //Listviews
     FragebogenListview lstberufstätig;
     FragebogenListview lstsitzendetätigkeiten;
     FragebogenListview lstmäßigebewegung;
     FragebogenListview lstintensivebewegung;
     FragebogenListview lstsportlichaktiv;
-
-    //EditTextFelder
     EditText zufußzurarbeittag;
     EditText zufußzurarbeitminuten;
     EditText zufußeinkaufentag;
@@ -78,30 +62,19 @@ public class ActivityFragebogen extends AppCompatActivity {
     EditText pflegearbeitminuten;
     EditText treppentag;
     EditText treppenstockwerke;
-
-
-    //Zeitaum für Fragen ab Block 4
     static long wochenzeitraum;
-
-
     int itemsitzendetätigkeit;
     int itemmäßigebewegung;
     int itemintensivebewegung;
-
     private Firebase mRootRef;
     private ActivityFragebogen activityFragebogen = this;
-
     boolean INSERT = true;
     Fragebogen fragebogen = null;
-
-    Fragebogen antwortendb;
-
 
     public static Long convertToLong(Object o) {
         String stringToConvert = String.valueOf(o);
         Long convertedLong = Long.parseLong(stringToConvert);
         return convertedLong;
-
     }
 
     @Override
@@ -111,7 +84,6 @@ public class ActivityFragebogen extends AppCompatActivity {
         pd.setMessage(getString(R.string.wird_geladen));
         pd.show();
         getWochenanzahlFromDb();
-
     }
 
     @Override
@@ -121,67 +93,48 @@ public class ActivityFragebogen extends AppCompatActivity {
         setContentView(R.layout.activity_bsaquestions);
         this.SetControlCaptions();
 
-
-        // Now read the extra key - val
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
         Log.e("Oncreate", "We have reached it");
         if (extras != null) {
-            // read the datetime as this is the unique value in the db for the notification
             String notificationDate = (String) extras.get("NotificationDate");
             fragebogen = (Fragebogen) iin.getSerializableExtra(getString(R.string.aktivitaetsfragebogen));
-
             if (fragebogen != null) {
                 INSERT = false;
             }
-            // Log.e("Oncreate notifi", notificationDate);
-
-            // now we have delete this notification from the db cause it is read
-            // we delete it from the database, because now the notification is read and it should not be shown in the
-            // notification tab cardview
             if (notificationDate != null)
                 removeNofiication(this, notificationDate);
         }
 
-        mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
+        mRootRef = new Firebase(DAL_Utilities.DatabaseURL +  "users");
 
 
         this.InitializeControlls();
-        //super.onStart();
     }
 
     /**
-     * Wocehnanzahl für BSA Fragebogen aus DB lesen
+     * Referenzzeitraum für den BSAFragebogen wird aus Firebase geladen
      */
     void getWochenanzahlFromDb() {
-
         try {
-
-            Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio" +
+            Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio" + "" +
                     ".com/Administration/bsa/questionaryPeriodweeks");
             root.addValueEventListener(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    wochenzeitraum = convertToLong(dataSnapshot.getValue());
+                    SetControlCaptions();
+                    pd.dismiss();
+                }
 
-                                           @Override
-                                           public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                               wochenzeitraum = convertToLong(dataSnapshot.getValue());
-                                               SetControlCaptions();
-                                               pd.dismiss();
-                                           }
-
-
-                                           @Override
-                                           public void onCancelled(FirebaseError firebaseError) {
-                                               Log.d("Fragebogen", firebaseError.getMessage());
-                                           }
-                                       }
-            );
-
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    Log.d("Fragebogen", firebaseError.getMessage());
+                }
+            });
         } catch (Exception e) {
             e.printStackTrace();
-
         }
-
     }
 
     @Override
@@ -189,34 +142,23 @@ public class ActivityFragebogen extends AppCompatActivity {
         super.onResume();
     }
 
-
     void removeNofiication(Context context, String notificationDate) {
-        // get the current user
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
         // build the current URL
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + preferences.getString
                 ("logedIn", "") + "/Notifications/");
         ref.child(context.getString(R.string.aktivitaetsfragebogen)).child(notificationDate).removeValue();
-
     }
-
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         MenuInflater inflater = getMenuInflater();
         //set an other menu xml
         inflater.inflate(R.menu.menu_save, menu);
-
         return super.onCreateOptionsMenu(menu);
     }
 
-    /**
-     * Spericherbutton
-     *
-     * @param item
-     * @return
-     */
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
 
@@ -236,26 +178,23 @@ public class ActivityFragebogen extends AppCompatActivity {
     }
 
     /**
-     * Öffnet Dialog, welcher die Scores anzeigt und bei Bestätigung die Werte in Firebase speichert und bei Abbruch
-     * auf den Fragebogen zurück geht.
+     * Dialog der Nach dem Drücken des Sepicherbuttons erscheint. Speichert dann in Datenbank (SaveData())
      */
     private void speicheralert() {
         AlertDialog.Builder speicherbuilder = new AlertDialog.Builder(this);
         speicherbuilder.setTitle(getString(R.string.Ergebnis));
-        speicherbuilder.setMessage(
-                getString(R.string.Bewegungsscore) + " " + scoringbewegung() + "\n" +
-                        getString(R.string.Sportscore) + " " + scoringsport() + "\n" +
-                        getString(R.string.Gesamtscore) + " " + scoringgesamt());
+        speicherbuilder.setMessage(getString(R.string.Bewegungsscore) + " " + scoringbewegung() + "\n" + getString(R
+                .string.Sportscore) + " " + scoringsport() + "\n" + getString(R.string.Gesamtscore) + " " +
+                scoringgesamt());
         speicherbuilder.setPositiveButton(android.R.string.yes, new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
                 SaveData();
                 finish();
-                Toast ausgabe = Toast.makeText(activityFragebogen,
-                        getString(R.string.Erfolgreich_gespeichert), Toast.LENGTH_SHORT);
+                Toast ausgabe = Toast.makeText(activityFragebogen, getString(R.string.Erfolgreich_gespeichert), Toast
+                        .LENGTH_SHORT);
                 ausgabe.show();
             }
-
         });
         speicherbuilder.setNegativeButton(android.R.string.cancel, new DialogInterface.OnClickListener() {
             public void onClick(DialogInterface dialog, int id) {
@@ -266,27 +205,19 @@ public class ActivityFragebogen extends AppCompatActivity {
         speicherbuilder.show();
     }
 
-    /**
-     * Werte für BuisnessLayer Fragebogen setzen.
-     *
-     * @return
-     */
     private Fragebogen getData() {
         Fragebogen fragebogen = new Fragebogen();
 
-        //Indexwerte der Listview Elemente
         fragebogen.Berufstaetig = lstberufstätig.getIndexBSA1();
         fragebogen.sitzende_Taetigkeiten = lstsitzendetätigkeiten.getIndexBSA2();
         fragebogen.maeßige_Bewegung = lstmäßigebewegung.getIndexBSA2();
         fragebogen.intensive_Bewegung = lstintensivebewegung.getIndexBSA2();
         fragebogen.sportlich_aktiv = lstsportlichaktiv.getIndexBSA1();
 
-        //Integerwerte des Scorings
         fragebogen.Bewegungsscoring = scoringbewegung();
         fragebogen.Sportscoring = scoringsport();
         fragebogen.Gesamtscoring = scoringgesamt();
 
-        //Integerwerte mit Anzahl der Minuten pro Woche
         fragebogen.Zu_Fuß_zur_Arbeit = zufußzurarbeit();
 
         fragebogen.Zu_Fuß_zur_Arbeit_Tag = strtoint((EditText) findViewById(R.id.edittextzufußzurarbeittag));
@@ -317,7 +248,6 @@ public class ActivityFragebogen extends AppCompatActivity {
         fragebogen.Pflegearbeit = pflegearbeit();
         fragebogen.Treppensteigen = treppensteigen();
 
-        //String mit Namen der Aktivität + Integerwert mit Anzahl der Minuten pro Woche
         fragebogen.Aktivitaet_A_Name = aktivitätaname();
         fragebogen.Aktivitaet_A_Zeit = aktivitäta();
         fragebogen.Aktivitaet_A_Einheiten = strtoint((EditText) findViewById(R.id.edittextaktivitätaanzahl));
@@ -341,8 +271,6 @@ public class ActivityFragebogen extends AppCompatActivity {
     }
 
     private boolean SaveData() {
-
-
         Fragebogen fragebogen = getData();
         if (INSERT)
             ActivityMain.getMainUser(this).InsertFragebogen(fragebogen);
@@ -350,19 +278,13 @@ public class ActivityFragebogen extends AppCompatActivity {
             ActivityMain.getMainUser(this).UpdateFragebogen(fragebogen);
 
         return true;
-
     }
 
-
-    /**
-     * Initialisiert die Listviews -> Über Funktionen aus Fragebogenlistview
-     */
     private void InitializeControlls() {
 
         LinearLayout beruflayout = (LinearLayout) findViewById(R.id.layoutberuf);
         LinearLayout sportlayout = (LinearLayout) findViewById(R.id.layoutsport);
 
-        // set the listivew
         lstberufstätig = (FragebogenListview) findViewById(R.id.lvberufstätig);
         lstsitzendetätigkeiten = (FragebogenListview) findViewById(R.id.lvsitzendetätigkeiten);
         lstmäßigebewegung = (FragebogenListview) findViewById(R.id.lvmäßigebewegung);
@@ -398,7 +320,6 @@ public class ActivityFragebogen extends AppCompatActivity {
         EditText aktceinheit = (EditText) findViewById(R.id.edittextaktivitätcanzahl);
         EditText aktcminunten = (EditText) findViewById(R.id.edittextaktivitätcminuten);
 
-        //Adapter setzen
         adapter = new FragebogenViewAdapter(this);
         adapter.setAntworten(fragebogen, getString(R.string.Sind_Sie_berufstaetig_oder_in_Ausbildung));
         adapter.setSelectedIndex(fragebogen != null && fragebogen.Berufstaetig != null ? fragebogen.Berufstaetig : -1);
@@ -430,7 +351,7 @@ public class ActivityFragebogen extends AppCompatActivity {
                 .sportlich_aktiv : -1);
         lstsportlichaktiv.setAdapter(adapter);
 
-
+        //Wenn Fragebebogen bearbeitet wird. Textfelder aus dem Fragebogen laden und einsetzen.
         if (!INSERT) {
             if (fragebogen.Zu_Fuß_zur_Arbeit_Tag != null)
                 zufußzurarbeittag.setText(String.valueOf(fragebogen.Zu_Fuß_zur_Arbeit_Tag));
@@ -469,7 +390,6 @@ public class ActivityFragebogen extends AppCompatActivity {
             if (fragebogen.Treppensteigen_Stockwerke != null)
                 treppenstockwerke.setText(String.valueOf(fragebogen.Treppensteigen_Stockwerke));
 
-
             if (fragebogen.Aktivitaet_A_Name != null)
                 aktaname.setText(String.valueOf(fragebogen.Aktivitaet_A_Name));
             if (fragebogen.Aktivitaet_A_Einheiten != null)
@@ -490,22 +410,14 @@ public class ActivityFragebogen extends AppCompatActivity {
                 aktcminunten.setText(String.valueOf(fragebogen.Aktivitaet_C_Minuten));
         }
 
-
-        // set the onTouch Event to disable scrolling
-        //lstberufstätig.Initialize();
         lstsitzendetätigkeiten.InitializeBSA();
         lstmäßigebewegung.InitializeBSA();
         lstintensivebewegung.InitializeBSA();
-        //lstsportlichaktiv.Initialize();
 
         lstberufstätig.visibility(beruflayout);
         lstsportlichaktiv.visibility(sportlayout);
     }
 
-
-    /**
-     * Inhalt der Textviews mit definiertem Zeitraum.
-     */
     private void SetControlCaptions() {
         ((TextView) findViewById(R.id.txtwieoftsport)).setText(getString(R.string
                 .An_wie_vielen_Tagen_und_wie_lange_haben_Sie_die_folgenden_Aktivitaeten_in_den_letzten) + " " +
@@ -526,28 +438,19 @@ public class ActivityFragebogen extends AppCompatActivity {
                 .Wochen_ausgeuebt));
     }
 
-
-    /**
-     * Macht aus einer Editeingabe einen Integer Wert -> Achtung: In XML Eingabetyp auf Number setzen!!
-     * Werfe NumberFormatException, wenn anderes Format und gib 0 zurück
-     *
-     * @param edittexteingabe
-     * @return int
-     */
     private int strtoint(EditText edittexteingabe) {
         try {
             return Integer.parseInt(edittexteingabe.getText().toString());
         } catch (NumberFormatException a) {
             return 0;
-
         }
     }
 
     /**
-     * Scoringwert für Sitzende Tätigkeit: Keine=3 Punkte; Eher wenig=2; Eher mehr=1; viel=0; -> Keine angabe gleich 0;
+     * Aus dem Indexwert des gewählten Listviewelement wird der Scoringwert berechnet.
+     * (Negativ: Je mehr sitzend -> desto schlechter)
      *
      * @param index
-     * @return int
      */
     private int listscoringsitzend(int index) {
         switch (index) {
@@ -565,10 +468,10 @@ public class ActivityFragebogen extends AppCompatActivity {
     }
 
     /**
-     * Scoringwert für Bewegung (Mäßige und Intensive Bewegung): Keine=0; Eher wenig=1; Eher mehr=2; Viel=3;
+     * Aus dem Indexwert des gewählten Listviewelement wird der Scoringwert berechnet.
+     * (Positiv: Je mehr bewegung -> desto besser)
      *
      * @param index
-     * @return int
      */
     private int listscoringbewegung(int index) {
         switch (index) {
@@ -585,12 +488,6 @@ public class ActivityFragebogen extends AppCompatActivity {
         }
     }
 
-    /**
-     * Berechne Werte für die Listviews, indem für bestimmte Index Werte Punkte vergeben werden, Punkte werden in
-     * listscoringsitzend + listscoringbewegung vergeben.
-     *
-     * @return int bewegungsaktivitätberuf
-     */
     private int bewegungberuf() {
         if (lstberufstätig.getIndexBSA1() > 0)
             return 0;
@@ -621,10 +518,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             EditText zufußzurarbeittag = (EditText) findViewById(R.id.edittextzufußzurarbeittag);
             EditText zufußzurarbeitminuten = (EditText) findViewById(R.id.edittextzufußzurarbeitminuten);
             return (strtoint(zufußzurarbeittag) * strtoint(zufußzurarbeitminuten));
-        }
-        //Falls Falsche Eingabe (keine Zahl), dann werfe NumberFormatException -> sollte eigentlich aufgrund
-        // Einschränkung in XML nicht passieren
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             return 0;
         }
     }
@@ -634,10 +528,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             EditText zufußzumeinkaufentag = (EditText) findViewById(R.id.edittextzufußzumeinkaufentag);
             EditText zufußzumeinkaufenminuten = (EditText) findViewById(R.id.edittextzufußzumeinkaufenminuten);
             return (strtoint(zufußzumeinkaufentag) * strtoint(zufußzumeinkaufenminuten));
-        }
-        //Falls Falsche Eingabe (keine Zahl), dann werfe NumberFormatException -> sollte eigentlich aufgrund
-        // Einschränkung in XML nicht passieren
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             return 0;
         }
     }
@@ -647,10 +538,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             EditText radzurarbeittag = (EditText) findViewById(R.id.edittextradzurarbeittag);
             EditText radzurarbeitminuten = (EditText) findViewById(R.id.edittextradzurarbeitminuten);
             return (strtoint(radzurarbeittag) * strtoint(radzurarbeitminuten));
-        }
-        //Falls Falsche Eingabe (keine Zahl), dann werfe NumberFormatException -> sollte eigentlich aufgrund
-        // Einschränkung in XML nicht passieren
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             return 0;
         }
     }
@@ -660,10 +548,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             EditText radfahrentag = (EditText) findViewById(R.id.edittextradfahrentag);
             EditText radfahrenminuten = (EditText) findViewById(R.id.edittextradfahrenminuten);
             return (strtoint(radfahrentag) * strtoint(radfahrenminuten));
-        }
-        //Falls Falsche Eingabe (keine Zahl), dann werfe NumberFormatException -> sollte eigentlich aufgrund
-        // Einschränkung in XML nicht passieren
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             return 0;
         }
     }
@@ -673,10 +558,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             EditText spazierentag = (EditText) findViewById(R.id.edittextspazierentag);
             EditText spazierenminuten = (EditText) findViewById(R.id.edittextspazierenminuten);
             return (strtoint(spazierentag) * strtoint(spazierenminuten));
-        }
-        //Falls Falsche Eingabe (keine Zahl), dann werfe NumberFormatException -> sollte eigentlich aufgrund
-        // Einschränkung in XML nicht passieren
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             return 0;
         }
     }
@@ -686,10 +568,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             EditText gartenarbeittag = (EditText) findViewById(R.id.edittextgartenarbeittag);
             EditText gartenarbeitminuten = (EditText) findViewById(R.id.edittextgartenarbeitminuten);
             return (strtoint(gartenarbeittag) * strtoint(gartenarbeitminuten));
-        }
-        //Falls Falsche Eingabe (keine Zahl), dann werfe NumberFormatException -> sollte eigentlich aufgrund
-        // Einschränkung in XML nicht passieren
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             return 0;
         }
     }
@@ -699,10 +578,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             EditText hausarbeittag = (EditText) findViewById(R.id.edittexthausarbeittag);
             EditText hausarbeitminuten = (EditText) findViewById(R.id.edittexthausarbeitminuten);
             return (strtoint(hausarbeittag) * strtoint(hausarbeitminuten));
-        }
-        //Falls Falsche Eingabe (keine Zahl), dann werfe NumberFormatException -> sollte eigentlich aufgrund
-        // Einschränkung in XML nicht passieren
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             return 0;
         }
     }
@@ -712,10 +588,7 @@ public class ActivityFragebogen extends AppCompatActivity {
             EditText pflegetag = (EditText) findViewById(R.id.edittextpflegearbeittag);
             EditText pflegeminuten = (EditText) findViewById(R.id.edittextpflegearbeitminuten);
             return (strtoint(pflegetag) * strtoint(pflegeminuten));
-        }
-        //Falls Falsche Eingabe (keine Zahl), dann werfe NumberFormatException -> sollte eigentlich aufgrund
-        // Einschränkung in XML nicht passieren
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             return 0;
         }
     }
@@ -725,25 +598,16 @@ public class ActivityFragebogen extends AppCompatActivity {
             EditText treppensteigentag = (EditText) findViewById(R.id.edittexttreppensteigentag);
             EditText stockwerke = (EditText) findViewById(R.id.edittexttreppensteigenstockwerke);
             return (strtoint(treppensteigentag) * strtoint(stockwerke));
-        }
-        //Falls Falsche Eingabe (keine Zahl), dann werfe NumberFormatException -> sollte eigentlich aufgrund
-        // Einschränkung in XML nicht passieren
-        catch (NumberFormatException a) {
+        } catch (NumberFormatException a) {
             return 0;
         }
     }
 
-    /**
-     * Berechnet Scoringwert für Bewegung (Block 1-4)
-     *
-     * @return int scoringbewegungwert
-     */
     private long scoringbewegung() {
         scoringbewegungwert = ((zufußzurarbeit() + zufußeinkaufen() + radzurarbeit() + radfahren() + spazieren() +
                 gartenarbeit() + hausarbeit() + pflegearbeit() + treppensteigen()) / wochenzeitraum) + bewegungberuf();
 
         return scoringbewegungwert;
-
     }
 
     private int aktivitäta() {
@@ -754,7 +618,6 @@ public class ActivityFragebogen extends AppCompatActivity {
         } catch (NumberFormatException b) {
             return 0;
         }
-
     }
 
     private int aktivitätb() {
@@ -777,14 +640,6 @@ public class ActivityFragebogen extends AppCompatActivity {
         }
     }
 
-    /**
-     * Berechnung Scoringwert für Sportaktivität (Block 5-6)
-     * Falls kein Sport betrieben wurde-> Listview "lstsportlichaktiv" auf "nein" (Index 1) gibt 0 zurück.
-     * Sonst Multipliziere die Anzahl der aktiven Tage*die Minuten pro Tag und addiere dies für die 3 Aktivitäten und
-     * teile durch die ausgewählte Wochenenzahl-> Ergebnis "Minuten pro Woche"
-     *
-     * @return (int) scoringsportwert
-     */
     private long scoringsport() {
         if (lstsportlichaktiv.getIndexBSA1() > 0)
             return 0;
@@ -795,65 +650,8 @@ public class ActivityFragebogen extends AppCompatActivity {
         return scoringsportwert;
     }
 
-
-    //Berechnung Gesamtscoring (Block 1-6)= Bewegungsscoring+Aktivitätsscoring
-
-    /**
-     * Summe aus scoringbewegungswert und scoringsportwert
-     *
-     * @return (int) scoringgesamt
-     */
     private long scoringgesamt() {
         return scoringgesamtwert = scoringbewegung() + scoringsport();
     }
-
-
-    void Fragebogendb() {
-        try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
-                    "/BSAFragebogen");
-            final Firebase root = new Firebase(url.toString());
-
-            root.addValueEventListener(new ValueEventListener() {
-
-                                           // Hier kriegst du den Knoten date zurueck
-                                           @Override
-                                           public void onDataChange(DataSnapshot dataSnapshot) {
-                                               //final String sDate = dataSnapshot.getKey();
-
-                                               // the child.key of dataSnapshop declare the unique datetime of the
-                                               // notification
-                                               for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                                   // Here I get the time
-                                                   final String sDate = child.getKey();// Date
-
-                                                   // Here I have V or N
-
-                                                   // create the object and insert it in the list
-
-
-                                                   Fragebogen fragebogendb = child.getValue(Fragebogen.class);
-                                                   fragebogendb.FirebaseDate = sDate;
-                                                   fragebogendb.Date = DAL_Utilities
-                                                           .ConvertFirebaseStringNoSpaceToDateString(sDate);
-                                                   antwortendb = fragebogendb;
-
-
-                                               }
-
-                                           }
-
-                                           @Override
-                                           public void onCancelled(FirebaseError firebaseError) {
-
-                                           }
-                                       }
-            );
-        } catch (Exception ex) {
-            Log.e("Exc", ex.getMessage());
-        }
-    }
-
-
 }
 

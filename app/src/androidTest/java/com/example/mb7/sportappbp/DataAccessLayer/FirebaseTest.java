@@ -175,7 +175,7 @@ public class FirebaseTest {
                             assertEquals("testMail@gmail.com", d.child("email").getValue());
                         }
                     }
-                    assertTrue(containsValue);
+                    assertTrue(containsRegistration);
                 }
 
                 @Override
@@ -184,6 +184,34 @@ public class FirebaseTest {
                 }
             });
             Thread.sleep(100);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testAlternatingGroupsUpdate() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL + "Administration/assignment/altern/altern1/groups");
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    for (DataSnapshot d : dataSnapshot.getChildren()) {
+                        if (d.getKey().equals(mNextActiveGroup)) {
+                            assertEquals(true, d.child("groupactive").getValue());
+                        } else {
+                            assertEquals(false, d.child("groupactive").getValue());
+                        }
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
         } catch (Exception e) {
             e.printStackTrace();
             assertTrue(false);
@@ -257,34 +285,6 @@ public class FirebaseTest {
 
                     } catch (Exception e) {
                         e.printStackTrace();
-                    }
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    assertTrue(false);
-                }
-            });
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
-        }
-    }
-
-    @Test
-    public void testAlternatingGroupsUpdate() {
-        Firebase root = new Firebase(DAL_Utilities.DatabaseURL + "Administration/assignment/altern/altern1/groups");
-        try {
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    for (DataSnapshot d : dataSnapshot.getChildren()) {
-                        if (d.getKey().equals(mNextActiveGroup)) {
-                            assertEquals(true, d.child("groupactive").getValue());
-                        } else {
-                            assertEquals(false, d.child("groupactive").getValue());
-                        }
                     }
                 }
 
@@ -484,7 +484,7 @@ public class FirebaseTest {
     }
 
 
-    public FitnessFragebogen testfitness1(){
+    public static FitnessFragebogen testfitness1(){
         FitnessFragebogen testfitness=new FitnessFragebogen();
         testfitness.Date="20000101";
         testfitness.FirebaseDate="20000101";
@@ -528,7 +528,7 @@ public class FirebaseTest {
         return testfitness;
     }
 
-    public FitnessFragebogen testfitness2(){
+    public static FitnessFragebogen testfitness2(){
         FitnessFragebogen testfitness=new FitnessFragebogen();
         testfitness.Date="20170101";
         testfitness.FirebaseDate="20170101";
@@ -572,7 +572,7 @@ public class FirebaseTest {
         return testfitness;
     }
 
-    public FitnessFragebogen testfitness3(){
+    public static FitnessFragebogen testfitness3(){
         FitnessFragebogen testfitness=new FitnessFragebogen();
         testfitness.Date="20170201";
         testfitness.FirebaseDate="20170201";

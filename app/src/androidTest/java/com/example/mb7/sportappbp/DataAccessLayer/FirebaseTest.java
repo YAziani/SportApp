@@ -5,12 +5,14 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.MediumTest;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import org.junit.Before;
+import org.junit.BeforeClass;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 
@@ -18,6 +20,7 @@ import static junit.framework.Assert.assertEquals;
 import static junit.framework.Assert.assertTrue;
 
 /**
+ * database operation tests
  * Created by Aziani on 24.03.2017.
  */
 
@@ -27,11 +30,11 @@ import static junit.framework.Assert.assertTrue;
 public class FirebaseTest {
 
     // context of the test
-    private Context instrumentationCtx;
+    private static Context instrumentationCtx;
 
-    @Before
+    @BeforeClass
     // initializing method, run before every test
-    public void init() {
+    public static void init() {
         instrumentationCtx = InstrumentationRegistry.getContext();
         Firebase.setAndroidContext(instrumentationCtx);
         // wait for initializing of database
@@ -41,11 +44,8 @@ public class FirebaseTest {
             e.printStackTrace();
         }
 
-        Firebase cloud = new Firebase("https://sportapp-cbd6b.firebaseio.com/");
-        // write values into database
-        cloud.child("TestNode").child("testValue00").setValue("qwertz");
-        cloud.child("TestNode").child("testValue01").setValue("qwerty");
-        DAL_RegisteredUsers.insertRegistration("TestRegistration", "testPassword");
+        writeDAL_RegisteredUsers();
+
         try {
             Thread.sleep(1000);
         } catch (Exception e) {
@@ -53,58 +53,20 @@ public class FirebaseTest {
         }
     }
 
-    /*
-    @Test
-    public void testWrite(){
-
-    }
+    /**
+     * write data through DAL_RegisteredUsers
      */
+    private static void writeDAL_RegisteredUsers() {
+        DAL_RegisteredUsers.insertRegistration("TestRegistration", "testPassword");
 
-    @Test
-    public void testRead00() {
-        // define reading target
-        Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/TestNode/testValue00");
         try {
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                // define behavior once data had been captured
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    // assert equality of captured data
-                    assertEquals("qwertz", dataSnapshot.getValue());
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    assertTrue(false);
-                }
-            });
             Thread.sleep(1000);
         } catch (Exception e) {
             e.printStackTrace();
-            assertTrue(false);
         }
-    }
 
-    @Test
-    public void testRead01() {
-        Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/TestNode/testValue01");
-        try {
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    assertEquals("qwerty", dataSnapshot.getValue());
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    assertTrue(false);
-                }
-            });
-            Thread.sleep(1000);
-        } catch (Exception e) {
-            e.printStackTrace();
-            assertTrue(false);
-        }
+        User user = User.Create("TestRegistration");
+        DAL_RegisteredUsers.insertMail("testMail@gmail.com",user);
     }
 
     @Test
@@ -114,16 +76,15 @@ public class FirebaseTest {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    boolean containsValue = false;
+                    boolean containsRegistration = false;
                     for (DataSnapshot d : dataSnapshot.getChildren()) {
-                        if (d.getKey().equals("TestRegistration")
-                                && d.child("password").getValue() != null
-                                && d.child("password").getValue().equals("testPassword")) {
-                            containsValue = true;
-                            break;
+                        if (d.getKey().equals("TestRegistration")) {
+                            containsRegistration = true;
+                            assertEquals("testPassword",d.child("password").getValue());
+                            assertEquals("testMail@gmail.com",d.child("email").getValue());
                         }
                     }
-                    assertTrue(containsValue);
+                    assertTrue(containsRegistration);
                 }
 
                 @Override
@@ -138,8 +99,4 @@ public class FirebaseTest {
         }
     }
 
-    @Test
-    public void testAssert() {
-        assertEquals(9, 3 * 3);
-    }
 }

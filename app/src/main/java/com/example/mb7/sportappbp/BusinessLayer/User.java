@@ -157,17 +157,6 @@ public class User {
         return true;
     }
 
-
-    /**
-     * hand ratings to DAL_User to save them into database
-     *
-     * @param listMethod list containing the rated methods
-     * @param listRating list containing the ratings
-     */
-    void saveRating(List<String> listMethod, List<String> listRating) {
-        DAL_User.insertRating(this, listMethod, listRating);
-    }
-
     public void saveRegistration(String username, String password) {
         DAL_RegisteredUsers.insertRegistration(username, password);
     }

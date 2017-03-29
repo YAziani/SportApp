@@ -1306,30 +1306,6 @@ public class DAL_User {
 
     }
 
-
-    /**
-     * inserts ratings into the database
-     *
-     * @param user       the current user
-     * @param listMethod list containing the rated methods
-     * @param listRating list containing the ratings
-     */
-    static public void insertRating(User user, List<String> listMethod, List<String> listRating) {
-        try {
-            // setting up url for the database
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/methodRatings");
-            Firebase root = new Firebase(url.toString());
-            Firebase child;
-            // insert ratings for each method
-            for (int i = 0; i < Math.min(listMethod.size(), listRating.size()); i++) {
-                child = root.child(listMethod.get(i));
-                child.setValue(listRating.get(i));
-            }
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-    }
-
     /**
      * update groups of alternating group assignment
      *

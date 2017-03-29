@@ -6,6 +6,7 @@ import android.support.test.filters.MediumTest;
 import android.support.test.runner.AndroidJUnit4;
 
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
+import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.firebase.client.DataSnapshot;
@@ -42,7 +43,7 @@ public class FirebaseTest {
         Firebase.setAndroidContext(instrumentationCtx);
         // wait for initializing of database
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -50,10 +51,12 @@ public class FirebaseTest {
         writeDAL_RegisteredUsers();
         writeAlternatingGroupsUpdate();
         writeFitnessFragebogen();
+        writeBSAFragebogen();
+        writeStimmung();
 
         
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -149,6 +152,37 @@ public class FirebaseTest {
         DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness1());
         DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness2());
         DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness3());
+
+        DAL_User.UpdateFitnessFragebogen(User.Create("TestUserFelix"),testfitness1());
+        DAL_User.UpdateFitnessFragebogen(User.Create("TestUserFelix"),testfitness2());
+        DAL_User.UpdateFitnessFragebogen(User.Create("TestUserFelix"),testfitness3());
+
+
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writeBSAFragebogen() {
+
+        DAL_User.InsertFragebogen(User.Create("TestUserFelix"),testbsa1());
+
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static void writeStimmung() {
+
+        //DAL_User.InsertStimmung(User.Create("TestUserFelix"),);
+
 
         try {
             Thread.sleep(1000);
@@ -490,6 +524,134 @@ public class FirebaseTest {
         }
     }
 
+    @Test
+    public void testBSA1() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/BSAFragebogen/"+
+                testbsa1().Date);
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(testbsa1().Berufstaetig, dataSnapshot.getValue(Fragebogen.class)
+                                .Berufstaetig);
+                       assertEquals(testbsa1().sitzende_Taetigkeiten, dataSnapshot.getValue(Fragebogen.class)
+                                .sitzende_Taetigkeiten);
+                        assertEquals(testbsa1().maeßige_Bewegung, dataSnapshot.getValue(Fragebogen.class)
+                                .maeßige_Bewegung);
+                        assertEquals(testbsa1().intensive_Bewegung, dataSnapshot.getValue(Fragebogen.class)
+                                .intensive_Bewegung);
+                        assertEquals(testbsa1().sportlich_aktiv, dataSnapshot.getValue(Fragebogen.class)
+                                .sportlich_aktiv);
+                        assertEquals(testbsa1().Zu_Fuß_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_zur_Arbeit);
+                        assertEquals(testbsa1().Zu_Fuß_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_zur_Arbeit_Tag);
+                        assertEquals(testbsa1().Zu_Fuß_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_zur_Arbeit_Minuten);
+                        assertEquals(testbsa1().Zu_Fuß_einkaufen, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_einkaufen);
+                        assertEquals(testbsa1().Zu_Fuß_einkaufen_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_einkaufen_Tag);
+                        assertEquals(testbsa1().Zu_Fuß_einkaufen_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_einkaufen_Minuten);
+                        assertEquals(testbsa1().Rad_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Rad_zur_Arbeit);
+                        assertEquals(testbsa1().Rad_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Rad_zur_Arbeit_Tag);
+                        assertEquals(testbsa1().Rad_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Rad_zur_Arbeit_Minuten);
+                        assertEquals(testbsa1().Radfahren, dataSnapshot.getValue(Fragebogen.class)
+                                .Radfahren);
+                        assertEquals(testbsa1().Radfahren_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Radfahren_Tag);
+                        assertEquals(testbsa1().Radfahren_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Radfahren_Minuten);
+                        assertEquals(testbsa1().Spazieren, dataSnapshot.getValue(Fragebogen.class)
+                                .Spazieren);
+                        assertEquals(testbsa1().Spazieren_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Spazieren_Tag);
+                        assertEquals(testbsa1().Spazieren_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Spazieren_Minuten);
+                        assertEquals(testbsa1().Gartenarbeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Gartenarbeit);
+                        assertEquals(testbsa1().Gartenarbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Gartenarbeit_Tag);
+                        assertEquals(testbsa1().Gartenarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Gartenarbeit_Minuten);
+                        assertEquals(testbsa1().Hausarbeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Hausarbeit);
+                        assertEquals(testbsa1().Hausarbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Hausarbeit_Tag);
+                        assertEquals(testbsa1().Hausarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Hausarbeit_Minuten);
+                        assertEquals(testbsa1().Pflegearbeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Pflegearbeit);
+                        assertEquals(testbsa1().Pflegearbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Pflegearbeit_Tag);
+                        assertEquals(testbsa1().Pflegearbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Pflegearbeit_Minuten);
+                        assertEquals(testbsa1().Treppensteigen, dataSnapshot.getValue(Fragebogen.class)
+                                .Treppensteigen);
+                        assertEquals(testbsa1().Treppensteigen_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Treppensteigen_Tag);
+                        assertEquals(testbsa1().Treppensteigen_Stockwerke, dataSnapshot.getValue(Fragebogen.class)
+                                .Treppensteigen_Stockwerke);
+                        assertEquals(testbsa1().Aktivitaet_A_Name, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_A_Name);
+                        assertEquals(testbsa1().Aktivitaet_A_Zeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_A_Zeit);
+                        assertEquals(testbsa1().Aktivitaet_A_Einheiten, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_A_Einheiten);
+                        assertEquals(testbsa1(). Aktivitaet_A_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                . Aktivitaet_A_Minuten);
+                        assertEquals(testbsa1().Aktivitaet_B_Name, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_B_Name);
+                        assertEquals(testbsa1().Aktivitaet_B_Zeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_B_Zeit);
+                        assertEquals(testbsa1().Aktivitaet_B_Einheiten, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_B_Einheiten);
+                        assertEquals(testbsa1().Aktivitaet_B_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_B_Minuten);
+                        assertEquals(testbsa1().Aktivitaet_C_Name, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_C_Name);
+                        assertEquals(testbsa1().Aktivitaet_C_Zeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_C_Zeit);
+                        assertEquals(testbsa1().Aktivitaet_C_Einheiten, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_C_Einheiten);
+                        assertEquals(testbsa1().Aktivitaet_C_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Aktivitaet_C_Minuten);
+                        assertEquals(testbsa1().Bewegungsscoring, dataSnapshot.getValue(Fragebogen.class)
+                                .Bewegungsscoring);
+                        assertEquals(testbsa1().Sportscoring, dataSnapshot.getValue(Fragebogen.class)
+                                .Sportscoring);
+                        assertEquals(testbsa1().Gesamtscoring, dataSnapshot.getValue(Fragebogen.class)
+                                .Gesamtscoring);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+
+
+    /**
+     * Definition der Fitnessfragebögen aus dem Ordner BuisnessLayer
+     */
 
     public static FitnessFragebogen testfitness1(){
         FitnessFragebogen testfitness=new FitnessFragebogen();
@@ -623,5 +785,76 @@ public class FirebaseTest {
         return testfitness;
     }
 
+    /**
+     * Definition der BSA Fragebögen aus dem Ordner BuisnessLayer
+     */
+
+    public static Fragebogen testbsa1(){
+        Fragebogen fragebogen=new Fragebogen();
+        fragebogen.Date="20100101";
+        fragebogen.FirebaseDate="20100101";
+        fragebogen.Berufstaetig=0;
+        fragebogen.sitzende_Taetigkeiten=1;
+        fragebogen.maeßige_Bewegung=3;
+        fragebogen.intensive_Bewegung=3;
+        fragebogen.sportlich_aktiv=3;
+
+        fragebogen.Zu_Fuß_zur_Arbeit=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Tag=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Minuten=3;
+
+        fragebogen.Zu_Fuß_einkaufen=3;
+        fragebogen.Zu_Fuß_einkaufen_Tag=3;
+        fragebogen.Zu_Fuß_einkaufen_Minuten=3;
+
+        fragebogen.Rad_zur_Arbeit=3;
+        fragebogen.Rad_zur_Arbeit_Tag=3;
+        fragebogen.Rad_zur_Arbeit_Minuten=3;
+
+        fragebogen.Radfahren=3;
+        fragebogen.Radfahren_Tag=3;
+        fragebogen.Radfahren_Minuten=3;
+
+        fragebogen.Spazieren=3;
+        fragebogen.Spazieren_Tag=3;
+        fragebogen.Spazieren_Minuten=3;
+
+        fragebogen.Gartenarbeit=3;
+        fragebogen.Gartenarbeit_Tag=3;
+        fragebogen.Gartenarbeit_Minuten=3;
+
+        fragebogen.Hausarbeit=3;
+        fragebogen.Hausarbeit_Tag=3;
+        fragebogen.Hausarbeit_Minuten=3;
+
+        fragebogen.Pflegearbeit=3;
+        fragebogen.Pflegearbeit_Tag=3;
+        fragebogen.Pflegearbeit_Minuten=3;
+
+        fragebogen.Treppensteigen=3;
+        fragebogen.Treppensteigen_Tag=3;
+        fragebogen.Treppensteigen_Stockwerke=3;
+
+        fragebogen.Aktivitaet_A_Name="Sport 1";
+        fragebogen.Aktivitaet_A_Zeit=3;
+        fragebogen.Aktivitaet_A_Einheiten=3;
+        fragebogen.Aktivitaet_A_Minuten=3;
+        fragebogen.Aktivitaet_B_Name="Sport 2";
+        fragebogen.Aktivitaet_B_Zeit=3;
+        fragebogen.Aktivitaet_B_Einheiten=3;
+        fragebogen.Aktivitaet_B_Minuten=3;
+        fragebogen.Aktivitaet_C_Name="Sport 3";
+        fragebogen.Aktivitaet_C_Zeit=3;
+        fragebogen.Aktivitaet_C_Einheiten=3;
+        fragebogen.Aktivitaet_C_Minuten=3;
+
+        fragebogen.Bewegungsscoring=3;
+        fragebogen.Sportscoring=3;
+        fragebogen.Gesamtscoring=3;
+        return fragebogen;
+    }
 
 }
+
+//Tests: BSA berufstätig=1 ; Sport=1
+// null

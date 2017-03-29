@@ -11,10 +11,12 @@ public class Task {
     private Date date;
     private String description;
     private Integer image;
-    public Task(){
+
+    public Task() {
         date = new Date();
     }
-    public Task(String description, Integer image){
+
+    public Task(String description, Integer image) {
         date = new Date();
         this.description = description;
         this.image = image;

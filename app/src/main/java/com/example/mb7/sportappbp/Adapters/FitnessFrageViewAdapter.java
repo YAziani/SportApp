@@ -14,23 +14,25 @@ import android.widget.TextView;
 import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.R;
+
 import java.util.List;
 
 /**
  * Created by Felix on 26.03.2017.
  */
 
-public class FitnessFrageViewAdapter extends RecyclerView.Adapter<FitnessFrageViewAdapter.FitnessFrageHolder>{
+public class FitnessFrageViewAdapter extends RecyclerView.Adapter<FitnessFrageViewAdapter.FitnessFrageHolder> {
     List<FitnessFragebogen> fitnessFragebogenList;
     Activity context;
-    Integer selectedPosition =-1;
+    Integer selectedPosition = -1;
 
-    public  class FitnessFrageHolder extends RecyclerView.ViewHolder  {
+    public class FitnessFrageHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView txtTitle;
         TextView txtSubText;
         ImageView imageView;
-        public View view   ;
+        public View view;
+
         FitnessFrageHolder(View itemView) {
             super(itemView);
             txtTitle = (TextView) itemView.findViewById(R.id.txtDateFitnessfragebogen);
@@ -42,9 +44,9 @@ public class FitnessFrageViewAdapter extends RecyclerView.Adapter<FitnessFrageVi
 
     }
 
-    public FitnessFrageViewAdapter(List<FitnessFragebogen> fitnessFragebogenList, Activity context){
-        this.fitnessFragebogenList=fitnessFragebogenList;
-        this.context=context;
+    public FitnessFrageViewAdapter(List<FitnessFragebogen> fitnessFragebogenList, Activity context) {
+        this.fitnessFragebogenList = fitnessFragebogenList;
+        this.context = context;
     }
 
     @Override
@@ -54,29 +56,28 @@ public class FitnessFrageViewAdapter extends RecyclerView.Adapter<FitnessFrageVi
 
     @Override
     public FitnessFrageViewAdapter.FitnessFrageHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_fitnessfragebogen, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_fitnessfragebogen, viewGroup,
+                false);
         FitnessFrageViewAdapter.FitnessFrageHolder bvh = new FitnessFrageViewAdapter.FitnessFrageHolder(v);
         return bvh;
     }
 
     @Override
     public void onBindViewHolder(final FitnessFrageViewAdapter.FitnessFrageHolder holder, final int position) {
-        FitnessFrageViewAdapter.FitnessFrageHolder fitnessFrageHolder = (FitnessFrageViewAdapter.FitnessFrageHolder) holder;
+        FitnessFrageViewAdapter.FitnessFrageHolder fitnessFrageHolder = (FitnessFrageViewAdapter.FitnessFrageHolder)
+                holder;
         fitnessFrageHolder.txtTitle.setText(fitnessFragebogenList.get(position).Date);
 
         //fitnessFrageHolder.txtSubText.setText(fitnessFragebogenList.get(position).Time   );
         fitnessFrageHolder.imageView.setImageResource(R.mipmap.ic_fittnessfragebogen);
 
-        if (position == selectedPosition)
-        {
+        if (position == selectedPosition) {
             fitnessFrageHolder.itemView.setBackgroundColor(Color.GRAY);
-        }
-        else
-        {
+        } else {
             fitnessFrageHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        holder.view.setOnLongClickListener(new View.OnLongClickListener(){
+        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 // reset the previous item as unselected if exists
@@ -91,7 +92,7 @@ public class FitnessFrageViewAdapter extends RecyclerView.Adapter<FitnessFrageVi
             }
 
         });
-        holder.view.setOnClickListener(new View.OnClickListener(){
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -100,12 +101,12 @@ public class FitnessFrageViewAdapter extends RecyclerView.Adapter<FitnessFrageVi
                     notifyItemChanged(selectedPosition);
                     selectedPosition = -1;
 
-                }
-                else {
+                } else {
                     // if nothing is longclicked -> go to the ActivityStimmung of the selected item
                     Intent open = new Intent(context, ActivityFitnessFragebogen.class);
                     /*
-                    // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                    // insert the date of the notificatino in the extra which is the unique field to delete the
+                    notification from the database
                     if (fitnessFragebogenList.get(position).Vor)
                         open.putExtra("Vor", "1");
                     else
@@ -120,7 +121,9 @@ public class FitnessFrageViewAdapter extends RecyclerView.Adapter<FitnessFrageVi
         });
     }
 
-    public FitnessFragebogen getSelectedObject(){return fitnessFragebogenList.get(selectedPosition);}
+    public FitnessFragebogen getSelectedObject() {
+        return fitnessFragebogenList.get(selectedPosition);
+    }
 
     @Override
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {

@@ -74,8 +74,8 @@ public class ActivityChallenge extends AppCompatActivity {
         // Now read the extra key - exerciseList
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
-        Log.e("Oncreate","We have reached it");
-        if(extras!=null ) {
+        Log.e("Oncreate", "We have reached it");
+        if (extras != null) {
 
             challenge = (Challenge) extras.getSerializable(getString(R.string.Challenges));
             strUSer = new LinkedList<String>();
@@ -84,18 +84,18 @@ public class ActivityChallenge extends AppCompatActivity {
             setTitle(challenge.getName());
 
             // read the datetime as this is the unique value in the db for the notification
-            String notificationDate =(String) extras.get("NotificationDate");
-            if (notificationDate != null){
-                removeNofication(this,notificationDate);
+            String notificationDate = (String) extras.get("NotificationDate");
+            if (notificationDate != null) {
+                removeNofication(this, notificationDate);
                 askToEnterDialog(challenge);
             }
 
 
-        }
-        else{
+        } else {
 
             challenge = new Challenge();
-            Toast.makeText(this,getString(R.string.ChallengeKonnteNichtGeladenWerdenVersuchenSieBitteErneut),Toast.LENGTH_SHORT).show();
+            Toast.makeText(this, getString(R.string.ChallengeKonnteNichtGeladenWerdenVersuchenSieBitteErneut), Toast
+                    .LENGTH_SHORT).show();
             //finish();
 
         }
@@ -116,22 +116,22 @@ public class ActivityChallenge extends AppCompatActivity {
         //calculate the difference between today and the end date
         todayDate = calendar.getTime();
         endDate = challenge.getEndDate();
-        String  remainingDays = String.valueOf(challenge.getRemainingDays());
+        String remainingDays = String.valueOf(challenge.getRemainingDays());
         //set the difference to the textview
         //check if challenge finished and set counter
-        if(endDate.before(todayDate))
+        if (endDate.before(todayDate))
             textViewCountdown.setText(getString(R.string.ChallengeBeendet));
         else
-        textViewCountdown.setText(getString(R.string.VerbleibendeTage) + " " + remainingDays);
+            textViewCountdown.setText(getString(R.string.VerbleibendeTage) + " " + remainingDays);
 
 
     }
 
-    private void askToEnterDialog(final Challenge challenge){
+    private void askToEnterDialog(final Challenge challenge) {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityChallenge.this);
         builder.setMessage(getString(R.string.MöchtenSieAnDerChallenge) + " " + challenge.getName() + "\n" +
-                " " + getString(R.string.vom) + " " +  sdf.format(challenge.getStartDate()).toString()  + " " +
+                " " + getString(R.string.vom) + " " + sdf.format(challenge.getStartDate()).toString() + " " +
                 getString(R.string.bisZum) + " " +
                 sdf.format(challenge.getEndDate()).toString() + " \n"
                 + getString(R.string.beitreten))
@@ -152,14 +152,14 @@ public class ActivityChallenge extends AppCompatActivity {
         builder.show();
     }
 
-    void removeNofication(Context context, String notificationDate)
-    {
+    void removeNofication(Context context, String notificationDate) {
         // get the current user
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
         // build the current URL
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/Notifications/" );
-        ref.child(context.getString( R.string.Challenge)).child(notificationDate).removeValue();
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+                ("logedIn", "") + "/Notifications/");
+        ref.child(context.getString(R.string.Challenge)).child(notificationDate).removeValue();
 
     }
 
@@ -180,21 +180,22 @@ public class ActivityChallenge extends AppCompatActivity {
             case R.id.icon_add:
 
                 //create dialog
-                final Dialog addUserDialog =  new Dialog(ActivityChallenge.this);
+                final Dialog addUserDialog = new Dialog(ActivityChallenge.this);
                 //set the layout for the dialog window
                 addUserDialog.setContentView(R.layout.dialog_entertext);
 
                 addUserDialog.show();
 
-                //final EditText editTextMailAddress = (EditText) addUserDialog.findViewById(R.id.textChallengeMailAddress);
+                //final EditText editTextMailAddress = (EditText) addUserDialog.findViewById(R.id
+                // .textChallengeMailAddress);
 
                 //Create button to add a user to the userlist
-                Button btnOk = (Button)addUserDialog.findViewById(R.id.btnChallengeOk);
+                Button btnOk = (Button) addUserDialog.findViewById(R.id.btnChallengeOk);
                 btnOk.setOnClickListener(btnOkAddUserDialogListener(addUserDialog));
 
                 //create button to cancel the dialog
-                Button btnCancel = (Button)addUserDialog.findViewById(R.id.btnChallengeCancel);
-                btnCancel.setOnClickListener(new View.OnClickListener(){
+                Button btnCancel = (Button) addUserDialog.findViewById(R.id.btnChallengeCancel);
+                btnCancel.setOnClickListener(new View.OnClickListener() {
                     @Override
                     public void onClick(View view) {
 
@@ -212,14 +213,15 @@ public class ActivityChallenge extends AppCompatActivity {
      * This method creates an on click listener for the ok button from the add user dialog.
      * The method checks if the user exists or has already been added. If not, the user will
      * be added to the user list
+     *
      * @param addUserDialog dialog object from the dialog to add an user
      * @return returns a onClickListener for the button
      **/
-    private View.OnClickListener btnOkAddUserDialogListener(final Dialog addUserDialog){
+    private View.OnClickListener btnOkAddUserDialogListener(final Dialog addUserDialog) {
 
         final EditText editTextMailAddress = (EditText) addUserDialog.findViewById(R.id.textChallengeMailAddress);
 
-        View.OnClickListener listener = new View.OnClickListener(){
+        View.OnClickListener listener = new View.OnClickListener() {
             @Override
             public void onClick(View view) {
 
@@ -229,10 +231,11 @@ public class ActivityChallenge extends AppCompatActivity {
                 //get user form database
                 User user = getUser(editTextMailAddress.getText().toString());
                 //check if user exist
-                if(user != null){
+                if (user != null) {
                     //user already added
-                    if(userAlreadyInList(user))
-                        Toast.makeText(ActivityChallenge.this, getString(R.string.BenutzerBereitshinzugefügt) , Toast.LENGTH_SHORT).show();
+                    if (userAlreadyInList(user))
+                        Toast.makeText(ActivityChallenge.this, getString(R.string.BenutzerBereitshinzugefügt), Toast
+                                .LENGTH_SHORT).show();
                         //add user and close dialog
                     else {
                         //Add User on Database
@@ -243,7 +246,8 @@ public class ActivityChallenge extends AppCompatActivity {
                 }
                 //if user doesn't exist
                 else
-                    Toast.makeText(ActivityChallenge.this, mail + " " + getString(R.string.konnteNichtGefundenWerden) , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityChallenge.this, mail + " " + getString(R.string.konnteNichtGefundenWerden)
+                            , Toast.LENGTH_SHORT).show();
 
             }
         };
@@ -253,17 +257,18 @@ public class ActivityChallenge extends AppCompatActivity {
     /**
      * This method checks, if a user with an email address exist and returns him. When the user doesn't
      * exist, the method returns null.
+     *
      * @param searchedEmail email address of the user
      * @return The user you are looking for or null
      */
-    private User getUser(String searchedEmail){
+    private User getUser(String searchedEmail) {
 
         User user = null;
 
-        if(dataSnapshotUsers.getValue() != null) {
-            for(DataSnapshot d : dataSnapshotUsers.getChildren()) {
+        if (dataSnapshotUsers.getValue() != null) {
+            for (DataSnapshot d : dataSnapshotUsers.getChildren()) {
 
-                if(d.child("email").getValue()!= null) {
+                if (d.child("email").getValue() != null) {
                     if (d.child("email").getValue().equals(searchedEmail)) {
                         user = User.Create(d.getKey().toString());
                         user.setEmail(d.child("email").getValue().toString());
@@ -274,15 +279,15 @@ public class ActivityChallenge extends AppCompatActivity {
                 }
             }
         }
-        return  null;
+        return null;
     }
 
-    private boolean userAlreadyInList(User user){
+    private boolean userAlreadyInList(User user) {
 
         boolean result = false;
 
-        for(User u : userList){
-            if(user.getEmail().equals(u.getEmail()))
+        for (User u : userList) {
+            if (user.getEmail().equals(u.getEmail()))
                 result = true;
         }
         return result;
@@ -298,7 +303,7 @@ public class ActivityChallenge extends AppCompatActivity {
 
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
-        if(validSnapshotChallengeUsers) {
+        if (validSnapshotChallengeUsers) {
             if (dataSnapshotChallengeUsers.getValue() != null) {
                 for (DataSnapshot d : dataSnapshotChallengeUsers.getChildren()) {
 
@@ -307,7 +312,7 @@ public class ActivityChallenge extends AppCompatActivity {
             }
         }
 
-        for(final String u : strUSer) {
+        for (final String u : strUSer) {
 
             URL url = null;
             try {
@@ -321,18 +326,20 @@ public class ActivityChallenge extends AppCompatActivity {
                         int totalPoints = 0;
 
                         //day
-                        for(DataSnapshot child1Date : dataSnapshot.getChildren()){
+                        for (DataSnapshot child1Date : dataSnapshot.getChildren()) {
 
                             try {
                                 Date date = sdf.parse(child1Date.getKey());
 
-                                if(date.after(challenge.getStartDate()) || date.equals(challenge.getStartDate()) || date.equals(challenge.getEndDate()) || date.before(challenge.getEndDate())){
+                                if (date.after(challenge.getStartDate()) || date.equals(challenge.getStartDate()) ||
+                                        date.equals(challenge.getEndDate()) || date.before(challenge.getEndDate())) {
                                     //time
-                                    for(DataSnapshot child2 : child1Date.getChildren()) {
+                                    for (DataSnapshot child2 : child1Date.getChildren()) {
                                         //look for totalpoints
                                         for (DataSnapshot child3 : child2.getChildren()) {
                                             if (child3.getKey().equals("totalPoints"))
-                                                totalPoints = totalPoints + Integer.valueOf(child3.getValue().toString());
+                                                totalPoints = totalPoints + Integer.valueOf(child3.getValue()
+                                                        .toString());
                                         }
                                     }
                                 }
@@ -367,6 +374,7 @@ public class ActivityChallenge extends AppCompatActivity {
 
     /**
      * return the snapshot with registered users to this activity
+     *
      * @param dataSnapshot snapshot containing registered users
      */
     public void returnRegisteredChallengeUsers(DataSnapshot dataSnapshot) {
@@ -377,6 +385,7 @@ public class ActivityChallenge extends AppCompatActivity {
 
     /**
      * return the snapshot with registered users to this activity
+     *
      * @param dataSnapshot snapshot containing registered users
      */
     public void returnRegisteredUsers(DataSnapshot dataSnapshot) {
@@ -387,6 +396,7 @@ public class ActivityChallenge extends AppCompatActivity {
 
     /**
      * return the snapshot with registered challenges to this activity
+     *
      * @param dataSnapshot snapshot containing registered users
      */
     public void returnRegisteredChallenges(DataSnapshot dataSnapshot) {

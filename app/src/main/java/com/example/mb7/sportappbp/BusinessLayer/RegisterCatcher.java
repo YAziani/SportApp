@@ -9,7 +9,6 @@ import java.util.LinkedList;
 import java.util.StringTokenizer;
 
 /**
- *
  * catch registration data
  * Created by Aziani on 25.03.2017.
  */
@@ -19,17 +18,18 @@ public class RegisterCatcher {
     Thread t;
     LinkedList<String> oldRegisteredUsers = new LinkedList<>();
     User user;
+
     public void catchRegistration(User user) {
         this.user = user;
         DAL_RegisteredUsers.loadRegistration(RegisterCatcher.this);
         Thread t = new Thread(new Runnable() {
             @Override
             public void run() {
-                for(int i = 0; i < 60 ; i++) {
+                for (int i = 0; i < 60; i++) {
                     DAL_RegisteredUsers.loadRegistration(RegisterCatcher.this);
                     try {
                         Thread.sleep(10000);
-                    }catch(Exception e) {
+                    } catch (Exception e) {
                         e.printStackTrace();
                     }
                 }
@@ -42,32 +42,33 @@ public class RegisterCatcher {
 
     /**
      * return texts of registered users
+     *
      * @param dataSnapshot snapshot with users
      */
-    public void returnRegistrations( DataSnapshot dataSnapshot) {
-        if(dataSnapshot == null) {
+    public void returnRegistrations(DataSnapshot dataSnapshot) {
+        if (dataSnapshot == null) {
             return;
         }
         // check if old registrations saved
-        if(oldRegisteredUsers.size() == 0) {
+        if (oldRegisteredUsers.size() == 0) {
             oldRegisteredUsers = fillList(dataSnapshot);
-        }else {
+        } else {
             LinkedList<String> difference = fillList(dataSnapshot);
             LinkedList<String> removeList = new LinkedList<>();
             // remove copies
             for (Iterator<String> iterator = difference.iterator(); iterator.hasNext(); ) {
                 String d = iterator.next();
-                for(String o : oldRegisteredUsers) {
-                    if(d.equals(o)) {
+                for (String o : oldRegisteredUsers) {
+                    if (d.equals(o)) {
                         removeList.add(d);
                     }
                 }
             }
             difference.removeAll(removeList);
-            if(difference.size() > 0) {
-                DAL_RegisteredUsers.insertMail(difference.getFirst(),user);
+            if (difference.size() > 0) {
+                DAL_RegisteredUsers.insertMail(difference.getFirst(), user);
                 user.setEmail(difference.getFirst());
-                if(t!=null){
+                if (t != null) {
                     t.interrupt();
                     t = null;
                 }
@@ -80,8 +81,8 @@ public class RegisterCatcher {
         LinkedList<String> list = new LinkedList<>();
 
         // fill list with registrations
-        for(DataSnapshot d : dataSnapshot.getChildren()) {
-            list.add((String)d.child("email").getValue());
+        for (DataSnapshot d : dataSnapshot.getChildren()) {
+            list.add((String) d.child("email").getValue());
         }
         return list;
     }

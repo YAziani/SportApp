@@ -32,7 +32,7 @@ public abstract class Exercise implements Parcelable {
         return this.timeHours;
     }
 
-    public String getCategory(){
+    public String getCategory() {
         return this.category;
     }
 
@@ -48,7 +48,9 @@ public abstract class Exercise implements Parcelable {
         this.timeHours = timeHours;
     }
 
-    public void setCategory(String category){this.category = category; }
+    public void setCategory(String category) {
+        this.category = category;
+    }
 
     @Override
     public int describeContents() {

@@ -37,12 +37,13 @@ public class StimmungsAngabeViewAdapter extends RecyclerView.Adapter<StimmungsAn
     Activity context;
     Integer selectedPosition = -1;
 
-    public  class StimmungsAngabeHolder extends RecyclerView.ViewHolder  {
+    public class StimmungsAngabeHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView txtTitle;
         TextView txtSubText;
         ImageView imageView;
-        public View view   ;
+        public View view;
+
         StimmungsAngabeHolder(View itemView) {
             super(itemView);
             txtTitle = (TextView) itemView.findViewById(R.id.txtDateStmAbfrage);
@@ -53,7 +54,8 @@ public class StimmungsAngabeViewAdapter extends RecyclerView.Adapter<StimmungsAn
         }
 
     }
-    public StimmungsAngabeViewAdapter(List<StimmungsAngabe> stimmungsAngaben, Activity context){
+
+    public StimmungsAngabeViewAdapter(List<StimmungsAngabe> stimmungsAngaben, Activity context) {
         this.stimmungsAngaben = stimmungsAngaben;
         this.context = context;
     }
@@ -65,28 +67,27 @@ public class StimmungsAngabeViewAdapter extends RecyclerView.Adapter<StimmungsAn
 
     @Override
     public StimmungsAngabeViewAdapter.StimmungsAngabeHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_stimmungabgabe, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_stimmungabgabe, viewGroup,
+                false);
         StimmungsAngabeViewAdapter.StimmungsAngabeHolder bvh = new StimmungsAngabeViewAdapter.StimmungsAngabeHolder(v);
         return bvh;
     }
 
     @Override
     public void onBindViewHolder(final StimmungsAngabeViewAdapter.StimmungsAngabeHolder holder, final int position) {
-        StimmungsAngabeViewAdapter.StimmungsAngabeHolder stimmungsAngabeHolder = (StimmungsAngabeViewAdapter.StimmungsAngabeHolder) holder;
+        StimmungsAngabeViewAdapter.StimmungsAngabeHolder stimmungsAngabeHolder = (StimmungsAngabeViewAdapter
+                .StimmungsAngabeHolder) holder;
         stimmungsAngabeHolder.txtTitle.setText(stimmungsAngaben.get(position).Date);
-        stimmungsAngabeHolder.txtSubText.setText(stimmungsAngaben.get(position).Time   );
+        stimmungsAngabeHolder.txtSubText.setText(stimmungsAngaben.get(position).Time);
         stimmungsAngabeHolder.imageView.setImageResource(R.mipmap.ic_stimmungs_abgabe);
 
-        if (position == selectedPosition)
-        {
+        if (position == selectedPosition) {
             stimmungsAngabeHolder.itemView.setBackgroundColor(Color.GRAY);
-        }
-        else
-        {
+        } else {
             stimmungsAngabeHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        holder.view.setOnLongClickListener(new View.OnLongClickListener(){
+        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 // reset the previous item as unselected if exists
@@ -101,7 +102,7 @@ public class StimmungsAngabeViewAdapter extends RecyclerView.Adapter<StimmungsAn
             }
 
         });
-        holder.view.setOnClickListener(new View.OnClickListener(){
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -110,11 +111,11 @@ public class StimmungsAngabeViewAdapter extends RecyclerView.Adapter<StimmungsAn
                     notifyItemChanged(selectedPosition);
                     selectedPosition = -1;
 
-                }
-                else {
+                } else {
                     // if nothing is longclicked -> go to the ActivityStimmung of the selected item
                     Intent open = new Intent(context, ActivityStimmungsAbgabe.class);
-                    // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                    // insert the date of the notificatino in the extra which is the unique field to delete the
+                    // notification from the database
                     if (stimmungsAngaben.get(position).Vor)
                         open.putExtra("Vor", "1");
                     else
@@ -129,8 +130,7 @@ public class StimmungsAngabeViewAdapter extends RecyclerView.Adapter<StimmungsAn
         });
     }
 
-    public StimmungsAngabe getSelectedObject()
-    {
+    public StimmungsAngabe getSelectedObject() {
         return stimmungsAngaben.get(selectedPosition);
     }
 

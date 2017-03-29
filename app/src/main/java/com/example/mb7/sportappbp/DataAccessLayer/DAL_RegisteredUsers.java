@@ -102,20 +102,19 @@ public class DAL_RegisteredUsers {
         }
     }
 
-    public static void insertRegistration(String username, String password){
-        try
-        {
+    public static void insertRegistration(String username, String password) {
+        try {
             // setting up url for the database
             URL url = new URL(DAL_Utilities.DatabaseURL + "users");
             Firebase root = new Firebase(url.toString());
             // insert user
             root.child(username).child("password").setValue(password);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void loadRegistration( final RegisterCatcher registerCatcher) {
+    public static void loadRegistration(final RegisterCatcher registerCatcher) {
         try {
             URL url = new URL("https://kompass-8720f.firebaseio.com/users");
             Firebase root = new Firebase(url.toString());
@@ -141,7 +140,7 @@ public class DAL_RegisteredUsers {
             Firebase root = new Firebase(url.toString());
             // insert user
             root.child("email").setValue(mail);
-        }catch (Exception e) {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }

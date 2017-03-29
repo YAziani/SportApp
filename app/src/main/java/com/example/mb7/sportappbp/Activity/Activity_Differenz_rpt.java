@@ -13,25 +13,23 @@ import com.github.mikephil.charting.charts.LineChart;
 
 import java.util.Date;
 
-public class Activity_Differenz_rpt extends Activity_LineChartReports  {
+public class Activity_Differenz_rpt extends Activity_LineChartReports {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__differenz_rpt);
-        lineChart = (LineChart)findViewById(R.id.lineChart);
+        lineChart = (LineChart) findViewById(R.id.lineChart);
 
     }
 
 
     @Override
     float convertValue(DataSnapshot object) {
-        try{
-            return  ((Double) object.getValue()).floatValue();
+        try {
+            return ((Double) object.getValue()).floatValue();
 
-        }
-        catch (ClassCastException ex)
-        {
+        } catch (ClassCastException ex) {
             return ((Long) object.getValue()).floatValue();
         }
         //return 0;
@@ -48,7 +46,7 @@ public class Activity_Differenz_rpt extends Activity_LineChartReports  {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
 
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -56,14 +54,17 @@ public class Activity_Differenz_rpt extends Activity_LineChartReports  {
         switch (item.getItemId()) {
 
             case R.id.thirtydays:
-                computeDrawDiff(addDays(new Date(),-30), new Date(),lineChart,"Energieindex",Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
+                computeDrawDiff(addDays(new Date(), -30), new Date(), lineChart, "Energieindex",
+                        Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
 
                 return true;
             case R.id.fourteendays:
-                computeDrawDiff(addDays(new Date(),-14), new Date(),lineChart,"Energieindex",Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
-                return  true;
+                computeDrawDiff(addDays(new Date(), -14), new Date(), lineChart, "Energieindex",
+                        Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
+                return true;
             case R.id.sevendays:
-                computeDrawDiff(addDays(new Date(),-7), new Date(),lineChart,"Energieindex",Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
+                computeDrawDiff(addDays(new Date(), -7), new Date(), lineChart, "Energieindex",
+                        Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -71,11 +72,11 @@ public class Activity_Differenz_rpt extends Activity_LineChartReports  {
     }
 
 
-
     @Override
     protected void onStart() {
         super.onStart();
-        computeDrawDiff(addDays(new Date(),-4) ,new Date(), lineChart,"Energieindex",Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
+        computeDrawDiff(addDays(new Date(), -4), new Date(), lineChart, "Energieindex", Activity_Differenz_rpt.this
+                .getString(R.string.differenz_der_werte));
     }
 
 

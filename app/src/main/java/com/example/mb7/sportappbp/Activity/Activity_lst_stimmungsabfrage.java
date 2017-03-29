@@ -56,8 +56,7 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId() == R.id.recycler_stmAbfrage)
-        {
+        if (v.getId() == R.id.recycler_stmAbfrage) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_item_delete, menu);
         }
@@ -80,17 +79,16 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
                 InsertStimmungsabgabe();
                 break;
         }
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.deleteItem:
-                deleteStimmungsabgabe( ((StimmungsAngabeViewAdapter)rv.getAdapter()).getSelectedObject());
-                Toast.makeText(this,getString(R.string.erfolgreichgeloescht),Toast.LENGTH_SHORT).show();
+                deleteStimmungsabgabe(((StimmungsAngabeViewAdapter) rv.getAdapter()).getSelectedObject());
+                Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -99,22 +97,21 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
 
     /**
      * delete a Stimmungsangabe
+     *
      * @param stimmungsAngabe the object to delete
      */
-    private void deleteStimmungsabgabe(StimmungsAngabe stimmungsAngabe)
-    {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/Stimmungsabfrage/" );
-        String V_N = (stimmungsAngabe.Vor)?"V":"N";
+    private void deleteStimmungsabgabe(StimmungsAngabe stimmungsAngabe) {
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + ActivityMain.getMainUser
+                (this).getName() + "/Stimmungsabfrage/");
+        String V_N = (stimmungsAngabe.Vor) ? "V" : "N";
         ref.child(stimmungsAngabe.FirebaseDate).child(stimmungsAngabe.Time).child(V_N).removeValue();
-        try
-        {
-            ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/StimmungabfrageScore/" );
+        try {
+            ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + ActivityMain.getMainUser(this)
+                    .getName() + "/StimmungabfrageScore/");
             ref.child(stimmungsAngabe.FirebaseDate).child(stimmungsAngabe.Time).child(V_N).removeValue();
 
-        }
-        catch (Exception ex)
-        {
-            Log.e("Exception",ex.getMessage());
+        } catch (Exception ex) {
+            Log.e("Exception", ex.getMessage());
         }
     }
 
@@ -164,8 +161,7 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
     /**
      * Pop up a dialog which asks the user if this new Stimmungsabgabe is Vor or Nach Training
      */
-    private void AskIfVorTraining()
-    {
+    private void AskIfVorTraining() {
 
     }
 
@@ -173,78 +169,82 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         pd = new ProgressDialog(this);
-        pd.setMessage(getString( R.string.wird_geladen));
+        pd.setMessage(getString(R.string.wird_geladen));
         pd.show();
         readStimmungsabgaben();
     }
 
     void readStimmungsabgaben() {
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/Stimmungsabfrage/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
+                    "/Stimmungsabfrage/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
 
-                // Hier kriegst du den Knoten date zurueck
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    //final String sDate = dataSnapshot.getKey();
+                                           // Hier kriegst du den Knoten date zurueck
+                                           @Override
+                                           public void onDataChange(DataSnapshot dataSnapshot) {
+                                               //final String sDate = dataSnapshot.getKey();
 
-                    // dataSnapshot.getKey() declares which strategy the notification belongs to (Stimmungsabgabe....)
-                    stimmungsAngaben = new LinkedList<StimmungsAngabe>();
-                    // the child.key of dataSnapshop declare the unique datetime of the notification
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        // Here I get the time
-                        final String sDate= child.getKey();// Date
+                                               // dataSnapshot.getKey() declares which strategy the notification
+                                               // belongs to (Stimmungsabgabe....)
+                                               stimmungsAngaben = new LinkedList<StimmungsAngabe>();
+                                               // the child.key of dataSnapshop declare the unique datetime of the
+                                               // notification
+                                               for (DataSnapshot child : dataSnapshot.getChildren()) {
+                                                   // Here I get the time
+                                                   final String sDate = child.getKey();// Date
 
-                                // Here I have V or N
+                                                   // Here I have V or N
 
-                                for (DataSnapshot child2L : child.getChildren()) {
-                                    final String sTime = child2L.getKey();
+                                                   for (DataSnapshot child2L : child.getChildren()) {
+                                                       final String sTime = child2L.getKey();
 
-                                    // create the object and insert it in the list
-                                    for (DataSnapshot child3L : child2L.getChildren()) {
-                                                Boolean V = child3L.getKey().equals("V");
-                                                StimmungsAngabe stimmungsAngabe = child3L.getValue(StimmungsAngabe.class);
-                                                stimmungsAngabe.Vor = V;
-                                                stimmungsAngabe.FirebaseDate = sDate;
-                                                stimmungsAngabe.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString( sDate);
-                                                stimmungsAngabe.Time = sTime;
-                                                stimmungsAngaben.add(stimmungsAngabe);
-                                            }
+                                                       // create the object and insert it in the list
+                                                       for (DataSnapshot child3L : child2L.getChildren()) {
+                                                           Boolean V = child3L.getKey().equals("V");
+                                                           StimmungsAngabe stimmungsAngabe = child3L.getValue
+                                                                   (StimmungsAngabe.class);
+                                                           stimmungsAngabe.Vor = V;
+                                                           stimmungsAngabe.FirebaseDate = sDate;
+                                                           stimmungsAngabe.Date = DAL_Utilities
+                                                                   .ConvertFirebaseStringNoSpaceToDateString(sDate);
+                                                           stimmungsAngabe.Time = sTime;
+                                                           stimmungsAngaben.add(stimmungsAngabe);
+                                                       }
 
-                                        }
+                                                   }
 
-                                }
-
-
-                            if (stimmungsAngaben != null)
-                            {
-                                // reverse the list to get the newest first
-                                Collections.reverse( stimmungsAngaben);
-                                // fill the recycler
-                                 LinearLayoutManager lm = new LinearLayoutManager(activityLstStimmungsabfrage);
-                                 rv.setLayoutManager(lm);
-                                // just create a list of tasks
-                                 rv.setAdapter(new StimmungsAngabeViewAdapter(stimmungsAngaben, activityLstStimmungsabfrage));
-                            }
+                                               }
 
 
-                            // close the progress dialog
-                            pd.dismiss();
+                                               if (stimmungsAngaben != null) {
+                                                   // reverse the list to get the newest first
+                                                   Collections.reverse(stimmungsAngaben);
+                                                   // fill the recycler
+                                                   LinearLayoutManager lm = new LinearLayoutManager
+                                                           (activityLstStimmungsabfrage);
+                                                   rv.setLayoutManager(lm);
+                                                   // just create a list of tasks
+                                                   rv.setAdapter(new StimmungsAngabeViewAdapter(stimmungsAngaben, activityLstStimmungsabfrage));
+                                               }
 
 
-                }
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
+                                               // close the progress dialog
+                                               pd.dismiss();
 
-                }
-            }
+
+                                           }
+
+                                           @Override
+                                           public void onCancelled(FirebaseError firebaseError) {
+
+                                           }
+                                       }
             );
-        }
-        catch (Exception ex)
-        {
-            Log.e("Exc",ex.getMessage());
+        } catch (Exception ex) {
+            Log.e("Exc", ex.getMessage());
         }
     }
 }

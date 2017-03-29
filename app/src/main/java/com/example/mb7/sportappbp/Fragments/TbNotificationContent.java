@@ -41,13 +41,14 @@ public class TbNotificationContent extends TabFragment {
     ProgressDialog pd;
 
     TbNotificationContent tbNotificationContent = null;
+
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
 
         // Set the title of
-        setTitle(getString( R.string.notifikationen));
+        setTitle(getString(R.string.notifikationen));
 
-        if(isAdded()) {
+        if (isAdded()) {
             view = inflater.inflate(R.layout.tbnotificationcontent, container, false);
         }
         tbNotificationContent = this;
@@ -58,9 +59,9 @@ public class TbNotificationContent extends TabFragment {
     @Override
     public void setMenuVisibility(boolean menuVisible) {
         super.setMenuVisibility(menuVisible);
-        if (menuVisible){
+        if (menuVisible) {
             pd = new ProgressDialog(this.getContext());
-            pd.setMessage(getString( R.string.wird_geladen));
+            pd.setMessage(getString(R.string.wird_geladen));
             pd.show();
 
             readNotifications();
@@ -74,15 +75,15 @@ public class TbNotificationContent extends TabFragment {
         super.onStart();
     }
 
-    void readNotifications(){
+    void readNotifications() {
 
-        if(!isAdded()) {
+        if (!isAdded()) {
             return;
         }
 
-        try
-        {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this.getContext()).getName()+ "/Notifications/");
+        try {
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this.getContext())
+                    .getName() + "/Notifications/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -90,7 +91,7 @@ public class TbNotificationContent extends TabFragment {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    if(!TbNotificationContent.this.isAdded()) {
+                    if (!TbNotificationContent.this.isAdded()) {
                         return;
                     }
 
@@ -99,11 +100,10 @@ public class TbNotificationContent extends TabFragment {
                     // the child.key of dataSnapshop declare the unique datetime of the notification
                     for (DataSnapshot child : dataSnapshot.getChildren()) {
                         String title = child.getKey();
-                        for (DataSnapshot dates : child.getChildren())
-                        {
+                        for (DataSnapshot dates : child.getChildren()) {
                             Date date = DAL_Utilities.ConvertFirebaseStringToDateTime(dates.getKey());
 
-                            if(dates.child("subText").getValue() == null) {
+                            if (dates.child("subText").getValue() == null) {
                                 continue;
                             }
 
@@ -112,20 +112,17 @@ public class TbNotificationContent extends TabFragment {
 
                             Notification notification = null;
                             // Now create our Notifications
-                            if (title.equals( getString( R.string.stimmungsabgabe))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_stimmungs_abgabe,date);
-                            }
-                            else if(title.equals( getString(R.string.tagebucheintrag))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_tagebuch_eintrag,date);
-                            }
-                            else if(title.equals( getString(R.string.fitnessfragebogen))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_aktivitaets_fragebogen,date);
-                            }
-                            else if(title.equals(getString(R.string.aktivitaetsfragebogen))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_fittnessfragebogen,date);
-                            }
-                            else if(title.equals(getString(R.string.Challenge))){
-                                notification = new Notification( title,subtext,R.mipmap.ic_fittnessfragebogen,date);
+                            if (title.equals(getString(R.string.stimmungsabgabe))) {
+                                notification = new Notification(title, subtext, R.mipmap.ic_stimmungs_abgabe, date);
+                            } else if (title.equals(getString(R.string.tagebucheintrag))) {
+                                notification = new Notification(title, subtext, R.mipmap.ic_tagebuch_eintrag, date);
+                            } else if (title.equals(getString(R.string.fitnessfragebogen))) {
+                                notification = new Notification(title, subtext, R.mipmap.ic_aktivitaets_fragebogen,
+                                        date);
+                            } else if (title.equals(getString(R.string.aktivitaetsfragebogen))) {
+                                notification = new Notification(title, subtext, R.mipmap.ic_fittnessfragebogen, date);
+                            } else if (title.equals(getString(R.string.Challenge))) {
+                                notification = new Notification(title, subtext, R.mipmap.ic_fittnessfragebogen, date);
                             }
 
 
@@ -137,21 +134,22 @@ public class TbNotificationContent extends TabFragment {
 
                     // reminder notification
                     boolean containsReminder = false;
-                    for(Notification n : notifications) {
-                        if(n.getTitle().equals(getString(R.string.trNotiTitle))) {
+                    for (Notification n : notifications) {
+                        if (n.getTitle().equals(getString(R.string.trNotiTitle))) {
                             containsReminder = true;
                             break;
                         }
                     }
-                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity().getApplicationContext());
-                    String nextTrainingTime = preferences.getString("nextTrainingTime","");
-                    if(!containsReminder && !nextTrainingTime.equals("")) {
+                    SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(getActivity()
+                            .getApplicationContext());
+                    String nextTrainingTime = preferences.getString("nextTrainingTime", "");
+                    if (!containsReminder && !nextTrainingTime.equals("")) {
                         notifications.add(new Notification(
                                 getString(R.string.trNotiTitle),
                                 getString(R.string.trNotiSmallTitle1)
-                                        +" "+ MotivationMethod.timeTillTraining(nextTrainingTime)
-                                        +" "+ getString(R.string.trNotiSmallTitle2).split("\n")[0],
-                                R.mipmap.ic_fittnessfragebogen,new Date())
+                                        + " " + MotivationMethod.timeTillTraining(nextTrainingTime)
+                                        + " " + getString(R.string.trNotiSmallTitle2).split("\n")[0],
+                                R.mipmap.ic_fittnessfragebogen, new Date())
                         );
                     }
 
@@ -176,9 +174,7 @@ public class TbNotificationContent extends TabFragment {
 
                 }
             });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.d("ERROR", e.getMessage());
         }
     }

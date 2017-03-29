@@ -27,6 +27,7 @@ public class ObserverStudioNotification extends Observer {
     /**
      * then main update method that is called from the Observable
      * Here you check your condition and do call then notify process
+     *
      * @param context
      */
     @Override
@@ -40,8 +41,7 @@ public class ObserverStudioNotification extends Observer {
 
 
     // get the current time in minutes
-    private int getMinutesofDate(Date date  )
-    {
+    private int getMinutesofDate(Date date) {
         Calendar calendar = Calendar.getInstance();
         calendar.setTime(date);
         int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
@@ -52,6 +52,7 @@ public class ObserverStudioNotification extends Observer {
 
     /**
      * This method searches all challenges, which are not finished and starts a notification for the challenge
+     *
      * @return
      */
 
@@ -63,7 +64,8 @@ public class ObserverStudioNotification extends Observer {
         final Date today = calendar.getTime();
         //URL url = null;
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/users/" + ActivityMain.getMainUser(context).getName() + "/Challenges/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "/users/" + ActivityMain.getMainUser(context).getName() +
+                    "/Challenges/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -110,11 +112,13 @@ public class ObserverStudioNotification extends Observer {
 
     /**
      * show Notification if we anyone of the challenges is in the gym
-     * if it is show notification and save that you have showed it in the preferences to not repeat it for the same event
+     * if it is show notification and save that you have showed it in the preferences to not repeat it for the same
+     * event
+     *
      * @return
      */
 
-    private void doNotify(final String challengeName){
+    private void doNotify(final String challengeName) {
 
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
 
@@ -128,17 +132,18 @@ public class ObserverStudioNotification extends Observer {
 
                     String usrName = "";
 
-                    for(DataSnapshot name : dataSnapshot.getChildren()) {
+                    for (DataSnapshot name : dataSnapshot.getChildren()) {
                         //save the username of the person
                         usrName = name.getKey().toString();
 
                         //the user should not get a notification when he is in the gym
-                        if(!usrName.equals(ActivityMain.getMainUser(context).getName())) {
+                        if (!usrName.equals(ActivityMain.getMainUser(context).getName())) {
                             if (usrName != "") {
                                 // we are in the interval where we should raise a notification
                                 // just check if the user hasn't got a notification before
                                 preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                                String date = android.text.format.DateFormat.format("yyyy-MM-dd", new Date()).toString();
+                                String date = android.text.format.DateFormat.format("yyyy-MM-dd", new Date())
+                                        .toString();
                                 Boolean sendNotif = preferences.getBoolean(usrName + date, false);
                                 if (!sendNotif) {
                                     // insert in the preferences that notification has been sent
@@ -160,7 +165,7 @@ public class ObserverStudioNotification extends Observer {
                         }
                     }
 
-                    }
+                }
 
 
                 @Override
@@ -174,7 +179,6 @@ public class ObserverStudioNotification extends Observer {
         }
 
     }
-
 
 
 }

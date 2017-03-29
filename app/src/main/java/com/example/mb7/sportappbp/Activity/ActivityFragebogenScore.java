@@ -15,13 +15,11 @@ import com.example.mb7.sportappbp.R;
  * Created by Felix on 21.03.2017.
  */
 
-public class ActivityFragebogenScore extends AppCompatActivity{
-
-
+public class ActivityFragebogenScore extends AppCompatActivity {
 
 
     @Override
-    protected void onCreate(Bundle savedInstanceState){
+    protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_fragebogenscores);
         this.SetControlCaptions();
@@ -42,19 +40,20 @@ public class ActivityFragebogenScore extends AppCompatActivity{
 
     /**
      * Spericherbutton
+     *
      * @param item
      * @return
      */
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         //check which icon was hidden in the toolbar
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.icon_save:
                 finish();
                 Toast.makeText(this,
                         "Erfolgreich gespeichert" + "\n"
-                        ,Toast.LENGTH_LONG).show();
+                        , Toast.LENGTH_LONG).show();
 
                 return true;
 
@@ -64,9 +63,9 @@ public class ActivityFragebogenScore extends AppCompatActivity{
     }
 
 
-    private void SetControlCaptions(){
-        ((TextView)findViewById(R.id.txtbsascore)).setText("");
-        ((TextView)findViewById(R.id.txtfitnesscore)).setText("");
+    private void SetControlCaptions() {
+        ((TextView) findViewById(R.id.txtbsascore)).setText("");
+        ((TextView) findViewById(R.id.txtfitnesscore)).setText("");
 
     }
 
@@ -74,12 +73,11 @@ public class ActivityFragebogenScore extends AppCompatActivity{
     /**
      * Werte aus Datenbank lesen, speichern und in Textviews ausgeben.
      */
-    public void getFitnessScores(){
+    public void getFitnessScores() {
 
     }
 
-    public void getBsaScores(){
-
+    public void getBsaScores() {
 
 
     }

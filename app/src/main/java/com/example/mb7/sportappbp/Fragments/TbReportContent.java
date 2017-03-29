@@ -46,7 +46,7 @@ import java.util.List;
  * Created by MB7 on 07.01.2017.
  */
 
-public class TbReportContent extends TabFragment{
+public class TbReportContent extends TabFragment {
 
     View view;
     ListView listView;
@@ -59,16 +59,22 @@ public class TbReportContent extends TabFragment{
         this.setTitle("Berichte");
         view = inflater.inflate(R.layout.tbreportcontent, container, false);
 
-        Report r1 = new Report(getString( R.string.stimmungsbarometer_dgr_ttl),getString(R.string.stimmungsbarometer_dgr_text), R.mipmap.ic_report_violett);
-        Report r2 = new Report(getString( R.string.energieindex_dgr_ttl), getString( R.string.energieeindex_dgr_text), R.mipmap.ic_report_green);
-        Report r3 = new Report(getString( R.string.differenzwert_dgr_ttl), getString( R.string.differenzwert_dgr_text),R.mipmap.ic_report_orange);
-        Report r4 = new Report(getString( R.string.punkteproWoche_dgr_ttl), getString( R.string.punkteproWoche_dgr_text),R.mipmap.ic_report_rosa);
-        Report r5 = new Report(getString( R.string.fitnessfragen_dgr_ttl), getString(R.string.fittnessfragen_dgr_text),R.mipmap.ic_report_blue);
-        Report r6 = new Report(getString( R.string.bsa_dgr_ttl), getString(R.string.bsa_dgr_text),R.mipmap.ic_report_red);
-        reports =new LinkedList<Report>(Arrays.asList(r1,r2,r3,r4,r5,r6));
+        Report r1 = new Report(getString(R.string.stimmungsbarometer_dgr_ttl), getString(R.string
+                .stimmungsbarometer_dgr_text), R.mipmap.ic_report_violett);
+        Report r2 = new Report(getString(R.string.energieindex_dgr_ttl), getString(R.string.energieeindex_dgr_text),
+                R.mipmap.ic_report_green);
+        Report r3 = new Report(getString(R.string.differenzwert_dgr_ttl), getString(R.string.differenzwert_dgr_text),
+                R.mipmap.ic_report_orange);
+        Report r4 = new Report(getString(R.string.punkteproWoche_dgr_ttl), getString(R.string
+                .punkteproWoche_dgr_text), R.mipmap.ic_report_rosa);
+        Report r5 = new Report(getString(R.string.fitnessfragen_dgr_ttl), getString(R.string.fittnessfragen_dgr_text)
+                , R.mipmap.ic_report_blue);
+        Report r6 = new Report(getString(R.string.bsa_dgr_ttl), getString(R.string.bsa_dgr_text), R.mipmap
+                .ic_report_red);
+        reports = new LinkedList<Report>(Arrays.asList(r1, r2, r3, r4, r5, r6));
 
 
-        rv = (RecyclerView)view.findViewById(R.id.recycler_report);
+        rv = (RecyclerView) view.findViewById(R.id.recycler_report);
 
         LinearLayoutManager lm = new LinearLayoutManager(getContext());
         rv.setLayoutManager(lm);

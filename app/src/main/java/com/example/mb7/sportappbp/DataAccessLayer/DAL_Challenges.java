@@ -106,9 +106,10 @@ public class DAL_Challenges {
 
     /**
      * Inserts challenge to database
+     *
      * @param challenge current challenge
      */
-    public static  void InsertChallenge(Challenge challenge) {
+    public static void InsertChallenge(Challenge challenge) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
@@ -123,10 +124,11 @@ public class DAL_Challenges {
 
     /**
      * Inserts user to database as user of the challenge
-     * @param user user to add as admin
+     *
+     * @param user      user to add as admin
      * @param challenge current challenge
      */
-    public static void InsertUser(User user, Challenge challenge){
+    public static void InsertUser(User user, Challenge challenge) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
@@ -142,10 +144,11 @@ public class DAL_Challenges {
 
     /**
      * Inserts admin of the challenge to database
-     * @param user user to add as admin
+     *
+     * @param user      user to add as admin
      * @param challenge current challenge
      */
-    public static void InsertAdmin(User user, Challenge challenge){
+    public static void InsertAdmin(User user, Challenge challenge) {
 
         SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
 
@@ -161,10 +164,11 @@ public class DAL_Challenges {
 
     /**
      * Removes the reference to user
-     * @param user to remove
+     *
+     * @param user      to remove
      * @param challenge current challenge
      */
-    public static void InsertInvitation(User user, Challenge challenge){
+    public static void InsertInvitation(User user, Challenge challenge) {
 
         Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Invitations/Challenges");
 
@@ -172,19 +176,20 @@ public class DAL_Challenges {
 
         Firebase name = ref.child(challenge.getName());
 
-        Firebase nameChildStart =  name.child("startDate");
+        Firebase nameChildStart = name.child("startDate");
         nameChildStart.setValue(sdf.format(challenge.getStartDate()));
 
-        Firebase nameChildEnd =  name.child("endDate");
+        Firebase nameChildEnd = name.child("endDate");
         nameChildEnd.setValue(sdf.format(challenge.getEndDate()));
     }
 
     /**
      * Removes the reference to user
-     * @param user to invite
+     *
+     * @param user      to invite
      * @param challenge current challenge
      */
-    public static void RemoveInvitation(User user, Challenge challenge){
+    public static void RemoveInvitation(User user, Challenge challenge) {
 
         Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Invitations/Challenges/");
         ref.child(challenge.getName()).removeValue();
@@ -193,10 +198,11 @@ public class DAL_Challenges {
 
     /**
      * Removes the reference to user
-     * @param user to invite
+     *
+     * @param user      to invite
      * @param challenge current challenge
      */
-    public static void RemoveUser(User user, Challenge challenge){
+    public static void RemoveUser(User user, Challenge challenge) {
 
         Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "Challenges/" + challenge.getName() + "/Users/");
         ref.child(user.getName()).removeValue();

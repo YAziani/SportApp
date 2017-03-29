@@ -11,7 +11,7 @@ public class StimmungsAngabe implements Serializable {
     public String FirebaseDate;
     // Is it the Stimmungsabfrage before Training or after
     public Boolean Vor;
-    public Integer Angespannt ;
+    public Integer Angespannt;
     public Integer Mitteilsam;
     public Integer Muede;
     public Integer Selbstsicher;
@@ -19,7 +19,7 @@ public class StimmungsAngabe implements Serializable {
     public Integer Traurig;
     public Integer Wuetend;
     public Integer Zerstreut;
-    public  String Time;
+    public String Time;
 
 
-    }
+}

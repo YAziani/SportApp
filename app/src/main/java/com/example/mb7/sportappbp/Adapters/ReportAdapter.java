@@ -39,7 +39,7 @@ import java.util.List;
  * Created by M.Braei on 27.03.2017.
  */
 
-public class ReportAdapter  extends RecyclerView.Adapter<ReportAdapter.ReportHolder> {
+public class ReportAdapter extends RecyclerView.Adapter<ReportAdapter.ReportHolder> {
     List<Report> reports;
     TabFragment context;
 
@@ -60,66 +60,87 @@ public class ReportAdapter  extends RecyclerView.Adapter<ReportAdapter.ReportHol
 
         @Override
         public void onClick(View view) {
-            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.stimmungsbarometer_dgr_ttl))){
-                Intent open = new Intent(context.getActivity(),Activity_Stimmungsbarometer_rpt.class                );
+            if (reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+                    .stimmungsbarometer_dgr_ttl))) {
+                Intent open = new Intent(context.getActivity(), Activity_Stimmungsbarometer_rpt.class);
                 context.startActivity(open);
             }
-            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.energieindex_dgr_ttl))){
-                Intent open = new Intent(context.getActivity(),Activity_EnergieIndex_rpt.class                );
+            if (reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.energieindex_dgr_ttl))) {
+                Intent open = new Intent(context.getActivity(), Activity_EnergieIndex_rpt.class);
                 context.startActivity(open);
             }
-            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.differenzwert_dgr_ttl))){
-                Intent open = new Intent(context.getActivity(),Activity_Differenz_rpt.class                );
+            if (reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.differenzwert_dgr_ttl)
+            )) {
+                Intent open = new Intent(context.getActivity(), Activity_Differenz_rpt.class);
                 context.startActivity(open);
             }
-            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.punkteproWoche_dgr_ttl))){
-                Intent open = new Intent(context.getActivity(),Activity_Trainings_rpt.class                );
+            if (reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+                    .punkteproWoche_dgr_ttl))) {
+                Intent open = new Intent(context.getActivity(), Activity_Trainings_rpt.class);
                 context.startActivity(open);
             }
-            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.bsa_dgr_ttl))){
-                Intent open = new Intent(context.getActivity(),Activity_bsa_rpt.class                );
+            if (reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.bsa_dgr_ttl))) {
+                Intent open = new Intent(context.getActivity(), Activity_bsa_rpt.class);
                 context.startActivity(open);
             }
-            if(reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragen_dgr_ttl))){
-                Intent open = new Intent(context.getActivity(),Activity_FitnessFragebogen_rpt.class                );
+            if (reports.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragen_dgr_ttl)
+            )) {
+                Intent open = new Intent(context.getActivity(), Activity_FitnessFragebogen_rpt.class);
                 context.startActivity(open);
             }
             /*
-            if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.tagebucheintrag))) {
+            if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.tagebucheintrag)
+            )) {
                 Intent open = new Intent(context.getActivity(), ActivityDiaryEntry.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
-                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                notification from the database
+                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get
+                (getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.stimmungsabgabe))) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+            .stimmungsabgabe))) {
                 Intent open = new Intent(context.getActivity(), ActivityStimmungsAbgabe.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
-                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
-                if (notifications.get(getAdapterPosition()).getSubText().equals(context.getString( R.string.ntf_stimmungsabgabe)))
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                notification from the database
+                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get
+                (getAdapterPosition()).getDate());
+                if (notifications.get(getAdapterPosition()).getSubText().equals(context.getString( R.string
+                .ntf_stimmungsabgabe)))
                     open.putExtra("Vor","1");
                 else
                     open.putExtra("Vor","0");
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragebogen))) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+            .fitnessfragebogen))) {
                 Intent open = new Intent(context.getActivity(), ActivityFitnessFragebogen.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
-                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                notification from the database
+                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get
+                (getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.aktivitaetsfragebogen) )) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+            .aktivitaetsfragebogen) )) {
                 Intent open = new Intent(context.getActivity(), ActivityFragebogen.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
-                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                notification from the database
+                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get
+                (getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.bewegen_sie_sich))) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+            .bewegen_sie_sich))) {
                 Intent open = new Intent(context.getActivity(), ActivityMotivationMessage.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
-                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get(getAdapterPosition()).getDate());
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                notification from the database
+                String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get
+                (getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate",NotificationDate);
                 context.startActivity(open);
-            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.trNotiTitle))) {
+            } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+            .trNotiTitle))) {
                 notifications.remove(notifications.get(getAdapterPosition()));
                 String nextTrainingTime = PreferenceManager
                         .getDefaultSharedPreferences(context.getContext()).getString("nextTrainingTime","");

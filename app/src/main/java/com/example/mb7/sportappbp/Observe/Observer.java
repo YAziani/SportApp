@@ -26,101 +26,112 @@ import java.util.Random;
 
 public abstract class Observer {
     abstract public void update(Context context);
+
     protected Context context;
     protected SharedPreferences preferences;
 
     /**
-     * The public function to outside which saves the notification in the db and shows out on the status bar of the device
-     * @param context       the pending activity
-     * @param strategyname  the name of the strategy: will be saved in the database
-     * @param cls           the classname of the activity that is going to be called when the user clicks on the notification
-     * @param title         the title of the notification
-     * @param text          the text of the notification
-     * @param icon          the icon of the notification that is shown
+     * The public function to outside which saves the notification in the db and shows out on the status bar of the
+     * device
+     *
+     * @param context      the pending activity
+     * @param strategyname the name of the strategy: will be saved in the database
+     * @param cls          the classname of the activity that is going to be called when the user clicks on the
+     *                     notification
+     * @param title        the title of the notification
+     * @param text         the text of the notification
+     * @param icon         the icon of the notification that is shown
      */
-    public void sendNotification(Context context ,String strategyname, Class<?> cls, String title, String text, Integer icon)
-    {
+    public void sendNotification(Context context, String strategyname, Class<?> cls, String title, String text,
+                                 Integer icon) {
         // first save the data in database
-        String sDate =  saveNotificationDB(context,strategyname, text);
+        String sDate = saveNotificationDB(context, strategyname, text);
         // now show the notification
         if (!sDate.equals(""))
-            createNotification(context, sDate, cls, title,text, R.drawable.ic_notification   );
+            createNotification(context, sDate, cls, title, text, R.drawable.ic_notification);
 
     }
 
     /**
-     * The public function to outside which saves the notification in the db and shows out on the status bar of the device
-     * @param context       the pending activity
-     * @param strategyname  the name of the strategy: will be saved in the database
-     * @param cls           the classname of the activity that is going to be called when the user clicks on the notification
-     * @param title         the title of the notification
-     * @param text          the text of the notification
-     * @param icon          the icon of the notification that is shown
-     * @param object        the object that has to be sent to the class cls
-     * @param objectname    the name of the object that has to be sent to the bundle
+     * The public function to outside which saves the notification in the db and shows out on the status bar of the
+     * device
+     *
+     * @param context      the pending activity
+     * @param strategyname the name of the strategy: will be saved in the database
+     * @param cls          the classname of the activity that is going to be called when the user clicks on the
+     *                     notification
+     * @param title        the title of the notification
+     * @param text         the text of the notification
+     * @param icon         the icon of the notification that is shown
+     * @param object       the object that has to be sent to the class cls
+     * @param objectname   the name of the object that has to be sent to the bundle
      */
-    public void sendNotification(Context context ,String strategyname, Class<?> cls, String title, String text, Integer icon, Serializable object, String objectname)
-    {
+    public void sendNotification(Context context, String strategyname, Class<?> cls, String title, String text,
+                                 Integer icon, Serializable object, String objectname) {
         // first save the data in database
-        String sDate =  saveNotificationDB(context,strategyname, text);
+        String sDate = saveNotificationDB(context, strategyname, text);
         // now show the notification
         if (!sDate.equals(""))
-            createNotification(context, sDate, cls, title,text, R.drawable.ic_notification ,object, objectname  );
+            createNotification(context, sDate, cls, title, text, R.drawable.ic_notification, object, objectname);
 
     }
 
     /**
      * Here the notification will be saved in Firebase to prevent multiple notifications for the same issue
-     * @param context       The context
-     * @param strategyName  Give the strategyname and the notification will be saved under the current user with this strategy name
-     * @param text          The text of the notification
+     *
+     * @param context      The context
+     * @param strategyName Give the strategyname and the notification will be saved under the current user with this
+     *                     strategy name
+     * @param text         The text of the notification
      * @return
      */
-    public String saveNotificationDB(Context context, String strategyName, String text )
-    {
-        try
-        {
+    public String saveNotificationDB(Context context, String strategyName, String text) {
+        try {
             // get the current user
-            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
+            SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context
+                    .getApplicationContext());
 
             // build the current URL
-            Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/Notifications/" );
+            Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+                    ("logedIn", "") + "/Notifications/");
 
             // first the main node class of the class and the date as sub node
-            String sDate = DAL_Utilities.ConvertDateTimeToFirebaseString( new Date());
-            Firebase classRef =  ref.child(strategyName).child(sDate);
+            String sDate = DAL_Utilities.ConvertDateTimeToFirebaseString(new Date());
+            Firebase classRef = ref.child(strategyName).child(sDate);
             // now enter the the text of the notification as key-value
             Firebase node = classRef.child("subText");
             node.setValue(text);
 
             return sDate;
 
-        }
-        catch (Exception ex)
-        {
+        } catch (Exception ex) {
             String s = ex.getMessage();
             return "";
-        }
-        finally
-        {
+        } finally {
 
         }
     }
 
     /**
      * create and display the notification to the user and when the user clicks on it, a specific activity is shown
-     * @param context               context of the app
-     * @param NotificationDate      the date of the notification. Is used to be sent to the activity to delete it from firebase when the activity is shown and the notification is clicked. So the notificaiton disappears from the tbNotification
-     * @param cls                   the class name of the activity that is going to be shown when clicked on the notification
-     * @param title                 title of the notification
-     * @param text                  text of the notification
-     * @param icon                  icon that is shown on the notification
+     *
+     * @param context          context of the app
+     * @param NotificationDate the date of the notification. Is used to be sent to the activity to delete it from
+     *                         firebase when the activity is shown and the notification is clicked. So the
+     *                         notificaiton disappears from the tbNotification
+     * @param cls              the class name of the activity that is going to be shown when clicked on the notification
+     * @param title            title of the notification
+     * @param text             text of the notification
+     * @param icon             icon that is shown on the notification
      */
-    public void createNotification(Context context, String NotificationDate, Class<?> cls,String title, String text, Integer icon ){
+    public void createNotification(Context context, String NotificationDate, Class<?> cls, String title, String text,
+                                   Integer icon) {
 
         Intent contentClass = new Intent(context, cls);
-        contentClass.putExtra("NotificationDate",NotificationDate);                                             // we have to know the notification date to delete from db
-        contentClass.putExtra("Vor",text.equals(context.getString( R.string.ntf_stimmungsabgabe))?"1":"0");     // that we should know to save it in the V node or N node (is it the question before or after the training)
+        contentClass.putExtra("NotificationDate", NotificationDate);                                             //
+        // we have to know the notification date to delete from db
+        contentClass.putExtra("Vor", text.equals(context.getString(R.string.ntf_stimmungsabgabe)) ? "1" : "0");
+        // that we should know to save it in the V node or N node (is it the question before or after the training)
 
         // Used to stack tasks across activites so we go to the proper place when back is clicked
         // create(context): context is the context that will launch the new task stack or a PendingIndent
@@ -128,7 +139,8 @@ public abstract class Observer {
 
 
         // Add all parents of this activity to the stack
-        // The parentstck of MoreInfoNotifaction is defined in the Manifest -> <android:parentActivityName=".MainActivity">
+        // The parentstck of MoreInfoNotifaction is defined in the Manifest ->
+        // <android:parentActivityName=".MainActivity">
         tStackBuilder.addParentStack(cls);
 
         // Add our new Intent to the stack
@@ -144,10 +156,11 @@ public abstract class Observer {
         // Builds a notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(  icon)
+                        .setSmallIcon(icon)
                         .setContentTitle(title)                         // The title that is displayed
                         .setContentText(text)              // This text is shown by the notification
-                        .setTicker(text)  ;            // This is not shown since Android 5.0 but still usefull to accessibility services
+                        .setTicker(text);            // This is not shown since Android 5.0 but still usefull to
+        // accessibility services
 
         // Defines the Intent to fire when the notification is clicked
         mBuilder.setContentIntent(notificIntent);
@@ -177,20 +190,26 @@ public abstract class Observer {
 
     /**
      * create and display the notification to the user and when the user clicks on it, a specific activity is shown
-     * @param context               context of the app
-     * @param NotificationDate      the date of the notification. Is used to be sent to the activity to delete it from firebase when the activity is shown and the notification is clicked. So the notificaiton disappears from the tbNotification
-     * @param cls                   the class name of the activity that is going to be shown when clicked on the notification
-     * @param title                 title of the notification
-     * @param text                  text of the notification
-     * @param icon                  icon that is shown on the notification
-     * @param  object               object that has to be sent to cls
-     * @param objectname            the name of the object set in the bundle to cls
+     *
+     * @param context          context of the app
+     * @param NotificationDate the date of the notification. Is used to be sent to the activity to delete it from
+     *                         firebase when the activity is shown and the notification is clicked. So the
+     *                         notificaiton disappears from the tbNotification
+     * @param cls              the class name of the activity that is going to be shown when clicked on the notification
+     * @param title            title of the notification
+     * @param text             text of the notification
+     * @param icon             icon that is shown on the notification
+     * @param object           object that has to be sent to cls
+     * @param objectname       the name of the object set in the bundle to cls
      */
-    public void createNotification(Context context, String NotificationDate, Class<?> cls, String title, String text, Integer icon, Serializable object, String objectname ){
+    public void createNotification(Context context, String NotificationDate, Class<?> cls, String title, String text,
+                                   Integer icon, Serializable object, String objectname) {
 
         Intent contentClass = new Intent(context, cls);
-        contentClass.putExtra("NotificationDate",NotificationDate);                                             // we have to know the notification date to delete from db
-        contentClass.putExtra(objectname,object);     // that we should know to save it in the V node or N node (is it the question before or after the training)
+        contentClass.putExtra("NotificationDate", NotificationDate);                                             //
+        // we have to know the notification date to delete from db
+        contentClass.putExtra(objectname, object);     // that we should know to save it in the V node or N node (is
+        // it the question before or after the training)
 
         // Used to stack tasks across activities so we go to the proper place when back is clicked
         // create(context): context is the context that will launch the new task stack or a PendingIndent
@@ -198,7 +217,8 @@ public abstract class Observer {
 
 
         // Add all parents of this activity to the stack
-        // The parentstck of MoreInfoNotifaction is defined in the Manifest -> <android:parentActivityName=".MainActivity">
+        // The parentstck of MoreInfoNotifaction is defined in the Manifest ->
+        // <android:parentActivityName=".MainActivity">
         tStackBuilder.addParentStack(cls);
 
         // Add our new Intent to the stack
@@ -214,10 +234,11 @@ public abstract class Observer {
         // Builds a notification
         NotificationCompat.Builder mBuilder =
                 new NotificationCompat.Builder(context)
-                        .setSmallIcon(  icon)
+                        .setSmallIcon(icon)
                         .setContentTitle(title)                         // The title that is displayed
                         .setContentText(text)              // This text is shown by the notification
-                        .setTicker(text)  ;            // This is not shown since Android 5.0 but still usefull to accessibility services
+                        .setTicker(text);            // This is not shown since Android 5.0 but still usefull to
+        // accessibility services
 
         // Defines the Intent to fire when the notification is clicked
         mBuilder.setContentIntent(notificIntent);
@@ -255,31 +276,25 @@ public abstract class Observer {
 
         // determine the day of the week
         int currentWeekday = calendar.get(Calendar.DAY_OF_WEEK);
-        if(currentWeekday == Calendar.MONDAY){
+        if (currentWeekday == Calendar.MONDAY) {
             dayOfWeek = "Montag";
-        }
-        else if(currentWeekday == Calendar.TUESDAY){
+        } else if (currentWeekday == Calendar.TUESDAY) {
             dayOfWeek = "Dienstag";
-        }
-        else if(currentWeekday == Calendar.WEDNESDAY){
+        } else if (currentWeekday == Calendar.WEDNESDAY) {
             dayOfWeek = "Mittwoch";
-        }
-        else if(currentWeekday == Calendar.THURSDAY){
+        } else if (currentWeekday == Calendar.THURSDAY) {
             dayOfWeek = "Donnerstag";
-        }
-        else if(currentWeekday == Calendar.FRIDAY){
+        } else if (currentWeekday == Calendar.FRIDAY) {
             dayOfWeek = "Freitag";
-        }
-        else if(currentWeekday == Calendar.SATURDAY){
+        } else if (currentWeekday == Calendar.SATURDAY) {
             dayOfWeek = "Samstag";
-        }
-        else{
+        } else {
             dayOfWeek = "Sonntag";
         }
         return dayOfWeek;
     }
 
-    public String getNextTrainingTimeString(Context context){
+    public String getNextTrainingTimeString(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String preferenceString = preferences.getString(getCurrentWeekday(), "");
         System.out.println(preferenceString);
@@ -289,13 +304,13 @@ public abstract class Observer {
         int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
         // find next training start time
-        if(!preferenceString.equals("")) {
-            for(final String s : preferenceString.split(";")) {
+        if (!preferenceString.equals("")) {
+            for (final String s : preferenceString.split(";")) {
                 int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
                         + Integer.valueOf(s.split(":")[1]);
                 int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
                 // check if training is still noteworthy
-                if(currentMinuteOfDay <= trainingMinuteOfDay) {
+                if (currentMinuteOfDay <= trainingMinuteOfDay) {
                     return s;
                 }
             }
@@ -303,7 +318,7 @@ public abstract class Observer {
         return "";
     }
 
-    public String getLastTrainingTimeString(Context context){
+    public String getLastTrainingTimeString(Context context) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String preferenceString = preferences.getString(getCurrentWeekday(), "");
         String lastTraining = "";
@@ -311,19 +326,19 @@ public abstract class Observer {
         int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
         // find next training start time
-        if(!preferenceString.equals("")) {
-            for(final String s : preferenceString.split(";")) {
+        if (!preferenceString.equals("")) {
+            for (final String s : preferenceString.split(";")) {
                 int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
                         + Integer.valueOf(s.split(":")[1]);
                 int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
                 // check if training is still noteworthy
-                if(currentMinuteOfDay <= trainingMinuteOfDay) {
-                    if(!lastTraining.equals("")) {
+                if (currentMinuteOfDay <= trainingMinuteOfDay) {
+                    if (!lastTraining.equals("")) {
                         return lastTraining;
-                    }else {
+                    } else {
                         break;
                     }
-                }else {
+                } else {
                     lastTraining = s;
                 }
             }
@@ -333,10 +348,11 @@ public abstract class Observer {
 
     /**
      * get the time of the next training time
+     *
      * @param context
      * @return
      */
-    final public Integer getNextTrainingTimeInteger(Context context){
+    final public Integer getNextTrainingTimeInteger(Context context) {
         String preferenceString = preferences.getString(getCurrentWeekday(), "");
         insertTrainingdates(preferenceString);
         Date date = new Date();
@@ -345,22 +361,24 @@ public abstract class Observer {
         int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
         int currentMinute = calendar.get(Calendar.MINUTE);
         // find next training start time
-        if(!preferenceString.equals("")) {
-            for(final String s : preferenceString.split(";")) {
+        if (!preferenceString.equals("")) {
+            for (final String s : preferenceString.split(";")) {
                 int trainingMinuteOfDay = Integer.valueOf(s.split(":")[0]) * 60
                         + Integer.valueOf(s.split(":")[1]);
                 int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
                 // check if training is still noteworthy
-                if(currentMinuteOfDay <= trainingMinuteOfDay) {
+                if (currentMinuteOfDay <= trainingMinuteOfDay) {
                     return trainingMinuteOfDay;
                 }
             }
         }
         return 0;
     }
-    private void insertTrainingdates(String dates){
+
+    private void insertTrainingdates(String dates) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/" );
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+                ("logedIn", "") + "/");
         ref.child("TrainingDates").setValue(dates);
 
     }
@@ -371,6 +389,7 @@ public abstract class Observer {
      */
     /**
      * get the time of the last training time
+     *
      * @param context
      * @return
      */
@@ -402,10 +421,10 @@ public abstract class Observer {
         }
         if (lastTraining.equals(""))
             return 0;
-        else{
-                return Integer.valueOf(lastTraining.split(":")[0]) * 60
-                        + Integer.valueOf(lastTraining.split(":")[1]);
-            }
+        else {
+            return Integer.valueOf(lastTraining.split(":")[0]) * 60
+                    + Integer.valueOf(lastTraining.split(":")[1]);
+        }
 
     }
 }

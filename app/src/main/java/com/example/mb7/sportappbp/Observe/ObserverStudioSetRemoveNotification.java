@@ -85,7 +85,8 @@ public class ObserverStudioSetRemoveNotification extends Observer {
             Criteria criteria = new Criteria();
             criteria.setAccuracy(Criteria.ACCURACY_FINE);
             String best = locationManager.getBestProvider(criteria, false);
-            if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) != PackageManager.PERMISSION_GRANTED) {
+            if (ContextCompat.checkSelfPermission(context, Manifest.permission.ACCESS_FINE_LOCATION) !=
+                    PackageManager.PERMISSION_GRANTED) {
                 System.out.println("ATTENTION: permission denied");
             } else {
                 System.out.println("ATTENTION: permission granted");
@@ -127,7 +128,8 @@ public class ObserverStudioSetRemoveNotification extends Observer {
     }
 
     @Override
-    public void createNotification(Context context, String NotificationDate, Class<?> cls, String title, String text, Integer icon) {
+    public void createNotification(Context context, String NotificationDate, Class<?> cls, String title, String text,
+                                   Integer icon) {
 
     }
 
@@ -278,7 +280,8 @@ public class ObserverStudioSetRemoveNotification extends Observer {
         final Date today = calendar.getTime();
         //URL url = null;
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/users/" + ActivityMain.getMainUser(context).getName() + "/Challenges/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "/users/" + ActivityMain.getMainUser(context).getName() +
+                    "/Challenges/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -298,11 +301,13 @@ public class ObserverStudioSetRemoveNotification extends Observer {
                                     endDate = sdf.parse(dateChild.getValue().toString());
                                     if (endDate.after(today)) {
                                         //add challenge to notify list
-                                        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "Challenges/" + nameChild.getKey());
+                                        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "Challenges/" +
+                                                nameChild.getKey());
 
                                         Firebase studio = ref.child("AtStudio");
 
-                                        Firebase nameChildStart = studio.child(ActivityMain.getMainUser(context).getName());
+                                        Firebase nameChildStart = studio.child(ActivityMain.getMainUser(context)
+                                                .getName());
                                         nameChildStart.setValue(ActivityMain.getMainUser(context).getName());
                                     }
 
@@ -339,7 +344,8 @@ public class ObserverStudioSetRemoveNotification extends Observer {
         final Date today = calendar.getTime();
         //URL url = null;
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "/users/" + ActivityMain.getMainUser(context).getName() + "/Challenges/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "/users/" + ActivityMain.getMainUser(context).getName() +
+                    "/Challenges/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -359,7 +365,8 @@ public class ObserverStudioSetRemoveNotification extends Observer {
                                     endDate = sdf.parse(dateChild.getValue().toString());
                                     if (endDate.after(today)) {
                                         //add challenge to notify list
-                                        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "Challenges/" + nameChild.getKey() + "/AtStudio");
+                                        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "Challenges/" +
+                                                nameChild.getKey() + "/AtStudio");
 
                                         ref.child(ActivityMain.getMainUser(context).getName()).removeValue();
                                     }

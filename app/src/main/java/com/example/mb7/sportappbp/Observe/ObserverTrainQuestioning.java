@@ -20,7 +20,7 @@ import com.example.mb7.sportappbp.R;
  * Created by Aziani on 25.03.2017.
  */
 
-public class ObserverTrainQuestioning extends Observer{
+public class ObserverTrainQuestioning extends Observer {
 
     private static short timeOutCounter = 0;
 
@@ -28,10 +28,11 @@ public class ObserverTrainQuestioning extends Observer{
     public void update(Context context) {
         this.context = context;
 
-        if(timeOutCounter > 0) {
+        if (timeOutCounter > 0) {
             timeOutCounter--;
-        }else {
-            if(!getLastTrainingTimeString(context).equals("")
+        } else {
+            // check if time to notify is due
+            if (!getLastTrainingTimeString(context).equals("")
                     && MotivationMethod.timeTillTraining(getLastTrainingTimeString(context)) == -59) {
                 sendNotification(
                         context,
@@ -51,14 +52,12 @@ public class ObserverTrainQuestioning extends Observer{
                                    Class<?> cls,
                                    String title,
                                    String text,
-                                   Integer icon ){
+                                   Integer icon) {
 
         final SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
 
         Intent contentClass = new Intent(context, cls);
-        contentClass.putExtra("NotificationDate",NotificationDate);
-        // Used to stack tasks across activites so we go to the proper place when back is clicked
-        // create(context): context is the context that will launch the new task stack or a PendingIndent
+        contentClass.putExtra("NotificationDate", NotificationDate);
         TaskStackBuilder tStackBuilder = TaskStackBuilder.create(context);
 
         // Add all parents of this activity to the stack
@@ -67,7 +66,7 @@ public class ObserverTrainQuestioning extends Observer{
         // Add our new Intent to the stack
         tStackBuilder.addNextIntent(contentClass);
 
-        if(preferences.getBoolean("willTrain",true)) {
+        if (preferences.getBoolean("willTrain", true)) {
             final NotificationCompat.Builder notificationBuilder =
                     new NotificationCompat.Builder(context)
                             .setStyle(new NotificationCompat.BigTextStyle())
@@ -76,29 +75,29 @@ public class ObserverTrainQuestioning extends Observer{
                             .setContentText(text)
                             .setTicker(text);
             // specify which activity should be started upon clicking on the notification
-            Intent intent = new Intent(context,ActivityMain.class);
-            intent.putExtra("startTab",1);
+            Intent intent = new Intent(context, ActivityMain.class);
+            intent.putExtra("startTab", 1);
             intent.putExtra("notificationId", 331);
             PendingIntent pendingIntent =
-                    PendingIntent.getActivity(context,0,intent,PendingIntent.FLAG_UPDATE_CURRENT);
+                    PendingIntent.getActivity(context, 0, intent, PendingIntent.FLAG_UPDATE_CURRENT);
             notificationBuilder.setContentIntent(pendingIntent);
 
             // setting up buttons for question (will you go to training?)
-            Intent intentYes = new Intent(context,ActivityTrainQuestioning.class);
+            Intent intentYes = new Intent(context, ActivityTrainQuestioning.class);
             intentYes.setAction("YES_ACTION");
             intentYes.putExtra("notificationId", 331);
             intentYes.putExtra("praiseOrWarn", 0);
             PendingIntent pendingIntentYes =
-                    PendingIntent.getActivity(context,0,intentYes,PendingIntent.FLAG_UPDATE_CURRENT);
-            notificationBuilder.addAction(R.drawable.transparent,"Ja",pendingIntentYes);
+                    PendingIntent.getActivity(context, 0, intentYes, PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationBuilder.addAction(R.drawable.transparent, "Ja", pendingIntentYes);
 
-            Intent intentNo = new Intent(context,ActivityTrainQuestioning.class);
+            Intent intentNo = new Intent(context, ActivityTrainQuestioning.class);
             intentNo.setAction("NO_ACTION");
             intentNo.putExtra("notificationId", 331);
             intentNo.putExtra("praiseOrWarn", 1);
             PendingIntent pendingIntentNo =
-                    PendingIntent.getActivity(context,0,intentNo,PendingIntent.FLAG_UPDATE_CURRENT);
-            notificationBuilder.addAction(R.drawable.transparent,"Nein",pendingIntentNo);
+                    PendingIntent.getActivity(context, 0, intentNo, PendingIntent.FLAG_UPDATE_CURRENT);
+            notificationBuilder.addAction(R.drawable.transparent, "Nein", pendingIntentNo);
 
             notificationBuilder.setAutoCancel(true);
             notificationBuilder.setDefaults(Notification.DEFAULT_ALL);
@@ -107,8 +106,8 @@ public class ObserverTrainQuestioning extends Observer{
             final NotificationManager notificationManager =
                     (NotificationManager) context.getSystemService(Context.NOTIFICATION_SERVICE);
             // send notification
-            notificationManager.notify(331,notificationBuilder.build());
-        }else {
+            notificationManager.notify(331, notificationBuilder.build());
+        } else {
             preferences.edit().remove("willTrain").apply();
         }
 

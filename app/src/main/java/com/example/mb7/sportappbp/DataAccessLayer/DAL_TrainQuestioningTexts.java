@@ -5,6 +5,7 @@ import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
+
 import java.net.URL;
 
 /**
@@ -16,13 +17,14 @@ public class DAL_TrainQuestioningTexts {
 
     /**
      * get texts from database and hand it to the displaying activity
+     *
      * @param activityTrainQuestioning the displaying activity
      */
     public static void getTrainQuestioningTexts(
             final ActivityTrainQuestioning activityTrainQuestioning,
             int praiseOrWarn) {
 
-        if(praiseOrWarn == 1) {
+        if (praiseOrWarn == 1) {
             // access data in database and hand it to activity
             try {
                 URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/motivationText/neg");
@@ -38,13 +40,11 @@ public class DAL_TrainQuestioningTexts {
                         activityTrainQuestioning.returnTexts(null);
                     }
                 });
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 activityTrainQuestioning.returnTexts(null);
                 e.printStackTrace();
             }
-        }else {
+        } else {
             try {
                 URL url = new URL(DAL_Utilities.DatabaseURL + "Administration/motivationText/pos");
                 Firebase root = new Firebase(url.toString());
@@ -59,9 +59,7 @@ public class DAL_TrainQuestioningTexts {
                         activityTrainQuestioning.returnTexts(null);
                     }
                 });
-            }
-            catch (Exception e)
-            {
+            } catch (Exception e) {
                 activityTrainQuestioning.returnTexts(null);
                 e.printStackTrace();
             }

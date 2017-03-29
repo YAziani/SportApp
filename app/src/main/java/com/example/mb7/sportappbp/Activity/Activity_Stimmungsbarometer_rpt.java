@@ -16,13 +16,11 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
 
     @Override
     float convertValue(DataSnapshot object) {
-        try{
-            return  ((Long) object.getValue()).floatValue();
+        try {
+            return ((Long) object.getValue()).floatValue();
 
-        }
-        catch (ClassCastException ex)
-        {
-            return  ((Double) object.getValue()).floatValue();
+        } catch (ClassCastException ex) {
+            return ((Double) object.getValue()).floatValue();
         }
         //return 0;
     }
@@ -32,7 +30,7 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__stimmungsbarometer_rpt);
-        lineChart = (LineChart)findViewById(R.id.lineChart);
+        lineChart = (LineChart) findViewById(R.id.lineChart);
     }
 
     @Override
@@ -45,7 +43,7 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
 
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
@@ -53,14 +51,17 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
         switch (item.getItemId()) {
 
             case R.id.thirtydays:
-                computeDraw(addDays(new Date(),-30), new Date(),lineChart,"Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+                computeDraw(addDays(new Date(), -30), new Date(), lineChart, "Score Stimmungsbarometer",
+                        Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
 
                 return true;
             case R.id.fourteendays:
-                computeDraw(addDays(new Date(),-14), new Date(),lineChart,"Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
-                return  true;
+                computeDraw(addDays(new Date(), -14), new Date(), lineChart, "Score Stimmungsbarometer",
+                        Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+                return true;
             case R.id.sevendays:
-                computeDraw(addDays(new Date(),-7), new Date(),lineChart,"Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+                computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Score Stimmungsbarometer",
+                        Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
                 return true;
             default:
                 return super.onOptionsItemSelected(item);
@@ -70,10 +71,9 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
     @Override
     protected void onStart() {
         super.onStart();
-        computeDraw(addDays(new Date(),-7) ,new Date(), lineChart, "Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+        computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Score Stimmungsbarometer",
+                Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
     }
-
-
 
 
 }

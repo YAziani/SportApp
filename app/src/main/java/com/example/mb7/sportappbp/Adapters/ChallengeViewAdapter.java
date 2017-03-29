@@ -20,8 +20,7 @@ public class ChallengeViewAdapter extends BaseAdapter {
     private Activity _context;
     private ArrayList<User> _users;
 
-    public ChallengeViewAdapter(Activity context, ArrayList<User> users)
-    {
+    public ChallengeViewAdapter(Activity context, ArrayList<User> users) {
         _users = users;
         _context = context;
     }
@@ -44,7 +43,7 @@ public class ChallengeViewAdapter extends BaseAdapter {
             view = _context.getLayoutInflater().inflate(R.layout.lst_challenge_cell, null);
 
         TextView txtPos = (TextView) view.findViewById(R.id.textViewChallengePos);
-        txtPos.setText(String.valueOf(position + 1)+ ".");
+        txtPos.setText(String.valueOf(position + 1) + ".");
 
         TextView txtName = (TextView) view.findViewById(R.id.textViewChallengeName);
         txtName.setText(user.getName());

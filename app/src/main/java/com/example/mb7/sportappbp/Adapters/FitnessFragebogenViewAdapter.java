@@ -18,14 +18,13 @@ import java.util.ArrayList;
 
 public class FitnessFragebogenViewAdapter extends BaseAdapter {
     private Activity _context;
-    private ArrayList<String > antworten;
+    private ArrayList<String> antworten;
     private int ImageId;
-    private FitnessFragebogen fitnessFragebogen=null;
+    private FitnessFragebogen fitnessFragebogen = null;
     private String subject;
-    private Integer selectedIndex=-1;
+    private Integer selectedIndex = -1;
 
-    public FitnessFragebogenViewAdapter(Activity context)
-    {
+    public FitnessFragebogenViewAdapter(Activity context) {
         antworten = new ArrayList<String>();
         antworten.add(context.getString(R.string.Ich_kann_diese_Taetigkeit_nicht));
         antworten.add(context.getString(R.string.Ich_habe_große_Probleme));
@@ -37,15 +36,16 @@ public class FitnessFragebogenViewAdapter extends BaseAdapter {
 
     }
 
-    public void setFitnessFragebogen(FitnessFragebogen fitnessFragebogen, String subject){
-        this.fitnessFragebogen=fitnessFragebogen;
-        this.subject=subject;
+    public void setFitnessFragebogen(FitnessFragebogen fitnessFragebogen, String subject) {
+        this.fitnessFragebogen = fitnessFragebogen;
+        this.subject = subject;
     }
 
 
     @Override
-    public Object getItem(int position)
-    {return antworten.get(position);}
+    public Object getItem(int position) {
+        return antworten.get(position);
+    }
 
     @Override
     public long getItemId(int position) {
@@ -59,25 +59,23 @@ public class FitnessFragebogenViewAdapter extends BaseAdapter {
         if (view == null)
             view = _context.getLayoutInflater().inflate(R.layout.lst_stimmnungsabgabe_cell, null);
 
-        TextView txtTitle =(TextView) view.findViewById(R.id.txtTitle);
+        TextView txtTitle = (TextView) view.findViewById(R.id.txtTitle);
         txtTitle.setText(nt);
 
         if (position == selectedIndex) {
             txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-        }
-        else {
+        } else {
             txtTitle.setBackgroundColor(Color.parseColor("#4b6df2"));
         }
 
         return view;
     }
 
-    public void setSelectedIndex(Integer position){
+    public void setSelectedIndex(Integer position) {
         selectedIndex = position;
     }
 
-    public Integer getSelectedIndex()
-    {
+    public Integer getSelectedIndex() {
         return selectedIndex;
     }
 

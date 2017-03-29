@@ -10,6 +10,7 @@ import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
 import com.github.mikephil.charting.charts.LineChart;
 ;
+import java.security.InvalidParameterException;
 import java.util.Date;
 
 public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
@@ -53,7 +54,6 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
             case R.id.thirtydays:
                 computeDraw(addDays(new Date(), -30), new Date(), lineChart, "Score Stimmungsbarometer",
                         Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
-
                 return true;
             case R.id.fourteendays:
                 computeDraw(addDays(new Date(), -14), new Date(), lineChart, "Score Stimmungsbarometer",
@@ -63,8 +63,12 @@ public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
                 computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Score Stimmungsbarometer",
                         Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
                 return true;
+            case R.id.alldays:
+                computeDraw(null, new Date(), lineChart, "Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string
+                        .werte_fuer_stimmungsbarometer));
+                return true;
             default:
-                return super.onOptionsItemSelected(item);
+                throw new InvalidParameterException("The menu items is not declared");
         }
     }
 

@@ -17,7 +17,6 @@ import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 import com.github.mikephil.charting.charts.LineChart;
-import com.github.mikephil.charting.components.Legend;
 import com.github.mikephil.charting.data.Entry;
 import com.github.mikephil.charting.data.LineData;
 import com.github.mikephil.charting.data.LineDataSet;
@@ -28,19 +27,14 @@ import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 
-public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
-
-
-
-
+public class Activity_FitnessFragebogen_gesamt_rpt extends Activity_LineChartReports {
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity__fitness_fragebogen_rpt);
+        setContentView(R.layout.activity__fitness_fragebogen_gesamt_rpt);
         lineChart = (LineChart) findViewById(R.id.lineChart);
     }
-
     // hook method of our template method computeDrawFive
     float convertValue(DataSnapshot object) {
         // first try with double because it is the default value in firebase
@@ -68,20 +62,20 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
         switch (item.getItemId()) {
 
             case R.id.thirtydays:
-                computeDrawFive(addDays(new Date(), -30), new Date(), lineChart, Activity_FitnessFragebogen_rpt.this
+                computeDrawFive(addDays(new Date(), -30), new Date(), lineChart, Activity_FitnessFragebogen_gesamt_rpt.this
                         .getString(R.string.gesamtscore_fitnessfragebogen));
 
                 return true;
             case R.id.fourteendays:
-                computeDrawFive(addDays(new Date(), -14), new Date(), lineChart, Activity_FitnessFragebogen_rpt.this
+                computeDrawFive(addDays(new Date(), -14), new Date(), lineChart, Activity_FitnessFragebogen_gesamt_rpt.this
                         .getString(R.string.gesamtscore_fitnessfragebogen));
                 return true;
             case R.id.sevendays:
-                computeDrawFive(addDays(new Date(), -7), new Date(), lineChart, Activity_FitnessFragebogen_rpt.this
+                computeDrawFive(addDays(new Date(), -7), new Date(), lineChart, Activity_FitnessFragebogen_gesamt_rpt.this
                         .getString(R.string.gesamtscore_fitnessfragebogen));
                 return true;
             case R.id.alldays:
-                computeDrawFive(null, new Date(), lineChart,  Activity_FitnessFragebogen_rpt.this
+                computeDrawFive(null, new Date(), lineChart,  Activity_FitnessFragebogen_gesamt_rpt.this
                         .getString(R.string.gesamtscore_fitnessfragebogen));
                 return true;
             default:
@@ -93,7 +87,7 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
     @Override
     protected void onStart() {
         super.onStart();
-        computeDrawFive(addDays(new Date(), -7), new Date(), lineChart, Activity_FitnessFragebogen_rpt.this.getString
+        computeDrawFive(addDays(new Date(), -7), new Date(), lineChart, Activity_FitnessFragebogen_gesamt_rpt.this.getString
                 (R.string.gesamtscore_fitnessfragebogen));
     }
 
@@ -114,10 +108,7 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
 
             // then run
             final ArrayList<String> xAXES = new ArrayList<>();
-            final ArrayList<Entry> yAXES_Ausdauer = new ArrayList<>();
-            final ArrayList<Entry> yAXES_Beweglichkeit = new ArrayList<>();
-            final ArrayList<Entry> yAXES_Koordination = new ArrayList<>();
-            final ArrayList<Entry> yAXES_Kraft = new ArrayList<>();
+            final ArrayList<Entry> yAXES_Gesamt = new ArrayList<>();
             URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
                     "/FitnessFragebogen/");
             final Firebase root = new Firebase(url.toString());
@@ -128,10 +119,7 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
                                                     @Override
                                                     public void onDataChange(DataSnapshot dataSnapshot) {
                                                         String x = "";
-                                                        float y_Ausdauer = 0;
-                                                        float y_Beweglichkeit = 0;
-                                                        float y_Koordination = 0;
-                                                        float y_Kraft = 0;
+                                                        float y_Gesamt = 0;
 
                                                         float max_y = 0;
                                                         float min_y = 0;
@@ -160,19 +148,9 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
 
                                                                     // Now convert the string date to real date
                                                                     // create the object and insert it in the list
-                                                                    if (child2L.getKey().equals("Score_Ausdauer")) {
-                                                                        y_Ausdauer += convertValue(child2L);
-                                                                        flag = true;
-                                                                    } else if (child2L.getKey().equals
-                                                                            ("Score_Beweglichkeit")) {
-                                                                        y_Beweglichkeit += convertValue(child2L);
-                                                                        flag = true;
-                                                                    } else if (child2L.getKey().equals
-                                                                            ("Score_Koordination")) {
-                                                                        y_Koordination += convertValue(child2L);
-                                                                        flag = true;
-                                                                    } else if (child2L.getKey().equals("Score_Kraft")) {
-                                                                        y_Kraft += convertValue(child2L);
+                                                                     if (child2L.getKey().equals
+                                                                            ("Score_Gesamt")) {
+                                                                        y_Gesamt += convertValue(child2L);
                                                                         flag = true;
                                                                     }
                                                                 }
@@ -182,37 +160,22 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
                                                                     // if one of them wasn't filled in an iteration,
                                                                     // we consider it like zero! Therefore i as a
                                                                     // devider for all
-                                                                    y_Ausdauer = y_Ausdauer / i;
-                                                                    y_Beweglichkeit = y_Beweglichkeit / i;
-                                                                    y_Koordination = y_Koordination / i;
-                                                                    y_Kraft = y_Kraft / i;
+                                                                    y_Gesamt = y_Gesamt / i;
                                                                     // Now we have the days
                                                                     x = DAL_Utilities.ConvertDateToString
                                                                             (DAL_Utilities
                                                                                     .ConvertFirebaseKeyStringToDateTime(sDate + " 00:00:00"));
                                                                     //x  = sDate ;
-                                                                    max_y = Math.max(y_Kraft, Math.max
-                                                                            (y_Koordination, Math.max(y_Ausdauer, Math.max
-                                                                                            (y_Beweglichkeit, max_y))
-                                                                            ));
-                                                                    min_y = Math.min(y_Kraft, Math.min
-                                                                            (y_Koordination, Math.min(y_Ausdauer, Math.min
-                                                                                            (min_y, y_Beweglichkeit))
-                                                                            ));
+                                                                    max_y =  Math.max(y_Gesamt, max_y);
+                                                                    min_y = Math.min(y_Gesamt,min_y);
                                                                     xAXES.add(x);
 
-                                                                    yAXES_Beweglichkeit.add(new Entry
-                                                                            (y_Beweglichkeit, j));
-                                                                    yAXES_Ausdauer.add(new Entry(y_Ausdauer, j));
-                                                                    yAXES_Koordination.add(new Entry(y_Koordination,
-                                                                            j));
-                                                                    yAXES_Kraft.add(new Entry(y_Kraft, j));
+                                                                    yAXES_Gesamt.add(new Entry(y_Gesamt, j));
 
 
                                                                     flag = false;
                                                                     j++;
-                                                                     y_Ausdauer = y_Beweglichkeit =
-                                                                            y_Koordination = y_Kraft = 0;
+                                                                    y_Gesamt =  0;
                                                                 }
                                                             }
                                                         }
@@ -221,40 +184,15 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
                                                             ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
 
                                                             // set the datasets of our chart
-                                                            LineDataSet lineDataSet1 = new LineDataSet
-                                                                    (yAXES_Beweglichkeit,
-                                                                            Activity_FitnessFragebogen_rpt.this
-                                                                                    .getString(R.string.beweglichkeit));
-                                                            lineDataSet1.setDrawCircles(true);
-                                                            lineDataSet1.setColor(Color.BLUE);
-
-                                                            LineDataSet lineDataSet2 = new LineDataSet
-                                                                    (yAXES_Ausdauer, Activity_FitnessFragebogen_rpt
-                                                                            .this.getString(R.string.ausdauer));
-                                                            lineDataSet2.setDrawCircles(true);
-                                                            lineDataSet2.setColor(Color.RED);
-
-                                                            LineDataSet lineDataSet4 = new LineDataSet
-                                                                    (yAXES_Koordination,
-                                                                            Activity_FitnessFragebogen_rpt.this
-                                                                                    .getString(R.string.kooridination));
-                                                            lineDataSet4.setDrawCircles(true);
-                                                            lineDataSet4.setColor(Color.MAGENTA);
-
-                                                            LineDataSet lineDataSet5 = new LineDataSet(yAXES_Kraft,
-                                                                    Activity_FitnessFragebogen_rpt.this.getString(R
-                                                                            .string.kraft));
-                                                            lineDataSet5.setDrawCircles(true);
-                                                            lineDataSet5.setColor(Color.CYAN);
-
-                                                            lineDataSets.add(lineDataSet2);
-                                                            lineDataSets.add(lineDataSet1);
-                                                            lineDataSets.add(lineDataSet4);
-                                                            lineDataSets.add(lineDataSet5);
+                                                            LineDataSet lineDataSet3 = new LineDataSet(yAXES_Gesamt,
+                                                                    Activity_FitnessFragebogen_gesamt_rpt.this.getString(R
+                                                                            .string.gesamt));
+                                                            lineDataSet3.setDrawCircles(true);
+                                                            lineDataSet3.setColor(Color.RED);
+                                                            lineDataSets.add(lineDataSet3);
 
                                                             lineChart.invalidate();
                                                             // set the visual properties of the chart
-                                                            // .AxisDependency.LEFT);
                                                             lineChart.getAxisLeft().resetAxisMinValue();
                                                             lineChart.getAxisLeft().setAxisMinValue((float) Math
                                                                     .floor(min_y) - 0.5f);
@@ -292,3 +230,4 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
 
 
 }
+

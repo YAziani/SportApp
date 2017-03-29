@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Activity_EnergieIndex_rpt"><RelativeLayout
+    tools:context=".Activity.Activity_FitnessFragebogen_gesamt_rpt"><RelativeLayout
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,12 +11,13 @@
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
     android:paddingTop="@dimen/activity_vertical_margin">
+
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/energieindex_dgr_ttl"
+        android:text="@string/fitnessfragen_dgr_ttl_gesamt"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
@@ -24,15 +25,16 @@
     <com.github.mikephil.charting.charts.LineChart
         android:layout_below="@id/txtTitle"
         android:layout_width="match_parent"
-        android:layout_height="400dp"
+        android:layout_height="350dp"
         android:id="@+id/lineChart"></com.github.mikephil.charting.charts.LineChart>
+
 
     <TextView
         android:id="@+id/textView11"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:textColor="#de0d0d"
-        android:text="@string/energieindex_dgr_ttl"
+        android:text="@string/gesagmtewerte"
         android:layout_below="@id/lineChart"/>
 </RelativeLayout>
 </ScrollView>

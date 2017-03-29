@@ -19,8 +19,11 @@ public class Activity_EnergieIndex_rpt extends Activity_LineChartReports {
 
     // hook method of our template method computeDraw
     float convertValue(DataSnapshot object) {
+<<<<<<< HEAD
         // first try with double because it is the default value in firebase
         // otherwise we try it with Long
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
         try {
             return ((Double) object.getValue()).floatValue();
 
@@ -29,7 +32,7 @@ public class Activity_EnergieIndex_rpt extends Activity_LineChartReports {
         }
     }
 
-
+<<<<<<< HEAD
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -55,6 +58,39 @@ public class Activity_EnergieIndex_rpt extends Activity_LineChartReports {
             case R.id.thirtydays:
                 computeDraw(addDays(new Date(), -30), new Date(), lineChart, "Energieindex",
                         Activity_EnergieIndex_rpt.this.getString(R.string.werte_fuer_energieindex));
+=======
+    LineChart lineChart;
+
+    @Override
+    protected void onCreate(Bundle savedInstanceState) {
+        super.onCreate(savedInstanceState);
+        setContentView(R.layout.activity__energie_index_rpt);
+        lineChart = (LineChart) findViewById(R.id.lineChart);
+
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        //set an other menu xml
+        inflater.inflate(R.menu.menu_context_report, menu);
+
+        return super.onCreateOptionsMenu(menu);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+
+
+        AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
+
+        switch (item.getItemId()) {
+
+            case R.id.thirtydays:
+                computeDraw(addDays(new Date(), -30), new Date(), lineChart, "Energieindex",
+                        Activity_EnergieIndex_rpt.this.getString(R.string.werte_fuer_energieindex));
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 return true;
             case R.id.fourteendays:
                 computeDraw(addDays(new Date(), -14), new Date(), lineChart, "Energieindex",
@@ -64,12 +100,17 @@ public class Activity_EnergieIndex_rpt extends Activity_LineChartReports {
                 computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Energieindex", Activity_EnergieIndex_rpt
                         .this.getString(R.string.werte_fuer_energieindex));
                 return true;
+<<<<<<< HEAD
             case R.id.alldays:
                 computeDraw(null, new Date(), lineChart, "Score Energieindex", Activity_EnergieIndex_rpt.this
                         .getString(R.string.werte_fuer_energieindex));
                 return true;
             default:
                 throw new InvalidParameterException("The menu items is not declared");
+=======
+            default:
+                return super.onOptionsItemSelected(item);
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
         }
     }
 
@@ -77,7 +118,11 @@ public class Activity_EnergieIndex_rpt extends Activity_LineChartReports {
     @Override
     protected void onStart() {
         super.onStart();
+<<<<<<< HEAD
         computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Energieindex", Activity_EnergieIndex_rpt.this
+=======
+        computeDraw(addDays(new Date(), -4), new Date(), lineChart, "Energieindex", Activity_EnergieIndex_rpt.this
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 .getString(R.string.werte_fuer_energieindex));
     }
 

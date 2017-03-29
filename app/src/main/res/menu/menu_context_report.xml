@@ -13,4 +13,8 @@
         android:id="@+id/thirtydays"
         android:title="@string/die_letzten_dreissig_tage"
         />
+    <item
+        android:id="@+id/alldays"
+        android:title="@string/alle_daten"
+        />
 </menu>

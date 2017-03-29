@@ -54,6 +54,10 @@ public class Activity_Trainings_rpt extends Activity_LineChartReports {
             case R.id.thirtydays:
                 computeScores(addDays(new Date(), -30), new Date(), lineChart, "totalPoints", Activity_Trainings_rpt
                         .this.getString(R.string.erzielte_punkte));
+<<<<<<< HEAD
+=======
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 return true;
             case R.id.fourteendays:
                 computeScores(addDays(new Date(), -14), new Date(), lineChart, "totalPoints", Activity_Trainings_rpt
@@ -62,10 +66,13 @@ public class Activity_Trainings_rpt extends Activity_LineChartReports {
             case R.id.sevendays:
                 computeScores(addDays(new Date(), -7), new Date(), lineChart, "totalPoints", Activity_Trainings_rpt
                         .this.getString(R.string.erzielte_punkte));
+<<<<<<< HEAD
                 return true;
             case R.id.alldays:
                 computeDraw(null, new Date(), lineChart, "totalPoints", Activity_Trainings_rpt.this
                         .getString(R.string.erzielte_punkte));
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 return true;
             default:
                 throw new InvalidParameterException("The menu items is not declared");

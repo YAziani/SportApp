@@ -9,11 +9,11 @@ import android.widget.AdapterView;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
 import com.github.mikephil.charting.charts.LineChart;
-
+;
 import java.security.InvalidParameterException;
 import java.util.Date;
 
-public class Activity_Trainings_rpt extends Activity_LineChartReports {
+public class Activity_Stimmungsbarometer_rpt extends Activity_LineChartReports {
 
     @Override
     float convertValue(DataSnapshot object) {
@@ -30,7 +30,7 @@ public class Activity_Trainings_rpt extends Activity_LineChartReports {
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
-        setContentView(R.layout.activity_trainings_rpt);
+        setContentView(R.layout.activity__stimmungsbarometer_rpt);
         lineChart = (LineChart) findViewById(R.id.lineChart);
     }
 
@@ -52,20 +52,27 @@ public class Activity_Trainings_rpt extends Activity_LineChartReports {
         switch (item.getItemId()) {
 
             case R.id.thirtydays:
-                computeScores(addDays(new Date(), -30), new Date(), lineChart, "totalPoints", Activity_Trainings_rpt
-                        .this.getString(R.string.erzielte_punkte));
+                computeDraw(addDays(new Date(), -30), new Date(), lineChart, "Score Stimmungsbarometer",
+                        Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+<<<<<<< HEAD
+=======
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 return true;
             case R.id.fourteendays:
-                computeScores(addDays(new Date(), -14), new Date(), lineChart, "totalPoints", Activity_Trainings_rpt
-                        .this.getString(R.string.erzielte_punkte));
+                computeDraw(addDays(new Date(), -14), new Date(), lineChart, "Score Stimmungsbarometer",
+                        Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
                 return true;
             case R.id.sevendays:
-                computeScores(addDays(new Date(), -7), new Date(), lineChart, "totalPoints", Activity_Trainings_rpt
-                        .this.getString(R.string.erzielte_punkte));
+                computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Score Stimmungsbarometer",
+                        Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
+<<<<<<< HEAD
                 return true;
             case R.id.alldays:
-                computeDraw(null, new Date(), lineChart, "totalPoints", Activity_Trainings_rpt.this
-                        .getString(R.string.erzielte_punkte));
+                computeDraw(null, new Date(), lineChart, "Score Stimmungsbarometer",Activity_Stimmungsbarometer_rpt.this.getString(R.string
+                        .werte_fuer_stimmungsbarometer));
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 return true;
             default:
                 throw new InvalidParameterException("The menu items is not declared");
@@ -75,9 +82,11 @@ public class Activity_Trainings_rpt extends Activity_LineChartReports {
     @Override
     protected void onStart() {
         super.onStart();
-        computeScores(addDays(new Date(), -7), new Date(), lineChart, "totalPoints", Activity_Trainings_rpt.this
-                .getString(R.string.erzielte_punkte));
+        computeDraw(addDays(new Date(), -7), new Date(), lineChart, "Score Stimmungsbarometer",
+                Activity_Stimmungsbarometer_rpt.this.getString(R.string.werte_fuer_stimmungsbarometer));
     }
 
 
 }
+
+

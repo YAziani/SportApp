@@ -37,6 +37,7 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
 
     abstract float convertValue(DataSnapshot object);
 
+<<<<<<< HEAD
     /**
      * @param Startdate  set that start interval for the data. Set this to null if you want all data be displayed
      * @param EndDate
@@ -44,6 +45,8 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
      * @param ReportName the key of the value that should be calculated in the database
      * @param legend
      */
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
     protected void computeDraw(final Date Startdate, final Date EndDate, final LineChart lineChart, final String
             ReportName, final String legend) {
         try {
@@ -91,8 +94,12 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                                 // Now convert the string date to real date
                                                                 d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime
                                                                         (sDate + " " + sTime);
+<<<<<<< HEAD
                                                                 if (Startdate == null || (!d.before(Startdate) && !d
                                                                         .after(EndDate))) {
+=======
+                                                                if (!d.before(Startdate) && !d.after(EndDate)) {
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                                     i++;
 
                                                                     // Here I have V or N
@@ -138,8 +145,14 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineDataSets.add(lineDataSet2);
 
                                                             lineChart.invalidate();
+<<<<<<< HEAD
 
                                                             // set the visual properties of the chart
+=======
+                                                            //lineChart.setVisibleYRangeMaximum(3f,YAxis
+                                                            // .AxisDependency.LEFT);
+                                                            //lineChart.getXAxis().setLabelsToSkip(0);
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                             lineChart.getAxisLeft().resetAxisMinValue();
                                                             lineChart.getAxisLeft().setAxisMinValue((float) Math
                                                                     .floor(min_y) - 0.5f);
@@ -154,7 +167,6 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
-                                                            lineChart.getLegend().setEnabled(false);
 
 
                                                         }
@@ -176,6 +188,7 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
 
     }
 
+<<<<<<< HEAD
     /**
      * @param Startdate  set that start interval for the data. Set this to null if you want all data be displayed
      * @param EndDate
@@ -183,6 +196,8 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
      * @param ReportName the key of the value that should be calculated in the database
      * @param legend
      */
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
     protected void computeDrawDiff(final Date Startdate, final Date EndDate, final LineChart lineChart, final String
             ReportName, final String legend) {
         try {
@@ -231,6 +246,7 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                                 // Now convert the string date to real date
                                                                 d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime
                                                                         (sDate + " " + sTime);
+<<<<<<< HEAD
 
                                                                 if (Startdate == null || (!d.before(Startdate) && !d
                                                                         .after(EndDate))) {
@@ -238,6 +254,15 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                                     // Here I have V or N
                                                                     for (DataSnapshot child3L : child2L.getChildren()) {
                                                                         Boolean Vor = child3L.getKey().equals("V");
+=======
+                                                                if (!d.before(Startdate) && !d.after(EndDate)) {
+                                                                    i++;
+
+                                                                    // Here I have V or N
+                                                                    for (DataSnapshot child3L : child2L.getChildren()) {
+                                                                        Boolean Vor = child3L.getKey().equals("V") ?
+                                                                                true : false;
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
 
                                                                         // create the object and insert it in the list
                                                                         for (DataSnapshot child4L : child3L
@@ -281,25 +306,44 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                         if (xAXES.size() != 0) {
                                                             // set the datasets of our chart
                                                             ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
+<<<<<<< HEAD
+=======
+
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                             LineDataSet lineDataSet1 = new LineDataSet(yAXES_Nach,
-                                                                    "Stimmungsbarometer nach dem Training");
+                                                                    "Nach dem Training");
                                                             lineDataSet1.setDrawCircles(false);
                                                             lineDataSet1.setColor(Color.BLUE);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                             LineDataSet lineDataSet2 = new LineDataSet(yAXES_Vor,
-                                                                    "Stimmungsbarometer vor dem Training");
+                                                                    "Vor dem Training");
                                                             lineDataSet2.setDrawCircles(false);
                                                             lineDataSet2.setColor(Color.RED);
                                                             lineDataSets.add(lineDataSet2);
                                                             lineDataSets.add(lineDataSet1);
 
                                                             lineChart.invalidate();
+<<<<<<< HEAD
                                                             // set the visual properties of the chart
-                                                            // .AxisDependency.LEFT);
                                                             lineChart.getAxisLeft().resetAxisMinValue();
                                                             lineChart.getAxisLeft().setAxisMinValue((float) Math
                                                                     .floor(min_y) - 1f);
                                                             lineChart.getAxisLeft().setAxisMaxValue((float) Math.ceil
                                                                     (max_y) + 1f);
+=======
+                                                            //lineChart.setVisibleYRangeMaximum(3f,YAxis
+                                                            // .AxisDependency.LEFT);
+                                                            //lineChart.getXAxis().setLabelsToSkip(0);
+                                                            lineChart.getAxisLeft().resetAxisMinValue();
+                                                            lineChart.getAxisLeft().setAxisMinValue((float) Math
+                                                                    .floor(min_y) - 0.5f);
+                                                            lineChart.getAxisLeft().setAxisMaxValue((float) Math.ceil
+                                                                    (max_y) + 0.5f);
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                             lineChart.getAxisRight().setTextColor(Color.WHITE);
                                                             lineChart.setExtraLeftOffset(15);
                                                             lineChart.setExtraRightOffset(10);
@@ -308,7 +352,6 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
-                                                            lineChart.getLegend().setEnabled(false);
 
                                                         }
                                                         // after all the data process has been done
@@ -319,7 +362,10 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                     }
 
                                                     @Override
+<<<<<<< HEAD
 
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                     public void onCancelled(FirebaseError firebaseError) {
 
 
@@ -332,6 +378,7 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
 
     }
 
+<<<<<<< HEAD
     /**
      * @param Startdate  set that start interval for the data. Set this to null if you want all data be displayed
      * @param EndDate
@@ -340,6 +387,8 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
      * @param legend
      */
 
+=======
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
     protected void computeScores(final Date Startdate, final Date EndDate, final LineChart lineChart, final String
             ReportName, final String legend) {
         try {
@@ -385,8 +434,12 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                                 // Now convert the string date to real date
                                                                 d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime
                                                                         (sDate + " " + sTime);
+<<<<<<< HEAD
                                                                 if (Startdate == null || (!d.before(Startdate) && !d
                                                                         .after(EndDate))) {
+=======
+                                                                if (!d.before(Startdate) && !d.after(EndDate)) {
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                                     i++;
 
                                                                     // create the object and insert it in the list
@@ -428,8 +481,14 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineDataSets.add(lineDataSet2);
 
                                                             lineChart.invalidate();
+<<<<<<< HEAD
 
                                                             // set the visual properties of the chart
+=======
+                                                            //lineChart.setVisibleYRangeMaximum(3f,YAxis
+                                                            // .AxisDependency.LEFT);
+                                                            //lineChart.getXAxis().setLabelsToSkip(0);
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                                                             lineChart.getAxisLeft().resetAxisMinValue();
                                                             lineChart.getAxisLeft().setAxisMinValue((float) Math
                                                                     .floor(min_y) - 0.5f);
@@ -443,7 +502,6 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
-                                                            lineChart.getLegend().setEnabled(false);
 
 
                                                         }

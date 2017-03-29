@@ -21,16 +21,26 @@ public class Activity_Differenz_rpt extends Activity_LineChartReports {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity__differenz_rpt);
         lineChart = (LineChart) findViewById(R.id.lineChart);
+<<<<<<< HEAD
+=======
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
     }
 
 
     // hook method of our template method computeDrawDiff
     @Override
     float convertValue(DataSnapshot object) {
+<<<<<<< HEAD
         // first try with double because it is the default value in firebase
         // otherwise we try it with Long
         try {
             return ((Double) object.getValue()).floatValue();
+=======
+        try {
+            return ((Double) object.getValue()).floatValue();
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
         } catch (ClassCastException ex) {
             return ((Long) object.getValue()).floatValue();
         }
@@ -46,10 +56,15 @@ public class Activity_Differenz_rpt extends Activity_LineChartReports {
 
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
+<<<<<<< HEAD
+=======
+
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
         switch (item.getItemId()) {
             case R.id.thirtydays:
+<<<<<<< HEAD
                 computeDrawDiff(addDays(new Date(), -30), new Date(), lineChart, "Score Stimmungsbarometer",
                         Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
                 return true;
@@ -64,6 +79,19 @@ public class Activity_Differenz_rpt extends Activity_LineChartReports {
             case R.id.alldays:
                 computeDrawDiff(null, new Date(), lineChart, "Score Stimmungsbarometer", Activity_Differenz_rpt.this
                         .getString(R.string.differenz_der_werte));
+=======
+                computeDrawDiff(addDays(new Date(), -30), new Date(), lineChart, "Energieindex",
+                        Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
+
+                return true;
+            case R.id.fourteendays:
+                computeDrawDiff(addDays(new Date(), -14), new Date(), lineChart, "Energieindex",
+                        Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
+                return true;
+            case R.id.sevendays:
+                computeDrawDiff(addDays(new Date(), -7), new Date(), lineChart, "Energieindex",
+                        Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
                 return true;
             default:
                 throw new InvalidParameterException("The menu items is not declared");
@@ -74,8 +102,13 @@ public class Activity_Differenz_rpt extends Activity_LineChartReports {
     @Override
     protected void onStart() {
         super.onStart();
+<<<<<<< HEAD
         computeDrawDiff(addDays(new Date(), -7), new Date(), lineChart, "Score Stimmungsbarometer",
                 Activity_Differenz_rpt.this.getString(R.string.differenz_der_werte));
+=======
+        computeDrawDiff(addDays(new Date(), -4), new Date(), lineChart, "Energieindex", Activity_Differenz_rpt.this
+                .getString(R.string.differenz_der_werte));
+>>>>>>> 627230f24688e82464eba75539ad386ecdb37bbb
     }
 
 

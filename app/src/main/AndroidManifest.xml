@@ -51,8 +51,10 @@
                 android:value=".Activity.ActivityMain" />
         </activity>
         <activity android:name=".Activity.ActivitySettingInitializer" />
-        <activity android:name=".Activity.ActivityChallenge"
-            android:parentActivityName=".Activity.Activity_lst_Challenge"/>/>
+        <activity
+            android:name=".Activity.ActivityChallenge"
+            android:parentActivityName=".Activity.Activity_lst_Challenge" />
+        />
         <activity
             android:name=".Activity.ActivityCategories"
             android:label="@string/KategorieAuswaehlen..." />
@@ -80,8 +82,9 @@
         <activity android:name=".Activity.ActivityMotivationMessage" />
         <activity android:name=".Activity.ActivityTrainQuestioning" />
         <activity android:name=".Activity.ActivityKompass" />
-        <activity android:name=".Activity.ActivityNewChallenge"
-            android:parentActivityName=".Activity.ActivityMain"/>
+        <activity
+            android:name=".Activity.ActivityNewChallenge"
+            android:parentActivityName=".Activity.ActivityMain" />
         <activity
             android:name=".Activity.ActivityLogin"
             android:label="@string/title_activity_login" />
@@ -93,14 +96,16 @@
         <activity android:name=".Activity.Activity_Stimmungsbarometer_rpt" />
         <activity android:name=".Activity.Activity_lst_fitnessfragebogen" />
         <activity android:name=".Activity.Activity_lst_bsafragebogen" />
-        <activity android:name=".Activity.Activity_lst_Challenge"
-            android:parentActivityName=".Activity.ActivityMain"/>
-
+        <activity
+            android:name=".Activity.Activity_lst_Challenge"
+            android:parentActivityName=".Activity.ActivityMain" />
         <activity android:name=".Activity.Activity_EnergieIndex_rpt" />
         <activity android:name=".Activity.Activity_Differenz_rpt" />
         <activity android:name=".Activity.Activity_Trainings_rpt" />
         <activity android:name=".Activity.Activity_bsa_rpt" />
-        <activity android:name=".Activity.Activity_FitnessFragebogen_rpt"></activity>
+        <activity android:name=".Activity.Activity_FitnessFragebogen_rpt" />
+        <activity android:name=".Activity.Activity_bsa_gesamt_rpt" />
+        <activity android:name=".Activity.Activity_FitnessFragebogen_gesamt_rpt"></activity>
     </application>
 
 </manifest>

@@ -23,7 +23,9 @@ This prototype has been tested manually and with help of the JUnit framework.
 
 ### Deployment instructions ###
 * Install [Android Studio](https://developer.android.com/studio/index.html)
+* update to the newest version
 * import the project via VCS -> Git -> Clone
+* syncronize the project's gradle files (open "build.gradle" and click on the message "Sync now" in the top right corner)
 * Run the program via Run -> Run'ActivityMain' 
 * choose an emulator to run the program on or connect a phone with USB Debugging enabled, choose it and run it 
 

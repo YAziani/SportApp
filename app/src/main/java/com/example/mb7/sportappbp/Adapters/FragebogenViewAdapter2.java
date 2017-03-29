@@ -15,19 +15,20 @@ import java.util.ArrayList;
 /**
  * Created by Felix on 19.01.2017.
  */
-
-
-
-public class FragebogenViewAdapter2 extends BaseAdapter{
+public class FragebogenViewAdapter2 extends BaseAdapter {
     private Activity _context;
-    private ArrayList<String > antworten;
+    private ArrayList<String> antworten;
     private int ImageId;
-    private Fragebogen fragebogen=null;
+    private Fragebogen fragebogen = null;
     private String subject;
     private Integer selectedIndex = -1;
 
-    public FragebogenViewAdapter2(Activity context)
-    {
+    /**
+     * Instantiates a new Fragebogen view adapter 2.
+     *
+     * @param context
+     */
+    public FragebogenViewAdapter2(Activity context) {
         antworten = new ArrayList<String>();
         antworten.add(context.getString(R.string.Keine));
         antworten.add(context.getString(R.string.Eher_wenig));
@@ -35,23 +36,27 @@ public class FragebogenViewAdapter2 extends BaseAdapter{
         antworten.add(context.getString(R.string.Viel));
 
         _context = context;
-
     }
 
-    public void setAntworten(Fragebogen fragebogen, String subject){
-        this.fragebogen=fragebogen;
-        this.subject=subject;
+    public void setAntworten(Fragebogen fragebogen, String subject) {
+        this.fragebogen = fragebogen;
+        this.subject = subject;
     }
 
     @Override
-    public Object getItem(int position)
-    {return antworten.get(position);}
+    public Object getItem(int position) {return antworten.get(position);}
 
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Setze Selektiertes Listview Element von blau auf grün
+     * @param position
+     * @param convertView
+     * @param parent
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -59,25 +64,33 @@ public class FragebogenViewAdapter2 extends BaseAdapter{
         if (view == null)
             view = _context.getLayoutInflater().inflate(R.layout.lst_stimmnungsabgabe_cell, null);
 
-        TextView txtTitle =(TextView) view.findViewById(R.id.txtTitle);
+        TextView txtTitle = (TextView) view.findViewById(R.id.txtTitle);
         txtTitle.setText(nt);
 
         if (position == selectedIndex) {
             txtTitle.setBackgroundColor(Color.parseColor("#037f23"));
-        }
-        else {
+        } else {
             txtTitle.setBackgroundColor(Color.parseColor("#4b6df2"));
         }
 
         return view;
     }
 
-    public void setSelectedIndex(Integer position){
+    /**
+     * Set selected index.
+     *
+     * @param position the position
+     */
+    public void setSelectedIndex(Integer position) {
         selectedIndex = position;
     }
 
-    public Integer getSelectedIndex()
-    {
+    /**
+     * Gets selected index.
+     *
+     * @return the selected index
+     */
+    public Integer getSelectedIndex() {
         return selectedIndex;
     }
 

@@ -12,7 +12,7 @@ import com.example.mb7.sportappbp.Fragments.TbTaskCategContent;
 import java.util.ArrayList;
 
 /**
- * Created by MB7 on 07.01.2017.
+ * Created by M.Braei on 07.01.2017.
  */
 
 public class PagerAdapter extends FragmentStatePagerAdapter {

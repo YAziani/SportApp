@@ -56,34 +56,24 @@ public class TaskCategAdapter extends RecyclerView.Adapter<TaskCategAdapter.Task
             if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .tagebucheintrag))) {
                 Intent open = new Intent(context.getActivity(), ActivityDiary.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the
-                // notification from the database
                 context.startActivity(open);
 
             } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .stimmungsabgabe))) {
                 Intent open = new Intent(context.getActivity(), Activity_lst_stimmungsabfrage.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the
-                // notification from the database
                 context.startActivity(open);
 
             } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .fitnessfragebogen))) {
                 Intent open = new Intent(context.getActivity(), Activity_lst_fitnessfragebogen.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the
-                // notification from the database
                 context.startActivity(open);
             } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .aktivitaetsfragebogen))) {
                 Intent open = new Intent(context.getActivity(), Activity_lst_bsafragebogen.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the
-                // notification from the database
                 context.startActivity(open);
             } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .bewegen_sie_sich))) {
                 Intent open = new Intent(context.getActivity(), ActivityMotivationMessage.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the
-                // notification from the database
                 context.startActivity(open);
             } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .trainingszeiten_und_studioadresse))) {

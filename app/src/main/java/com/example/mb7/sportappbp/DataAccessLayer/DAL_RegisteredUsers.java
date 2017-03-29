@@ -2,8 +2,8 @@ package com.example.mb7.sportappbp.DataAccessLayer;
 
 import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityLogin;
-import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
+import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -116,7 +116,7 @@ public class DAL_RegisteredUsers {
 
     public static void loadRegistration(final RegisterCatcher registerCatcher) {
         try {
-            URL url = new URL("https://kompass-8720f.firebaseio.com/users");
+            URL url = new URL(DAL_Utilities.KompassURL +  "users");
             Firebase root = new Firebase(url.toString());
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

@@ -1,18 +1,14 @@
 package com.example.mb7.sportappbp.Activity;
 
 import android.app.Activity;
-import android.content.Intent;
 import android.os.Bundle;
 import android.preference.PreferenceFragment;
-import android.view.Menu;
-import android.view.MenuInflater;
-import android.view.MenuItem;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.R;
 
 /**
- * Created by MB7 on 15.01.2017.
+ * Created by M.Braei on 15.01.2017.
  */
 
 public class ActivitySettings extends Activity {
@@ -39,9 +35,6 @@ public class ActivitySettings extends Activity {
 
     @Override
     public void onBackPressed() {
-//        Intent i = new Intent(this, ActivityMain.class);
-//        i.setFlags(Intent.FLAG_ACTIVITY_REORDER_TO_FRONT);
-//        startActivity(i);
         super.onBackPressed();
         finish();
         Toast.makeText(this,

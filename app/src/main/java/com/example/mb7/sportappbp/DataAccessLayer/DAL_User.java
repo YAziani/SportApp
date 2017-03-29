@@ -30,87 +30,10 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by MB7 on 31.01.2017.
+ * Created by M.Braei, Y.Aziani, Felix, Basti on 31.01.2017.
  */
 
 public class DAL_User {
-    static private long gcounter;
-
-    static public StimmungsAngabe GetStimmnungsabfrage(User user, String date) {
-        final StimmungsAngabe stimmunga = new StimmungsAngabe();
-
-        try {
-            final String fDate = date;/// DAL_Utilities.ConvertDateToFirebaseDate(date);
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Stimmungsabfrage/" + fDate);
-            final Firebase root = new Firebase(url.toString());
-
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
-
-                // Hier kriegst du den Knoten -KfNx5TBo4yQpfN07Ekh als Value
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    String strKey = dataSnapshot.getKey();// Datum
-
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        // Hier bekommst du den Knoten V oder N
-                        strKey = child.getKey();// key -KfNx5TBo4yQpfN07Ekh
-                        root.child(strKey).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-                                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                    // child.key -> V or N
-                                    // Hier bekommst du dann letztlich die Stimmungsabfrage
-                                    StimmungsAngabe stimmungsAngabe = child.getValue(StimmungsAngabe.class);
-                                    stimmungsAngabe = stimmunga;
-
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
-
-                            }
-                        });
-                    }
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            });
-
-            return stimmunga;
-
-        } catch (Exception e) {
-            Log.d("ERROR", e.getMessage());
-            return stimmunga;
-        }
-    }
-
-    static public void GetLastTodayStimmungsabfrage(User user, Date date) {
-        try {
-            final String sDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Stimmungsabfrage/" + sDate +
-                    "/");
-            Firebase root = new Firebase(url.toString());
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    gcounter = dataSnapshot.getChildrenCount();
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    Log.d("DAL_User.GetLTSabfrage", firebaseError.getMessage());
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
-
 
     static public void InsertStimmung(User user, StimmungsAngabe stimmungsAngabe) {
         try {
@@ -424,27 +347,6 @@ public class DAL_User {
     }
 
 
-    static public void GetLastTodayDiaryEntry(User user, Date date) {
-        try {
-            final String sDate = DAL_Utilities.ConvertDateToFirebaseDate(date);
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Diary/" + sDate + "/");
-            Firebase root = new Firebase(url.toString());
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-                    gcounter = dataSnapshot.getChildrenCount();
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-                    Log.d("DAL_User.GetLTSabfrage", firebaseError.getMessage());
-                }
-            });
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
-
-    }
 
     static public void InsertDiaryEntry(User user, DiaryEntry diaryEntry) {
         SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");

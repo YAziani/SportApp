@@ -2,7 +2,6 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.app.ProgressDialog;
 import android.graphics.Color;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.util.Log;
 import android.view.Menu;
@@ -31,13 +30,14 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
 
     @Override
     float convertValue(DataSnapshot object) {
+        // first try with long because it is the default value in firebase
+        // otherwise we try it with Double
         try {
             return ((Long) object.getValue()).floatValue();
 
         } catch (ClassCastException ex) {
             return ((Double) object.getValue()).floatValue();
         }
-        //return 0;
     }
 
 
@@ -150,7 +150,6 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                                 for (DataSnapshot child2L : child.getChildren()) {
 
                                                                     // Now convert the string date to real date
-
                                                                     // create the object and insert it in the list
                                                                     if (child2L.getKey().equals("Bewegungsscoring")) {
                                                                         y_Bewegung += convertValue(child2L);
@@ -176,11 +175,9 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                                     x = DAL_Utilities.ConvertDateToString
                                                                             (DAL_Utilities
                                                                 .ConvertFirebaseKeyStringToDateTime(sDate + " 00:00:00"));
-                                                                    //x  = sDate ;
                                                                     max_y = Math.max(y_SportScoring, Math.max(y_Bewegung, max_y));
                                                                     min_y = Math.min(y_SportScoring, Math.min(min_y, y_Bewegung));
                                                                     xAXES.add(x);
-
                                                                     yAXES_Bewegung.add(new Entry(y_Bewegung, j));
                                                                     yAXES_Sportscoring.add(new Entry(y_SportScoring,j));
 

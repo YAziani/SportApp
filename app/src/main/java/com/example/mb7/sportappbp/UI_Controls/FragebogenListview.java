@@ -39,62 +39,6 @@ public class FragebogenListview extends ListView {
         super(context, attrs, defStyleAttr, defStyleRes);
     }
 
-    /*
-    public void Initialize()
-    {
-        // we do this to disable scrolling the listview
-        this.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    return true; // Indicates that this has been handled by you and will not be forwarded further.
-                }
-                return false;
-            }
-
-        });
-        // we do this so that the selected color remains after clicking on an item
-        this.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id) {
-                index = position;
-                String val = Integer.toString(index);
-
-                view.setSelected(true);
-            }
-        });
-    }
-
-    public void visibility(final LinearLayout llayout){
-        this.setOnTouchListener(new View.OnTouchListener() {
-            @Override
-            public boolean onTouch(View v, MotionEvent event) {
-                if (event.getAction() == MotionEvent.ACTION_MOVE) {
-                    return true; // Indicates that this has been handled by you and will not be forwarded further.
-                }
-                return false;
-            }
-
-        });
-
-        this.setOnItemClickListener(new AdapterView.OnItemClickListener(){
-            @Override
-            public void onItemClick(AdapterView<?> parent, View view, int position, long id){
-                index = position;
-                String val = Integer.toString(index);
-                if (index>0){
-                    llayout.setVisibility(LinearLayout.GONE);}
-                else
-                    llayout.setVisibility(LinearLayout.VISIBLE);
-
-                view.setSelected(true);
-            }
-        });
-    }
-
-
-    public int getIndex(){return index;}
-*/
 
 
     public void InitializeFitness() {

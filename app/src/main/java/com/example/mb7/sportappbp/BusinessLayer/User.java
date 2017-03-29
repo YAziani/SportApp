@@ -11,7 +11,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by MB7 on 31.01.2017.
+ * Created by M.Braei, Y.Aziani, Felix, Basti on 31.01.2017.
  */
 
 public class User {
@@ -76,10 +76,6 @@ public class User {
         this.points = points;
     }
 
-    public void GetLastTodayStimmungsabfrage(Date date) {
-        DAL_User.GetLastTodayStimmungsabfrage(this, date);
-    }
-
     public boolean InsertStimmung(StimmungsAngabe stimmungsAngabe) {
         DAL_User.InsertStimmung(this, stimmungsAngabe);
         return true;
@@ -119,16 +115,6 @@ public class User {
     public boolean UpdateFragebogen(Fragebogen fragebogen) {
         DAL_User.UpdateFragebogen(this, fragebogen);
         return true;
-    }
-
-
-    public StimmungsAngabe GetStimmnungsabfrage(String date) {
-        return DAL_User.GetStimmnungsabfrage(this, date);
-
-    }
-
-    public void GetLastTodayDiaryEntry(Date date) {
-        DAL_User.GetLastTodayDiaryEntry(this, date);
     }
 
     public boolean SaveDiaryEntry(DiaryEntry diaryEntry) {

@@ -3,14 +3,13 @@ package com.example.mb7.sportappbp.BusinessLayer;
 import java.io.Serializable;
 
 /**
- * Created by MB7 on 31.01.2017.
+ * Created by M.Braei on 31.01.2017.
  */
 
 public class StimmungsAngabe implements Serializable {
     public String Date;
     public String FirebaseDate;
-    // Is it the Stimmungsabfrage before Training or after
-    public Boolean Vor;
+    public Boolean Vor;                     // Is it the Stimmungsabfrage before Training or after
     public Integer Angespannt;
     public Integer Mitteilsam;
     public Integer Muede;

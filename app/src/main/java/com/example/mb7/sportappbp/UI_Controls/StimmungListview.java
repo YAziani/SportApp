@@ -11,7 +11,7 @@ import com.example.mb7.sportappbp.Adapters.StimmungsViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 
 /**
- * Created by MB7 on 18.01.2017.
+ * Created by M.Braei on 18.01.2017.
  */
 
 public class StimmungListview extends ListView {

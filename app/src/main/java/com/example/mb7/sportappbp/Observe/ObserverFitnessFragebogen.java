@@ -33,10 +33,7 @@ public class ObserverFitnessFragebogen extends Observer {
         if (!preferences.getString("allocatedMethods", "").contains("fitnessQuestionary")) {
             return;
         }
-
         shouldNotify();
-
-
     }
 
 

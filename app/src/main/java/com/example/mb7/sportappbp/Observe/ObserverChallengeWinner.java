@@ -27,7 +27,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 /**
- * Created by M.Braei on 24.03.2017.
+ * Created by Basti on 24.03.2017.
  */
 
 public class ObserverChallengeWinner extends Observer {

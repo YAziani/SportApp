@@ -44,8 +44,16 @@ public class FirebaseTest {
             e.printStackTrace();
         }
 
+<<<<<<< HEAD
+        Firebase cloud = new Firebase(DAL_Utilities.DatabaseURL);
+        // write values into database
+        cloud.child("TestNode").child("testValue00").setValue("qwertz");
+        cloud.child("TestNode").child("testValue01").setValue("qwerty");
+        DAL_RegisteredUsers.insertRegistration("TestRegistration", "testPassword");
+=======
         writeDAL_RegisteredUsers();
 
+>>>>>>> fa3327e1f0123a6926b88d9e83467526a85bed5a
         try {
             Thread.sleep(1000);
         } catch (Exception e) {
@@ -59,14 +67,44 @@ public class FirebaseTest {
     private static void writeDAL_RegisteredUsers() {
         DAL_RegisteredUsers.insertRegistration("TestRegistration", "testPassword");
 
+<<<<<<< HEAD
+    @Test
+    public void testRead00() {
+        // define reading target
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL + "TestNode/testValue00");
+=======
+>>>>>>> fa3327e1f0123a6926b88d9e83467526a85bed5a
         try {
             Thread.sleep(1000);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
+<<<<<<< HEAD
+    @Test
+    public void testRead01() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL +  "TestNode/testValue01");
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    assertEquals("qwerty", dataSnapshot.getValue());
+                }
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+=======
         User user = User.Create("TestRegistration");
         DAL_RegisteredUsers.insertMail("testMail@gmail.com",user);
+>>>>>>> fa3327e1f0123a6926b88d9e83467526a85bed5a
     }
 
     @Test

@@ -136,7 +136,6 @@ public class DAL_Challenges {
 
         Firebase users = ref.child("Users");
 
-        //TODO Mail und so muessen nach Login gesetzt werden ueberpruefen dann name und mail
         Firebase usersChild = users.child(user.getName());
         usersChild.setValue(user.getName());
 

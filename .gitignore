@@ -5,7 +5,14 @@
 /build
 /captures
 .externalNativeBuild
-.idea
+/.idea/libraries
+/.idea/copyright
+/.idea/compiler.xml
+/.idea/gradle.xml
+/.idea/misc.xml
+/.idea/modules.xml
+/.idea/runCOnfigurations.xml
+/.idea/vcs.xml
 gradle.properties
 gradlew
 gradlew.bat

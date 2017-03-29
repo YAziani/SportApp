@@ -3,7 +3,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".Activity.Activity_Differenz_rpt"><RelativeLayout
+    tools:context=".Activity.Activity_bsa_gesamt_rpt"><RelativeLayout
 
     android:layout_width="match_parent"
     android:layout_height="match_parent"
@@ -11,22 +11,19 @@
     android:paddingLeft="25dp"
     android:paddingRight="25dp"
     android:paddingTop="@dimen/activity_vertical_margin">
-
     <TextView
         android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/differenzwert_dgr_ttl"
+        android:text="@string/bsa_dgr_ttl_gesamt"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
-
     <com.github.mikephil.charting.charts.LineChart
         android:layout_below="@id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:id="@+id/lineChart"></com.github.mikephil.charting.charts.LineChart>
 </RelativeLayout>
-    </ScrollView>
-
+</ScrollView>

@@ -36,7 +36,6 @@ public class ActivityDiaryEntry extends AppCompatActivity {
     Date date;
 
 
-
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -47,8 +46,8 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         // Now read the extra key - exerciseList
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
-        Log.e("Oncreate","We have reached it");
-        if(extras!=null ) {
+        Log.e("Oncreate", "We have reached it");
+        if (extras != null) {
 
             //Get unpack the exerciseList und date
             exerciseList = extras.getParcelableArrayList("oldExercises");
@@ -56,8 +55,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
             //set attribute
             diaryEntry.setExerciseList(exerciseList);
             diaryEntry.setDate(date);
-        }
-        else{
+        } else {
 
             //Set attribute
             diaryEntry.setDate(calendar.getTime());
@@ -66,14 +64,10 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         }
 
 
-
         //Create Firebase reference
         mRootRef = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
 
         //allDiaryEntries = AllDiaryEntries.getInstance();
-
-
-
 
 
         //set all categories for the viewadapter
@@ -89,7 +83,8 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         listIcons.add(R.drawable.ic_aufenthalt);
 
         //create and set gridview with an adapter
-        diaryEntryViewAdapter = new DiaryEntryViewAdapter(ActivityDiaryEntry.this, listCategories, diaryEntry, listIcons);
+        diaryEntryViewAdapter = new DiaryEntryViewAdapter(ActivityDiaryEntry.this, listCategories, diaryEntry,
+                listIcons);
         gridView = (GridView) findViewById(R.id.gridViewExercise);
         gridView.setAdapter(diaryEntryViewAdapter);
     }
@@ -99,16 +94,16 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         MenuInflater inflater = getMenuInflater();
 
         //set the menu with add and save icon
-        inflater.inflate(R.menu.menu_add_and_save , menu);
+        inflater.inflate(R.menu.menu_add_and_save, menu);
 
         return super.onCreateOptionsMenu(menu);
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         //check which icon was pressed in the toolbar
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.icon_add:
                 //send current list to the next activity and open it (categories)
                 //sendOldAndRequestNewExerciseList();
@@ -121,14 +116,13 @@ public class ActivityDiaryEntry extends AppCompatActivity {
                 diaryEntry.setTotalPoints(calculateTotalPoints());
 
                 //check if any exercises have been added to the list
-                if(diaryEntry.getExerciseList().size() > 0) {
+                if (diaryEntry.getExerciseList().size() > 0) {
                     //save data to firebase
                     SaveData();
                     //allDiaryEntries.getDiaryList().add(diaryEntry);
-                }
-
-                else//Say that there was nothing to save
-                    Toast.makeText(ActivityDiaryEntry.this, R.string.keintagebucheintragerstellt , Toast.LENGTH_SHORT).show();
+                } else//Say that there was nothing to save
+                    Toast.makeText(ActivityDiaryEntry.this, R.string.keintagebucheintragerstellt, Toast.LENGTH_SHORT)
+                            .show();
 
                 finish();
                 return true;
@@ -145,7 +139,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         ArrayList<Exercise> result;
 
         //check if the request was successful
-        if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
+        if (resultCode == RESULT_OK && requestCode == REQUEST_ID) {
 
             //get the new list
             result = data.getParcelableArrayListExtra("newExercises");
@@ -160,22 +154,24 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     /**
      * Save diaryEntry to Firebase
+     *
      * @return
      */
-    private boolean SaveData(){
+    private boolean SaveData() {
 
         //ActivityMain.mainUser.GetLastTodayDiaryEntry(new Date());
         ActivityMain.getMainUser(this).SaveDiaryEntry(diaryEntry);
-        Toast.makeText(ActivityDiaryEntry.this, R.string.Tagebucheintraggespeichert , Toast.LENGTH_SHORT).show();
+        Toast.makeText(ActivityDiaryEntry.this, R.string.Tagebucheintraggespeichert, Toast.LENGTH_SHORT).show();
 
         return true;
     }
 
     /**
      * This method receives the exerciseList of the previous activity (diaryEntry)
+     *
      * @return
      */
-    private ArrayList<Exercise> receiveExerciseList(){
+    private ArrayList<Exercise> receiveExerciseList() {
 
         ArrayList<Exercise> result;
         //get the bundle from the intent
@@ -186,15 +182,14 @@ public class ActivityDiaryEntry extends AppCompatActivity {
             result = extra.getParcelableArrayList("oldExercises");
             //set flag for saving data later
             return result;
-        }
-        else //else get the current exerciseList of the object
+        } else //else get the current exerciseList of the object
             return result = diaryEntry.getExerciseList();
     }
 
     /**
      * This method returns the prepared exerciseList to the previous activity (diaryEntry)
      */
-    private void returnResult(){
+    private void returnResult() {
         //create intent
         Intent intent = new Intent();
         //package the prepared list
@@ -208,7 +203,7 @@ public class ActivityDiaryEntry extends AppCompatActivity {
      * this method send the exerciseList to the category Activity.
      * Furthermore this method sends a request to receive the prepared exerciseList
      */
-    public void sendOldAndRequestNewExerciseList(){
+    public void sendOldAndRequestNewExerciseList() {
         ArrayList<Exercise> oldList = exerciseList;
         //set goal activity
         Intent pickExerciseIntent = new Intent(this, ActivitySelectedExercises.class);
@@ -220,28 +215,29 @@ public class ActivityDiaryEntry extends AppCompatActivity {
 
     /**
      * This method calculates the total points of all categories
+     *
      * @return int value with total points
      */
-    private int calculateTotalPoints(){
+    private int calculateTotalPoints() {
         int leistungstests = diaryEntry.getTotalTimePointsAsArrayLeistungstests()[2];
         int training = diaryEntry.getTotalTimePointsAsArrayTraining()[2];
         int wellness = diaryEntry.getTotalTimePointsAsArrayWellness()[2];
         int reinerAufenthalt = diaryEntry.getTotalTimePointsAsArrayReinerAufenthalt()[2];
 
-        int totalPoints = leistungstests +training + wellness + reinerAufenthalt;
+        int totalPoints = leistungstests + training + wellness + reinerAufenthalt;
 
         return totalPoints;
     }
 
-    private void openSelectedExercises(){
+    private void openSelectedExercises() {
 
-            Intent open = new Intent(ActivityDiaryEntry.this , ActivitySelectedExercises.class);
+        Intent open = new Intent(ActivityDiaryEntry.this, ActivitySelectedExercises.class);
 
-            // pass the clicked diaryEntry to the activity
-            open.putParcelableArrayListExtra("oldExercises", exerciseList);
-            open.putExtra("date", date);
-            open.putExtra("prepare", true);
-            startActivity(open);
+        // pass the clicked diaryEntry to the activity
+        open.putParcelableArrayListExtra("oldExercises", exerciseList);
+        open.putExtra("date", date);
+        open.putExtra("prepare", true);
+        startActivity(open);
 
     }
 

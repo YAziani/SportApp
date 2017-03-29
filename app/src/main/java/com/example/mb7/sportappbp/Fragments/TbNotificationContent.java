@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Fragments;
 
+import android.app.NotificationManager;
 import android.app.ProgressDialog;
 import android.content.SharedPreferences;
 import android.os.Bundle;
@@ -67,6 +68,7 @@ public class TbNotificationContent extends TabFragment {
 
         }
     }
+
 
     // when the fragment becomes visible to the user
     @Override
@@ -165,6 +167,11 @@ public class TbNotificationContent extends TabFragment {
                         rv.setAdapter(new NotificationAdapter(notifications, tbNotificationContent));
 
                     }
+
+                    // remove all notifications in the notifications bar, cause the user sees them now here
+                    NotificationManager notificationManager = (NotificationManager)getActivity().getApplicationContext()
+                            .getSystemService(getActivity().getApplicationContext().NOTIFICATION_SERVICE);
+                    notificationManager.cancelAll();
 
                     // close the progress dialog
                     pd.dismiss();

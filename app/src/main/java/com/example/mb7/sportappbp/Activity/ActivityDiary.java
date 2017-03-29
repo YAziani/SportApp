@@ -47,7 +47,7 @@ public class ActivityDiary extends AppCompatActivity {
 
     static DiaryViewAdapter diaryViewAdapter;
     ListView listView;
-   // AllDiaryEntries allDiaryEntries;
+    // AllDiaryEntries allDiaryEntries;
     DiaryEntry diaryEntry;
     LinkedList<DiaryEntry> diaryEntries;
 
@@ -74,8 +74,7 @@ public class ActivityDiary extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId() == R.id.recycler_diary)
-        {
+        if (v.getId() == R.id.recycler_diary) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_item_delete, menu);
         }
@@ -107,11 +106,10 @@ public class ActivityDiary extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.deleteItem:
-                deleteDiaryEntry( ((DiaryViewAdapter)rv.getAdapter()).getSelectedObject());
-                Toast.makeText(this,getString(R.string.erfolgreichgeloescht),Toast.LENGTH_SHORT).show();
+                deleteDiaryEntry(((DiaryViewAdapter) rv.getAdapter()).getSelectedObject());
+                Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -127,7 +125,7 @@ public class ActivityDiary extends AppCompatActivity {
         ArrayList<Exercise> result;
 
         //check the correctness of the received packages
-        if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
+        if (resultCode == RESULT_OK && requestCode == REQUEST_ID) {
 
             //get and set the result of the request
             result = data.getParcelableArrayListExtra("newExercises");
@@ -141,7 +139,7 @@ public class ActivityDiary extends AppCompatActivity {
      * This method start notifyDataSetChanged of the view adapter. When data has been changed in
      * the AllDiaryEntries object from external, this method has to be executed
      */
-    public static void notifyDataChanged(){
+    public static void notifyDataChanged() {
         diaryViewAdapter.notifyDataSetChanged();
     }
 
@@ -150,7 +148,7 @@ public class ActivityDiary extends AppCompatActivity {
      * this method send the exerciseList of the selected diaryEntry to the diaryEntry Activity.
      * Furthermore this method sends a request to receive the prepared exerciseList
      */
-    public void sendOldAndRequestNewExerciseList(){
+    public void sendOldAndRequestNewExerciseList() {
         ArrayList<Exercise> oldList = exerciseList;
         //set goal activity
         Intent pickExerciseIntent = new Intent(this, ActivityDiaryEntry.class);
@@ -162,13 +160,15 @@ public class ActivityDiary extends AppCompatActivity {
 
     /**
      * delete a diaryEntry
+     *
      * @param diaryEntry the object to delete
      */
-    private void deleteDiaryEntry(DiaryEntry diaryEntry)
-    {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/Diary/" );
+    private void deleteDiaryEntry(DiaryEntry diaryEntry) {
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + ActivityMain.getMainUser
+                (this).getName() + "/Diary/");
 
-        ref.child(firebasedate.format(diaryEntry.getDate())).child(firebasetime.format(diaryEntry.getDate())).removeValue();
+        ref.child(firebasedate.format(diaryEntry.getDate())).child(firebasetime.format(diaryEntry.getDate()))
+                .removeValue();
     }
 
 
@@ -176,18 +176,18 @@ public class ActivityDiary extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         pd = new ProgressDialog(this);
-        pd.setMessage(getString( R.string.wird_geladen));
+        pd.setMessage(getString(R.string.wird_geladen));
         pd.show();
         readDiaryEntry();
     }
 
-    private void readDiaryEntry(){
+    private void readDiaryEntry() {
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd,HH:mm:ss");
         final SimpleDateFormat sdfDateDiary = new SimpleDateFormat("dd.MM.yyyy");
 
-        try
-        {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName()+ "/Diary/");
+        try {
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
+                    "/Diary/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -271,7 +271,6 @@ public class ActivityDiary extends AppCompatActivity {
                 }
 
 
-
                 @Override
                 public void onCancelled(FirebaseError firebaseError) {
 
@@ -279,10 +278,7 @@ public class ActivityDiary extends AppCompatActivity {
             });
 
 
-
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             Log.d("ERROR", e.getMessage());
 
         }

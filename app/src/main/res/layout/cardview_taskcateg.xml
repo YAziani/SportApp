@@ -19,7 +19,7 @@
                 android:layout_width="match_parent"
                 android:background="?attr/selectableItemBackgroundBorderless"
                 android:layout_height="130dp"
-                android:scaleType="fitXY"
+                android:scaleType="fitCenter"
                 android:layout_margin="16dp"
                 app:srcCompat="@mipmap/ic_stimmungs_abgabe" />
             <TextView

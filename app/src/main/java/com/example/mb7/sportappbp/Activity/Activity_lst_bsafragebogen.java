@@ -62,8 +62,7 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId() == R.id.recycler_bsafragebogen)
-        {
+        if (v.getId() == R.id.recycler_bsafragebogen) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_item_delete, menu);
         }
@@ -92,11 +91,10 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.deleteItem:
-                deleteFragebogen( ((BsaFragebogenViewAdapter)rv.getAdapter()).getSelectedObject());
-                Toast.makeText(this,getString(R.string.erfolgreichgeloescht),Toast.LENGTH_SHORT).show();
+                deleteFragebogen(((BsaFragebogenViewAdapter) rv.getAdapter()).getSelectedObject());
+                Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
                 break;
 
         }
@@ -105,11 +103,12 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
 
     /**
      * delete a Fragebogen
+     *
      * @param fragebogen the object to delete
      */
-    private void deleteFragebogen(Fragebogen fragebogen)
-    {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" +ActivityMain.getMainUser(this).getName() + "/BSAFragebogen/" );
+    private void deleteFragebogen(Fragebogen fragebogen) {
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + ActivityMain.getMainUser
+                (this).getName() + "/BSAFragebogen/");
         ref.child(fragebogen.FirebaseDate).removeValue();
     }
 
@@ -119,9 +118,9 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
      */
     private void InsertFragebogen() {
 
-                Intent open = new Intent(activity_lst_bsafragebogen, ActivityFragebogen.class);
-                //open.putExtra("Vor", "1");
-                startActivity(open);
+        Intent open = new Intent(activity_lst_bsafragebogen, ActivityFragebogen.class);
+        //open.putExtra("Vor", "1");
+        startActivity(open);
 
     }
 
@@ -130,14 +129,15 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         pd = new ProgressDialog(this);
-        pd.setMessage(getString( R.string.wird_geladen));
+        pd.setMessage(getString(R.string.wird_geladen));
         pd.show();
         readFragebogen();
     }
 
     void readFragebogen() {
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/BSAFragebogen");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
+                    "/BSAFragebogen");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -147,38 +147,38 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
                                            public void onDataChange(DataSnapshot dataSnapshot) {
                                                //final String sDate = dataSnapshot.getKey();
 
-                                               // dataSnapshot.getKey() declares which strategy the notification belongs to (BSAFragebogen..)
+                                               // dataSnapshot.getKey() declares which strategy the notification
+                                               // belongs to (BSAFragebogen..)
                                                FragebogenList = new LinkedList<Fragebogen>();
-                                               // the child.key of dataSnapshop declare the unique datetime of the notification
+                                               // the child.key of dataSnapshop declare the unique datetime of the
+                                               // notification
                                                for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                    // Here I get the time
-                                                   final String sDate= child.getKey();// Date
+                                                   final String sDate = child.getKey();// Date
 
                                                    // Here I have V or N
 
-                                                    // create the object and insert it in the list
+                                                   // create the object and insert it in the list
 
 
-                                                           Fragebogen fragebogen = child.getValue(Fragebogen.class);
-                                                           fragebogen.FirebaseDate = sDate;
-                                                           fragebogen.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString( sDate);
-                                                           FragebogenList.add(fragebogen);
-                                                       }
+                                                   Fragebogen fragebogen = child.getValue(Fragebogen.class);
+                                                   fragebogen.FirebaseDate = sDate;
+                                                   fragebogen.Date = DAL_Utilities
+                                                           .ConvertFirebaseStringNoSpaceToDateString(sDate);
+                                                   FragebogenList.add(fragebogen);
+                                               }
 
 
-
-
-
-
-                                               if (FragebogenList != null)
-                                               {
+                                               if (FragebogenList != null) {
                                                    // reverse the list to get the newest first
                                                    Collections.reverse(FragebogenList);
                                                    // fill the recycler
-                                                   LinearLayoutManager lm = new LinearLayoutManager(activityLstBsaFragebogen);
+                                                   LinearLayoutManager lm = new LinearLayoutManager
+                                                           (activityLstBsaFragebogen);
                                                    rv.setLayoutManager(lm);
                                                    // just create a list of tasks
-                                                   rv.setAdapter(new BsaFragebogenViewAdapter(FragebogenList, activityLstBsaFragebogen));
+                                                   rv.setAdapter(new BsaFragebogenViewAdapter(FragebogenList,
+                                                           activityLstBsaFragebogen));
                                                }
 
 
@@ -187,20 +187,17 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
 
 
                                            }
+
                                            @Override
                                            public void onCancelled(FirebaseError firebaseError) {
 
                                            }
                                        }
             );
-        }
-        catch (Exception ex)
-        {
-            Log.e("Exc",ex.getMessage());
+        } catch (Exception ex) {
+            Log.e("Exc", ex.getMessage());
         }
     }
-
-
 
 
 }

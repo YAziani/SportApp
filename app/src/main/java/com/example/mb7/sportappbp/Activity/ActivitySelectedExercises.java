@@ -44,14 +44,13 @@ public class ActivitySelectedExercises extends AppCompatActivity {
         // Now read the extra key - exerciseList
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
-        Log.e("Oncreate","We have reached it");
-        if(extras!=null ) {
+        Log.e("Oncreate", "We have reached it");
+        if (extras != null) {
 
             //Get unpack the exerciseList und date
             exerciseList = extras.getParcelableArrayList("oldExercises");
             date = (Date) extras.getSerializable("date");
-        }
-        else{
+        } else {
 
             //Set attribute
             exerciseList = new ArrayList<Exercise>();
@@ -61,7 +60,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
         //receive exercise list
         //exerciseList = receiveExerciseList();
 
-        listView = (ListView)findViewById(R.id.listviewActivityOverview);
+        listView = (ListView) findViewById(R.id.listviewActivityOverview);
         exerciseViewAdapter = new ExerciseViewAdapter(ActivitySelectedExercises.this, exerciseList);
         listView.setAdapter(exerciseViewAdapter);
 
@@ -109,10 +108,10 @@ public class ActivitySelectedExercises extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item){
+    public boolean onOptionsItemSelected(MenuItem item) {
 
         //check which icon was hidden in the toolbar
-        switch (item.getItemId()){
+        switch (item.getItemId()) {
             case R.id.icon_add:
                 //sendOldAndRequestNewExerciseList(exerciseList);
                 openActivityWithExtra(ActivityCategories.class);
@@ -133,7 +132,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
 
-        if(resultCode == RESULT_OK && requestCode == REQUEST_ID){
+        if (resultCode == RESULT_OK && requestCode == REQUEST_ID) {
             ArrayList<Exercise> result = data.getParcelableArrayListExtra("newExercises");
 
             setNewList(exerciseList, result);
@@ -142,7 +141,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
 
     }
 
-    private ArrayList<Exercise> receiveExerciseList(){
+    private ArrayList<Exercise> receiveExerciseList() {
 
         ArrayList<Exercise> result;
         final Bundle extra = getIntent().getExtras();
@@ -150,27 +149,26 @@ public class ActivitySelectedExercises extends AppCompatActivity {
         if (extra != null) {
             result = extra.getParcelableArrayList("oldExercises");
             return result;
-        }
-        else
-        return result = new ArrayList<Exercise>();
+        } else
+            return result = new ArrayList<Exercise>();
     }
 
-    private void sendOldAndRequestNewExerciseList(ArrayList<Exercise> oldList){
+    private void sendOldAndRequestNewExerciseList(ArrayList<Exercise> oldList) {
         Intent pickExerciseIntent = new Intent(this, ActivityCategories.class);
         //Optional, wenn bereits ausgewehlte makiert werden sollen
         pickExerciseIntent.putParcelableArrayListExtra("oldExercises", oldList);
         startActivityForResult(pickExerciseIntent, REQUEST_ID);
     }
 
-    private void setNewList(ArrayList<Exercise> oldLst, ArrayList<Exercise> newLst){
+    private void setNewList(ArrayList<Exercise> oldLst, ArrayList<Exercise> newLst) {
 
         oldLst.clear();
 
-        for(Exercise i : newLst)
+        for (Exercise i : newLst)
             oldLst.add(i);
     }
 
-    private void returnResult(){
+    private void returnResult() {
 
         Intent intent = new Intent();
         intent.putParcelableArrayListExtra("newExercises", exerciseList);
@@ -179,7 +177,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
 
     }
 
-    private void numberPicker(final Exercise exercise){
+    private void numberPicker(final Exercise exercise) {
 
         //create dialog window
         final Dialog dialog = new Dialog(ActivitySelectedExercises.this);
@@ -189,12 +187,12 @@ public class ActivitySelectedExercises extends AppCompatActivity {
 
 
         final String[] nums = new String[30];
-        for(int i=0; i<nums.length; i++) {
+        for (int i = 0; i < nums.length; i++) {
             nums[i] = Integer.toString(i);
         }
 
         //create the number picker for hours und set the possible values
-        final NumberPicker npHoures = (NumberPicker)dialog.findViewById(R.id.numberPickerHours);
+        final NumberPicker npHoures = (NumberPicker) dialog.findViewById(R.id.numberPickerHours);
         npHoures.setMaxValue(24);
         npHoures.setMinValue(0);
         npHoures.setFormatter(new NumberPicker.Formatter() {
@@ -206,7 +204,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
         npHoures.setValue(exercise.getTimeHours());
 
         //create the number picker for minutes und set the possible values
-        final NumberPicker npMinutes = (NumberPicker)dialog.findViewById(R.id.numberPickerMinutes);
+        final NumberPicker npMinutes = (NumberPicker) dialog.findViewById(R.id.numberPickerMinutes);
         npMinutes.setMaxValue(59);
         npMinutes.setMinValue(0);
         npMinutes.setFormatter(new NumberPicker.Formatter() {
@@ -218,7 +216,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
         npMinutes.setValue(exercise.getTimeMunites());
 
         //set the action for ok button
-        Button btnOk = (Button)dialog.findViewById(R.id.npOk);
+        Button btnOk = (Button) dialog.findViewById(R.id.npOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
@@ -226,15 +224,14 @@ public class ActivitySelectedExercises extends AppCompatActivity {
                 int m = npMinutes.getValue();
                 int h = npHoures.getValue();
 
-                if(m != 0 || h != 0) {
+                if (m != 0 || h != 0) {
                     //save the picked numbers
                     exercise.setTimeHours(h);
                     exercise.setTimeMinutes(m);
                     dialog.dismiss();
                     exerciseViewAdapter.notifyDataSetChanged();
 
-                }
-                else
+                } else
                     Toast.makeText(ActivitySelectedExercises.this, R.string.ungueltigeZeit, Toast.LENGTH_SHORT).show();
             }
         });
@@ -254,11 +251,12 @@ public class ActivitySelectedExercises extends AppCompatActivity {
 
     }
 
-    private void openActivityWithExtra(Class destinationClass){
+    private void openActivityWithExtra(Class destinationClass) {
 
         // if nothing is longclicked -> go to the ActivityStimmung of the selected item
-        Intent open = new Intent(ActivitySelectedExercises.this , destinationClass);
-        // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+        Intent open = new Intent(ActivitySelectedExercises.this, destinationClass);
+        // insert the date of the notificatino in the extra which is the unique field to delete the notification from
+        // the database
 
         // pass the clicked diaryEntry to the activity
         open.putParcelableArrayListExtra("oldExercises", exerciseList);

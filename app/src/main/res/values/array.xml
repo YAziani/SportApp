@@ -16,6 +16,7 @@
         <item>30 Minuten</item>
         <item>40 Minuten</item>
         <item>50 Minuten</item>
+        <item>60 Minuten</item>
     </string-array>
     <string-array name="ArrrayStmabfrageAbstandeValue">
         <item>0</item>
@@ -24,6 +25,7 @@
         <item>3</item>
         <item>4</item>
         <item>5</item>
+        <item>6</item>
     </string-array>
     <string-array name="ArrrayVerkehrsmittel">
         <item>Zu Fuß</item>

@@ -37,7 +37,15 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
 
     abstract float convertValue(DataSnapshot object);
 
-    protected void computeDraw(final Date Startdate, final Date EndDate, final LineChart lineChart, final String ReportName, final String legend) {
+    /**
+     * @param Startdate  set that start interval for the data. Set this to null if you want all data be displayed
+     * @param EndDate
+     * @param lineChart
+     * @param ReportName the key of the value that should be calculated in the database
+     * @param legend
+     */
+    protected void computeDraw(final Date Startdate, final Date EndDate, final LineChart lineChart, final String
+            ReportName, final String legend) {
         try {
             // first show the progress dialog
             pd = new ProgressDialog(this);
@@ -47,7 +55,8 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
             // then run
             final ArrayList<String> xAXES = new ArrayList<>();
             final ArrayList<Entry> yAXES = new ArrayList<>();
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/StimmungabfrageScore/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
+                    "/StimmungabfrageScore/");
             final Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -61,10 +70,11 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                         float min_y = 0;
                                                         boolean flag = false;
                                                         int j = 0;
-                                                        //final String sDate = dataSnapshot.getKey();
 
-                                                        // dataSnapshot.getKey() declares which strategy the notification belongs to (Stimmungsabgabe....)
-                                                        // the child.key of dataSnapshop declare the unique datetime of the notification
+                                                        // dataSnapshot.getKey() declares which strategy the
+                                                        // notification belongs to (Stimmungsabgabe....)
+                                                        // the child.key of dataSnapshop declare the unique datetime
+                                                        // of the notification
                                                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                             // Here I get the time
                                                             final String sDate = child.getKey();// Date
@@ -79,15 +89,18 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                                     sTime = "00:00:00";
 
                                                                 // Now convert the string date to real date
-                                                                d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime(sDate + " " + sTime);
-                                                                if (!d.before(Startdate) && !d.after(EndDate)) {
+                                                                d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime
+                                                                        (sDate + " " + sTime);
+                                                                if (Startdate == null || (!d.before(Startdate) && !d
+                                                                        .after(EndDate))) {
                                                                     i++;
 
                                                                     // Here I have V or N
                                                                     for (DataSnapshot child3L : child2L.getChildren()) {
 
                                                                         // create the object and insert it in the list
-                                                                        for (DataSnapshot child4L : child3L.getChildren()) {
+                                                                        for (DataSnapshot child4L : child3L
+                                                                                .getChildren()) {
                                                                             if (child4L.getKey().equals(ReportName)) {
                                                                                 y += convertValue(child4L);
                                                                                 flag = true;
@@ -95,13 +108,14 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                                         }
                                                                     }
                                                                 }
-
                                                             }
                                                             // get the average of on day
                                                             if (flag) {
                                                                 y = y / i;
                                                                 // Now we have the days
-                                                                x = DAL_Utilities.ConvertDateToString(DAL_Utilities.ConvertFirebaseKeyStringToDateTime(sDate + " 00:00:00"));
+                                                                x = DAL_Utilities.ConvertDateToString(DAL_Utilities
+                                                                        .ConvertFirebaseKeyStringToDateTime(sDate + "" +
+                                                                                " 00:00:00"));
                                                                 //x  = sDate ;
                                                                 max_y = Math.max(y, max_y);
                                                                 min_y = Math.min(min_y, y);
@@ -117,39 +131,39 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                         if (xAXES.size() != 0) {
 
                                                             ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
-
-
+                                                            // set the datasets of our chart
                                                             LineDataSet lineDataSet2 = new LineDataSet(yAXES, legend);
                                                             lineDataSet2.setDrawCircles(false);
                                                             lineDataSet2.setColor(Color.RED);
-
-
                                                             lineDataSets.add(lineDataSet2);
 
                                                             lineChart.invalidate();
-                                                            //lineChart.setVisibleYRangeMaximum(3f,YAxis.AxisDependency.LEFT);
-                                                            //lineChart.getXAxis().setLabelsToSkip(0);
+
+                                                            // set the visual properties of the chart
                                                             lineChart.getAxisLeft().resetAxisMinValue();
-                                                            lineChart.getAxisLeft().setAxisMinValue((float) Math.floor(min_y) - 0.5f);
-                                                            lineChart.getAxisLeft().setAxisMaxValue((float) Math.ceil(max_y) + 0.5f);
+                                                            lineChart.getAxisLeft().setAxisMinValue((float) Math
+                                                                    .floor(min_y) - 0.5f);
+                                                            lineChart.getAxisLeft().setAxisMaxValue((float) Math.ceil
+                                                                    (max_y) + 0.5f);
                                                             lineChart.getAxisRight().setTextColor(Color.WHITE);
                                                             lineChart.setExtraLeftOffset(15);
+                                                            lineChart.setExtraRightOffset(10);
+                                                            lineChart.setExtraRightOffset(10);
                                                             lineChart.setData(new LineData(xAXES, lineDataSets));
                                                             lineChart.setDragEnabled(true);
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
 
-                                                            //lineChart.setVisibleXRangeMaximum(65f);
-
 
                                                         }
+                                                        // after all the data process has been done
                                                         // close the progress dialog
                                                         pd.dismiss();
 
                                                     }
 
-                @Override
+                                                    @Override
                                                     public void onCancelled(FirebaseError firebaseError) {
 
                                                     }
@@ -161,7 +175,15 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
 
     }
 
-    protected void computeDrawDiff(final Date Startdate, final Date EndDate, final LineChart lineChart, final String ReportName, final String legend) {
+    /**
+     * @param Startdate  set that start interval for the data. Set this to null if you want all data be displayed
+     * @param EndDate
+     * @param lineChart
+     * @param ReportName the key of the value that should be calculated in the database
+     * @param legend
+     */
+    protected void computeDrawDiff(final Date Startdate, final Date EndDate, final LineChart lineChart, final String
+            ReportName, final String legend) {
         try {
             // first show the progress dialog
             pd = new ProgressDialog(this);
@@ -172,7 +194,8 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
             final ArrayList<String> xAXES = new ArrayList<>();
             final ArrayList<Entry> yAXES_Vor = new ArrayList<>();
             final ArrayList<Entry> yAXES_Nach = new ArrayList<>();
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/StimmungabfrageScore/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
+                    "/StimmungabfrageScore/");
             final Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -187,36 +210,45 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                         float min_y = 0;
                                                         boolean flag = false;
                                                         int j = 0;
-                                                        //final String sDate = dataSnapshot.getKey();
 
-                                                        // dataSnapshot.getKey() declares which strategy the notification belongs to (Stimmungsabgabe....)
-                                                        // the child.key of dataSnapshop declare the unique datetime of the notification
+                                                        // dataSnapshot.getKey() declares which strategy the
+                                                        // notification belongs to (Stimmungsabgabe....)
+                                                        // the child.key of dataSnapshop declare the unique datetime
+                                                        // of the notification
                                                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                             // Here I get the time
                                                             final String sDate = child.getKey();// Date
                                                             Date d = new Date();
 
 
-                                                            int i = 0;
+                                                            int i_v = 0, i_n = 0;           // get the number of
+                                                            // reports for Vor und Nach on one day to calculate the
+                                                            // average
                                                             for (DataSnapshot child2L : child.getChildren()) {
                                                                 final String sTime = child2L.getKey();
 
                                                                 // Now convert the string date to real date
-                                                                d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime(sDate + " " + sTime);
-                                                                if (!d.before(Startdate) && !d.after(EndDate)) {
-                                                                    i++;
+                                                                d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime
+                                                                        (sDate + " " + sTime);
+
+                                                                if (Startdate == null || (!d.before(Startdate) && !d
+                                                                        .after(EndDate))) {
 
                                                                     // Here I have V or N
                                                                     for (DataSnapshot child3L : child2L.getChildren()) {
-                                                                        Boolean Vor = child3L.getKey().equals("V") ? true : false;
+                                                                        Boolean Vor = child3L.getKey().equals("V");
 
                                                                         // create the object and insert it in the list
-                                                                        for (DataSnapshot child4L : child3L.getChildren()) {
+                                                                        for (DataSnapshot child4L : child3L
+                                                                                .getChildren()) {
                                                                             if (child4L.getKey().equals(ReportName)) {
-                                                                                if (Vor)
+                                                                                if (Vor) {
                                                                                     y_Vor += convertValue(child4L);
-                                                                                else
+                                                                                    i_v++;
+                                                                                } else {
                                                                                     y_Nach += convertValue(child4L);
+                                                                                    i_n++;
+                                                                                }
                                                                                 flag = true;
                                                                             }
                                                                         }
@@ -226,13 +258,15 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             }
                                                             // get the average of on day
                                                             if (flag) {
-                                                                y_Vor = y_Vor / i;
-                                                                y_Nach = y_Nach / i;
+                                                                y_Vor = y_Vor / Math.max(i_v, i_n);
+                                                                y_Nach = y_Nach / Math.max(i_v, i_n);
                                                                 // Now we have the days
-                                                                x = DAL_Utilities.ConvertDateToString(DAL_Utilities.ConvertFirebaseKeyStringToDateTime(sDate + " 00:00:00"));
+                                                                x = DAL_Utilities.ConvertDateToString(DAL_Utilities
+                                                                        .ConvertFirebaseKeyStringToDateTime(sDate + "" +
+                                                                                " 00:00:00"));
                                                                 //x  = sDate ;
                                                                 max_y = Math.max(y_Nach, Math.max(y_Vor, max_y));
-                                                                min_y = Math.min(y_Nach, Math.min(min_y, y_Nach));
+                                                                min_y = Math.min(y_Nach, Math.min(min_y, y_Vor));
                                                                 xAXES.add(x);
                                                                 yAXES_Vor.add(new Entry(y_Vor, j));
                                                                 yAXES_Nach.add(new Entry(y_Nach, j));
@@ -244,47 +278,47 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                         }
 
                                                         if (xAXES.size() != 0) {
-
+                                                            // set the datasets of our chart
                                                             ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
-
-
-                                                            LineDataSet lineDataSet1 = new LineDataSet(yAXES_Nach, "Nach dem Training");
+                                                            LineDataSet lineDataSet1 = new LineDataSet(yAXES_Nach,
+                                                                    "Nach dem Training");
                                                             lineDataSet1.setDrawCircles(false);
                                                             lineDataSet1.setColor(Color.BLUE);
-
-                                                            LineDataSet lineDataSet2 = new LineDataSet(yAXES_Vor, "Vor dem Training");
+                                                            LineDataSet lineDataSet2 = new LineDataSet(yAXES_Vor,
+                                                                    "Vor dem Training");
                                                             lineDataSet2.setDrawCircles(false);
                                                             lineDataSet2.setColor(Color.RED);
-
-
                                                             lineDataSets.add(lineDataSet2);
                                                             lineDataSets.add(lineDataSet1);
 
                                                             lineChart.invalidate();
-                                                            //lineChart.setVisibleYRangeMaximum(3f,YAxis.AxisDependency.LEFT);
-                                                            //lineChart.getXAxis().setLabelsToSkip(0);
+                                                            // set the visual properties of the chart
                                                             lineChart.getAxisLeft().resetAxisMinValue();
-                                                            lineChart.getAxisLeft().setAxisMinValue((float) Math.floor(min_y) - 0.5f);
-                                                            lineChart.getAxisLeft().setAxisMaxValue((float) Math.ceil(max_y) + 0.5f);
+                                                            lineChart.getAxisLeft().setAxisMinValue((float) Math
+                                                                    .floor(min_y) - 1f);
+                                                            lineChart.getAxisLeft().setAxisMaxValue((float) Math.ceil
+                                                                    (max_y) + 1f);
                                                             lineChart.getAxisRight().setTextColor(Color.WHITE);
                                                             lineChart.setExtraLeftOffset(15);
+                                                            lineChart.setExtraRightOffset(10);
                                                             lineChart.setData(new LineData(xAXES, lineDataSets));
                                                             lineChart.setDragEnabled(true);
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
 
-                                                            //lineChart.setVisibleXRangeMaximum(65f);
-
-
                                                         }
+                                                        // after all the data process has been done
                                                         // close the progress dialog
                                                         pd.dismiss();
 
+
                                                     }
 
-                @Override
+                                                    @Override
+
                                                     public void onCancelled(FirebaseError firebaseError) {
+
 
                                                     }
                                                 }
@@ -295,7 +329,16 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
 
     }
 
-    protected void computeScores(final Date Startdate, final Date EndDate, final LineChart lineChart, final String ReportName, final String legend) {
+    /**
+     * @param Startdate  set that start interval for the data. Set this to null if you want all data be displayed
+     * @param EndDate
+     * @param lineChart
+     * @param ReportName the key of the value that should be calculated in the database
+     * @param legend
+     */
+
+    protected void computeScores(final Date Startdate, final Date EndDate, final LineChart lineChart, final String
+            ReportName, final String legend) {
         try {
             // first show the progress dialog
             pd = new ProgressDialog(this);
@@ -305,7 +348,8 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
             // then run
             final ArrayList<String> xAXES = new ArrayList<>();
             final ArrayList<Entry> yAXES = new ArrayList<>();
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() + "/Diary/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
+                    "/Diary/");
             final Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -321,8 +365,10 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                         int j = 0;
                                                         //final String sDate = dataSnapshot.getKey();
 
-                                                        // dataSnapshot.getKey() declares which strategy the notification belongs to (Stimmungsabgabe....)
-                                                        // the child.key of dataSnapshop declare the unique datetime of the notification
+                                                        // dataSnapshot.getKey() declares which strategy the
+                                                        // notification belongs to (Stimmungsabgabe....)
+                                                        // the child.key of dataSnapshop declare the unique datetime
+                                                        // of the notification
                                                         for (DataSnapshot child : dataSnapshot.getChildren()) {
                                                             // Here I get the time
                                                             final String sDate = child.getKey();// Date
@@ -334,10 +380,11 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                                 final String sTime = child2L.getKey();
 
                                                                 // Now convert the string date to real date
-                                                                d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime(sDate + " " + sTime);
-                                                                if (!d.before(Startdate) && !d.after(EndDate)) {
+                                                                d = DAL_Utilities.ConvertFirebaseKeyStringToDateTime
+                                                                        (sDate + " " + sTime);
+                                                                if (Startdate == null || (!d.before(Startdate) && !d
+                                                                        .after(EndDate))) {
                                                                     i++;
-
 
                                                                     // create the object and insert it in the list
                                                                     for (DataSnapshot child4L : child2L.getChildren()) {
@@ -353,7 +400,9 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             if (flag) {
                                                                 y = y / i;
                                                                 // Now we have the days
-                                                                x = DAL_Utilities.ConvertDateToString(DAL_Utilities.ConvertFirebaseKeyStringToDateTime(sDate + " 00:00:00"));
+                                                                x = DAL_Utilities.ConvertDateToString(DAL_Utilities
+                                                                        .ConvertFirebaseKeyStringToDateTime(sDate + "" +
+                                                                                " 00:00:00"));
                                                                 //x  = sDate ;
                                                                 max_y = Math.max(y, max_y);
                                                                 min_y = Math.min(min_y, y);
@@ -368,40 +417,39 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
 
                                                         if (xAXES.size() != 0) {
 
+                                                            // set the datasets of our chart
                                                             ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
-
-
                                                             LineDataSet lineDataSet2 = new LineDataSet(yAXES, legend);
                                                             lineDataSet2.setDrawCircles(false);
                                                             lineDataSet2.setColor(Color.RED);
-
-
                                                             lineDataSets.add(lineDataSet2);
 
                                                             lineChart.invalidate();
-                                                            //lineChart.setVisibleYRangeMaximum(3f,YAxis.AxisDependency.LEFT);
-                                                            //lineChart.getXAxis().setLabelsToSkip(0);
+
+                                                            // set the visual properties of the chart
                                                             lineChart.getAxisLeft().resetAxisMinValue();
-                                                            lineChart.getAxisLeft().setAxisMinValue((float) Math.floor(min_y) - 0.5f);
-                                                            lineChart.getAxisLeft().setAxisMaxValue((float) Math.ceil(max_y) + 0.5f);
+                                                            lineChart.getAxisLeft().setAxisMinValue((float) Math
+                                                                    .floor(min_y) - 0.5f);
+                                                            lineChart.getAxisLeft().setAxisMaxValue((float) Math.ceil
+                                                                    (max_y) + 0.5f);
                                                             lineChart.getAxisRight().setTextColor(Color.WHITE);
                                                             lineChart.setExtraLeftOffset(15);
+                                                            lineChart.setExtraRightOffset(10);
                                                             lineChart.setData(new LineData(xAXES, lineDataSets));
                                                             lineChart.setDragEnabled(true);
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
 
-                                                            //lineChart.setVisibleXRangeMaximum(65f);
-
 
                                                         }
+                                                        // after all the data process has been done
                                                         // close the progress dialog
                                                         pd.dismiss();
 
                                                     }
 
-                @Override
+                                                    @Override
                                                     public void onCancelled(FirebaseError firebaseError) {
 
                                                     }

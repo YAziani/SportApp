@@ -50,8 +50,10 @@ public class TbReportContent extends TabFragment{
 
     View view;
     ListView listView;
-    List<Report> reports;
-    RecyclerView rv;
+    List<Report> reportsStimmung;
+    List<Report> reportsFitness;
+    RecyclerView rvStimmung;
+    RecyclerView rvfitness;
 
     @Override
 
@@ -64,17 +66,29 @@ public class TbReportContent extends TabFragment{
         Report r3 = new Report(getString( R.string.differenzwert_dgr_ttl), getString( R.string.differenzwert_dgr_text),R.mipmap.ic_report_orange);
         Report r4 = new Report(getString( R.string.punkteproWoche_dgr_ttl), getString( R.string.punkteproWoche_dgr_text),R.mipmap.ic_report_rosa);
         Report r5 = new Report(getString( R.string.fitnessfragen_dgr_ttl), getString(R.string.fittnessfragen_dgr_text),R.mipmap.ic_report_blue);
-        Report r6 = new Report(getString( R.string.bsa_dgr_ttl), getString(R.string.bsa_dgr_text),R.mipmap.ic_report_red);
-        reports =new LinkedList<Report>(Arrays.asList(r1,r2,r3,r4,r5,r6));
+        Report r6 = new Report(getString( R.string.fitnessfragen_dgr_ttl_gesamt), getString(R.string
+                .fittnessfragen_gsmt_dgr_text),R.mipmap.ic_report_blue_gesamt);
+        Report r7 = new Report(getString( R.string.bsa_dgr_ttl), getString(R.string.bsa_dgr_text),R.mipmap
+                .ic_report_red);
+        Report r8 = new Report(getString( R.string.bsa_dgr_ttl_gesamt), getString(R.string.bsa_gsmt_dgr_text),R.mipmap
+                .ic_report_red_gesamt);
+        reportsStimmung =new LinkedList<Report>(Arrays.asList(r1,r2,r3));
+        reportsFitness =new LinkedList<Report>(Arrays.asList(r4,r5,r6,r7,r8));
 
 
-        rv = (RecyclerView)view.findViewById(R.id.recycler_report);
+        rvStimmung = (RecyclerView)view.findViewById(R.id.recycler_report_stimmung);
 
         LinearLayoutManager lm = new LinearLayoutManager(getContext());
-        rv.setLayoutManager(lm);
+        rvStimmung.setLayoutManager(lm);
         // just create a list of tasks
-        rv.setAdapter(new ReportAdapter(reports, this));
+        rvStimmung.setAdapter(new ReportAdapter(reportsStimmung, this));
 
+        rvfitness = (RecyclerView)view.findViewById(R.id.recycler_report_other);
+
+        LinearLayoutManager lm2 = new LinearLayoutManager(getContext());
+        rvfitness.setLayoutManager(lm2);
+        // just create a list of tasks
+        rvfitness.setAdapter(new ReportAdapter(reportsFitness, this));
         return view;
     }
 }

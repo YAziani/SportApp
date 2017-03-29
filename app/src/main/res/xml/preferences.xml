@@ -1,13 +1,20 @@
 <?xml version="1.0" encoding="utf-8"?>
 <PreferenceScreen xmlns:android="http://schemas.android.com/apk/res/android">
     <PreferenceCategory
-        android:title="Stimmungsabfrage"
+        android:title="@string/abstand_stimmungsabfrage"
         android:key="pref_key_storage_settings">
 
 
         <ListPreference
-            android:title="@string/abstand_stimmungsabfrage"
-            android:key="lstStmabfrageAbstand"
+            android:title="@string/abstand_stimmungsabfrage_v"
+            android:key="lstStmabfrageAbstand_v"
+            android:defaultValue="3"
+            android:summary="%s"
+            android:entries="@array/ArrrayStmabfrageAbstand"
+            android:entryValues="@array/ArrrayStmabfrageAbstandeValue" />
+        <ListPreference
+            android:title="@string/abstand_stimmungsabfrage_n"
+            android:key="lstStmabfrageAbstand_n"
             android:defaultValue="3"
             android:summary="%s"
             android:entries="@array/ArrrayStmabfrageAbstand"

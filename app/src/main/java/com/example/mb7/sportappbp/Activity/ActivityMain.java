@@ -49,7 +49,8 @@ import static com.example.mb7.sportappbp.R.id.container;
 public class ActivityMain extends AppCompatActivity {
 
 
-    /** sdf sd
+    /**
+     * sdf sd
      * The {@link android.support.v4.view.PagerAdapter} that will provide
      * fragments for each of the sections. We use a
      * {@link FragmentPagerAdapter} derivative, which will keep every
@@ -62,25 +63,24 @@ public class ActivityMain extends AppCompatActivity {
     private ViewPager mViewPager;
     private TabLayout tabLayout;
     private final String mainColor = "#2648FF";
-    private   static  User mainUser;
+    private static User mainUser;
     private SharedPreferences preferences;
 
 
-    public static User getMainUser(Context context){
-        if (mainUser == null)
-        {
+    public static User getMainUser(Context context) {
+        if (mainUser == null) {
             SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
-            ActivityMain.mainUser = User.Create( preferences.getString("logedIn",""));
+            ActivityMain.mainUser = User.Create(preferences.getString("logedIn", ""));
             return mainUser;
-        }
-        else
-            return  mainUser;
+        } else
+            return mainUser;
     }
-    public User getMainUser(){
+
+    public User getMainUser() {
         return getMainUser(this);
     }
 
-    private final int  LOCATION_PERMISSION_REQUEST = 1440;
+    private final int LOCATION_PERMISSION_REQUEST = 1440;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -96,8 +96,8 @@ public class ActivityMain extends AppCompatActivity {
         preferences = PreferenceManager.getDefaultSharedPreferences(getApplicationContext());
 
         // check settings for initialization
-        if(!preferences.getBoolean("initialized",false)) {
-            preferences.edit().putLong("firstDay",Calendar.getInstance().getTimeInMillis()).apply();
+        if (!preferences.getBoolean("initialized", false)) {
+            preferences.edit().putLong("firstDay", Calendar.getInstance().getTimeInMillis()).apply();
             Intent settingInitializerIntent = new Intent(this, ActivitySettingInitializer.class);
             startActivity(settingInitializerIntent);
             // choose motivation methods depending on administrator settings
@@ -107,21 +107,22 @@ public class ActivityMain extends AppCompatActivity {
         // load intensifier plan for notifications
         DAL_Allocation.getIntensifier(this);
 
-        if(preferences.getString("allocatedMethods","").equals("")) {
+        if (preferences.getString("allocatedMethods", "").equals("")) {
             // choose motivation methods depending on administrator settings
             DAL_Allocation.getAllocation(this);
         }
 
         preferences.edit().putString("allocatedMethods",
-                "bsaQuestionary;fitnessQuestionary;groupactive;moodquery;motivationimages;motivationtexts;trainingreminder"
-                ).apply();
+                "bsaQuestionary;fitnessQuestionary;groupactive;moodquery;motivationimages;motivationtexts;" +
+                        "trainingreminder"
+        ).apply();
 
         // show login if user is not logged in
-        if(preferences.getString("logedIn","").equals("")) {
-            Intent loginIntent = new Intent(this,ActivityLogin.class);
+        if (preferences.getString("logedIn", "").equals("")) {
+            Intent loginIntent = new Intent(this, ActivityLogin.class);
             startActivity(loginIntent);
-        }else {
-            mainUser = User.Create(preferences.getString("logedIn",""));
+        } else {
+            mainUser = User.Create(preferences.getString("logedIn", ""));
         }
 
         Toolbar toolbar = (Toolbar) findViewById(R.id.toolbar);
@@ -129,7 +130,7 @@ public class ActivityMain extends AppCompatActivity {
 
         // Create the adapter that will return a fragment for each of the three
         // primary sections of the activity.
-        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(),this);
+        mSectionsPagerAdapter = new SectionsPagerAdapter(getSupportFragmentManager(), this);
 
         // Set up the ViewPager with the sections adapter.
         mViewPager = (ViewPager) findViewById(container);
@@ -149,8 +150,8 @@ public class ActivityMain extends AppCompatActivity {
     public void setAlarm() {
 
         // Define a time value of 5 seconds
-        Long alertTime = new GregorianCalendar().getTimeInMillis()+5*1000;
-        Integer interval = 1000*10;
+        Long alertTime = new GregorianCalendar().getTimeInMillis() + 5 * 1000;
+        Integer interval = 1000 * 10;
 
         // Define our intention of executing AlertReceiver
         Intent alertIntent = new Intent(this, AlertReceiver.class);
@@ -162,7 +163,8 @@ public class ActivityMain extends AppCompatActivity {
         // set() schedules an alarm to trigger
         // Trigger for alertIntent to fire in 5 seconds
         // FLAG_UPDATE_CURRENT : Update the Intent if active
-        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, new GregorianCalendar().getTimeInMillis(),interval, PendingIntent.getBroadcast(this, 1, alertIntent,
+        alarmManager.setRepeating(AlarmManager.RTC_WAKEUP, new GregorianCalendar().getTimeInMillis(), interval,
+                PendingIntent.getBroadcast(this, 1, alertIntent,
                 PendingIntent.FLAG_UPDATE_CURRENT));
 /*        alarmManager.set(AlarmManager.RTC_WAKEUP, alertTime,
                 PendingIntent.getBroadcast(this, 1, alertIntent,
@@ -171,8 +173,7 @@ public class ActivityMain extends AppCompatActivity {
     }
 
     // Set all the properties of the main TabLayout in the main page here
-    private void  setTabLayout()
-    {
+    private void setTabLayout() {
         this.getResources().getColor(R.color.colorMain);
 
 
@@ -180,16 +181,15 @@ public class ActivityMain extends AppCompatActivity {
         tabLayout.setupWithViewPager(mViewPager);
         tabLayout.setSelectedTabIndicatorColor(Color.parseColor(mainColor));
         tabLayout.setSelectedTabIndicatorHeight((int) (5 * getResources().getDisplayMetrics().density));
-        tabLayout.setTabTextColors(Color.parseColor("#808080"),Color.parseColor(mainColor) );
+        tabLayout.setTabTextColors(Color.parseColor("#808080"), Color.parseColor(mainColor));
     }
-
 
 
     @Override
     public boolean onCreateOptionsMenu(Menu menu) {
         // Inflate the menu; this adds items to the action bar if it is present.
         getMenuInflater().inflate(R.menu.menu_main, menu);
-        MenuItem item= menu.findItem(R.id.action_settings);
+        MenuItem item = menu.findItem(R.id.action_settings);
         return true;
     }
 
@@ -197,9 +197,8 @@ public class ActivityMain extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
         int id = item.getItemId();
-        if (id == R.id.action_settings)
-        {
-            startActivity(new Intent(this,ActivitySettings.class));
+        if (id == R.id.action_settings) {
+            startActivity(new Intent(this, ActivitySettings.class));
             return true;
         }
         return super.onContextItemSelected(item);
@@ -214,7 +213,7 @@ public class ActivityMain extends AppCompatActivity {
         int id = item.getItemId();
         //noinspection SimplifiableIfStatement
         if (id == R.id.action_settings) {
-            startActivity(new Intent(this,ActivitySettings.class));
+            startActivity(new Intent(this, ActivitySettings.class));
             return true;
         }
         return super.onOptionsItemSelected(item);
@@ -242,23 +241,22 @@ public class ActivityMain extends AppCompatActivity {
             PlaceholderFragment fragment = new PlaceholderFragment();
             Bundle args = new Bundle();
             TabFragment tabFragment = null;
-            switch(sectionNumber)
-            {
+            switch (sectionNumber) {
                 case 1:
                     tabFragment = new TbTaskCategContent();
-                    tabFragment.Initialize(activity,"Aufgaben");
+                    tabFragment.Initialize(activity, "Aufgaben");
                     return tabFragment;
                 case 2:
                     tabFragment = new TbNotificationContent();
-                    tabFragment.Initialize(activity,"Notifikationen");
+                    tabFragment.Initialize(activity, "Notifikationen");
                     return tabFragment;
                 case 3:
                     tabFragment = new TbReportContent();
-                    tabFragment.Initialize(activity,"Berichte");
+                    tabFragment.Initialize(activity, "Berichte");
                     return tabFragment;
                 default:
                     tabFragment = new TbNotificationContent();
-                    tabFragment.Initialize(activity,"Notifikationen");
+                    tabFragment.Initialize(activity, "Notifikationen");
                     return tabFragment;
             }
         }
@@ -280,12 +278,13 @@ public class ActivityMain extends AppCompatActivity {
     public class SectionsPagerAdapter extends FragmentPagerAdapter {
 
         List<TabFragment> fragments = new ArrayList<TabFragment>();
-        Activity activity ;
+        Activity activity;
+
         public SectionsPagerAdapter(FragmentManager fm, Activity act) {
             super(fm);
             activity = act;
             for (int i = 1; i < 4; i++) {
-                TabFragment tabFragment = PlaceholderFragment.newInstance(i,activity);
+                TabFragment tabFragment = PlaceholderFragment.newInstance(i, activity);
                 fragments.add(tabFragment);
             }
         }
@@ -308,8 +307,7 @@ public class ActivityMain extends AppCompatActivity {
             if (!fragments.isEmpty() && fragments.size() >= position + 1) {
                 //Log.d("Title", fragments.get(position).getTitle());
                 return fragments.get(position).getTitle();
-            }
-            else
+            } else
                 return "No Value";
         }
     }
@@ -317,26 +315,23 @@ public class ActivityMain extends AppCompatActivity {
     @Override
     public void onNewIntent(Intent intent) {
         // open new activity at the specified tab
-        int startTab = intent.getIntExtra("startTab",-1);
-        int notificationId = intent.getIntExtra("notificationId",-1);
+        int startTab = intent.getIntExtra("startTab", -1);
+        int notificationId = intent.getIntExtra("notificationId", -1);
 
         // close notification
-        if(notificationId != -1) {
+        if (notificationId != -1) {
             ((NotificationManager) this.getSystemService(Context.NOTIFICATION_SERVICE)).cancel(notificationId);
         }
 
         // open tab
-        if(startTab != -1 ) {
+        if (startTab != -1) {
             mViewPager.setCurrentItem(startTab);
             // refresh page
-            if(mSectionsPagerAdapter.getItem(startTab) instanceof TbNotificationContent) {
+            if (mSectionsPagerAdapter.getItem(startTab) instanceof TbNotificationContent) {
                 mSectionsPagerAdapter.getItem(startTab).onStart();
             }
         }
     }
-
-
-
 
 
 }

@@ -41,20 +41,6 @@ public class ObserverChallengeInvitation extends Observer {
         shouldNotify();
     }
 
-    // get the set Abstand in the Einstellungen
-    private  int getAbstand()
-    {
-        try{
-            String abstand = preferences.getString("lstStmabfrageAbstand","0");
-            return (Integer.parseInt(abstand)) *10;
-        }
-        catch ( Exception ex)
-        {
-            Log.e("Error",ex.getMessage());
-            return 0;
-        }
-
-    }
 
 
     // get the current time in minutes

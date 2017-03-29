@@ -21,9 +21,6 @@ import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
-import com.example.mb7.sportappbp.Fragments.TabFragment;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
 import java.util.List;

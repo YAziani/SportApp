@@ -2,10 +2,7 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.app.ProgressDialog;
 import android.content.Intent;
-import android.content.SharedPreferences;
 import android.graphics.drawable.Drawable;
-import android.preference.PreferenceManager;
-import android.provider.ContactsContract;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.view.Menu;
@@ -129,9 +126,6 @@ public class ActivityMotivationMessage extends AppCompatActivity {
                                                StorageReference model,
                                                Target<GlideDrawable> target,
                                                boolean isFirstResource) {
-                        imageView0.setImageDrawable(drawable);
-                        imageView1.setImageDrawable(drawable);
-                        imageView1.setAlpha(0.5f);
                         ActivityMotivationMessage.this.cancel();
                         return true;
                     }

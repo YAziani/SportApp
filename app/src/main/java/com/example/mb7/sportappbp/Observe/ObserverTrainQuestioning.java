@@ -12,7 +12,6 @@ import android.support.v4.app.NotificationCompat;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityTrainQuestioning;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
 /**
@@ -33,7 +32,7 @@ public class ObserverTrainQuestioning extends Observer {
         } else {
             // check if time to notify is due
             if (!getLastTrainingTimeString(context).equals("")
-                    && MotivationMethod.timeTillTraining(getLastTrainingTimeString(context)) == -59) {
+                    && Observer.timeTillTraining(getLastTrainingTimeString(context)) == -59) {
                 sendNotification(
                         context,
                         "Trainingsabfrage",

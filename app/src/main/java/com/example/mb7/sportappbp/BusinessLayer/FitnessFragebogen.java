@@ -2,10 +2,6 @@ package com.example.mb7.sportappbp.BusinessLayer;
 
 import java.io.Serializable;
 
-/**
- * Created by Felix on 01.03.2017.
- */
-
 public class FitnessFragebogen implements Serializable {
     public String Date;
     public String FirebaseDate;
@@ -14,7 +10,6 @@ public class FitnessFragebogen implements Serializable {
     public Integer Score_Koordination;
     public Integer Score_Beweglichkeit;
     public Integer Score_Gesamt;
-
 
     public Integer vom_Stuhl_aufstehen;
     public Integer Einkaufskorb_tragen;

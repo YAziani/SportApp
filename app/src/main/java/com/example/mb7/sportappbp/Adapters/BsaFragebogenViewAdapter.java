@@ -12,9 +12,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 
 import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
-import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
-import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.R;
 
 import java.util.List;
@@ -22,7 +20,6 @@ import java.util.List;
 /**
  * Created by Felix on 26.03.2017.
  */
-
 public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogenViewAdapter.FragebogenHolder> {
     List<Fragebogen> fragebogenList;
     Activity context;
@@ -35,6 +32,11 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
         ImageView imageView;
         public View view;
 
+        /**
+         * Instantiates a new Fragebogen holder.
+         *
+         * @param itemView the item view
+         */
         FragebogenHolder(View itemView) {
             super(itemView);
             txtTitle = (TextView) itemView.findViewById(R.id.txtDatebsasfragebogen);
@@ -42,9 +44,14 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
             imageView = (ImageView) itemView.findViewById(R.id.imgViewBsaFragebogen);
             view = itemView;
         }
-
     }
 
+    /**
+     * Instantiates a new Bsa fragebogen view adapter.
+     *
+     * @param fragebogenList the fragebogen list
+     * @param context the context
+     */
     public BsaFragebogenViewAdapter(List<Fragebogen> fragebogenList, Activity context) {
         this.fragebogenList = fragebogenList;
         this.context = context;
@@ -60,7 +67,6 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
         View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_bsafragebogen, viewGroup, false);
         BsaFragebogenViewAdapter.FragebogenHolder bvh = new BsaFragebogenViewAdapter.FragebogenHolder(v);
         return bvh;
-
     }
 
     @Override
@@ -78,34 +84,23 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
         holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
-                // reset the previous item as unselected if exists
                 if (selectedPosition != -1)
                     notifyItemChanged(selectedPosition);
-                // set the new item as selected
                 selectedPosition = position;
                 notifyItemChanged(selectedPosition);
 
-
                 return false;
             }
-
         });
         holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
-                // if an item is longclicked -> exit longcligck state
                 if (selectedPosition != -1) {
                     notifyItemChanged(selectedPosition);
                     selectedPosition = -1;
-
                 } else {
-                    // if nothing is longclicked -> go to the ActivityStimmung of the selected item
                     Intent open = new Intent(context, ActivityFragebogen.class);
-                    // insert the date of the notificatino in the extra which is the unique field to delete the
-                    // notification from the database
-
-                    // pass the clicked stimmungsangabe to the activity
                     Fragebogen fragebogen = fragebogenList.get(position);
                     open.putExtra(context.getString(R.string.aktivitaetsfragebogen), fragebogen);
                     context.startActivity(open);
@@ -114,6 +109,9 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
         });
     }
 
+    /**
+     * @return the selected object
+     */
     public Fragebogen getSelectedObject() {
         return fragebogenList.get(selectedPosition);
     }
@@ -122,5 +120,4 @@ public class BsaFragebogenViewAdapter extends RecyclerView.Adapter<BsaFragebogen
     public void onAttachedToRecyclerView(RecyclerView recyclerView) {
         super.onAttachedToRecyclerView(recyclerView);
     }
-
 }

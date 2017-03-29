@@ -2,7 +2,6 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.content.Context;
 import android.content.Intent;
-import android.graphics.Color;
 import android.graphics.Typeface;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
@@ -13,7 +12,6 @@ import android.os.Bundle;
 import android.text.Spannable;
 import android.text.SpannableString;
 import android.text.TextUtils;
-import android.text.style.BulletSpan;
 import android.text.style.ForegroundColorSpan;
 import android.text.style.RelativeSizeSpan;
 import android.text.style.StyleSpan;
@@ -110,11 +108,11 @@ public class ActivityLogin extends AppCompatActivity {
      */
     private void attemptLogin() {
 
+        // check if database is available
         if (!isNetworkAvailable()) {
             Toast.makeText(this, getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (!validSnapshot) {
             Toast.makeText(this, getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
             DAL_RegisteredUsers.getRegisteredUsers(this);
@@ -187,11 +185,11 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     private void attemptRegister() {
+        // check if database is available
         if (!isNetworkAvailable()) {
             Toast.makeText(this, getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
             return;
         }
-
         if (!validSnapshot) {
             Toast.makeText(this, getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
             DAL_RegisteredUsers.getRegisteredUsers(this);
@@ -322,11 +320,6 @@ public class ActivityLogin extends AppCompatActivity {
         @Override
         protected void onCancelled() {
         }
-    }
-
-    @Override
-    public void onBackPressed() {
-        return;
     }
 
     private boolean isNetworkAvailable() {

@@ -26,14 +26,9 @@ import com.example.mb7.sportappbp.Activity.Activity_Stimmungsbarometer_rpt;
 import com.example.mb7.sportappbp.Activity.Activity_Trainings_rpt;
 import com.example.mb7.sportappbp.Activity.Activity_bsa_gesamt_rpt;
 import com.example.mb7.sportappbp.Activity.Activity_bsa_rpt;
-import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.BusinessLayer.Report;
-import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
-
-import java.util.ArrayList;
 import java.util.List;
 
 

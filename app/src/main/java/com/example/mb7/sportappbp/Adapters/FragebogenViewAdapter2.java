@@ -15,8 +15,6 @@ import java.util.ArrayList;
 /**
  * Created by Felix on 19.01.2017.
  */
-
-
 public class FragebogenViewAdapter2 extends BaseAdapter {
     private Activity _context;
     private ArrayList<String> antworten;
@@ -25,6 +23,11 @@ public class FragebogenViewAdapter2 extends BaseAdapter {
     private String subject;
     private Integer selectedIndex = -1;
 
+    /**
+     * Instantiates a new Fragebogen view adapter 2.
+     *
+     * @param context
+     */
     public FragebogenViewAdapter2(Activity context) {
         antworten = new ArrayList<String>();
         antworten.add(context.getString(R.string.Keine));
@@ -33,7 +36,6 @@ public class FragebogenViewAdapter2 extends BaseAdapter {
         antworten.add(context.getString(R.string.Viel));
 
         _context = context;
-
     }
 
     public void setAntworten(Fragebogen fragebogen, String subject) {
@@ -42,15 +44,19 @@ public class FragebogenViewAdapter2 extends BaseAdapter {
     }
 
     @Override
-    public Object getItem(int position) {
-        return antworten.get(position);
-    }
+    public Object getItem(int position) {return antworten.get(position);}
 
     @Override
     public long getItemId(int position) {
         return position;
     }
 
+    /**
+     * Setze Selektiertes Listview Element von blau auf grün
+     * @param position
+     * @param convertView
+     * @param parent
+     */
     @Override
     public View getView(int position, View convertView, ViewGroup parent) {
         View view = convertView;
@@ -70,10 +76,20 @@ public class FragebogenViewAdapter2 extends BaseAdapter {
         return view;
     }
 
+    /**
+     * Set selected index.
+     *
+     * @param position the position
+     */
     public void setSelectedIndex(Integer position) {
         selectedIndex = position;
     }
 
+    /**
+     * Gets selected index.
+     *
+     * @return the selected index
+     */
     public Integer getSelectedIndex() {
         return selectedIndex;
     }

@@ -23,7 +23,6 @@ import android.support.v4.content.ContextCompat;
 
 import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityTrainQuestioning;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
 import java.io.IOException;
@@ -109,7 +108,7 @@ public class ObserverTrainingReminder extends Observer {
                                 context.getString(R.string.trNotiTitle),
                                 context.getString(R.string.trNotiSmallTitle1)
                                         + " " +
-                                        MotivationMethod.timeTillTraining(getNextTrainingTimeString(context))
+                                        Observer.timeTillTraining(getNextTrainingTimeString(context))
                                         + " " + context.getString(R.string.trNotiSmallTitle2),
                                 R.mipmap.ic_tagebuch_eintrag);
                         preferences.edit().putBoolean("reminderNotified", true).apply();
@@ -321,7 +320,7 @@ public class ObserverTrainingReminder extends Observer {
 
         // time needed to get to the studio
         int timeNeeded = getTimeToStudio();
-        int timeTillTraining = MotivationMethod.timeTillTraining(trainingStartTime);
+        int timeTillTraining = Observer.timeTillTraining(trainingStartTime);
 
         // check if one could wait another period before user has to go
         return timeTillTraining > 1 && timeTillTraining <= timeNeeded;

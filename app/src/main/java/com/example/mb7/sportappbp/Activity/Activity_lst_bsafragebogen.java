@@ -1,8 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
-import android.app.AlertDialog;
 import android.app.ProgressDialog;
-import android.content.DialogInterface;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
@@ -17,9 +15,7 @@ import android.view.View;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Adapters.BsaFragebogenViewAdapter;
-import com.example.mb7.sportappbp.Adapters.StimmungsAngabeViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
-import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
@@ -28,23 +24,24 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
-
 /**
  * Created by Felix on 26.03.2017.
  */
-
 public class Activity_lst_bsafragebogen extends AppCompatActivity {
 
     Activity_lst_bsafragebogen activityLstBsaFragebogen = null;
     List<Fragebogen> FragebogenList;
-    RecyclerView rv;
-    Activity_lst_bsafragebogen activity_lst_bsafragebogen = this;
-    ProgressDialog pd;
 
+    RecyclerView rv;
+
+    Activity_lst_bsafragebogen activity_lst_bsafragebogen = this;
+
+    ProgressDialog pd;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -84,6 +81,7 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
             case R.id.icon_add:
                 InsertFragebogen();
                 break;
+            default: throw new InvalidParameterException("The item is not declared!");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -96,13 +94,13 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
                 deleteFragebogen(((BsaFragebogenViewAdapter) rv.getAdapter()).getSelectedObject());
                 Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
                 break;
-
+            default: throw new InvalidParameterException("The menu item is not declared!");
         }
         return super.onContextItemSelected(item);
     }
 
     /**
-     * delete a Fragebogen
+     * Removes "BSAFragebogen" in Firebase
      *
      * @param fragebogen the object to delete
      */
@@ -112,19 +110,15 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
         ref.child(fragebogen.FirebaseDate).removeValue();
     }
 
-
-    /**
-     * open Fragebogen to insert a new one
-     */
     private void InsertFragebogen() {
 
         Intent open = new Intent(activity_lst_bsafragebogen, ActivityFragebogen.class);
-        //open.putExtra("Vor", "1");
         startActivity(open);
-
     }
 
-
+    /**
+     * Shows ProgressDialog until "readFragebogen()" is ready
+     */
     @Override
     protected void onStart() {
         super.onStart();
@@ -134,6 +128,9 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
         readFragebogen();
     }
 
+    /**
+     * Reads all "BsaFragebogen" out of Firebase
+     */
     void readFragebogen() {
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
@@ -142,62 +139,41 @@ public class Activity_lst_bsafragebogen extends AppCompatActivity {
 
             root.addValueEventListener(new ValueEventListener() {
 
-                                           // Hier kriegst du den Knoten date zurueck
-                                           @Override
-                                           public void onDataChange(DataSnapshot dataSnapshot) {
-                                               //final String sDate = dataSnapshot.getKey();
+                @Override
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    FragebogenList = new LinkedList<Fragebogen>();
 
-                                               // dataSnapshot.getKey() declares which strategy the notification
-                                               // belongs to (BSAFragebogen..)
-                                               FragebogenList = new LinkedList<Fragebogen>();
-                                               // the child.key of dataSnapshop declare the unique datetime of the
-                                               // notification
-                                               for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                                   // Here I get the time
-                                                   final String sDate = child.getKey();// Date
+                    for (DataSnapshot child : dataSnapshot.getChildren()) {
 
-                                                   // Here I have V or N
+                        final String sDate = child.getKey();
 
-                                                   // create the object and insert it in the list
+                        Fragebogen fragebogen = child.getValue(Fragebogen.class);
+                        fragebogen.FirebaseDate = sDate;
+                        fragebogen.Date = DAL_Utilities.ConvertFirebaseStringNoSpaceToDateString(sDate);
+                        FragebogenList.add(fragebogen);
+                    }
 
 
-                                                   Fragebogen fragebogen = child.getValue(Fragebogen.class);
-                                                   fragebogen.FirebaseDate = sDate;
-                                                   fragebogen.Date = DAL_Utilities
-                                                           .ConvertFirebaseStringNoSpaceToDateString(sDate);
-                                                   FragebogenList.add(fragebogen);
-                                               }
+                    if (FragebogenList != null) {
+                        Collections.reverse(FragebogenList);
 
+                        LinearLayoutManager lm = new LinearLayoutManager(activityLstBsaFragebogen);
+                        rv.setLayoutManager(lm);
 
-                                               if (FragebogenList != null) {
-                                                   // reverse the list to get the newest first
-                                                   Collections.reverse(FragebogenList);
-                                                   // fill the recycler
-                                                   LinearLayoutManager lm = new LinearLayoutManager
-                                                           (activityLstBsaFragebogen);
-                                                   rv.setLayoutManager(lm);
-                                                   // just create a list of tasks
-                                                   rv.setAdapter(new BsaFragebogenViewAdapter(FragebogenList,
-                                                           activityLstBsaFragebogen));
-                                               }
+                        rv.setAdapter(new BsaFragebogenViewAdapter(FragebogenList, activityLstBsaFragebogen));
+                    }
 
+                    // close the progress dialog
+                    pd.dismiss();
+                }
 
-                                               // close the progress dialog
-                                               pd.dismiss();
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
 
-
-                                           }
-
-                                           @Override
-                                           public void onCancelled(FirebaseError firebaseError) {
-
-                                           }
-                                       }
-            );
+                }
+            });
         } catch (Exception ex) {
             Log.e("Exc", ex.getMessage());
         }
     }
-
-
 }

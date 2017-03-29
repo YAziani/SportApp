@@ -41,11 +41,26 @@ public class ObserverStimmungAngabe extends Observer{
         shouldNotifyAfter();
     }
 
-    // get the set Abstand in the Einstellungen
-    private  int getAbstand()
+    // get the set Abstand vor dem Training in the Einstellungen
+    private  int getAbstand_v()
     {
         try{
-            String abstand = preferences.getString("lstStmabfrageAbstand","0");
+            String abstand = preferences.getString("lstStmabfrageAbstand_v","0");
+            return (Integer.parseInt(abstand)) *10;
+        }
+        catch ( Exception ex)
+        {
+            Log.e("Error",ex.getMessage());
+            return 0;
+        }
+
+    }
+
+    // get the set Abstand nach dem Training in the Einstellungen
+    private  int getAbstand_n()
+    {
+        try{
+            String abstand = preferences.getString("lstStmabfrageAbstand_n","0");
             return (Integer.parseInt(abstand)) *10;
         }
         catch ( Exception ex)
@@ -76,7 +91,7 @@ public class ObserverStimmungAngabe extends Observer{
     private  boolean shouldNotifyBefore(){
 
         Integer nextTrDateInt = getNextTrainingTimeInteger(context);
-        int abstand = getAbstand();
+        int abstand = getAbstand_v();
         if (getMinutesofDate(new Date()) >=nextTrDateInt - abstand && getMinutesofDate(new Date()) < nextTrDateInt)
         {
             // we are in the interval where we should raise a notification
@@ -109,7 +124,7 @@ public class ObserverStimmungAngabe extends Observer{
     private  boolean shouldNotifyAfter(){
 
         Integer lastTrDateInt = getLastTrainingTime(context);
-        int abstand = getAbstand();
+        int abstand = getAbstand_n();
         if (getMinutesofDate(new Date()) >=lastTrDateInt + abstand &&  lastTrDateInt !=  0)
         {
             // we are in the interval where we should raise a notification

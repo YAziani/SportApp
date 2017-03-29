@@ -61,12 +61,12 @@ public class Activity_lst_Challenge extends AppCompatActivity {
 
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
-        Log.e("Oncreate","We have reached it");
-        if(extras!=null ) {
+        Log.e("Oncreate", "We have reached it");
+        if (extras != null) {
             // read the datetime as this is the unique value in the db for the notification
-            String notificationDate =(String) extras.get("NotificationDate");
-            if (notificationDate != null){
-                removeNofication(this,notificationDate);
+            String notificationDate = (String) extras.get("NotificationDate");
+            if (notificationDate != null) {
+                removeNofication(this, notificationDate);
             }
         }
 
@@ -81,8 +81,7 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-        if (v.getId() == R.id.recycler_challenge)
-        {
+        if (v.getId() == R.id.recycler_challenge) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_item_leave, menu);
         }
@@ -107,39 +106,39 @@ public class Activity_lst_Challenge extends AppCompatActivity {
                 startActivity(open);
                 break;
         }
-            return super.onOptionsItemSelected(item);
+        return super.onOptionsItemSelected(item);
     }
 
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        switch (item.getItemId())
-        {
+        switch (item.getItemId()) {
             case R.id.leaveItem:
-                deleteChallenge( ((ChallengeLstViewAdapter)rv.getAdapter()).getSelectedObject());
-                Toast.makeText(this,getString(R.string.erfolgreichgeloescht),Toast.LENGTH_SHORT).show();
+                deleteChallenge(((ChallengeLstViewAdapter) rv.getAdapter()).getSelectedObject());
+                Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
                 break;
 
         }
         return super.onContextItemSelected(item);
     }
 
-    void removeNofication(Context context, String notificationDate)
-    {
+    void removeNofication(Context context, String notificationDate) {
         // get the current user
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
 
         // build the current URL
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/Notifications/" );
-        ref.child(context.getString( R.string.Challenge)).child(notificationDate).removeValue();
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+                ("logedIn", "") + "/Notifications/");
+        ref.child(context.getString(R.string.Challenge)).child(notificationDate).removeValue();
 
     }
+
     /**
      * delete all reverences from user to challenge and the other way round
+     *
      * @param challenge the object to remove
      */
-    private void deleteChallenge(Challenge challenge)
-    {
+    private void deleteChallenge(Challenge challenge) {
         //// TODO: 26.03.2017 stuaryt ab
         challenge.RemoveUser(ActivityMain.getMainUser(this));
         strChallengeList.remove(challenge.getName());
@@ -151,20 +150,20 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     protected void onStart() {
         super.onStart();
         pd = new ProgressDialog(this);
-        pd.setMessage(getString( R.string.wird_geladen));
+        pd.setMessage(getString(R.string.wird_geladen));
         pd.show();
         loadChallenges();
     }
 
 
-    private void loadChallenges(){
-
+    private void loadChallenges() {
 
 
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
 
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName()+ "/Challenges/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
+                    "/Challenges/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -174,14 +173,14 @@ public class Activity_lst_Challenge extends AppCompatActivity {
                     challenges = new LinkedList<Challenge>();
 
 
-                    for(DataSnapshot name : dataSnapshot.getChildren()){
+                    for (DataSnapshot name : dataSnapshot.getChildren()) {
                         Challenge challenge = new Challenge();
                         challenge.setName(name.getKey());
 
-                        for(DataSnapshot childName : name.getChildren()){
+                        for (DataSnapshot childName : name.getChildren()) {
 
                             //start date
-                            if(childName.getKey().equals("startDate")){
+                            if (childName.getKey().equals("startDate")) {
                                 try {
                                     challenge.setStartDate(sdfDate.parse(childName.getValue().toString()));
                                 } catch (ParseException e) {
@@ -189,7 +188,7 @@ public class Activity_lst_Challenge extends AppCompatActivity {
                                 }
                             }
                             //set end date
-                            if(childName.getKey().equals("endDate")){
+                            if (childName.getKey().equals("endDate")) {
                                 try {
                                     challenge.setEndDate(sdfDate.parse(childName.getValue().toString()));
                                 } catch (ParseException e) {

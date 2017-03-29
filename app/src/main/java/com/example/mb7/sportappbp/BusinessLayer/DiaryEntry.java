@@ -19,38 +19,37 @@ public class DiaryEntry implements Serializable {
     public String sTime;
 
 
-
-
-
     /**
      * Constructor to create a diary entry
      */
     //String id, String date, String time
-    public DiaryEntry(){
+    public DiaryEntry() {
         exerciseList = new ArrayList<Exercise>();
     }
 
-    public ArrayList<Exercise> getExerciseList(){
+    public ArrayList<Exercise> getExerciseList() {
         return this.exerciseList;
     }
 
-    public void setDate(Date date){
+    public void setDate(Date date) {
         this.date = date;
     }
-    public void setExerciseList(ArrayList<Exercise> newList){
+
+    public void setExerciseList(ArrayList<Exercise> newList) {
         this.exerciseList = newList;
     }
+
     public void setTotalPoints(int totalPoints) {
         this.totalPoints = totalPoints;
     }
 
 
-
     /**
      * This method returns the date of the training
+     *
      * @return returns the date of the training as string
      */
-    public Date getDate(){
+    public Date getDate() {
         return this.date;
     }
 
@@ -67,105 +66,106 @@ public class DiaryEntry implements Serializable {
         }
         return result;
     }
+
     public int getTotalPoints() {
         return totalPoints;
     }
 
 
-
-    public int getTotalTimeHours(){
+    public int getTotalTimeHours() {
         int result = 0;
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
             result = result + i.getTimeHours();
         }
         return result;
     }
 
-    public int getTotalTimeMinutesLeistungstests(){
+    public int getTotalTimeMinutesLeistungstests() {
         int result = 0;
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
 
-            if(i instanceof LeistungstestsExercise)
+            if (i instanceof LeistungstestsExercise)
                 result = result + i.getTimeMunites();
         }
         return result;
     }
 
-    public int getTotalTimeHoursLeistungstests(){
+    public int getTotalTimeHoursLeistungstests() {
         int result = 0;
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
 
-            if(i instanceof LeistungstestsExercise)
+            if (i instanceof LeistungstestsExercise)
                 result = result + i.getTimeHours();
         }
         return result;
     }
 
-    public int getTotalTimeMinutesTraining(){
+    public int getTotalTimeMinutesTraining() {
         int result = 0;
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
 
-            if(i instanceof TrainingExercise)
+            if (i instanceof TrainingExercise)
                 result = result + i.getTimeMunites();
         }
         return result;
     }
 
-    public int getTotalTimeHoursTraining(){
+    public int getTotalTimeHoursTraining() {
         int result = 0;
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
 
-            if(i instanceof TrainingExercise)
+            if (i instanceof TrainingExercise)
                 result = result + i.getTimeHours();
         }
         return result;
     }
 
-    public int getTotalTimeMinutesWellness(){
+    public int getTotalTimeMinutesWellness() {
         int result = 0;
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
 
-            if(i instanceof WellnessExercise)
+            if (i instanceof WellnessExercise)
                 result = result + i.getTimeMunites();
         }
         return result;
     }
 
-    public int getTotalTimeHoursWellness(){
+    public int getTotalTimeHoursWellness() {
         int result = 0;
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
 
-            if(i instanceof WellnessExercise)
+            if (i instanceof WellnessExercise)
                 result = result + i.getTimeHours();
         }
         return result;
     }
-    public int getTotalTimeMinutesReinerAufenthalt(){
-        int result = 0;
-        for(Exercise i : exerciseList) {
 
-            if(i instanceof ReinerAufenthaltExercise)
+    public int getTotalTimeMinutesReinerAufenthalt() {
+        int result = 0;
+        for (Exercise i : exerciseList) {
+
+            if (i instanceof ReinerAufenthaltExercise)
                 result = result + i.getTimeMunites();
         }
         return result;
     }
 
-    public int[] getTotalTimePointsAsArrayLeistungstests(){
+    public int[] getTotalTimePointsAsArrayLeistungstests() {
 
         int[] result = new int[3];
         int resultMin = 0;
         int resultHours = 0;
 
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
             //calculate all "Reiner Aufenthalt" exercises
-            if(i instanceof LeistungstestsExercise) {
+            if (i instanceof LeistungstestsExercise) {
                 //Calculate minutes and hours
                 resultHours = resultHours + i.getTimeHours();
                 resultMin = resultMin + i.getTimeMunites();
 
                 //check, if the minutes are bigger as an hour
-                if(resultMin >= 60){
-                    resultHours ++;
+                if (resultMin >= 60) {
+                    resultHours++;
                     resultMin = resultMin % 60;
                 }
             }
@@ -183,22 +183,22 @@ public class DiaryEntry implements Serializable {
     }
 
 
-    public int[] getTotalTimePointsAsArrayTraining(){
+    public int[] getTotalTimePointsAsArrayTraining() {
 
         int[] result = new int[3];
         int resultMin = 0;
         int resultHours = 0;
 
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
             //calculate all "Reiner Aufenthalt" exercises
-            if(i instanceof TrainingExercise) {
+            if (i instanceof TrainingExercise) {
                 //Calculate minutes and hours
                 resultHours = resultHours + i.getTimeHours();
                 resultMin = resultMin + i.getTimeMunites();
 
                 //check, if the minutes are bigger as an hour
-                if(resultMin >= 60){
-                    resultHours ++;
+                if (resultMin >= 60) {
+                    resultHours++;
                     resultMin = resultMin % 60;
                 }
             }
@@ -216,22 +216,22 @@ public class DiaryEntry implements Serializable {
     }
 
 
-    public int[] getTotalTimePointsAsArrayWellness(){
+    public int[] getTotalTimePointsAsArrayWellness() {
 
         int[] result = new int[3];
         int resultMin = 0;
         int resultHours = 0;
 
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
             //calculate all "Reiner Aufenthalt" exercises
-            if(i instanceof WellnessExercise) {
+            if (i instanceof WellnessExercise) {
                 //Calculate minutes and hours
                 resultHours = resultHours + i.getTimeHours();
                 resultMin = resultMin + i.getTimeMunites();
 
                 //check, if the minutes are bigger as an hour
-                if(resultMin >= 60){
-                    resultHours ++;
+                if (resultMin >= 60) {
+                    resultHours++;
                     resultMin = resultMin % 60;
                 }
             }
@@ -249,22 +249,22 @@ public class DiaryEntry implements Serializable {
     }
 
 
-    public int[] getTotalTimePointsAsArrayReinerAufenthalt(){
+    public int[] getTotalTimePointsAsArrayReinerAufenthalt() {
 
         int[] result = new int[3];
         int resultMin = 0;
         int resultHours = 0;
 
-        for(Exercise i : exerciseList) {
+        for (Exercise i : exerciseList) {
             //calculate all "Reiner Aufenthalt" exercises
-            if(i instanceof ReinerAufenthaltExercise) {
+            if (i instanceof ReinerAufenthaltExercise) {
                 //Calculate minutes and hours
                 resultHours = resultHours + i.getTimeHours();
                 resultMin = resultMin + i.getTimeMunites();
 
                 //check, if the minutes are bigger as an hour
-                if(resultMin >= 60){
-                    resultHours ++;
+                if (resultMin >= 60) {
+                    resultHours++;
                     resultMin = resultMin % 60;
                 }
             }
@@ -282,16 +282,12 @@ public class DiaryEntry implements Serializable {
     }
 
 
-
-
-
-
-    public void addExercise(Exercise activity){
+    public void addExercise(Exercise activity) {
         exerciseList.add(activity);
     }
 
-    public void addNewExercises(ArrayList<Exercise> exLst){
-        for(Exercise i : exLst){
+    public void addNewExercises(ArrayList<Exercise> exLst) {
+        for (Exercise i : exLst) {
             exerciseList.add(i);
         }
     }

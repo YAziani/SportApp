@@ -25,6 +25,7 @@ public class ActivitySettings extends Activity {
                 .replace(android.R.id.content, new SettingsFragment())
                 .commit();
     }
+
     public static class SettingsFragment extends PreferenceFragment {
         @Override
         public void onCreate(Bundle savedInstanceState) {
@@ -44,7 +45,7 @@ public class ActivitySettings extends Activity {
         super.onBackPressed();
         finish();
         Toast.makeText(this,
-                getString(R.string.erfolgreichgespeichert) ,Toast.LENGTH_SHORT).show();
+                getString(R.string.erfolgreichgespeichert), Toast.LENGTH_SHORT).show();
     }
 
 

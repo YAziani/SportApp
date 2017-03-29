@@ -36,7 +36,7 @@ import com.firebase.client.DataSnapshot;
 /**
  * A login screen that offers login via email/password.
  */
-public class ActivityLogin extends AppCompatActivity{
+public class ActivityLogin extends AppCompatActivity {
 
     private DataSnapshot dataSnapshot = null;
     private boolean validSnapshot = false;
@@ -56,15 +56,17 @@ public class ActivityLogin extends AppCompatActivity{
         setContentView(R.layout.activity_login);
 
         // set text above login
-        TextView textView = (TextView)findViewById(R.id.textViewLogin);
+        TextView textView = (TextView) findViewById(R.id.textViewLogin);
         String textToShow = "Wählen Sie sich bitte einen Nutzernamen und ein Passwort aus";
         SpannableString s = new SpannableString(textToShow);
-        s.setSpan(new StyleSpan(Typeface.BOLD),0,textToShow.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new RelativeSizeSpan(1.75f),0,textToShow.length(),Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC),28,39, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC),48,56,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)),28,39, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
-        s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)),48,56,Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new StyleSpan(Typeface.BOLD), 0, textToShow.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new RelativeSizeSpan(1.75f), 0, textToShow.length(), Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), 28, 39, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new StyleSpan(Typeface.BOLD_ITALIC), 48, 56, Spannable.SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 28, 39, Spannable
+                .SPAN_EXCLUSIVE_EXCLUSIVE);
+        s.setSpan(new ForegroundColorSpan(getResources().getColor(R.color.colorAccent)), 48, 56, Spannable
+                .SPAN_EXCLUSIVE_EXCLUSIVE);
         textView.setText(s);
 
         // Set up the login form.
@@ -108,13 +110,13 @@ public class ActivityLogin extends AppCompatActivity{
      */
     private void attemptLogin() {
 
-        if(!isNetworkAvailable()) {
-            Toast.makeText(this,getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
+        if (!isNetworkAvailable()) {
+            Toast.makeText(this, getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(!validSnapshot) {
-            Toast.makeText(this,getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
+        if (!validSnapshot) {
+            Toast.makeText(this, getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
             DAL_RegisteredUsers.getRegisteredUsers(this);
             return;
         }
@@ -151,13 +153,13 @@ public class ActivityLogin extends AppCompatActivity{
         boolean validLogin = false;
         String errMessage = getString(R.string.alunknownusername);
         TextView focus = mUsernameView;
-        if(dataSnapshot.getValue() != null) {
-            for(DataSnapshot d : dataSnapshot.getChildren()) {
+        if (dataSnapshot.getValue() != null) {
+            for (DataSnapshot d : dataSnapshot.getChildren()) {
                 if (d.getKey().equals(username)) {
-                    if(d.child("password").getValue() != null && d.child("password").getValue().equals(password)) {
+                    if (d.child("password").getValue() != null && d.child("password").getValue().equals(password)) {
                         validLogin = true;
                         break;
-                    }else {
+                    } else {
                         errMessage = getString(R.string.alwrongpw);
                         focus = mPasswordView;
                         break;
@@ -172,10 +174,10 @@ public class ActivityLogin extends AppCompatActivity{
             focusView.requestFocus();
         } else {
             // perform the user login attempt
-            if(validLogin) {
+            if (validLogin) {
                 mAuthTask = new UserLoginTask(username, password, true);
                 mAuthTask.execute((Void) null);
-            }else {
+            } else {
                 focusView = focus;
                 focusView.requestFocus();
                 focus.setError(errMessage);
@@ -185,13 +187,13 @@ public class ActivityLogin extends AppCompatActivity{
     }
 
     private void attemptRegister() {
-        if(!isNetworkAvailable()) {
-            Toast.makeText(this,getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
+        if (!isNetworkAvailable()) {
+            Toast.makeText(this, getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
             return;
         }
 
-        if(!validSnapshot) {
-            Toast.makeText(this,getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
+        if (!validSnapshot) {
+            Toast.makeText(this, getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
             DAL_RegisteredUsers.getRegisteredUsers(this);
             return;
         }
@@ -229,8 +231,8 @@ public class ActivityLogin extends AppCompatActivity{
         boolean validLogin = true;
         String errMessage = "";
         TextView focus = mUsernameView;
-        if(dataSnapshot.getValue() != null) {
-            for(DataSnapshot d : dataSnapshot.getChildren()) {
+        if (dataSnapshot.getValue() != null) {
+            for (DataSnapshot d : dataSnapshot.getChildren()) {
                 if (d.getKey().equals(username)) {
                     validLogin = false;
                     errMessage = getString(R.string.alusernametaken);
@@ -246,10 +248,10 @@ public class ActivityLogin extends AppCompatActivity{
             focusView.requestFocus();
         } else {
             // perform the user login attempt
-            if(validLogin) {
+            if (validLogin) {
                 mAuthTask = new UserLoginTask(username, password, false);
                 mAuthTask.execute((Void) null);
-            }else {
+            } else {
                 focusView = focus;
                 focusView.requestFocus();
                 focus.setError(errMessage);
@@ -259,6 +261,7 @@ public class ActivityLogin extends AppCompatActivity{
 
     /**
      * return the snapshot with registered users to this activity
+     *
      * @param dataSnapshot snapshot containing registered users
      */
     public void returnRegisteredUsers(DataSnapshot dataSnapshot) {
@@ -290,23 +293,23 @@ public class ActivityLogin extends AppCompatActivity{
         @Override
         protected Boolean doInBackground(Void... params) {
 
-            if(mLogin) {
-                User.createUser(mUsername,getApplicationContext());
-            }else {
-                User.createUser(mUsername,getApplicationContext()).saveRegistration(mUsername,mPassword);
+            if (mLogin) {
+                User.createUser(mUsername, getApplicationContext());
+            } else {
+                User.createUser(mUsername, getApplicationContext()).saveRegistration(mUsername, mPassword);
             }
             return true;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            Toast.makeText(ActivityLogin.this,getString(R.string.allogcomplete), Toast.LENGTH_SHORT).show();
+            Toast.makeText(ActivityLogin.this, getString(R.string.allogcomplete), Toast.LENGTH_SHORT).show();
             PreferenceManager
                     .getDefaultSharedPreferences(getApplicationContext())
                     .edit()
-                    .putString("logedIn",mUsername)
+                    .putString("logedIn", mUsername)
                     .apply();
-            if(!mLogin) {
+            if (!mLogin) {
                 User user = User.Create(mUsername);
                 Intent kompassIntent = new Intent(ActivityLogin.this, ActivityKompass.class);
                 startActivity(kompassIntent);

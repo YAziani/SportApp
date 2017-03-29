@@ -9,19 +9,20 @@ import java.util.Date;
 
 /**
  * Created by Aziani on 23.12.2016.
- *
+ * <p>
  * abstract class for methods with which the user gets motivational help
  */
 
 public abstract class MotivationMethod {
     Activity activity;
 
-    public MotivationMethod(Activity activity){
+    public MotivationMethod(Activity activity) {
         this.activity = activity;
     }
 
     /**
      * determine the time in minutes needed until the training begins
+     *
      * @param trainingStartTime string, representing the training start time
      * @return time in minutes until training starts
      */

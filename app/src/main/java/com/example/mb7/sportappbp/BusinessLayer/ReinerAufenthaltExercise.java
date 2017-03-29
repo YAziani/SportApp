@@ -9,7 +9,7 @@ import android.os.Parcelable;
 
 public class ReinerAufenthaltExercise extends Exercise {
 
-    public ReinerAufenthaltExercise(){
+    public ReinerAufenthaltExercise() {
         this.weighting = 2.0;
         this.category = "ReinerAufenthalt";
     }

@@ -15,13 +15,12 @@ import java.util.ArrayList;
  * Created by MB7 on 17.01.2017.
  */
 
-public class NotificationViewAdapter extends BaseAdapter{
-    private  Activity _context;
-    private ArrayList<Notification > _notifications;
+public class NotificationViewAdapter extends BaseAdapter {
+    private Activity _context;
+    private ArrayList<Notification> _notifications;
     private int ImageId;
 
-    public NotificationViewAdapter(Activity context, ArrayList<Notification> notifications, int imageID)
-    {
+    public NotificationViewAdapter(Activity context, ArrayList<Notification> notifications, int imageID) {
         _notifications = notifications;
         _context = context;
         ImageId = imageID;
@@ -44,13 +43,13 @@ public class NotificationViewAdapter extends BaseAdapter{
         if (view == null)
             view = _context.getLayoutInflater().inflate(R.layout.lstnotificationcell, null);
 
-            TextView txtTitle =(TextView) view.findViewById(R.id.txtTitle);
-            txtTitle.setText(nt.getTitle());
+        TextView txtTitle = (TextView) view.findViewById(R.id.txtTitle);
+        txtTitle.setText(nt.getTitle());
 
-            TextView txtText = (TextView) view.findViewById(R.id.txtText);
-            txtText.setText(nt.getSubText());
+        TextView txtText = (TextView) view.findViewById(R.id.txtText);
+        txtText.setText(nt.getSubText());
 
-            return view;
+        return view;
     }
 
     @Override

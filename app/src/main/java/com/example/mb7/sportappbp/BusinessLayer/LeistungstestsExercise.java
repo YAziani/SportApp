@@ -9,11 +9,10 @@ import android.os.Parcelable;
 
 public class LeistungstestsExercise extends Exercise {
 
-    public LeistungstestsExercise(){
+    public LeistungstestsExercise() {
         this.weighting = 3.0;
         this.category = "Leistungstests";
     }
-
 
 
     public static final Parcelable.Creator<Exercise> CREATOR = new Creator<Exercise>() {

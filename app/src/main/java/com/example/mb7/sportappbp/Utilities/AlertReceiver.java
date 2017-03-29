@@ -34,7 +34,7 @@ import java.util.List;
  * Created by M.Braei on 23.03.2017.
  */
 
-public  class   AlertReceiver extends BroadcastReceiver {
+public class AlertReceiver extends BroadcastReceiver {
     // Here delcare your observer
     ObserverStimmungAngabe observerStimmungAngabe = null;
     ObserverTrainingReminder observerTrainingReminder = null;
@@ -50,7 +50,7 @@ public  class   AlertReceiver extends BroadcastReceiver {
     // Called when a broadcast is made targeting this class
     @Override
     public void onReceive(Context context, Intent intent) {
-       //android.os.Debug.waitForDebugger();
+        //android.os.Debug.waitForDebugger();
 
         // Initialize your observer and call its update method
         if (observerStimmungAngabe == null)
@@ -69,37 +69,38 @@ public  class   AlertReceiver extends BroadcastReceiver {
             observerTrainQuestioning = new ObserverTrainQuestioning();
         observerTrainQuestioning.update(context);
 
-        if (observerFitnessFragebogen ==null)
+        if (observerFitnessFragebogen == null)
             observerFitnessFragebogen = new ObserverFitnessFragebogen();
         observerFitnessFragebogen.update(context);
 
-        if (observerBsaFragebogen==null)
-            observerBsaFragebogen=new ObserverBsaFragebogen();
+        if (observerBsaFragebogen == null)
+            observerBsaFragebogen = new ObserverBsaFragebogen();
         observerBsaFragebogen.update(context);
 
-        if (observerChallengeInvite==null)
-            observerChallengeInvite=new ObserverChallengeInvitation();
+        if (observerChallengeInvite == null)
+            observerChallengeInvite = new ObserverChallengeInvitation();
         observerChallengeInvite.update(context);
 
-        if(observerStudioSetRemoveNotification==null)
-            observerStudioSetRemoveNotification=new ObserverStudioSetRemoveNotification(context);
+        if (observerStudioSetRemoveNotification == null)
+            observerStudioSetRemoveNotification = new ObserverStudioSetRemoveNotification(context);
         observerStudioSetRemoveNotification.update(context);
 
-        if(observerStudioNotification==null)
+        if (observerStudioNotification == null)
             observerStudioNotification = new ObserverStudioNotification();
         observerStudioNotification.update(context);
 
-        if(observerChallengeWinner==null)
+        if (observerChallengeWinner == null)
             observerChallengeWinner = new ObserverChallengeWinner();
         observerChallengeWinner.update(context);
 
         insertdb(context);
     }
 
-    void insertdb(Context context){
+    void insertdb(Context context) {
 
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString("logedIn","") + "/" );
+        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + preferences.getString
+                ("logedIn", "") + "/");
         ref.child("AlertReceiver").setValue(new Date().toString());
 
     }

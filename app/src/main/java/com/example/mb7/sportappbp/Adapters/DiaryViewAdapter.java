@@ -27,12 +27,13 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
     Activity context;
     Integer selectedPosition = -1;
 
-    public  class DiaryEntryHolder extends RecyclerView.ViewHolder  {
+    public class DiaryEntryHolder extends RecyclerView.ViewHolder {
         CardView cv;
         TextView txtTitle;
         TextView txtSubText;
         ImageView imageView;
-        public View view   ;
+        public View view;
+
         DiaryEntryHolder(View itemView) {
             super(itemView);
             txtTitle = (TextView) itemView.findViewById(R.id.txtDateDiary);
@@ -43,7 +44,8 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
         }
 
     }
-    public DiaryViewAdapter(List<DiaryEntry> diaryEntries, Activity context){
+
+    public DiaryViewAdapter(List<DiaryEntry> diaryEntries, Activity context) {
         this.diaryEntries = diaryEntries;
         this.context = context;
     }
@@ -65,19 +67,16 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
     public void onBindViewHolder(final DiaryEntryHolder holder, final int position) {
         DiaryEntryHolder diaryEntryHolder = (DiaryEntryHolder) holder;
         diaryEntryHolder.txtTitle.setText(diaryEntries.get(position).sDate);
-        diaryEntryHolder.txtSubText.setText(diaryEntries.get(position).sTime   );
+        diaryEntryHolder.txtSubText.setText(diaryEntries.get(position).sTime);
         diaryEntryHolder.imageView.setImageResource(R.mipmap.ic_tagebuch_eintrag);
 
-        if (position == selectedPosition)
-        {
+        if (position == selectedPosition) {
             diaryEntryHolder.itemView.setBackgroundColor(Color.GRAY);
-        }
-        else
-        {
+        } else {
             diaryEntryHolder.itemView.setBackgroundColor(Color.TRANSPARENT);
         }
 
-        holder.view.setOnLongClickListener(new View.OnLongClickListener(){
+        holder.view.setOnLongClickListener(new View.OnLongClickListener() {
             @Override
             public boolean onLongClick(View v) {
                 // reset the previous item as unselected if exists
@@ -92,7 +91,7 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
             }
 
         });
-        holder.view.setOnClickListener(new View.OnClickListener(){
+        holder.view.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
 
@@ -101,14 +100,12 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
                     notifyItemChanged(selectedPosition);
                     selectedPosition = -1;
 
-                }
-
-
-                else {
+                } else {
 
                     // if nothing is longclicked -> go to the ActivityStimmung of the selected item
                     Intent open = new Intent(context, ActivityDiaryEntry.class);
-                    // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                    // insert the date of the notificatino in the extra which is the unique field to delete the
+                    // notification from the database
 
                     // pass the clicked diaryEntry to the activity
                     DiaryEntry diaryEntry = diaryEntries.get(position);
@@ -121,8 +118,7 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
         });
     }
 
-    public DiaryEntry getSelectedObject()
-    {
+    public DiaryEntry getSelectedObject() {
         return diaryEntries.get(selectedPosition);
     }
 

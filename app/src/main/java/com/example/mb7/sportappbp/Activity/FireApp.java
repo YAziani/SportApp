@@ -10,13 +10,14 @@ import com.firebase.client.Firebase;
 
 public class FireApp extends Application {
     public boolean isInitialized;
+
     @Override
     public void onCreate() {
 
         super.onCreate();
 
         Firebase.setAndroidContext(this);
-        isInitialized=true;
+        isInitialized = true;
 
     }
 }

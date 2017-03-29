@@ -8,7 +8,7 @@ import java.util.Comparator;
  * Created by Basti on 22.03.2017.
  */
 
-public class UserSortPoints implements Comparator<User>{
+public class UserSortPoints implements Comparator<User> {
 
     @Override
     public int compare(User user1, User user2) {

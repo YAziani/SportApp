@@ -10,24 +10,25 @@ import com.example.mb7.sportappbp.Fragments.TbReportContent;
 import com.example.mb7.sportappbp.Fragments.TbTaskCategContent;
 
 import java.util.ArrayList;
+
 /**
  * Created by MB7 on 07.01.2017.
  */
 
 public class PagerAdapter extends FragmentStatePagerAdapter {
-    TbNotificationContent tbNotificationContent       = null;
+    TbNotificationContent tbNotificationContent = null;
     TbTaskCategContent tbTaskCategContent = null;
-    TbReportContent tbReportContent             = null;
+    TbReportContent tbReportContent = null;
 
-    ArrayList<String>       csTabsList           = null;
-    int                     mNumOfTabs;
-    Context                 csContext;
+    ArrayList<String> csTabsList = null;
+    int mNumOfTabs;
+    Context csContext;
 
-    public PagerAdapter(FragmentManager fm,  Context cxt,ArrayList<String> tbs) {
+    public PagerAdapter(FragmentManager fm, Context cxt, ArrayList<String> tbs) {
         super(fm);
-        csTabsList                  = tbs;
-        this.mNumOfTabs             = csTabsList.size();
-        csContext                   = cxt;
+        csTabsList = tbs;
+        this.mNumOfTabs = csTabsList.size();
+        csContext = cxt;
     }
 
     @Override
@@ -41,25 +42,21 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         Fragment fragment = null;
 
-        if(csTabsList != null)
-        {
+        if (csTabsList != null) {
             String tab = csTabsList.get(position);
-            if (tab.equalsIgnoreCase("tbTask"))
-            {
-                if(tbTaskCategContent == null)
-                    tbTaskCategContent =  new TbTaskCategContent();
+            if (tab.equalsIgnoreCase("tbTask")) {
+                if (tbTaskCategContent == null)
+                    tbTaskCategContent = new TbTaskCategContent();
                 fragment = tbTaskCategContent;
             }
 
-            if (tab.equalsIgnoreCase("tbNotification"))
-            {
-                if(tbNotificationContent == null)
+            if (tab.equalsIgnoreCase("tbNotification")) {
+                if (tbNotificationContent == null)
                     tbNotificationContent = new TbNotificationContent();
                 fragment = tbNotificationContent;
             }
-            if(tab.equalsIgnoreCase("tbReport"))
-            {
-                if(tbReportContent == null)
+            if (tab.equalsIgnoreCase("tbReport")) {
+                if (tbReportContent == null)
                     tbReportContent = new TbReportContent();
                 fragment = tbReportContent;
 
@@ -67,5 +64,6 @@ public class PagerAdapter extends FragmentStatePagerAdapter {
 
         }
 
-        return fragment;    }
+        return fragment;
+    }
 }

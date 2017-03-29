@@ -9,6 +9,7 @@ import com.example.mb7.sportappbp.R;
 public class ActivityAbout extends AppCompatActivity {
 
     TextView txtLink;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);

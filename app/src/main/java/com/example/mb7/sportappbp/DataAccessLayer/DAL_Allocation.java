@@ -24,6 +24,7 @@ public class DAL_Allocation {
 
     /**
      * get allocated methods from db
+     *
      * @param activity calling activity
      */
     public static void getAllocation(final Activity activity) {
@@ -35,7 +36,7 @@ public class DAL_Allocation {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    MethodChooser.chooseMethods(dataSnapshot,activity);
+                    MethodChooser.chooseMethods(dataSnapshot, activity);
                 }
 
                 @Override
@@ -43,9 +44,7 @@ public class DAL_Allocation {
 
                 }
             });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
@@ -58,7 +57,7 @@ public class DAL_Allocation {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    saveIntensifier(context,dataSnapshot);
+                    saveIntensifier(context, dataSnapshot);
                 }
 
                 @Override
@@ -66,37 +65,35 @@ public class DAL_Allocation {
 
                 }
             });
-        }
-        catch (Exception e)
-        {
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public static void saveIntensifier(Context context,DataSnapshot dataSnapshot) {
+    public static void saveIntensifier(Context context, DataSnapshot dataSnapshot) {
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context);
         String s = "";
 
-        for(DataSnapshot d : dataSnapshot.getChildren()) {
-            if(!s.equals("")) {
+        for (DataSnapshot d : dataSnapshot.getChildren()) {
+            if (!s.equals("")) {
                 s += ";";
             }
-            if(d.child("days").getValue() != null) {
+            if (d.child("days").getValue() != null) {
                 s += d.child("days").getValue() + ",";
-            }else {
+            } else {
                 s += ",";
             }
-            if(d.child("nmbrOfPN").getValue() != null) {
+            if (d.child("nmbrOfPN").getValue() != null) {
                 s += d.child("nmbrOfPN").getValue() + ",";
-            }else {
+            } else {
                 s += ",";
             }
-            if(d.child("probability").getValue() != null) {
-                s += Double.valueOf(((String)d.child("probability").getValue()).split("%")[0])/100;
+            if (d.child("probability").getValue() != null) {
+                s += Double.valueOf(((String) d.child("probability").getValue()).split("%")[0]) / 100;
             }
         }
 
-        preferences.edit().putString("intensifier",s).commit();
+        preferences.edit().putString("intensifier", s).commit();
     }
 }
 

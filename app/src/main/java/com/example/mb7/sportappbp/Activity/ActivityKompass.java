@@ -28,10 +28,10 @@ public class ActivityKompass extends AppCompatActivity {
     }
 
     private void InitializeControlls() {
-        webViewkompass = (WebView)findViewById(R.id.webview_kompass);
+        webViewkompass = (WebView) findViewById(R.id.webview_kompass);
     }
 
-    private void SetControlValues(){
+    private void SetControlValues() {
         webViewkompass.getSettings().setJavaScriptEnabled(true);
         webViewkompass.loadUrl("https://kompass-8720f.firebaseapp.com/");
         webViewkompass.clearView();
@@ -41,7 +41,7 @@ public class ActivityKompass extends AppCompatActivity {
         progressBar = ProgressDialog.show(this, getString(R.string.kompass), getString(R.string.wird_geladen));
 
         webViewkompass.setWebViewClient(new WebViewClient() {
-            public boolean shouldOverrideUrlLoading(WebView view,WebResourceRequest request) {
+            public boolean shouldOverrideUrlLoading(WebView view, WebResourceRequest request) {
                 view.loadUrl(request.getUrl().toString());
                 return true;
             }

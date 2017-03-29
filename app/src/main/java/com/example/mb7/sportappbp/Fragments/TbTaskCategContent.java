@@ -1,4 +1,5 @@
 package com.example.mb7.sportappbp.Fragments;
+
 import android.content.Intent;
 import android.content.SharedPreferences;
 import android.content.res.Resources;
@@ -69,7 +70,8 @@ public class TbTaskCategContent extends TabFragment {
             int column = position % spanCount; // item column
 
             if (includeEdge) {
-                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) * spacing)
+                outRect.left = spacing - column * spacing / spanCount; // spacing - column * ((1f / spanCount) *
+                // spacing)
                 outRect.right = (column + 1) * spacing / spanCount; // (column + 1) * ((1f / spanCount) * spacing)
 
                 if (position < spanCount) { // top edge
@@ -78,7 +80,8 @@ public class TbTaskCategContent extends TabFragment {
                 outRect.bottom = spacing; // item bottom
             } else {
                 outRect.left = column * spacing / spanCount; // column * ((1f / spanCount) * spacing)
-                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /    spanCount) * spacing)
+                outRect.right = spacing - (column + 1) * spacing / spanCount; // spacing - (column + 1) * ((1f /
+                // spanCount) * spacing)
                 if (position >= spanCount) {
                     outRect.top = spacing; // item top
                 }
@@ -96,18 +99,24 @@ public class TbTaskCategContent extends TabFragment {
 
     @Override
     public View onCreateView(LayoutInflater inflater, ViewGroup container, Bundle savedInstanceState) {
-        setTitle(getString( R.string.aktivitaeten));
+        setTitle(getString(R.string.aktivitaeten));
         view = inflater.inflate(R.layout.tbtaskcontent, container, false);
 
-        TaskCategory tc1 = new TaskCategory(getString( R.string.tagebucheintrag),getString(R.string.tagebucheintrag_desc), R.mipmap.ic_tagebuch_eintrag);
-        TaskCategory tc2 = new TaskCategory(getString( R.string.stimmungsabgabe), getString( R.string.stimmungsabgabe_desc), R.mipmap.ic_stimmungs_abgabe);
-        TaskCategory tc3 = new TaskCategory(getString( R.string.aktivitaetsfragebogen), getString( R.string.aktivitaetsfragebogen_desc),R.mipmap.ic_aktivitaets_fragebogen);
-        TaskCategory tc4 = new TaskCategory(getString( R.string.fitnessfragebogen), getString( R.string.fitnessfragebogen_desc),R.mipmap.ic_fittnessfragebogen);
-        TaskCategory tc5 = new TaskCategory(getString( R.string.trainingszeiten_und_studioadresse), getString(R.string.wann_und_wo_findet_training_statt),R.mipmap.ic_trainings_zeiten_ort);
-        TaskCategory tc6 = new TaskCategory(getString( R.string.Challenges), getString(R.string.wann_und_wo_findet_training_statt),R.mipmap.ic_challenge);
-        taskCategories =new LinkedList<TaskCategory>(Arrays.asList(tc1,tc2,tc3,tc4,tc5,tc6));
+        TaskCategory tc1 = new TaskCategory(getString(R.string.tagebucheintrag), getString(R.string
+                .tagebucheintrag_desc), R.mipmap.ic_tagebuch_eintrag);
+        TaskCategory tc2 = new TaskCategory(getString(R.string.stimmungsabgabe), getString(R.string
+                .stimmungsabgabe_desc), R.mipmap.ic_stimmungs_abgabe);
+        TaskCategory tc3 = new TaskCategory(getString(R.string.aktivitaetsfragebogen), getString(R.string
+                .aktivitaetsfragebogen_desc), R.mipmap.ic_aktivitaets_fragebogen);
+        TaskCategory tc4 = new TaskCategory(getString(R.string.fitnessfragebogen), getString(R.string
+                .fitnessfragebogen_desc), R.mipmap.ic_fittnessfragebogen);
+        TaskCategory tc5 = new TaskCategory(getString(R.string.trainingszeiten_und_studioadresse), getString(R.string
+                .wann_und_wo_findet_training_statt), R.mipmap.ic_trainings_zeiten_ort);
+        TaskCategory tc6 = new TaskCategory(getString(R.string.Challenges), getString(R.string
+                .wann_und_wo_findet_training_statt), R.mipmap.ic_challenge);
+        taskCategories = new LinkedList<TaskCategory>(Arrays.asList(tc1, tc2, tc3, tc4, tc5, tc6));
 
-        rv = (RecyclerView)view.findViewById(R.id.recyclerTaskCateg);
+        rv = (RecyclerView) view.findViewById(R.id.recyclerTaskCateg);
         RecyclerView.LayoutManager mLayoutManager = new GridLayoutManager(getContext(), 2);
 
         LinearLayoutManager lm = new LinearLayoutManager(getContext());

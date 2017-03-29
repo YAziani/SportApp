@@ -15,13 +15,12 @@ import java.util.ArrayList;
  * Created by Basti on 29.01.2017.
  */
 
-public class ExerciseViewAdapter extends BaseAdapter{
+public class ExerciseViewAdapter extends BaseAdapter {
 
     private Activity _context;
     private ArrayList<Exercise> _exercises;
 
-    public ExerciseViewAdapter(Activity context, ArrayList<Exercise> notifications)
-    {
+    public ExerciseViewAdapter(Activity context, ArrayList<Exercise> notifications) {
         _exercises = notifications;
         _context = context;
     }
@@ -44,11 +43,13 @@ public class ExerciseViewAdapter extends BaseAdapter{
         if (view == null)
             view = _context.getLayoutInflater().inflate(R.layout.lst_exercisecell, null);
 
-        TextView txtTitle =(TextView) view.findViewById(R.id.txtExercise);
+        TextView txtTitle = (TextView) view.findViewById(R.id.txtExercise);
         txtTitle.setText(exercise.getName());
 
         TextView txtText = (TextView) view.findViewById(R.id.txtDuration);
-        txtText.setText(String.valueOf(exercise.getTimeHours()) + " " + _context.getResources().getString(R.string.Stunden) + " " + exercise.getTimeMunites() + " "+  _context.getResources().getString(R.string.Minuten));
+        txtText.setText(String.valueOf(exercise.getTimeHours()) + " " + _context.getResources().getString(R.string
+                .Stunden) + " " + exercise.getTimeMunites() + " " + _context.getResources().getString(R.string
+                .Minuten));
         return view;
     }
 

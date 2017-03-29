@@ -31,9 +31,10 @@ import java.util.List;
  * Created by M.Braei on 25.03.2017.
  */
 
-public class TaskCategAdapter  extends RecyclerView.Adapter<TaskCategAdapter.TaskCategHolder> {
+public class TaskCategAdapter extends RecyclerView.Adapter<TaskCategAdapter.TaskCategHolder> {
     List<TaskCategory> taskCategories;
     TabFragment context;
+
     public class TaskCategHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
         CardView cv;
         TextView txtTitle;
@@ -52,41 +53,53 @@ public class TaskCategAdapter  extends RecyclerView.Adapter<TaskCategAdapter.Tas
 
         @Override
         public void onClick(View view) {
-            if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.tagebucheintrag))) {
+            if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+                    .tagebucheintrag))) {
                 Intent open = new Intent(context.getActivity(), ActivityDiary.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                // notification from the database
                 context.startActivity(open);
 
-            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.stimmungsabgabe))) {
+            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+                    .stimmungsabgabe))) {
                 Intent open = new Intent(context.getActivity(), Activity_lst_stimmungsabfrage.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                // notification from the database
                 context.startActivity(open);
 
-            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.fitnessfragebogen))) {
+            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+                    .fitnessfragebogen))) {
                 Intent open = new Intent(context.getActivity(), Activity_lst_fitnessfragebogen.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                // notification from the database
                 context.startActivity(open);
-            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.aktivitaetsfragebogen))) {
+            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+                    .aktivitaetsfragebogen))) {
                 Intent open = new Intent(context.getActivity(), Activity_lst_bsafragebogen.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                // notification from the database
                 context.startActivity(open);
-            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.bewegen_sie_sich))) {
+            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+                    .bewegen_sie_sich))) {
                 Intent open = new Intent(context.getActivity(), ActivityMotivationMessage.class);
-                // insert the date of the notificatino in the extra which is the unique field to delete the notification from the database
+                // insert the date of the notificatino in the extra which is the unique field to delete the
+                // notification from the database
                 context.startActivity(open);
-            }else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.trainingszeiten_und_studioadresse))) {
+            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+                    .trainingszeiten_und_studioadresse))) {
                 Intent open = new Intent(context.getActivity(), ActivitySettingInitializer.class);
                 context.startActivity(open);
-            }else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string.Challenges))) {
-            Intent open = new Intent(context.getActivity(), Activity_lst_Challenge.class);
-            context.startActivity(open);
-        }
+            } else if (taskCategories.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
+                    .Challenges))) {
+                Intent open = new Intent(context.getActivity(), Activity_lst_Challenge.class);
+                context.startActivity(open);
+            }
 
 
         }
     }
 
-    public TaskCategAdapter(List<TaskCategory> taskCategories, TabFragment context){
+    public TaskCategAdapter(List<TaskCategory> taskCategories, TabFragment context) {
         this.taskCategories = taskCategories;
         this.context = context;
     }

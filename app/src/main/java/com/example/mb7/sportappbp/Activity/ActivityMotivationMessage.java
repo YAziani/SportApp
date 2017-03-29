@@ -44,7 +44,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
         setContentView(R.layout.activity_motivation_message);
 
         pd = new ProgressDialog(this);
-        pd.setMessage(getString( R.string.wird_geladen));
+        pd.setMessage(getString(R.string.wird_geladen));
         pd.show();
 
         getImgName();
@@ -62,8 +62,8 @@ public class ActivityMotivationMessage extends AppCompatActivity {
                 Toast.LENGTH_SHORT
 
         ).show();
-        Intent i = new Intent(ActivityMotivationMessage.this,ActivityMain.class);
-        i.putExtra("startTab",1);
+        Intent i = new Intent(ActivityMotivationMessage.this, ActivityMain.class);
+        i.putExtra("startTab", 1);
         startActivity(i);
     }
 
@@ -79,18 +79,18 @@ public class ActivityMotivationMessage extends AppCompatActivity {
                 public void onDataChange(DataSnapshot dataSnapshot) {
                     // choose random index to show
                     Iterator<DataSnapshot> iterator = dataSnapshot.getChildren().iterator();
-                    int index = (int)dataSnapshot.getChildrenCount();
+                    int index = (int) dataSnapshot.getChildrenCount();
                     index = new Random().nextInt(index);
                     // iterate through the names
-                    for(int i = 0; i < index; i++) {
-                        if(iterator.hasNext()) {
+                    for (int i = 0; i < index; i++) {
+                        if (iterator.hasNext()) {
                             iterator.next();
-                        }else {
+                        } else {
                             ActivityMotivationMessage.this.cancel();
                             return;
                         }
                     }
-                    showImage((String)iterator.next().child("imagename").getValue());
+                    showImage((String) iterator.next().child("imagename").getValue());
                 }
 
                 @Override
@@ -105,6 +105,7 @@ public class ActivityMotivationMessage extends AppCompatActivity {
 
     /**
      * show the image with this name into the activity
+     *
      * @param imgName name of image
      */
     public void showImage(String imgName) {
@@ -112,8 +113,8 @@ public class ActivityMotivationMessage extends AppCompatActivity {
         StorageReference storageRef =
                 FirebaseStorage.getInstance().getReference().child("motivationImage/" + imgName);
 
-        final ImageView imageView0 = (ImageView)findViewById(R.id.imageMotivationMessage0);
-        final ImageView imageView1 = (ImageView)findViewById(R.id.imageMotivationMessage1);
+        final ImageView imageView0 = (ImageView) findViewById(R.id.imageMotivationMessage0);
+        final ImageView imageView1 = (ImageView) findViewById(R.id.imageMotivationMessage1);
         final Drawable drawable = getDrawable(R.drawable.sport_icon);
 
         imageView0.setImageDrawable(drawable);
@@ -161,8 +162,8 @@ public class ActivityMotivationMessage extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         // close activity
-        Intent i = new Intent(this,ActivityMain.class);
-        i.putExtra("startTab",1);
+        Intent i = new Intent(this, ActivityMain.class);
+        i.putExtra("startTab", 1);
         startActivity(i);
         finish();
         return true;

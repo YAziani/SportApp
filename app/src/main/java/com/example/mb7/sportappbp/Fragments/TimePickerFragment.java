@@ -34,7 +34,7 @@ public class TimePickerFragment extends DialogFragment
         dialog.setButton(DialogInterface.BUTTON_NEGATIVE, "Löschen", new DialogInterface.OnClickListener() {
             @Override
             public void onClick(DialogInterface dialog, int which) {
-                onTimeSet(null,999,999);
+                onTimeSet(null, 999, 999);
             }
         });
         return dialog;

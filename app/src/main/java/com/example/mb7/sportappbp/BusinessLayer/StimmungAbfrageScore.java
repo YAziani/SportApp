@@ -17,7 +17,7 @@ public class StimmungAbfrageScore {
     public Integer MitteilsamScore;
     public Integer StimmungsBarometerScore;
     public float EnergieIndexScore;
-    public  String Time;
+    public String Time;
     public Boolean Vor;
 
 }

@@ -24,6 +24,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
@@ -70,6 +71,7 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
             case R.id.icon_add:
                 InsertFitnessFragebogen();
                 break;
+            default: throw new InvalidParameterException("The item is not declared!");
         }
         return super.onOptionsItemSelected(item);
     }
@@ -81,6 +83,7 @@ public class Activity_lst_fitnessfragebogen extends AppCompatActivity {
                 deleteFitnessFragebogen(((FitnessFrageViewAdapter) rv.getAdapter()).getSelectedObject());
                 Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
                 break;
+            default: throw new InvalidParameterException("The item is not declared!");
         }
         return super.onContextItemSelected(item);
     }

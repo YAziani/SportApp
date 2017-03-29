@@ -41,7 +41,7 @@ public class FirebaseTest {
             e.printStackTrace();
         }
 
-        Firebase cloud = new Firebase("https://sportapp-cbd6b.firebaseio.com/");
+        Firebase cloud = new Firebase(DAL_Utilities.DatabaseURL);
         // write values into database
         cloud.child("TestNode").child("testValue00").setValue("qwertz");
         cloud.child("TestNode").child("testValue01").setValue("qwerty");
@@ -63,7 +63,7 @@ public class FirebaseTest {
     @Test
     public void testRead00() {
         // define reading target
-        Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/TestNode/testValue00");
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL + "TestNode/testValue00");
         try {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -87,7 +87,7 @@ public class FirebaseTest {
 
     @Test
     public void testRead01() {
-        Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/TestNode/testValue01");
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL +  "TestNode/testValue01");
         try {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
@@ -109,7 +109,7 @@ public class FirebaseTest {
 
     @Test
     public void testReadRegistration() {
-        Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio.com/users");
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users");
         try {
             root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override

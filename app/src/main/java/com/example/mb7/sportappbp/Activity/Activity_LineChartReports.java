@@ -155,6 +155,8 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
                                                             lineChart.getLegend().setEnabled(false);
+                                                            lineChart.getAxisRight().setDrawGridLines(false);
+                                                            //lineChart.getAxisRight().setDrawGridLines(false);
 
 
                                                         }
@@ -309,6 +311,7 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
                                                             lineChart.getLegend().setEnabled(false);
+                                                            lineChart.getAxisRight().setDrawGridLines(false);
 
                                                         }
                                                         // after all the data process has been done
@@ -444,6 +447,7 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
                                                             lineChart.getLegend().setEnabled(false);
+                                                            lineChart.getAxisRight().setDrawGridLines(false);
 
 
                                                         }

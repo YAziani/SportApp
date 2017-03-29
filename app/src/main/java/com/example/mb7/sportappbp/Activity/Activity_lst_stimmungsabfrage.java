@@ -101,12 +101,12 @@ public class Activity_lst_stimmungsabfrage extends AppCompatActivity {
      * @param stimmungsAngabe the object to delete
      */
     private void deleteStimmungsabgabe(StimmungsAngabe stimmungsAngabe) {
-        Firebase ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + ActivityMain.getMainUser
+        Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser
                 (this).getName() + "/Stimmungsabfrage/");
         String V_N = (stimmungsAngabe.Vor) ? "V" : "N";
         ref.child(stimmungsAngabe.FirebaseDate).child(stimmungsAngabe.Time).child(V_N).removeValue();
         try {
-            ref = new Firebase("https://sportapp-cbd6b.firebaseio.com/" + "users/" + ActivityMain.getMainUser(this)
+            ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this)
                     .getName() + "/StimmungabfrageScore/");
             ref.child(stimmungsAngabe.FirebaseDate).child(stimmungsAngabe.Time).child(V_N).removeValue();
 

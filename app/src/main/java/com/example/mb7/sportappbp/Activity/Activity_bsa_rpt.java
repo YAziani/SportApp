@@ -223,6 +223,7 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
+                                                            lineChart.getAxisRight().setDrawGridLines(false);
                                                             lineChart.getLegend().setEnabled(false);
 
 

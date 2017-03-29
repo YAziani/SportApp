@@ -308,16 +308,18 @@
     <string name="wann_und_wo_findet_training_statt">Wann und wo findet Ihr Training statt?</string>
 
     <!-- Reports-->
+    <string name="stimmungsabfrage">Stimmungsabfrage</string>
+    <string name="fitness">Fitness</string>
     <string name="stimmungdiagramme">Stimmungswertdiagramme</string>
     <string name="fitnessdaigramme">Fitnessdiagramme</string>
-    <string name="stimmungsbarometer_dgr_ttl">Stimmungsbarometerdiagramm</string>
-    <string name="energieindex_dgr_ttl">Energieindexdiagramm</string>
-    <string name="differenzwert_dgr_ttl">Differenzwertdiagramm</string>
-    <string name="punkteproWoche_dgr_ttl">Trainingsdiagramm</string>
-    <string name="fitnessfragen_dgr_ttl">Diagramm über Fitnesszustand</string>
-    <string name="fitnessfragen_dgr_ttl_gesamt">Diagramm über Fitnesszustand Gesamtwert</string>
-    <string name="bsa_dgr_ttl">BSA Diagramm</string>
-    <string name="bsa_dgr_ttl_gesamt">BSA Diagramm Gesamtwert</string>
+    <string name="stimmungsbarometer_dgr_ttl">Stimmungsbarometer</string>
+    <string name="energieindex_dgr_ttl">Energieindex</string>
+    <string name="differenzwert_dgr_ttl">Differenzwert</string>
+    <string name="punkteproWoche_dgr_ttl">Training</string>
+    <string name="fitnessfragen_dgr_ttl">Fitnesszustand(getrennt)</string>
+    <string name="fitnessfragen_dgr_ttl_gesamt">Fitnesszustand(gesamt)</string>
+    <string name="bsa_dgr_ttl">BSA (getrennt)</string>
+    <string name="bsa_dgr_ttl_gesamt">BSA (gesamt)</string>
     <string name="stimmungsbarometer_dgr_text">Sehen Sie, wie sich Ihre Stimmung im Laufe der Zeit geändert hat</string>
     <string name="energieeindex_dgr_text">Ihre Fitness hat direkten Einfluss darauf, wie energiereich Sie agieren.</string>
     <string name="differenzwert_dgr_text">Sehen Sie den Unterschied vor und nach dem Training</string>
@@ -327,6 +329,7 @@
     <string name="bsa_dgr_text">Durch BSA sehen Sie hier Ihre Fortschritte</string>
     <string name="bsa_gsmt_dgr_text">Sehen Sie den Gesamtwert ihrer BSA Werte</string>
     <string name="werte_fuer_stimmungsbarometer">Ihre Werte für Stimmungsbarometer</string>
+    <string name="stimmungsbarometer">Stimmungsbarometer</string>
     <string name="werte_fuer_energieindex">Ihre Werte für Energieindex</string>
     <string name="gesamtscore_fitnessfragebogen">Ihre Gesamtwerte für Fitnessfragebogen</string>
     <string name="erzielte_punkte">Erzielte Punkte durch das Training</string>
@@ -342,6 +345,9 @@
     <string name="beweglichkeit">Beweglichkeit</string>
     <string name="gesamt">Gesamtwert</string>
     <string name="kooridination">Koordination</string>
+    <string name="stimmungsbarometer_nach_dem">Stimmungsbarometer nach dem Training</string>
+    <string name="stimmungsbarometer_vor_dem">Stimmungsbarometer vor dem Training</string>
     <string name="kraft">Kraft</string>
     <string name="title_activity_bsa_gesamt_rpt">Activity_bsa_gesamt_rpt</string>
+    <string name="ihre_werte_im_vergleich">Ihre Werte im Vergleich</string>
 </resources>

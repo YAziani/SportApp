@@ -26,5 +26,13 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:id="@+id/lineChart"></com.github.mikephil.charting.charts.LineChart>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#de0d0d"
+        android:text="@string/energieindex_dgr_ttl"
+        android:layout_below="@id/lineChart"/>
 </RelativeLayout>
 </ScrollView>

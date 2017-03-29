@@ -182,8 +182,8 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                                     xAXES.add(x);
 
                                                                     yAXES_Bewegung.add(new Entry(y_Bewegung, j));
-                                                                    yAXES_Sportscoring.add(new Entry(y_SportScoring,                                                                            j));
-                                                                            j));
+                                                                    yAXES_Sportscoring.add(new Entry(y_SportScoring,j));
+
 
                                                                     flag = false;
                                                                     j++;
@@ -198,12 +198,12 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                                     (yAXES_Bewegung, Activity_bsa_rpt.this.getString
                                                                             (R.string.bewegungswerte));
                                                             lineDataSet1.setDrawCircles(true);
-                                                            lineDataSet1.setColor(Color.BLUE);
+                                                            lineDataSet1.setColor(Color.RED);
                                                             LineDataSet lineDataSet3 = new LineDataSet
                                                                     (yAXES_Sportscoring, Activity_bsa_rpt.this
                                                                             .getString(R.string.sportwerte));
                                                             lineDataSet3.setDrawCircles(true);
-                                                            lineDataSet3.setColor(Color.GREEN);
+                                                            lineDataSet3.setColor(Color.BLUE);
                                                             lineDataSets.add(lineDataSet1);
                                                             lineDataSets.add(lineDataSet3);
 
@@ -223,6 +223,7 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
+                                                            lineChart.getLegend().setEnabled(false);
 
 
                                                         }
@@ -230,7 +231,7 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
                                                         // close the progress dialog
                                                         pd.dismiss();
 
-                                                    }
+                                                    }}
 
                                                     @Override
                                                     public void onCancelled(FirebaseError firebaseError) {
@@ -243,7 +244,8 @@ public class Activity_bsa_rpt extends Activity_LineChartReports {
             Log.e("Exc", ex.getMessage());
         }
 
+
     }
 
-
 }
+

@@ -154,6 +154,7 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
+                                                            lineChart.getLegend().setEnabled(false);
 
 
                                                         }
@@ -281,11 +282,11 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             // set the datasets of our chart
                                                             ArrayList<ILineDataSet> lineDataSets = new ArrayList<>();
                                                             LineDataSet lineDataSet1 = new LineDataSet(yAXES_Nach,
-                                                                    "Nach dem Training");
+                                                                    "Stimmungsbarometer nach dem Training");
                                                             lineDataSet1.setDrawCircles(false);
                                                             lineDataSet1.setColor(Color.BLUE);
                                                             LineDataSet lineDataSet2 = new LineDataSet(yAXES_Vor,
-                                                                    "Vor dem Training");
+                                                                    "Stimmungsbarometer vor dem Training");
                                                             lineDataSet2.setDrawCircles(false);
                                                             lineDataSet2.setColor(Color.RED);
                                                             lineDataSets.add(lineDataSet2);
@@ -307,6 +308,7 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
+                                                            lineChart.getLegend().setEnabled(false);
 
                                                         }
                                                         // after all the data process has been done
@@ -441,6 +443,7 @@ public abstract class Activity_LineChartReports extends AppCompatActivity {
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
+                                                            lineChart.getLegend().setEnabled(false);
 
 
                                                         }

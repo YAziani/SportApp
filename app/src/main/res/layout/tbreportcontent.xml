@@ -18,7 +18,7 @@
         android:id="@+id/txtTitleStimmung"
         android:layout_width="wrap_content"
         android:layout_height="48dp"
-        android:text="@string/stimmungdiagramme" />
+        android:text="@string/stimmungsabfrage" />
 
     <android.support.v7.widget.RecyclerView
         android:layout_below="@id/txtTitleStimmung"
@@ -36,7 +36,7 @@
             android:id="@+id/txtTitleOther"
             android:layout_width="wrap_content"
             android:layout_height="48dp"
-            android:text="@string/fitnessdaigramme"
+            android:text="@string/fitness"
             android:layout_below="@id/recycler_report_stimmung"/>
     <android.support.v7.widget.RecyclerView
         android:layout_below="@id/txtTitleOther"

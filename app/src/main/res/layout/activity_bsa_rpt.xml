@@ -12,7 +12,7 @@
         android:paddingLeft="25dp"
         android:paddingRight="25dp"
         android:paddingTop="@dimen/activity_vertical_margin">
-    <TextViewActivity
+    <TextView
         android:id="@+id/txtTitle"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
@@ -26,5 +26,20 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:id="@+id/lineChart"></com.github.mikephil.charting.charts.LineChart>
+        <TextView
+            android:id="@+id/textView11"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#de0d0d"
+            android:text="@string/bewegungswerte"
+            android:layout_below="@id/lineChart"/>
+
+        <TextView
+            android:id="@+id/textView22"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="#073cda"
+            android:text="@string/sportwerte"
+            android:layout_below="@id/textView11"/>
 </RelativeLayout>
 </ScrollView>

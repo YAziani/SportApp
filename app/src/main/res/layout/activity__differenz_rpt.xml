@@ -17,7 +17,7 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
-        android:text="@string/differenzwert_dgr_ttl"
+        android:text="@string/ihre_werte_im_vergleich"
         android:textAlignment="center"
         android:textColor="@android:color/black"
         android:textSize="20sp" />
@@ -27,6 +27,23 @@
         android:layout_width="match_parent"
         android:layout_height="400dp"
         android:id="@+id/lineChart"></com.github.mikephil.charting.charts.LineChart>
+
+    <TextView
+        android:id="@+id/textView11"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#de0d0d"
+        android:text="@string/stimmungsbarometer_vor_dem"
+        android:layout_below="@id/lineChart"/>
+
+    <TextView
+        android:id="@+id/textView22"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:textColor="#073cda"
+        android:text="@string/stimmungsbarometer_nach_dem"
+        android:layout_below="@id/textView11"/>
+
 </RelativeLayout>
     </ScrollView>
 

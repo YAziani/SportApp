@@ -188,7 +188,7 @@ public class Activity_FitnessFragebogen_gesamt_rpt extends Activity_LineChartRep
                                                                     Activity_FitnessFragebogen_gesamt_rpt.this.getString(R
                                                                             .string.gesamt));
                                                             lineDataSet3.setDrawCircles(true);
-                                                            lineDataSet3.setColor(Color.GREEN);
+                                                            lineDataSet3.setColor(Color.RED);
                                                             lineDataSets.add(lineDataSet3);
 
                                                             lineChart.invalidate();
@@ -206,7 +206,7 @@ public class Activity_FitnessFragebogen_gesamt_rpt extends Activity_LineChartRep
                                                             lineChart.setScaleEnabled(true);
                                                             lineChart.setDescription("");
                                                             lineChart.setHighlightPerDragEnabled(true);
-                                                           // lineChart.getLegend().setEnabled(false);
+                                                            lineChart.getLegend().setEnabled(false);
 
 
                                                         }

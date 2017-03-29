@@ -120,7 +120,6 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
             final ArrayList<Entry> yAXES_Kraft = new ArrayList<>();
             URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(this).getName() +
                     "/FitnessFragebogen/");
-                    "/FitnessFragebogen/");
             final Firebase root = new Firebase(url.toString());
 
             root.addListenerForSingleValueEvent(new ValueEventListener() {
@@ -200,8 +199,6 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
                                                                             (y_Koordination, Math.min(y_Ausdauer, Math.min
                                                                                             (min_y, y_Beweglichkeit))
                                                                             ));
-                                                                                            (min_y, y_Beweglichkeit))
-                                                                            )));
                                                                     xAXES.add(x);
 
                                                                     yAXES_Beweglichkeit.add(new Entry
@@ -236,9 +233,6 @@ public class Activity_FitnessFragebogen_rpt extends Activity_LineChartReports {
                                                                             .this.getString(R.string.ausdauer));
                                                             lineDataSet2.setDrawCircles(true);
                                                             lineDataSet2.setColor(Color.RED);
-
-                                                                    Activity_FitnessFragebogen_rpt.this.getString(R
-                                                                            .string.gesamt));
 
                                                             LineDataSet lineDataSet4 = new LineDataSet
                                                                     (yAXES_Koordination,

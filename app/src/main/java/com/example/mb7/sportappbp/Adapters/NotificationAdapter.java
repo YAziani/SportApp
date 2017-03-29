@@ -1,6 +1,5 @@
 package com.example.mb7.sportappbp.Adapters;
 
-import android.app.Activity;
 import android.content.Intent;
 import android.preference.PreferenceManager;
 import android.support.v7.widget.CardView;
@@ -12,13 +11,8 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
-import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
-import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
-import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
-import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
-import com.example.mb7.sportappbp.Activity.ActivitySettingInitializer;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.Activity.Activity_lst_Challenge;
 import com.example.mb7.sportappbp.Activity.Activity_lst_bsafragebogen;
@@ -26,10 +20,9 @@ import com.example.mb7.sportappbp.Activity.Activity_lst_fitnessfragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
+import com.example.mb7.sportappbp.Observe.Observer;
 import com.example.mb7.sportappbp.R;
 
-import java.util.Date;
 import java.util.List;
 
 /**
@@ -118,7 +111,7 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                     Toast.makeText(
                             context.getContext(),
                             context.getString(R.string.ihr_train_begin_in)
-                                    + " " + MotivationMethod.timeTillTraining(nextTrainingTime)
+                                    + " " + Observer.timeTillTraining(nextTrainingTime)
                                     + " " + context.getString(R.string.minuten) + ".",
                             Toast.LENGTH_SHORT
                     ).show();

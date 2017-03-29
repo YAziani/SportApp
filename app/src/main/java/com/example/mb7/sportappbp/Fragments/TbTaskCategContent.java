@@ -31,7 +31,6 @@ import com.example.mb7.sportappbp.Adapters.TaskCategAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.BusinessLayer.Task;
 import com.example.mb7.sportappbp.BusinessLayer.TaskCategory;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 
 import java.util.ArrayList;

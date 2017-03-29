@@ -30,7 +30,6 @@ import android.view.ViewGroup;
 import android.widget.TextView;
 
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
 import com.example.mb7.sportappbp.Fragments.TbNotificationContent;

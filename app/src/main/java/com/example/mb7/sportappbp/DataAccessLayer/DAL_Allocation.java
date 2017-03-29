@@ -6,7 +6,6 @@ import android.content.SharedPreferences;
 import android.preference.PreferenceManager;
 
 import com.example.mb7.sportappbp.BusinessLayer.MethodChooser;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
 import com.firebase.client.FirebaseError;

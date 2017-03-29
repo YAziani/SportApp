@@ -16,7 +16,7 @@ import com.example.mb7.sportappbp.Activity.ActivityMain;
 import com.example.mb7.sportappbp.Adapters.NotificationAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Notification;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
-import com.example.mb7.sportappbp.MotivationMethods.MotivationMethod;
+import com.example.mb7.sportappbp.Observe.Observer;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
 import com.firebase.client.Firebase;
@@ -24,7 +24,6 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.net.URL;
-import java.sql.SQLOutput;
 import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
@@ -149,7 +148,7 @@ public class TbNotificationContent extends TabFragment {
                         notifications.add(new Notification(
                                 getString(R.string.trNotiTitle),
                                 getString(R.string.trNotiSmallTitle1)
-                                        + " " + MotivationMethod.timeTillTraining(nextTrainingTime)
+                                        + " " + Observer.timeTillTraining(nextTrainingTime)
                                         + " " + getString(R.string.trNotiSmallTitle2).split("\n")[0],
                                 R.mipmap.ic_fittnessfragebogen, new Date())
                         );

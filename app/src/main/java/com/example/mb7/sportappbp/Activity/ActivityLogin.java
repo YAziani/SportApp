@@ -45,9 +45,6 @@ public class ActivityLogin extends AppCompatActivity {
 
     ProgressDialog pd;
 
-    private DataSnapshot dataSnapshot = null;
-    // private boolean validSnapshot = false;
-
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
      */
@@ -106,8 +103,6 @@ public class ActivityLogin extends AppCompatActivity {
                 attemptRegister();
             }
         });
-
-        DAL_RegisteredUsers.getRegisteredUsers(this);
     }
 
     /**
@@ -204,35 +199,14 @@ public class ActivityLogin extends AppCompatActivity {
             cancel = true;
         }
 
-        //check if credentials are valid
-        boolean validLogin = true;
-        String errMessage = "";
-        TextView focus = mUsernameView;
-        if (dataSnapshot.getValue() != null) {
-            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                if (d.getKey().equals(username)) {
-                    validLogin = false;
-                    errMessage = getString(R.string.alusernametaken);
-                    focus = mUsernameView;
-                    break;
-                }
-            }
-        }
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
         } else {
             // perform the user login attempt
-            if (validLogin) {
-                mAuthTask = new UserLoginTask(username, password, false);
-                mAuthTask.execute((Void) null);
-            } else {
-                focusView = focus;
-                focusView.requestFocus();
-                focus.setError(errMessage);
-            }
+            mAuthTask = new UserLoginTask(username, password, false);
+            mAuthTask.execute((Void) null);
         }
     }
 
@@ -274,15 +248,6 @@ public class ActivityLogin extends AppCompatActivity {
             registerCatcher.catchRegistration(user);
         }
         ActivityLogin.this.finish();
-    }
-
-    /**
-     * return the snapshot with registered users to this activity
-     *
-     * @param dataSnapshot snapshot containing registered users
-     */
-    public void returnRegisteredUsers(DataSnapshot dataSnapshot) {
-        this.dataSnapshot = dataSnapshot;
     }
 
     /**
@@ -402,6 +367,9 @@ public class ActivityLogin extends AppCompatActivity {
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);
         NetworkInfo activeNetworkInfo = connectivityManager.getActiveNetworkInfo();
         return activeNetworkInfo != null && activeNetworkInfo.isConnected();
+    }
+
+    public void returnRegisteredUsers(DataSnapshot dataSnapshot) {
     }
 }
 

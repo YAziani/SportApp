@@ -5,8 +5,6 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * When you add a new attribute and you want to save it to the database, you have to add these
- * in class DAL_USER in the method InsertDiaryEntry()
  * Created by Basti on 16.01.2017.
  */
 
@@ -72,84 +70,10 @@ public class DiaryEntry implements Serializable {
     }
 
 
-    public int getTotalTimeHours() {
-        int result = 0;
-        for (Exercise i : exerciseList) {
-            result = result + i.getTimeHours();
-        }
-        return result;
-    }
-
-    public int getTotalTimeMinutesLeistungstests() {
-        int result = 0;
-        for (Exercise i : exerciseList) {
-
-            if (i instanceof LeistungstestsExercise)
-                result = result + i.getTimeMunites();
-        }
-        return result;
-    }
-
-    public int getTotalTimeHoursLeistungstests() {
-        int result = 0;
-        for (Exercise i : exerciseList) {
-
-            if (i instanceof LeistungstestsExercise)
-                result = result + i.getTimeHours();
-        }
-        return result;
-    }
-
-    public int getTotalTimeMinutesTraining() {
-        int result = 0;
-        for (Exercise i : exerciseList) {
-
-            if (i instanceof TrainingExercise)
-                result = result + i.getTimeMunites();
-        }
-        return result;
-    }
-
-    public int getTotalTimeHoursTraining() {
-        int result = 0;
-        for (Exercise i : exerciseList) {
-
-            if (i instanceof TrainingExercise)
-                result = result + i.getTimeHours();
-        }
-        return result;
-    }
-
-    public int getTotalTimeMinutesWellness() {
-        int result = 0;
-        for (Exercise i : exerciseList) {
-
-            if (i instanceof WellnessExercise)
-                result = result + i.getTimeMunites();
-        }
-        return result;
-    }
-
-    public int getTotalTimeHoursWellness() {
-        int result = 0;
-        for (Exercise i : exerciseList) {
-
-            if (i instanceof WellnessExercise)
-                result = result + i.getTimeHours();
-        }
-        return result;
-    }
-
-    public int getTotalTimeMinutesReinerAufenthalt() {
-        int result = 0;
-        for (Exercise i : exerciseList) {
-
-            if (i instanceof ReinerAufenthaltExercise)
-                result = result + i.getTimeMunites();
-        }
-        return result;
-    }
-
+    /**
+     * Calculates the total time and points of the category Leistungstest and returns them as an array
+     * @return the array with hour at the first , minutes second and points third position
+     */
     public int[] getTotalTimePointsAsArrayLeistungstests() {
 
         int[] result = new int[3];
@@ -183,6 +107,10 @@ public class DiaryEntry implements Serializable {
     }
 
 
+    /**
+     * Calculates the total time and points of the category Training and returns them as an array
+     * @return the array with hour at the first , minutes second and points third position
+     */
     public int[] getTotalTimePointsAsArrayTraining() {
 
         int[] result = new int[3];
@@ -216,6 +144,10 @@ public class DiaryEntry implements Serializable {
     }
 
 
+    /**
+     * Calculates the total time and points of the category Wellness and returns them as an array
+     * @return the array with hour at the first , minutes second and points third position
+     */
     public int[] getTotalTimePointsAsArrayWellness() {
 
         int[] result = new int[3];
@@ -249,6 +181,10 @@ public class DiaryEntry implements Serializable {
     }
 
 
+    /**
+     * Calculates the total time and points of the category Reiner Aufenthalt  and returns them as an array
+     * @return the array with hour at the first , minutes second and points third position
+     */
     public int[] getTotalTimePointsAsArrayReinerAufenthalt() {
 
         int[] result = new int[3];
@@ -291,23 +227,4 @@ public class DiaryEntry implements Serializable {
             exerciseList.add(i);
         }
     }
-
-    /*
-    private String[] totalTimePointsToStringArray(int hours, int min, int points){
-
-        String[] result = new String[2];
-
-        StringBuilder sbTime = new StringBuilder();
-        StringBuilder sbPoints = new StringBuilder();
-        DecimalFormat df = new DecimalFormat("00");
-        sbTime.append(df.format(hours)).append(":").append(df.format(min)).append(" h");
-        result[0] = sbTime.toString();
-
-        sbPoints.append(points).append(" Pkt.");
-        result[1] = sbPoints.toString();
-
-        return result;
-    }
-    */
-
 }

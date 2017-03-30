@@ -10,6 +10,7 @@ import android.widget.TextView;
 import com.example.mb7.sportappbp.BusinessLayer.DiaryEntry;
 import com.example.mb7.sportappbp.R;
 
+import java.security.InvalidParameterException;
 import java.text.DecimalFormat;
 import java.util.ArrayList;
 
@@ -97,6 +98,8 @@ public class DiaryEntryViewAdapter extends BaseAdapter {
                 txtTime.setTextColor(0xFF0000FF); //blue
                 txtPoints.setTextColor(0xFF0000FF);
                 break;
+            default: throw new InvalidParameterException("The category items is not declared");
+
         }
 
         return view;

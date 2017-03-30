@@ -42,12 +42,15 @@ public class ChallengeViewAdapter extends BaseAdapter {
         if (view == null)
             view = _context.getLayoutInflater().inflate(R.layout.lst_challenge_cell, null);
 
+        //set the position of the user
         TextView txtPos = (TextView) view.findViewById(R.id.textViewChallengePos);
         txtPos.setText(String.valueOf(position + 1) + ".");
 
+        //set the name of the user
         TextView txtName = (TextView) view.findViewById(R.id.textViewChallengeName);
         txtName.setText(user.getName());
 
+        //set the points of the user
         TextView txtPoints = (TextView) view.findViewById(R.id.textViewChallengePoints);
         txtPoints.setText(String.valueOf(user.getPoints()));
 

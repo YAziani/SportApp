@@ -23,7 +23,7 @@ import java.util.Date;
 import java.util.List;
 
 /**
- * Created by M.Braei on 25.03.2017.
+ * Created by Sebastian on 25.03.2017.
  */
 
 public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstViewAdapter.ChallengeHolder> {
@@ -68,10 +68,10 @@ public class ChallengeLstViewAdapter extends RecyclerView.Adapter<ChallengeLstVi
 
     @Override
     public void onBindViewHolder(final ChallengeHolder holder, final int position) {
+        //set resources of the layput
         ChallengeHolder challengeHolder = (ChallengeHolder) holder;
         challengeHolder.txtTitle.setText(challenges.get(position).getName());
         challengeHolder.txtSubText.setText(getDateOrFinished(challenges.get(position)));
-        //// TODO: 26.03.2017  
         challengeHolder.imageView.setImageResource(R.mipmap.ic_challenge);
 
         if (position == selectedPosition) {

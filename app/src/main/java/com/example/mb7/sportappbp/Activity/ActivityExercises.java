@@ -2,8 +2,8 @@ package com.example.mb7.sportappbp.Activity;
 
 import android.app.Dialog;
 import android.content.Intent;
-import android.os.Bundle;
 import android.support.v7.app.AppCompatActivity;
+import android.os.Bundle;
 import android.util.Log;
 import android.view.ContextMenu;
 import android.view.Menu;
@@ -30,24 +30,23 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Class to show all exercises
+ * Created by Sebastian on 24.01.2017.
+ */
+
 public class ActivityExercises extends AppCompatActivity {
 
 
     private ListView listviewExercises;
     private ArrayAdapter<String> arrayAdapter;
     private ArrayList<Exercise> exerciseList;
-
     private ListView listViewSelected;
     private ExerciseViewAdapter exerciseViewAdapter;
-
     int listViewExerciseList;
-
-    //private String chosenExercise;
     private int selectedCategory;
-
     private boolean finalResult = false;
-
-    Date date;
+    private Date date;
 
 
     @Override
@@ -55,39 +54,34 @@ public class ActivityExercises extends AppCompatActivity {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_exercises);
 
-        // Now read the extra key - exerciseList
+        // Now receive and read data without a request - from ActivityCategories
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
-        Log.e("Oncreate", "We have reached it");
+        Log.e("Oncreate","We have reached it");
         if (extras != null) {
 
-            //Get unpack the exerciseList und date
+            //Get unpack the exerciseList, selected exercise and date
             exerciseList = extras.getParcelableArrayList("oldExercises");
             date = (Date) extras.getSerializable("date");
             selectedCategory = extras.getInt("category");
-            //set attribute
-        } else {
 
-            //Set attribute
+        }
+        else{
+
             exerciseList = new ArrayList<Exercise>();
             selectedCategory = 0;
 
         }
 
-        //get the selected category of the previous activity (categories)
-        //selectedCategory = receiveCategory();
-        //get the already selected exercises
-        //exerciseList = receiveExerciseList();
-
-        //Set title of the label
+        //Set title of the activity
         setTitle(selectedCategory);
-        //get the list of the activity for the selected category
-        listViewExerciseList = getListOfActivities(selectedCategory);
 
-        //get the listviewExercises and set the adapter for the list of exercises
+        //set the list of exercises of the selected category
+        listViewExerciseList = getListOfExercises(selectedCategory);
+
+        //create a listview to show all exercises, which are available
         listviewExercises = (ListView) findViewById(R.id.listviewExercises);
-        arrayAdapter = new ArrayAdapter<String>(ActivityExercises.this, android.R.layout.simple_list_item_1,
-                getResources().getStringArray(listViewExerciseList));
+        arrayAdapter = new ArrayAdapter<String>(ActivityExercises.this, android.R.layout.simple_list_item_1,getResources().getStringArray(listViewExerciseList));
         listviewExercises.setAdapter(arrayAdapter);
 
         //get the listviewExercises and set the adapter for the select4ed exercises
@@ -95,23 +89,24 @@ public class ActivityExercises extends AppCompatActivity {
         exerciseViewAdapter = new ExerciseViewAdapter(ActivityExercises.this, exerciseList);
         listViewSelected.setAdapter(exerciseViewAdapter);
 
-        //set action when an exercise has been selected
+        //set action when an exercise has been selected to open a number pocker
         listviewExercises.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
                 String selectedExercise = (String) adapterView.getItemAtPosition(position);
 
-
+                //create an object of the selected category
                 Exercise exercise = createSelectedCategoryExercise();
 
-                if (exercise != null) {
+                if(exercise != null) {
                     exercise.setName(selectedExercise);
                     exercise.setTimeHours(00);
                     exercise.setTimeMinutes(00);
 
                     numberPicker(exercise);
-                } else
+                }
+                else
                     Toast.makeText(ActivityExercises.this, R.string.KategorieNeuWaehlen, Toast.LENGTH_SHORT).show();
 
 
@@ -131,20 +126,17 @@ public class ActivityExercises extends AppCompatActivity {
     }
 
     @Override
-    public boolean onOptionsItemSelected(MenuItem item) {
+    public boolean onOptionsItemSelected(MenuItem item){
 
         //check which icon was hidden in the toolbar
-        switch (item.getItemId()) {
-            case android.R.id.home:
-                //save the selected items and send them to the previous activity
-                //returnResult();
+        switch (item.getItemId()){
+            case android.R.id.home: //go back to categories
                 openActivityWithExtra(ActivityCategories.class);
-                //close the activity
                 finish();
                 return true;
-            case R.id.icon_save:
+            case R.id.icon_save: // go back to diarEntry
                 finalResult = true;
-                //returnFinalResult();
+
                 openActivityWithExtra(ActivityDiaryEntry.class);
                 finish();
                 return true;
@@ -158,6 +150,7 @@ public class ActivityExercises extends AppCompatActivity {
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
 
+        //set the menu with add and save icon
         MenuInflater inflater = getMenuInflater();
         inflater.inflate(R.menu.menu_context_menu, menu);
     }
@@ -170,92 +163,17 @@ public class ActivityExercises extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
-            case R.id.delete_id:
+            case R.id.delete_id: //remove the pressed exercise
                 exerciseList.remove(info.position);
                 exerciseViewAdapter.notifyDataSetChanged();
                 return true;
-            case R.id.edit_id:
+            case R.id.edit_id: //open numberpicker to cange the duration
                 numberPicker(exerciseList.get(info.position));
                 return true;
             default:
                 throw new InvalidParameterException("The context menu items is not declared");
         }
     }
-
-
-    private int receiveCategory() {
-        int category = 0;
-
-        final Bundle extra = getIntent().getExtras();
-        if (extra != null) {
-            category = extra.getInt("category");
-        }
-        return category;
-    }
-
-    private ArrayList<Exercise> receiveExerciseList() {
-
-        ArrayList<Exercise> result;
-
-        final Bundle extra = getIntent().getExtras();
-
-        if (extra != null) {
-            result = extra.getParcelableArrayList("oldExercises");
-            return result;
-        } else
-            return result = new ArrayList<Exercise>();
-    }
-
-    /**
-     * This method returns the result of the request. The result is the chosen activity
-     */
-    private void returnResult(Exercise result) {
-
-        if (result != null) {
-
-            exerciseList.add(result);
-
-            Intent intent = new Intent();
-            intent.putParcelableArrayListExtra("newExercises", exerciseList);
-            intent.putExtra("finalResult", finalResult);
-            setResult(RESULT_OK, intent);
-            exerciseViewAdapter.notifyDataSetChanged();
-        } else
-            Toast.makeText(ActivityExercises.this, R.string.KategorieWurdNichtRichtigGewaehlt, Toast.LENGTH_LONG)
-                    .show();
-
-    }
-
-    private void returnFinalResult() {
-
-        Calendar calendar = Calendar.getInstance();
-
-
-        if (exerciseList != null) {
-
-            // if nothing is longclicked -> go to the ActivityStimmung of the selected item
-            Intent open = new Intent(ActivityExercises.this, ActivityDiaryEntry.class);
-            // insert the date of the notificatino in the extra which is the unique field to delete the notification
-            // from the database
-
-            // pass the clicked diaryEntry to the activity
-            open.putParcelableArrayListExtra("oldExercises", exerciseList);
-            open.putExtra("date", calendar.getTime());
-            startActivity(open);
-
-            /*
-            Intent intent = new Intent();
-            intent.putParcelableArrayListExtra("newExercises", exerciseList);
-            intent.putExtra("finalResult", finalResult);
-            setResult(RESULT_OK, intent);
-            exerciseViewAdapter.notifyDataSetChanged();
-            */
-        } else
-            Toast.makeText(ActivityExercises.this, R.string.KategorieWurdNichtRichtigGewaehlt, Toast.LENGTH_LONG)
-                    .show();
-
-    }
-
 
     private Exercise createSelectedCategoryExercise() {
 
@@ -267,15 +185,18 @@ public class ActivityExercises extends AppCompatActivity {
             return new WellnessExercise();
         } else if (selectedCategory == (R.string.ReinerAufenthalt)) {
             return new ReinerAufenthaltExercise();
-        } else return null;
+        } else
+            throw new InvalidParameterException("The category items is not declared");
+
 
     }
 
 
     /**
-     * Creates a dialog window with two number pickers for hours and minutes. When the ok button
-     * will be pressed, the data will be saved. The cancel button is going to close the dialog
-     * window
+     * This method opens a dialog window with two number picker and includes the action for the positive and negative
+     * butten. When the positive one was pressed, the time will be saved to the diaryEntrz object. Else the window
+     * will be closed.
+     * @param exercise the pressed exercise to set the duration
      */
     private void numberPicker(final Exercise exercise) {
 
@@ -330,7 +251,6 @@ public class ActivityExercises extends AppCompatActivity {
                     exercise.setTimeHours(h);
                     exercise.setTimeMinutes(m);
                     dialog.dismiss();
-                    returnResult(exercise);
                 } else
                     Toast.makeText(ActivityExercises.this, R.string.ungueltigeZeit, Toast.LENGTH_SHORT).show();
             }
@@ -341,7 +261,6 @@ public class ActivityExercises extends AppCompatActivity {
         btnCancel.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //exerciseList.add(exercise);
                 //close the dialog windows without doing anything
                 dialog.dismiss();
             }
@@ -352,14 +271,14 @@ public class ActivityExercises extends AppCompatActivity {
 
     }
 
+    /**
+     * This method opens the entered activity with an information, which category was selected by the user ,
+     * the date of the entry and the current list
+     * @param destinationClass the class to open next
+     */
     private void openActivityWithExtra(Class destinationClass) {
 
-        // if nothing is longclicked -> go to the ActivityStimmung of the selected item
         Intent open = new Intent(ActivityExercises.this, destinationClass);
-        // insert the date of the notificatino in the extra which is the unique field to delete the notification from
-        // the database
-
-        // pass the clicked diaryEntry to the activity
         open.putParcelableArrayListExtra("oldExercises", exerciseList);
         open.putExtra("date", date);
         startActivity(open);
@@ -367,7 +286,12 @@ public class ActivityExercises extends AppCompatActivity {
     }
 
 
-    private int getListOfActivities(int category) {
+    /**
+     * Resturns an arraylist with all exercises of a category
+     * @param category
+     * @return
+     */
+    private int getListOfExercises(int category) {
 
         ArrayList<String> result = new ArrayList<>();
 

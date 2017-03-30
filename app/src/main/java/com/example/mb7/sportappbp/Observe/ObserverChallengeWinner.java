@@ -27,6 +27,7 @@ import java.util.Date;
 import java.util.LinkedList;
 
 /**
+ * Sends a notification if a challenge has ended
  * Created by Basti on 24.03.2017.
  */
 

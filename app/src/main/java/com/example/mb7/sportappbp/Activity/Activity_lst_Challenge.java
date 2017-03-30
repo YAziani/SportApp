@@ -40,6 +40,11 @@ import java.util.Collections;
 import java.util.LinkedList;
 import java.util.List;
 
+/**
+ * This class shows all existing diary entries.
+ * You can open prepare each or start to create a new one
+ */
+
 public class Activity_lst_Challenge extends AppCompatActivity {
 
     Activity_lst_Challenge activityLstChallenge = null;
@@ -49,16 +54,18 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     Activity_lst_Challenge activity_lst_challenge = this;
     ProgressDialog pd;
 
-    Challenge challenge;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_lst_challenge);
 
+        //Set the title of the class
         setTitle(getString(R.string.Challenges));
+        activityLstChallenge = this;
+        strChallengeList = new ArrayList<String>();
 
-
+        // Now receive and read data from the notification
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
         Log.e("Oncreate", "We have reached it");
@@ -70,9 +77,6 @@ public class Activity_lst_Challenge extends AppCompatActivity {
             }
         }
 
-        activityLstChallenge = this;
-        strChallengeList = new ArrayList<String>();
-
         // we want to make a context menu for our RecyclerView to show delelete Button when long clicked
         rv = (RecyclerView) findViewById(R.id.recycler_challenge);
         registerForContextMenu(rv);
@@ -83,6 +87,8 @@ public class Activity_lst_Challenge extends AppCompatActivity {
         super.onCreateContextMenu(menu, v, menuInfo);
         if (v.getId() == R.id.recycler_challenge) {
             MenuInflater inflater = getMenuInflater();
+
+            //set the context with prepare and remove
             inflater.inflate(R.menu.menu_item_leave, menu);
         }
     }
@@ -100,8 +106,8 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     @Override
     public boolean onOptionsItemSelected(MenuItem item) {
         switch (item.getItemId()) {
-            case R.id.icon_add:
 
+            case R.id.icon_add: //Open a the new activity to create a new challenge
                 Intent open = new Intent(activity_lst_challenge, ActivityNewChallenge.class);
                 startActivity(open);
                 break;
@@ -112,7 +118,7 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     @Override
     public boolean onContextItemSelected(MenuItem item) {
 
-        switch (item.getItemId()) {
+        switch (item.getItemId()) { //delete the item and give a feedback to the user
             case R.id.leaveItem:
                 deleteChallenge(((ChallengeLstViewAdapter) rv.getAdapter()).getSelectedObject());
                 Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
@@ -122,6 +128,11 @@ public class Activity_lst_Challenge extends AppCompatActivity {
         return super.onContextItemSelected(item);
     }
 
+    /**
+     * This method removes the notification in the notification frame.
+     * @param context current context
+     * @param notificationDate the notification to remove
+     */
     void removeNofication(Context context, String notificationDate) {
         // get the current user
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
@@ -134,12 +145,11 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     }
 
     /**
-     * delete all reverences from user to challenge and the other way round
+     * remove all reverences from user to challenge and the other way round
      *
      * @param challenge the object to remove
      */
     private void deleteChallenge(Challenge challenge) {
-        //// TODO: 26.03.2017 stuaryt ab
         challenge.RemoveUser(ActivityMain.getMainUser(this));
         strChallengeList.remove(challenge.getName());
 
@@ -148,6 +158,7 @@ public class Activity_lst_Challenge extends AppCompatActivity {
 
     @Override
     protected void onStart() {
+        //open dialog with loading
         super.onStart();
         pd = new ProgressDialog(this);
         pd.setMessage(getString(R.string.wird_geladen));
@@ -156,9 +167,14 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     }
 
 
+    /**
+     * This method loads all challenges from the user. It loads the
+     * name, end date and start date of the challenge from the database
+     */
     private void loadChallenges() {
 
 
+        //date format of the saved data
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
 
         try {
@@ -172,14 +188,14 @@ public class Activity_lst_Challenge extends AppCompatActivity {
 
                     challenges = new LinkedList<Challenge>();
 
-
+                    //set the name of all callenges
                     for (DataSnapshot name : dataSnapshot.getChildren()) {
                         Challenge challenge = new Challenge();
                         challenge.setName(name.getKey());
 
+                        //set the dates of all challenges and recover the date objects
                         for (DataSnapshot childName : name.getChildren()) {
 
-                            //start date
                             if (childName.getKey().equals("startDate")) {
                                 try {
                                     challenge.setStartDate(sdfDate.parse(childName.getValue().toString()));
@@ -187,7 +203,7 @@ public class Activity_lst_Challenge extends AppCompatActivity {
                                     e.printStackTrace();
                                 }
                             }
-                            //set end date
+
                             if (childName.getKey().equals("endDate")) {
                                 try {
                                     challenge.setEndDate(sdfDate.parse(childName.getValue().toString()));

@@ -54,14 +54,16 @@ public class FitnessFrageViewAdapter extends RecyclerView.Adapter<FitnessFrageVi
 
     @Override
     public FitnessFrageViewAdapter.FitnessFrageHolder onCreateViewHolder(ViewGroup viewGroup, int i) {
-        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_fitnessfragebogen, viewGroup, false);
+        View v = LayoutInflater.from(viewGroup.getContext()).inflate(R.layout.cardview_fitnessfragebogen,
+                viewGroup, false);
         FitnessFrageViewAdapter.FitnessFrageHolder bvh = new FitnessFrageViewAdapter.FitnessFrageHolder(v);
         return bvh;
     }
 
     @Override
     public void onBindViewHolder(final FitnessFrageViewAdapter.FitnessFrageHolder holder, final int position) {
-        FitnessFrageViewAdapter.FitnessFrageHolder fitnessFrageHolder = (FitnessFrageViewAdapter.FitnessFrageHolder) holder;
+        FitnessFrageViewAdapter.FitnessFrageHolder fitnessFrageHolder =
+                (FitnessFrageViewAdapter.FitnessFrageHolder) holder;
         fitnessFrageHolder.txtTitle.setText(fitnessFragebogenList.get(position).Date);
 
         //fitnessFrageHolder.txtSubText.setText(fitnessFragebogenList.get(position).Time   );

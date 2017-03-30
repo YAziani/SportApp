@@ -16,6 +16,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Calendar;
@@ -60,61 +61,72 @@ public class ObserverChallengeInvitation extends Observer {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
 
-                    String strName = null;
-                    Challenge challenge = new Challenge();
+                    //check if some invites exist, else nothing is to restore
+                    if (dataSnapshot.hasChildren()) {
+                        String strName = null;
+                        Challenge challenge = new Challenge();
 
-                    //get all names of challenges which send a invitation
-                    for(DataSnapshot name : dataSnapshot.getChildren()) {
-                        challenge = new Challenge();
-                        challenge.setName(name.getKey());
-                        strName = name.getKey().toString();
+                        //get all names of challenges which send a invitation
+                        for (DataSnapshot name : dataSnapshot.getChildren()) {
+                            challenge = new Challenge();
+                            challenge.setName(name.getKey());
+                            strName = name.getKey().toString();
 
 
-                        //recover the dates of the challenge
-                        for (DataSnapshot childName : name.getChildren()) {
-                            //start date
-                            if (childName.getKey().equals("startDate")) {
-                                try {
-                                    challenge.setStartDate(sdfDate.parse(childName.getValue().toString()));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
+                            //recover the dates of the challenge
+                            for (DataSnapshot childName : name.getChildren()) {
+                                //start date
+                                if (childName.getKey().equals("startDate")) {
+                                    try {
+                                        challenge.setStartDate(sdfDate.parse(childName.getValue().toString()));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
-                            }
-                            //set end date
-                            if (childName.getKey().equals("endDate")) {
-                                try {
-                                    challenge.setEndDate(sdfDate.parse(childName.getValue().toString()));
-                                } catch (ParseException e) {
-                                    e.printStackTrace();
+                                //set end date
+                                if (childName.getKey().equals("endDate")) {
+                                    try {
+                                        challenge.setEndDate(sdfDate.parse(childName.getValue().toString()));
+                                    } catch (ParseException e) {
+                                        e.printStackTrace();
+                                    }
                                 }
                             }
                         }
-                    }
 
 
-                        if(challenge.getName() != null) {
+                        if (challenge.getName() != null && challenge.getStartDate() != null &&
+                                challenge.getEndDate() != null) {
                             // we are in the interval where we should raise a notification
                             // just check if the user hasn't got a notification before
                             preferences = PreferenceManager.getDefaultSharedPreferences(context);
-                            String date = android.text.format.DateFormat.format("yyyy-MM-dd", new Date()).toString();
-                            Boolean sendNotif = preferences.getBoolean(challenge.getName() + ActivityMain.getMainUser(context), false);
+                            Boolean sendNotif = preferences.getBoolean(challenge.getName() +
+                                    ActivityMain.getMainUser(context), false);
                             if (!sendNotif) {
                                 // insert in the preferences that notification has been sent
-                                preferences.edit().putBoolean(challenge.getName() + ActivityMain.getMainUser(context), true).commit();
+                                preferences.edit().putBoolean(challenge.getName() +
+                                        ActivityMain.getMainUser(context), true).commit();
+
+                                SimpleDateFormat notiSdf = new SimpleDateFormat("dd.MM.yyyy");
+                                String endDate = notiSdf.format(challenge.getEndDate());
+                                String startDate = notiSdf.format(challenge.getStartDate());
                                 ;
                                 // send notification
-                                sendNotification(context,"Einladung " + context.getString(R.string.Challenge),
-                                        ActivityChallenge.class ,
-                                        context.getString(R.string.Challenge) ,
-                                        context.getString(R.string.ntf_ChallengeEinladung),
+                                sendNotification(context,
+                                        context.getString(R.string.Challenge),
+                                        ActivityChallenge.class,
+                                        context.getString(R.string.Challenge),
+                                        "Einladung zur Challenge " + "'" + challenge.getName() + "' :" + " vom "
+                                                + startDate + " bis " + endDate,
                                         R.mipmap.ic_challenge,
-                                        challenge, context.getString(R.string.Challenges) );
-
-
+                                        challenge, context.getString(R.string.Challenges));
                             }
 
-                        }
+                        } else
+                            throw new NullPointerException("Data for challenge invitation notification aren't " +
+                                    "completely recovered");
                     }
+                }
 
 
 

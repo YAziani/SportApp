@@ -1,5 +1,7 @@
 package com.example.mb7.sportappbp.DataAccessLayer;
 
+import android.app.Dialog;
+
 import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityLogin;
 import com.example.mb7.sportappbp.Activity.ActivityNewChallenge;
@@ -48,20 +50,23 @@ public class DAL_RegisteredUsers {
 
 
     /**
-     * get registered users and hand it to the activity
+     * get registered users and hand it to the activity with dialog and usermail
      *
      * @param activity the displaying activity
+     * @param searchedUser the searched mail address of the user
+     * @param dialog dialog where the mail address has been entered
+     *
      */
-    public static void getRegisteredUsersNewChallenge(
-            final ActivityNewChallenge activity) {
+    public static void checkRegisteredUsersNewChallenge(
+            final ActivityNewChallenge activity, final String searchedUser, final Dialog dialog) {
         // access data in database and hand it to activity
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "users");
             Firebase root = new Firebase(url.toString());
-            root.addValueEventListener(new ValueEventListener() {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    activity.returnRegisteredUsers(dataSnapshot);
+                    activity.returnRegisteredUsers(dataSnapshot, searchedUser, dialog);
                 }
 
                 @Override
@@ -80,16 +85,16 @@ public class DAL_RegisteredUsers {
      *
      * @param activity the displaying activity
      */
-    public static void getRegisteredUsersChallenge(
-            final ActivityChallenge activity) {
+    public static void checkRegisteredUsersChallenge(
+            final ActivityChallenge activity, final String searchedUser, final Dialog dialog) {
         // access data in database and hand it to activity
         try {
             URL url = new URL(DAL_Utilities.DatabaseURL + "users");
             Firebase root = new Firebase(url.toString());
-            root.addValueEventListener(new ValueEventListener() {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    activity.returnRegisteredUsers(dataSnapshot);
+                    activity.returnRegisteredUsers(dataSnapshot, searchedUser, dialog);
                 }
 
                 @Override

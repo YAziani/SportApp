@@ -5,7 +5,7 @@ import java.util.ArrayList;
 import java.util.Date;
 
 /**
- * Created by Basti on 16.01.2017.
+ * Created by Sebastian on 16.01.2017.
  */
 
 public class DiaryEntry implements Serializable {

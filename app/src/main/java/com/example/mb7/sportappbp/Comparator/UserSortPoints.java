@@ -5,7 +5,8 @@ import com.example.mb7.sportappbp.BusinessLayer.User;
 import java.util.Comparator;
 
 /**
- * Created by Basti on 22.03.2017.
+ * Class to sort the users for the challenge ranking
+ * Created by Sebastian on 22.03.2017.
  */
 
 public class UserSortPoints implements Comparator<User> {

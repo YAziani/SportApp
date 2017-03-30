@@ -14,7 +14,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * Created by Basti on 21.03.2017.
+ * Created by Sebastian on 21.03.2017.
  */
 
 public class Challenge implements Serializable {

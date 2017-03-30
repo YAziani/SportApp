@@ -210,65 +210,6 @@ public class ObserverStudioSetRemoveNotification extends Observer {
         return 0;
     }
 
-    // get the current time in minutes
-    private Date getMinutesofDate() {
-        Calendar calendar = Calendar.getInstance();
-        return calendar.getTime();
-    }
-
-    /**
-     * Reads all users of the challenge from the database
-     *
-     * @return The user you are looking for or null
-     */
-    private void getUSers() {
-
-        Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMMdd");
-        Date today = calendar.getTime();
-
-        challenges = new LinkedList<String>();
-
-
-        if (validSnapshotChallenges) {
-            if (dataSnapshotChallenges.getValue() != null) {
-                for (DataSnapshot nameChild : dataSnapshotChallenges.getChildren()) {
-
-                    for (DataSnapshot dateChild : nameChild.getChildren()) {
-                        if (dateChild.getKey().equals("endDate")) {
-                            try {
-                                //check if the challenge is still active
-                                Date endDate = sdf.parse(dateChild.getValue().toString());
-                                if (!endDate.before(today)) {
-                                    //add challenge to notify list
-                                    challenges.add(nameChild.getKey());
-                                }
-
-                            } catch (ParseException e) {
-                                e.printStackTrace();
-                            }
-                        }
-                    }
-                }
-            }
-        }
-
-        //write date to datebase to let other people know, that I m in the studio
-        for (String chName : challenges) {
-            //SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-
-            Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "Challenges/" + chName);
-
-            //add challenge to user challenges
-            // Firebase challengesChild = ref.child("Challenges");
-
-            Firebase studio = ref.child("AtStudio");
-
-            Firebase nameChildStart = studio.child("startDate");
-            nameChildStart.setValue(ActivityMain.getMainUser(context));
-
-        }
-    }
 
     /**
      * This method adds the user from the notification list, that he is in the fitness studio

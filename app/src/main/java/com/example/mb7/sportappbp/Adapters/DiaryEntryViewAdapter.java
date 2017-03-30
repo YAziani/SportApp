@@ -15,7 +15,7 @@ import java.text.DecimalFormat;
 import java.util.ArrayList;
 
 /**
- * Created by Basti on 14.03.2017.
+ * Created by Sebastian on 14.03.2017.
  */
 
 public class DiaryEntryViewAdapter extends BaseAdapter {

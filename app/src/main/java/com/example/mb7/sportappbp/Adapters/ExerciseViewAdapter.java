@@ -12,7 +12,7 @@ import com.example.mb7.sportappbp.R;
 import java.util.ArrayList;
 
 /**
- * Created by Basti on 29.01.2017.
+ * Created by Sebastian on 29.01.2017.
  */
 
 public class ExerciseViewAdapter extends BaseAdapter {
@@ -50,7 +50,8 @@ public class ExerciseViewAdapter extends BaseAdapter {
         //set the duration in hours and minutes of the exercise
         TextView txtText = (TextView) view.findViewById(R.id.txtDuration);
         txtText.setText(String.valueOf(exercise.getTimeHours()) + " " + _context.getResources().getString(R.string
-                .Stunden) + " " + exercise.getTimeMunites() + " " + _context.getResources().getString(R.string
+                .Stunden) + " " +
+                exercise.getTimeMunites() + " " + _context.getResources().getString(R.string
                 .Minuten));
         return view;
     }

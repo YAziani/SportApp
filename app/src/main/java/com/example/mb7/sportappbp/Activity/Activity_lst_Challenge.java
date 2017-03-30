@@ -33,6 +33,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +44,7 @@ import java.util.List;
 /**
  * This class shows all existing diary entries.
  * You can open prepare each or start to create a new one
+ * Created by Sebastian
  */
 
 public class Activity_lst_Challenge extends AppCompatActivity {
@@ -85,6 +87,8 @@ public class Activity_lst_Challenge extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+
+
         if (v.getId() == R.id.recycler_challenge) {
             MenuInflater inflater = getMenuInflater();
 
@@ -110,9 +114,10 @@ public class Activity_lst_Challenge extends AppCompatActivity {
             case R.id.icon_add: //Open a the new activity to create a new challenge
                 Intent open = new Intent(activity_lst_challenge, ActivityNewChallenge.class);
                 startActivity(open);
-                break;
+                return true;
+            default:
+                throw new InvalidParameterException("The menu items is not declared");
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -122,11 +127,13 @@ public class Activity_lst_Challenge extends AppCompatActivity {
             case R.id.leaveItem:
                 deleteChallenge(((ChallengeLstViewAdapter) rv.getAdapter()).getSelectedObject());
                 Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
-                break;
-
+                return true;
+            default:
+                throw new InvalidParameterException("The context items is not declared");
         }
-        return super.onContextItemSelected(item);
+
     }
+
 
     /**
      * This method removes the notification in the notification frame.

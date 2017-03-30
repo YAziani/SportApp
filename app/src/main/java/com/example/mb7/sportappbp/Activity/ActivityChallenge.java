@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.Dialog;
 import android.content.Context;
@@ -14,6 +15,7 @@ import android.view.Menu;
 import android.view.MenuInflater;
 import android.view.MenuItem;
 import android.view.View;
+import android.widget.AdapterView;
 import android.widget.Button;
 import android.widget.EditText;
 import android.widget.ListView;
@@ -35,6 +37,7 @@ import com.firebase.client.ValueEventListener;
 
 import java.net.MalformedURLException;
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -43,6 +46,10 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 
+/**
+ * This class shows the ranking of the challenge
+ * Created by Sebastian
+ */
 public class ActivityChallenge extends AppCompatActivity {
 
     ChallengeViewAdapter challengeViewAdapter;
@@ -53,17 +60,13 @@ public class ActivityChallenge extends AppCompatActivity {
     Calendar calendar = Calendar.getInstance();
     Date todayDate;
     Date endDate;
-    String challengeName;
     LinkedList<String> strUSer;
-
     SimpleDateFormat sdf = new SimpleDateFormat("dd.MM.yyyy");
-
-    DataSnapshot dataSnapshotChallenges;
-    boolean validSnapshotChallenges = false;
     DataSnapshot dataSnapshotChallengeUsers;
     boolean validSnapshotChallengeUsers = false;
     DataSnapshot dataSnapshotUsers;
     boolean validSnapshotUsers = false;
+
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -71,40 +74,63 @@ public class ActivityChallenge extends AppCompatActivity {
         setContentView(R.layout.activity_challenge);
 
 
-        // Now read the extra key - exerciseList
+        // Now read the extra key -  the notification and pressed challenge
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
         Log.e("Oncreate", "We have reached it");
         if (extras != null) {
 
+            //unpack the data of the challenge and load the users datasnapshot from all users of the
+            // challenge and all registered users from the database
             challenge = (Challenge) extras.getSerializable(getString(R.string.Challenges));
             strUSer = new LinkedList<String>();
-            DAL_Challenges.getRegisteredUsersToChallenge(this, challenge.getName());
-            DAL_RegisteredUsers.getRegisteredUsersChallenge(this);
-            setTitle(challenge.getName());
+
+            //set the title of the activity with the challenge name
+
 
             // read the datetime as this is the unique value in the db for the notification
             String notificationDate = (String) extras.get("NotificationDate");
             if (notificationDate != null) {
                 removeNofication(this, notificationDate);
-                askToEnterDialog(challenge);
+
+                //get the name of the challenge and the dates out of the text and create the object
+                challenge = new Challenge();
+                String subtext = (String) extras.get("Subtext");
+                int StartPosName= subtext.indexOf("'");
+                int EndPosName= subtext.indexOf("'",StartPosName+1);
+                String text = subtext.substring(StartPosName+1,EndPosName);
+                String startDatum = subtext.substring(EndPosName+8,EndPosName+18);
+                String endDatum = subtext.substring(EndPosName+23);
+
+                challenge.setName(text);
+                try {
+                    challenge.setStartDate(sdf.parse(startDatum));
+                    challenge.setEndDate(sdf.parse(endDatum));
+
+                    askToEnterDialog();
+                } catch (ParseException e) {
+                    e.printStackTrace();
+                }
+
+
+
             }
 
 
-        } else {
+        } else {//if the challenge wasn't in the package, give a feedbac to the user
 
-            challenge = new Challenge();
+            finish();
             Toast.makeText(this, getString(R.string.ChallengeKonnteNichtGeladenWerdenVersuchenSieBitteErneut), Toast
                     .LENGTH_SHORT).show();
-            //finish();
 
         }
 
-
+        setTitle(challenge.getName());
+        DAL_Challenges.getRegisteredUsersToChallenge(this, challenge.getName());
         userList = new ArrayList<User>();
 
 
-        //Create listview
+        //Create listview to show all users with their points in a ranking
         listView = (ListView) findViewById(R.id.listViewChallenge);
         challengeViewAdapter = new ChallengeViewAdapter(ActivityChallenge.this, userList);
         listView.setAdapter(challengeViewAdapter);
@@ -118,7 +144,7 @@ public class ActivityChallenge extends AppCompatActivity {
         endDate = challenge.getEndDate();
         String remainingDays = String.valueOf(challenge.getRemainingDays());
         //set the difference to the textview
-        //check if challenge finished and set counter
+        //check if challenge finished
         if (endDate.before(todayDate))
             textViewCountdown.setText(getString(R.string.ChallengeBeendet));
         else
@@ -127,7 +153,12 @@ public class ActivityChallenge extends AppCompatActivity {
 
     }
 
-    private void askToEnterDialog(final Challenge challenge) {
+    /**
+     * This method opens a dialog of the invitation. The user can join the challenge, the data will be added to the
+     * database, or reject the invitation and nothing will happen
+     *
+     */
+    private void askToEnterDialog() {
 
         final AlertDialog.Builder builder = new AlertDialog.Builder(ActivityChallenge.this);
         builder.setMessage(getString(R.string.MöchtenSieAnDerChallenge) + " " + challenge.getName() + "\n" +
@@ -141,7 +172,7 @@ public class ActivityChallenge extends AppCompatActivity {
                         challenge.RemoveInvitation(ActivityMain.getMainUser(ActivityChallenge.this));
 
                     }
-                })
+                })//remove the invitation from the database
                 .setNegativeButton(R.string.Nein, new DialogInterface.OnClickListener() {
                     public void onClick(DialogInterface dialog, int id) {
 
@@ -152,6 +183,11 @@ public class ActivityChallenge extends AppCompatActivity {
         builder.show();
     }
 
+    /**
+     * This method removes the notification in the notification frame.
+     * @param context current context
+     * @param notificationDate the notification to remove
+     */
     void removeNofication(Context context, String notificationDate) {
         // get the current user
         SharedPreferences preferences = PreferenceManager.getDefaultSharedPreferences(context.getApplicationContext());
@@ -186,12 +222,24 @@ public class ActivityChallenge extends AppCompatActivity {
 
                 addUserDialog.show();
 
-                //final EditText editTextMailAddress = (EditText) addUserDialog.findViewById(R.id
-                // .textChallengeMailAddress);
-
-                //Create button to add a user to the userlist
+                //Create button to add a user to the user list
                 Button btnOk = (Button) addUserDialog.findViewById(R.id.btnChallengeOk);
-                btnOk.setOnClickListener(btnOkAddUserDialogListener(addUserDialog));
+                btnOk.setOnClickListener(new View.OnClickListener() {
+                            @Override
+                            public void onClick(View view) {
+
+                                EditText editTextMailAddress = (EditText) addUserDialog.
+                                        findViewById(R.id.textChallengeMailAddress);
+                                //get the entered email address
+                                String mail = editTextMailAddress.getText().toString();
+                                //first load a snapshot from the database with all registered users and
+                                // then search for the mail address
+                                DAL_RegisteredUsers.checkRegisteredUsersChallenge(ActivityChallenge.this,
+                                        editTextMailAddress.getText().toString(), addUserDialog);
+
+                            }});
+
+
 
                 //create button to cancel the dialog
                 Button btnCancel = (Button) addUserDialog.findViewById(R.id.btnChallengeCancel);
@@ -202,92 +250,68 @@ public class ActivityChallenge extends AppCompatActivity {
                         addUserDialog.dismiss();
                     }
                 });
+                return true;
+            default:
+                throw new InvalidParameterException("The menu items is not declared");
 
-            //case android.R.id.home:
-              //  finish();
         }
-        return super.onOptionsItemSelected(item);
     }
 
     /**
-     * This method creates an on click listener for the ok button from the add user dialog.
-     * The method checks if the user exists or has already been added. If not, the user will
-     * be added to the user list
-     *
-     * @param addUserDialog dialog object from the dialog to add an user
-     * @return returns a onClickListener for the button
-     **/
-    private View.OnClickListener btnOkAddUserDialogListener(final Dialog addUserDialog) {
-
-        final EditText editTextMailAddress = (EditText) addUserDialog.findViewById(R.id.textChallengeMailAddress);
-
-        View.OnClickListener listener = new View.OnClickListener() {
-            @Override
-            public void onClick(View view) {
-
-                //get the entered email address
-                String mail = editTextMailAddress.getText().toString();
-
-                //get user form database
-                User user = getUser(editTextMailAddress.getText().toString());
-                //check if user exist
-                if (user != null) {
-                    //user already added
-                    if (userAlreadyInList(user))
-                        Toast.makeText(ActivityChallenge.this, getString(R.string.BenutzerBereitshinzugefügt), Toast
-                                .LENGTH_SHORT).show();
-                        //add user and close dialog
-                    else {
-                        //Add User on Database
-                        challenge.InviteUser(user);
-                        challengeViewAdapter.notifyDataSetChanged();
-                        addUserDialog.dismiss();
-                    }
-                }
-                //if user doesn't exist
-                else
-                    Toast.makeText(ActivityChallenge.this, mail + " " + getString(R.string.konnteNichtGefundenWerden)
-                            , Toast.LENGTH_SHORT).show();
-
-            }
-        };
-        return listener;
-    }
-
-    /**
-     * This method checks, if a user with an email address exist and returns him. When the user doesn't
-     * exist, the method returns null.
+     * This method checks the entered email adress from the dialog window and evaluate it. If the user exist
+     * or has already been added. else the user will be added
      *
      * @param searchedEmail email address of the user
-     * @return The user you are looking for or null
+     * @param dialog dialog window where the address was entered
      */
-    private User getUser(String searchedEmail) {
+    private void checkRegisteredUsers(String searchedEmail, Dialog dialog) {
 
         User user = null;
 
         if (dataSnapshotUsers.getValue() != null) {
             for (DataSnapshot d : dataSnapshotUsers.getChildren()) {
-
+                //recover the user if it it equals
                 if (d.child("email").getValue() != null) {
                     if (d.child("email").getValue().equals(searchedEmail)) {
                         user = User.Create(d.getKey().toString());
                         user.setEmail(d.child("email").getValue().toString());
-
-
-                        return user;
                     }
                 }
             }
+
+            if (user != null) {
+                //user already added
+                if (userAlreadyInList(user) || user.getName().equals(ActivityMain.getMainUser(this).getName()))
+                    Toast.makeText(ActivityChallenge.this, getString(R.string.BenutzerBereitshinzugefügt),
+                            Toast.LENGTH_SHORT).show();
+                    //add user and close dialog
+                else {
+                    userList.add(user);
+                    challengeViewAdapter.notifyDataSetChanged();
+                    dialog.dismiss();
+                }
+            }
+            //if user doesn't exist
+            else
+                Toast.makeText(ActivityChallenge.this, searchedEmail + " " + getString(R.string
+                        .konnteNichtGefundenWerden),
+                        Toast.LENGTH_SHORT).show();
+
         }
-        return null;
     }
 
+
+    /**
+     * Checks if a users has already been added to the challenge
+     * @param user selected user to add
+     * @return truw when the user exists else false
+     */
     private boolean userAlreadyInList(User user) {
 
         boolean result = false;
 
         for (User u : userList) {
-            if (user.getEmail().equals(u.getEmail()))
+            if (user.getName().equals(u.getName()))
                 result = true;
         }
         return result;
@@ -295,14 +319,16 @@ public class ActivityChallenge extends AppCompatActivity {
 
 
     /**
-     * Reads all users of the challenge from the database
+     * Reads and calculates the total points (diary Entries) from all challenge user from the datasnapshot,
+     * which one was loaded at the beginning
+     * of the class
      *
      * @return The user you are looking for or null
      */
-    private void getUSers() {
+    private void getChallengeUsers() {
 
         final SimpleDateFormat sdf = new SimpleDateFormat("yyyyMMdd");
-
+        //first get all usernames of all challenge members and add him the list
         if (validSnapshotChallengeUsers) {
             if (dataSnapshotChallengeUsers.getValue() != null) {
                 for (DataSnapshot d : dataSnapshotChallengeUsers.getChildren()) {
@@ -312,6 +338,7 @@ public class ActivityChallenge extends AppCompatActivity {
             }
         }
 
+        //load points for each user of the list
         for (final String u : strUSer) {
 
             URL url = null;
@@ -325,15 +352,16 @@ public class ActivityChallenge extends AppCompatActivity {
 
                         int totalPoints = 0;
 
-                        //day
+                        //go to each day of diaryEntries
                         for (DataSnapshot child1Date : dataSnapshot.getChildren()) {
 
                             try {
+                                //recover the date object
                                 Date date = sdf.parse(child1Date.getKey());
 
                                 if (date.after(challenge.getStartDate()) || date.equals(challenge.getStartDate()) ||
                                         date.equals(challenge.getEndDate()) || date.before(challenge.getEndDate())) {
-                                    //time
+                                    //go threw all entries of a day
                                     for (DataSnapshot child2 : child1Date.getChildren()) {
                                         //look for totalpoints
                                         for (DataSnapshot child3 : child2.getChildren()) {
@@ -349,6 +377,7 @@ public class ActivityChallenge extends AppCompatActivity {
                             }
 
                         }
+                        //create a user object and set  name and points and sort the lost
                         User user = User.Create(u);
                         user.setPoints(totalPoints);
                         userList.add(user);
@@ -380,28 +409,19 @@ public class ActivityChallenge extends AppCompatActivity {
     public void returnRegisteredChallengeUsers(DataSnapshot dataSnapshot) {
         this.dataSnapshotChallengeUsers = dataSnapshot;
         validSnapshotChallengeUsers = true;
-        getUSers();
+        getChallengeUsers();
     }
 
     /**
-     * return the snapshot with registered users to this activity
+     * return the snapshot with registered users of a challenge to this activity and starts
+     * the method to recover the users out of the snapshot
      *
      * @param dataSnapshot snapshot containing registered users
      */
-    public void returnRegisteredUsers(DataSnapshot dataSnapshot) {
+    public void returnRegisteredUsers(DataSnapshot dataSnapshot, String searchedUser, Dialog dialog) {
         this.dataSnapshotUsers = dataSnapshot;
         validSnapshotUsers = true;
-    }
-
-
-    /**
-     * return the snapshot with registered challenges to this activity
-     *
-     * @param dataSnapshot snapshot containing registered users
-     */
-    public void returnRegisteredChallenges(DataSnapshot dataSnapshot) {
-        this.dataSnapshotChallenges = dataSnapshot;
-        validSnapshotChallenges = true;
+        checkRegisteredUsers(searchedUser, dialog);
     }
 
 }

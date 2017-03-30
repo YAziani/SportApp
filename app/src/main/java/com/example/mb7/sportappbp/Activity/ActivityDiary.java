@@ -30,6 +30,7 @@ import com.firebase.client.FirebaseError;
 import com.firebase.client.ValueEventListener;
 
 import java.net.URL;
+import java.security.InvalidParameterException;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
@@ -105,9 +106,10 @@ public class ActivityDiary extends AppCompatActivity {
                 //open activity to create a new diaryEntry
                 Intent open = new Intent(activityDiary, ActivityCategories.class);
                 startActivity(open);
-                break;
+                return true;
+            default:
+                throw new InvalidParameterException("The menu items is not declared");
         }
-        return super.onOptionsItemSelected(item);
     }
 
     @Override
@@ -117,10 +119,12 @@ public class ActivityDiary extends AppCompatActivity {
             case R.id.deleteItem: //delete pressed item and give a feedbacl
                 deleteDiaryEntry(((DiaryViewAdapter) rv.getAdapter()).getSelectedObject());
                 Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
-                break;
+                return true;
+            default:
+                throw new InvalidParameterException("The menu items is not declared");
 
         }
-        return super.onContextItemSelected(item);
+
     }
 
 

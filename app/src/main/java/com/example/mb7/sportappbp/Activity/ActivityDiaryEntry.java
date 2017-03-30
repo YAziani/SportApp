@@ -24,6 +24,7 @@ import java.util.Date;
 /**
  * This class shows the time and point for each category
  * and you can add new exercises or save the entry
+ * Created by Sebastian
  */
 public class ActivityDiaryEntry extends AppCompatActivity {
 
@@ -85,7 +86,8 @@ public class ActivityDiaryEntry extends AppCompatActivity {
         listIcons.add(R.drawable.ic_aufenthalt);
 
         //create and set gridview with an adapter to show the categories with icons and their time and points
-        diaryEntryViewAdapter = new DiaryEntryViewAdapter(ActivityDiaryEntry.this, listCategories, diaryEntry, listIcons);
+        diaryEntryViewAdapter = new DiaryEntryViewAdapter(ActivityDiaryEntry.this,
+                listCategories, diaryEntry, listIcons);
         gridView = (GridView) findViewById(R.id.gridViewExercise);
         gridView.setAdapter(diaryEntryViewAdapter);
     }
@@ -123,7 +125,8 @@ public class ActivityDiaryEntry extends AppCompatActivity {
                 }
 
                 else//Give feedback to the user that there was nothing to save
-                    Toast.makeText(ActivityDiaryEntry.this, R.string.keintagebucheintragerstellt , Toast.LENGTH_SHORT).show();
+                    Toast.makeText(ActivityDiaryEntry.this, R.string.keintagebucheintragerstellt ,
+                            Toast.LENGTH_SHORT).show();
 
                 finish();
                 return true;

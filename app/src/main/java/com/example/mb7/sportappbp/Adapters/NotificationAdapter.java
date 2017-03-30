@@ -11,6 +11,7 @@ import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
 
+import com.example.mb7.sportappbp.Activity.ActivityChallenge;
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
 import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
@@ -113,10 +114,11 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
 
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .Challenge))) {
-                Intent open = new Intent(context.getActivity(), Activity_lst_Challenge.class);
+                Intent open = new Intent(context.getActivity(), ActivityChallenge.class);
                 String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get
                         (getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate", NotificationDate);
+                open.putExtra("Subtext",notifications.get(getAdapterPosition()).getSubText());
                 context.startActivity(open);
             }
             else

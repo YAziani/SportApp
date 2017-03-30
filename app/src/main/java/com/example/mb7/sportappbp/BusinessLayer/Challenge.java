@@ -14,8 +14,6 @@ import java.util.LinkedList;
 import java.util.List;
 
 /**
- * When you want to add a user to the challenge, you have to use the addUser() method. Otherwise the list will not be
- * sorted.
  * Created by Basti on 21.03.2017.
  */
 
@@ -26,8 +24,6 @@ public class Challenge implements Serializable {
     private List<User> userList;
     private Date startDate;
     private Date endDate;
-    private String admin;
-    private Boolean active;
     final Calendar todayCalendar = Calendar.getInstance();
 
     public Challenge() {
@@ -40,14 +36,6 @@ public class Challenge implements Serializable {
 
     public void setName(String name) {
         this.name = name;
-    }
-
-    public void setUserList(List<User> list) {
-        this.userList = list;
-    }
-
-    public List<User> getUserList() {
-        return userList;
     }
 
     public void setUserList(ArrayList<User> userList) {
@@ -68,18 +56,6 @@ public class Challenge implements Serializable {
 
     public void setEndDate(Date endDate) {
         this.endDate = endDate;
-    }
-
-    public void setActive() {
-        this.active = true;
-    }
-
-    public void setInactive() {
-        this.active = false;
-    }
-
-    public boolean getActive() {
-        return active;
     }
 
     /**

@@ -203,8 +203,8 @@ public class ActivityChallenge extends AppCompatActivity {
                     }
                 });
 
-            case android.R.id.home:
-                finish();
+            //case android.R.id.home:
+              //  finish();
         }
         return super.onOptionsItemSelected(item);
     }

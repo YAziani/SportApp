@@ -226,126 +226,6 @@ public class DAL_User {
 
     }
 
-    static public void LoadCompleteDiary(User user) {
-
-        final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd,HH:mm:ss");
-        final SimpleDateFormat sdfDateDiary = new SimpleDateFormat("dd.MM.yyyy");
-
-        try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/Diary/");
-            final Firebase root = new Firebase(url.toString());
-
-            root.addListenerForSingleValueEvent(new ValueEventListener() {
-                @Override
-                public void onDataChange(DataSnapshot dataSnapshot) {
-
-                    for (DataSnapshot child : dataSnapshot.getChildren()) {
-                        //date yyyyMMdd
-                        final String strDate = child.getKey();
-
-                        root.child(strDate).addListenerForSingleValueEvent(new ValueEventListener() {
-                            @Override
-                            public void onDataChange(DataSnapshot dataSnapshot) {
-
-                                for (DataSnapshot child : dataSnapshot.getChildren()) {
-                                    //unikey
-                                    //time
-                                    final String strTime = child.getKey();
-
-                                    root.child(strDate).child(strTime).addListenerForSingleValueEvent(new ValueEventListener() {
-                                        @Override
-                                        public void onDataChange(DataSnapshot dataSnapshot) {
-                                            //get instance to add all diaryentries after restore
-                                            AllDiaryEntries allDiaryEntries = AllDiaryEntries.getInstance();
-                                            //create object
-                                            DiaryEntry diaryEntry = new DiaryEntry();
-
-                                            //restore date from diaryEntry
-                                            try {
-                                                Date date = sdfDate.parse(strDate + "," + strTime);
-                                                diaryEntry.setDate(date);
-                                                diaryEntry.sDate = sdfDateDiary.format(date);
-                                                diaryEntry.sTime = strTime;
-                                            } catch (ParseException e) {
-                                                e.printStackTrace();
-                                            }
-
-
-                                            for (DataSnapshot child : dataSnapshot.getChildren()) {
-
-                                                //restore totalPoints from diaryEntry
-                                                if (child.getKey().equals("totalpoints"))
-                                                    diaryEntry.setTotalPoints(Integer.getInteger(child.getValue()
-                                                            .toString()));
-                                                    //restore exercises from diaryEntry
-                                                else if (child.getKey().startsWith("exercise")) {
-                                                    //get the category of the stores exercise
-                                                    String category = child.getChildren().iterator().next().getValue
-                                                            ().toString();
-
-                                                    Exercise exercise = null;
-                                                    //create the exercise object from the right class and restore the
-                                                    // attribute
-                                                    if (category.equals("Training")) {
-                                                        exercise = new TrainingExercise();
-                                                        exercise = child.getValue(TrainingExercise.class);
-                                                    } else if (category.equals("Leistungstests")) {
-                                                        exercise = new LeistungstestsExercise();
-                                                        exercise = child.getValue(LeistungstestsExercise.class);
-                                                    } else if (category.equals("ReinerAufenthalt")) {
-                                                        exercise = new ReinerAufenthaltExercise();
-                                                        exercise = child.getValue(ReinerAufenthaltExercise.class);
-                                                    } else if (category.equals("Wellness")) {
-                                                        exercise = new WellnessExercise();
-                                                        exercise = child.getValue(WellnessExercise.class);
-                                                    }
-                                                    //after restoring of the exercise, these has to be added to the
-                                                    // diaryEntry
-                                                    if (exercise != null)
-                                                        diaryEntry.addExercise(exercise);
-
-                                                }
-                                            }
-                                            //add every restored diaryEntry the singleton object
-                                            allDiaryEntries.add(diaryEntry);
-                                            //allDiaryEntries will be used by the ListViewAdapter from the
-                                            // ActivityDiary.
-                                            //for which reason this method has to be executed
-                                            ActivityDiary.notifyDataChanged();
-
-                                        }
-
-                                        @Override
-                                        public void onCancelled(FirebaseError firebaseError) {
-
-                                        }
-                                    });
-                                }
-                            }
-
-                            @Override
-                            public void onCancelled(FirebaseError firebaseError) {
-
-                            }
-                        });
-                    }
-
-
-                }
-
-                @Override
-                public void onCancelled(FirebaseError firebaseError) {
-
-                }
-            });
-
-
-        } catch (Exception e) {
-            Log.d("ERROR", e.getMessage());
-
-        }
-    }
-
 
 
     static public void InsertDiaryEntry(User user, DiaryEntry diaryEntry) {
@@ -753,7 +633,7 @@ public class DAL_User {
             Firebase ref = new Firebase(DAL_Utilities.DatabaseURL + "users/" + user.getName() + "/BSAFragebogen/" +
                     fragebogen.Date);
 
-            if (fragebogen.Berufstaetig >= 0) {
+            if (fragebogen.Berufstaetig >= 0 && fragebogen.Berufstaetig<=1) {
                 Firebase childberufstätig = ref.child("Berufstaetig");
                 childberufstätig.setValue(fragebogen.Berufstaetig);
             }
@@ -896,62 +776,65 @@ public class DAL_User {
                 childtreppensteigen.setValue(fragebogen.Treppensteigen_Stockwerke);
             }
 
-            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false) {
+            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktaname = ref.child("Aktivitaet_A_Name");
                 childaktaname.setValue(fragebogen.Aktivitaet_A_Name);
             }
 
-            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Zeit > 0) {
+            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Zeit > 0 && fragebogen
+                    .sportlich_aktiv == 0) {
                 Firebase childaktaanzahl = ref.child("Aktivitaet_A_Zeit");
                 childaktaanzahl.setValue(fragebogen.Aktivitaet_A_Zeit);
             }
 
-            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Einheiten > 0) {
+            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Einheiten > 0 &&
+                    fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktaeinheiten = ref.child("Aktivitaet_A_Einheiten");
                 childaktaeinheiten.setValue(fragebogen.Aktivitaet_A_Einheiten);
             }
 
-            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Minuten > 0) {
+            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Minuten > 0 && fragebogen
+                    .sportlich_aktiv == 0) {
                 Firebase childaktaminuten = ref.child("Aktivitaet_A_Minuten");
                 childaktaminuten.setValue(fragebogen.Aktivitaet_A_Minuten);
             }
 
-            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false) {
+            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktbname = ref.child("Aktivitaet_B_Name");
                 childaktbname.setValue(fragebogen.Aktivitaet_B_Name);
             }
 
-            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Zeit > 0) {
+            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Zeit > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktbanzahl = ref.child("Aktivitaet_B_Zeit");
                 childaktbanzahl.setValue(fragebogen.Aktivitaet_B_Zeit);
             }
 
-            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Einheiten > 0) {
+            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Einheiten > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktbeinheiten = ref.child("Aktivitaet_B_Einheiten");
                 childaktbeinheiten.setValue(fragebogen.Aktivitaet_B_Einheiten);
             }
 
-            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Minuten > 0) {
+            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Minuten > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktbminuten = ref.child("Aktivitaet_B_Minuten");
                 childaktbminuten.setValue(fragebogen.Aktivitaet_B_Minuten);
             }
 
-            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false) {
+            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktcname = ref.child("Aktivitaet_C_Name");
                 childaktcname.setValue(fragebogen.Aktivitaet_C_Name);
             }
 
-            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Zeit > 0) {
+            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Zeit > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktcanzahl = ref.child("Aktivitaet_C_Zeit");
                 childaktcanzahl.setValue(fragebogen.Aktivitaet_C_Zeit);
             }
 
-            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Zeit > 0) {
+            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Zeit > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktceinheiten = ref.child("Aktivitaet_C_Einheiten");
                 childaktceinheiten.setValue(fragebogen.Aktivitaet_C_Einheiten);
             }
 
-            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Minuten > 0) {
+            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Minuten > 0 && fragebogen.sportlich_aktiv ==0) {
                 Firebase childaktcanzahl = ref.child("Aktivitaet_C_Minuten");
                 childaktcanzahl.setValue(fragebogen.Aktivitaet_C_Minuten);
             }
@@ -971,6 +854,7 @@ public class DAL_User {
         } finally {
 
         }
+
 
     }
 
@@ -1006,7 +890,7 @@ public class DAL_User {
                 childintensivebewegung.setValue(fragebogen.intensive_Bewegung);
             }
 
-            if (fragebogen.sportlich_aktiv >= 0) {
+            if (fragebogen.sportlich_aktiv >= 0 && fragebogen.sportlich_aktiv<=1) {
                 Firebase childsportlichaktiv = ref.child("sportlich_aktiv");
                 childsportlichaktiv.setValue(fragebogen.sportlich_aktiv);
             }
@@ -1129,62 +1013,65 @@ public class DAL_User {
                 childtreppensteigen.setValue(fragebogen.Treppensteigen_Stockwerke);
             }
 
-            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false) {
+            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktaname = ref.child("Aktivitaet_A_Name");
                 childaktaname.setValue(fragebogen.Aktivitaet_A_Name);
             }
 
-            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Zeit > 0) {
+            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Zeit > 0 && fragebogen
+                    .sportlich_aktiv == 0) {
                 Firebase childaktaanzahl = ref.child("Aktivitaet_A_Zeit");
                 childaktaanzahl.setValue(fragebogen.Aktivitaet_A_Zeit);
             }
 
-            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Einheiten > 0) {
+            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Einheiten > 0 &&
+                    fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktaeinheiten = ref.child("Aktivitaet_A_Einheiten");
                 childaktaeinheiten.setValue(fragebogen.Aktivitaet_A_Einheiten);
             }
 
-            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Minuten > 0) {
+            if (fragebogen.Aktivitaet_A_Name.isEmpty() == false && fragebogen.Aktivitaet_A_Minuten > 0 && fragebogen
+                    .sportlich_aktiv == 0) {
                 Firebase childaktaminuten = ref.child("Aktivitaet_A_Minuten");
                 childaktaminuten.setValue(fragebogen.Aktivitaet_A_Minuten);
             }
 
-            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false) {
+            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktbname = ref.child("Aktivitaet_B_Name");
                 childaktbname.setValue(fragebogen.Aktivitaet_B_Name);
             }
 
-            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Zeit > 0) {
+            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Zeit > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktbanzahl = ref.child("Aktivitaet_B_Zeit");
                 childaktbanzahl.setValue(fragebogen.Aktivitaet_B_Zeit);
             }
 
-            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Einheiten > 0) {
+            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Einheiten > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktbeinheiten = ref.child("Aktivitaet_B_Einheiten");
                 childaktbeinheiten.setValue(fragebogen.Aktivitaet_B_Einheiten);
             }
 
-            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Minuten > 0) {
+            if (fragebogen.Aktivitaet_B_Name.isEmpty() == false && fragebogen.Aktivitaet_B_Minuten > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktbminuten = ref.child("Aktivitaet_B_Minuten");
                 childaktbminuten.setValue(fragebogen.Aktivitaet_B_Minuten);
             }
 
-            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false) {
+            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktcname = ref.child("Aktivitaet_C_Name");
                 childaktcname.setValue(fragebogen.Aktivitaet_C_Name);
             }
 
-            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Zeit > 0) {
+            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Zeit > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktcanzahl = ref.child("Aktivitaet_C_Zeit");
                 childaktcanzahl.setValue(fragebogen.Aktivitaet_C_Zeit);
             }
 
-            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Zeit > 0) {
+            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Zeit > 0 && fragebogen.sportlich_aktiv == 0) {
                 Firebase childaktceinheiten = ref.child("Aktivitaet_C_Einheiten");
                 childaktceinheiten.setValue(fragebogen.Aktivitaet_C_Einheiten);
             }
 
-            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Minuten > 0) {
+            if (fragebogen.Aktivitaet_C_Name.isEmpty() == false && fragebogen.Aktivitaet_C_Minuten > 0 && fragebogen.sportlich_aktiv ==0) {
                 Firebase childaktcanzahl = ref.child("Aktivitaet_C_Minuten");
                 childaktcanzahl.setValue(fragebogen.Aktivitaet_C_Minuten);
             }
@@ -1204,6 +1091,7 @@ public class DAL_User {
         } finally {
 
         }
+
 
 
     }

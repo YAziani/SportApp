@@ -43,9 +43,11 @@ public class ExerciseViewAdapter extends BaseAdapter {
         if (view == null)
             view = _context.getLayoutInflater().inflate(R.layout.lst_exercisecell, null);
 
+        //Set the name of the exercise
         TextView txtTitle = (TextView) view.findViewById(R.id.txtExercise);
         txtTitle.setText(exercise.getName());
 
+        //set the duration in hours and minutes of the exercise
         TextView txtText = (TextView) view.findViewById(R.id.txtDuration);
         txtText.setText(String.valueOf(exercise.getTimeHours()) + " " + _context.getResources().getString(R.string
                 .Stunden) + " " + exercise.getTimeMunites() + " " + _context.getResources().getString(R.string

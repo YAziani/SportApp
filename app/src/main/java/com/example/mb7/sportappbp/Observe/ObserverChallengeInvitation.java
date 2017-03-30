@@ -22,6 +22,7 @@ import java.util.Calendar;
 import java.util.Date;
 
 /**
+ * This class checks if a user has an invitation to a challenge and sends a notification
  * Created by Basti on 24.03.2017.
  */
 
@@ -42,22 +43,8 @@ public class ObserverChallengeInvitation extends Observer {
     }
 
 
-
-    // get the current time in minutes
-    private int getMinutesofDate(Date date  )
-    {
-        Calendar calendar = Calendar.getInstance();
-        calendar.setTime(date);
-        int currentHourOfDay = calendar.get(Calendar.HOUR_OF_DAY);
-        int currentMinute = calendar.get(Calendar.MINUTE);
-        int currentMinuteOfDay = currentHourOfDay * 60 + currentMinute;
-        return currentMinuteOfDay;
-    }
-
     /**
-     * show Notification if we are in the interval [trainingtime - abstand, trainingtime]
-     * if it is show notification and save that you have showed it in the preferences to not repeat it for the same event
-     * @return
+     * First check the database if the user has any invitation. Then send him a notificationjust one time for this name
      */
 
     private void shouldNotify(){
@@ -65,7 +52,8 @@ public class ObserverChallengeInvitation extends Observer {
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd");
 
         try {
-            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(context).getName()+ "/Invitations/Challenges/");
+            URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + ActivityMain.getMainUser(context).getName()+
+                    "/Invitations/Challenges/");
             final Firebase root = new Firebase(url.toString());
 
             root.addValueEventListener(new ValueEventListener() {
@@ -75,16 +63,15 @@ public class ObserverChallengeInvitation extends Observer {
                     String strName = null;
                     Challenge challenge = new Challenge();
 
+                    //get all names of challenges which send a invitation
                     for(DataSnapshot name : dataSnapshot.getChildren()) {
                         challenge = new Challenge();
                         challenge.setName(name.getKey());
                         strName = name.getKey().toString();
 
 
+                        //recover the dates of the challenge
                         for (DataSnapshot childName : name.getChildren()) {
-
-
-
                             //start date
                             if (childName.getKey().equals("startDate")) {
                                 try {
@@ -110,13 +97,12 @@ public class ObserverChallengeInvitation extends Observer {
                             // just check if the user hasn't got a notification before
                             preferences = PreferenceManager.getDefaultSharedPreferences(context);
                             String date = android.text.format.DateFormat.format("yyyy-MM-dd", new Date()).toString();
-                            Boolean sendNotif = preferences.getBoolean(challenge.getName()+ ActivityMain.getMainUser(context), false);
+                            Boolean sendNotif = preferences.getBoolean(challenge.getName() + ActivityMain.getMainUser(context), false);
                             if (!sendNotif) {
                                 // insert in the preferences that notification has been sent
                                 preferences.edit().putBoolean(challenge.getName() + ActivityMain.getMainUser(context), true).commit();
                                 ;
                                 // send notification
-
                                 sendNotification(context,"Einladung " + context.getString(R.string.Challenge),
                                         ActivityChallenge.class ,
                                         context.getString(R.string.Challenge) ,

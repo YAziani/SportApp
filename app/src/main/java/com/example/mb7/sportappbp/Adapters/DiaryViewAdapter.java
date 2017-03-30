@@ -101,13 +101,8 @@ public class DiaryViewAdapter extends RecyclerView.Adapter<DiaryViewAdapter.Diar
                     selectedPosition = -1;
 
                 } else {
-
-                    // if nothing is longclicked -> go to the ActivityStimmung of the selected item
+                    //send the information of the selected item to the activity
                     Intent open = new Intent(context, ActivityDiaryEntry.class);
-                    // insert the date of the notificatino in the extra which is the unique field to delete the
-                    // notification from the database
-
-                    // pass the clicked diaryEntry to the activity
                     DiaryEntry diaryEntry = diaryEntries.get(position);
                     open.putParcelableArrayListExtra("oldExercises", diaryEntry.getExerciseList());
                     open.putExtra("date", diaryEntry.getDate());

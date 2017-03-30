@@ -122,15 +122,6 @@ public class User {
         return true;
     }
 
-    public boolean LoadCompleteDiry() {
-        DAL_User.LoadCompleteDiary(this);
-        return true;
-    }
-
-    public boolean getTotalPointsFromTo(Date from, Date to) {
-        //todo implement the firebase method
-        return true;
-    }
 
     /**
      * challenge to DAL_User to save its into database

@@ -26,22 +26,21 @@ import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * This shows all exercises
+ * Created by Sebastain
+ */
+
 public class ActivityCategories extends AppCompatActivity {
-    //request id for the activitiy request
-    final static int REQUEST_ID = 3;
 
     ListView listView;
     ArrayAdapter<String> arrayAdapter;
-
     ListView listViewSelected;
     ExerciseViewAdapter exerciseViewAdapter;
-
     ArrayList<Exercise> exerciseList;
     Calendar calendar = Calendar.getInstance();
     Date date;
     String activity;
-
-    private Boolean finalResult = false;
 
 
     @Override
@@ -50,7 +49,7 @@ public class ActivityCategories extends AppCompatActivity {
         setContentView(R.layout.activity_categories);
 
 
-        // Now read the extra key - exerciseList
+        // Now receive and read data without a request - from ActivityDiaryEntry
         Intent iin = getIntent();
         Bundle extras = iin.getExtras();
         Log.e("Oncreate", "We have reached it");
@@ -61,7 +60,6 @@ public class ActivityCategories extends AppCompatActivity {
             date = (Date) extras.getSerializable("date");
         } else {
 
-            //Set attribute
             exerciseList = new ArrayList<Exercise>();
             date = calendar.getTime();
 
@@ -75,39 +73,42 @@ public class ActivityCategories extends AppCompatActivity {
             actionbar.setDisplayShowHomeEnabled(false);
         }
 
-        //exerciseList = receiveExerciseList();
 
+        //Create a gridview with an adapter to show all categories in a list
         listView = (ListView) findViewById(R.id.listviewCategories);
         arrayAdapter = new ArrayAdapter<String>(ActivityCategories.this, android.R.layout.simple_list_item_1,
                 getResources().getStringArray(R.array.ArrayCategories));
         listView.setAdapter(arrayAdapter);
 
+        //set the action when a category was selected
         listView.setOnItemClickListener(new AdapterView.OnItemClickListener() {
             @Override
             public void onItemClick(AdapterView<?> adapterView, View view, int position, long l) {
 
+                //open the next activity with the current exercise list of the selected category
                 String category = (String) adapterView.getItemAtPosition(position);
                 switch (category) {
                     case "Leistungstests":
-                        forwardOldExerciseList(R.string.Leistungstests);
+                        forwardExerciseList(R.string.Leistungstests);
                         break;
                     case "Training":
-                        forwardOldExerciseList(R.string.Training);
+                        forwardExerciseList(R.string.Training);
                         break;
                     case "Wellness":
-                        forwardOldExerciseList(R.string.Wellness);
+                        forwardExerciseList(R.string.Wellness);
                         break;
                     case "Reiner Aufenthalt":
-                        forwardOldExerciseList(R.string.ReinerAufenthalt);
+                        forwardExerciseList(R.string.ReinerAufenthalt);
                         break;
                     default:
-                        throw new InvalidParameterException("The menu items is not declared");
+                        throw new InvalidParameterException("The category items is not declared");
 
                 }
 
             }
         });
 
+        //create a listview to show all selected exercises
         listViewSelected = (ListView) findViewById(R.id.listviewCategoriesSelected);
         exerciseViewAdapter = new ExerciseViewAdapter(ActivityCategories.this, exerciseList);
         listViewSelected.setAdapter(exerciseViewAdapter);
@@ -116,30 +117,13 @@ public class ActivityCategories extends AppCompatActivity {
 
     }
 
-    @Override
-    protected void onActivityResult(int requestCode, int resultCode, Intent data) {
-        super.onActivityResult(requestCode, resultCode, data);
-
-        if (resultCode == RESULT_OK && requestCode == REQUEST_ID) {
-            ArrayList<Exercise> result = data.getParcelableArrayListExtra("newExercises");
-            finalResult = data.getBooleanExtra("finalResult", false);
-
-            if (finalResult)
-                forwardResult(result);
-            else {
-                setNewList(exerciseList, result);
-                exerciseViewAdapter.notifyDataSetChanged();
-            }
-
-
-        }
-    }
 
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
-
         MenuInflater inflater = getMenuInflater();
+
+        //set the menu with add and save icon
         inflater.inflate(R.menu.menu_context_menu, menu);
     }
 
@@ -149,13 +133,13 @@ public class ActivityCategories extends AppCompatActivity {
 
         AdapterView.AdapterContextMenuInfo info = (AdapterView.AdapterContextMenuInfo) item.getMenuInfo();
 
+        //check which icon was pressed in the toolbar
         switch (item.getItemId()) {
-
-            case R.id.delete_id:
+            case R.id.delete_id: //remove the pressed item and update the listview
                 exerciseList.remove(info.position);
                 exerciseViewAdapter.notifyDataSetChanged();
                 return true;
-            case R.id.edit_id:
+            case R.id.edit_id: //open a dialog with a number picker to change the time
                 numberPicker(exerciseList.get(info.position));
                 return true;
             default:
@@ -164,77 +148,27 @@ public class ActivityCategories extends AppCompatActivity {
     }
 
     /**
-     * This method forwards the result of the request
-     *
-     * @param result
+     * This method opens the activity exercises with an information, which category was selected by the user ,
+     * the date of the entry and the current list
+     * @param category the pressed category
      */
-    private void forwardResult(ArrayList<Exercise> result) {
+    private void forwardExerciseList(int category) {
 
-        Intent intent = new Intent();
-        intent.putParcelableArrayListExtra("newExercises", result);
-        setResult(RESULT_OK, intent);
-        finish();
-    }
-
-    private void forwardOldExerciseList(int category) {
-
-        // if nothing is longclicked -> go to the ActivityStimmung of the selected item
         Intent open = new Intent(ActivityCategories.this, ActivityExercises.class);
-        // insert the date of the notificatino in the extra which is the unique field to delete the notification from
-        // the database
-
-        // pass the clicked diaryEntry to the activity
         open.putParcelableArrayListExtra("oldExercises", exerciseList);
         open.putExtra("date", date);
         open.putExtra("category", category);
-        finish();
         startActivity(open);
-
-        /*
-        Intent intent = new Intent(ActivityCategories.this, ActivityExercises.class);
-        intent.putExtra("category", category);
-        intent.putParcelableArrayListExtra("oldExercises", exerciseList);
-        startActivityForResult(intent, REQUEST_ID);
-        */
+        //close the current activity
+        finish();
     }
 
-    private void receiveSerializable() {
-        Exercise testExercise;
-        ArrayList<Exercise> testList = new ArrayList<>();
-
-        testList = getIntent().getParcelableArrayListExtra("category");
-
-        double test = testList.get(0).getWeighting();
-
-
-        Toast.makeText(ActivityCategories.this, String.valueOf(test), Toast.LENGTH_SHORT).show();
-
-
-    }
-
-    private ArrayList<Exercise> receiveExerciseList() {
-
-        ArrayList<Exercise> result;
-        final Bundle extra = getIntent().getExtras();
-
-        if (extra != null) {
-            result = extra.getParcelableArrayList("oldExercises");
-            return result;
-        } else
-            return result = new ArrayList<Exercise>();
-    }
-
-    private void setNewList(ArrayList<Exercise> oldLst, ArrayList<Exercise> newLst) {
-
-        Toast.makeText(ActivityCategories.this, String.valueOf(newLst.size()), Toast.LENGTH_SHORT).show();
-
-        //To clear the already selected items (no duplicates)
-        oldLst.clear();
-
-        for (Exercise i : newLst)
-            oldLst.add(i);
-    }
-
+    /**
+     * This method opens a dialog window with two number picker and includes the action for the positive and negative
+     * butten. When the positive one was pressed, the time will be saved to the diaryEntrz object. Else the window
+     * will be closed.
+     * @param exercise the pressed exercise to set the duration
+     */
     private void numberPicker(final Exercise exercise) {
 
         //create dialog window
@@ -242,12 +176,6 @@ public class ActivityCategories extends AppCompatActivity {
 
         //set the layout for the dialog window
         dialog.setContentView(R.layout.dialog_two_numberpicker);
-
-
-        final String[] nums = new String[30];
-        for (int i = 0; i < nums.length; i++) {
-            nums[i] = Integer.toString(i);
-        }
 
         //create the number picker for hours und set the possible values
         final NumberPicker npHoures = (NumberPicker) dialog.findViewById(R.id.numberPickerHours);
@@ -273,7 +201,7 @@ public class ActivityCategories extends AppCompatActivity {
         });
         npMinutes.setValue(exercise.getTimeMunites());
 
-        //set the action for ok button
+        //set the action for ok button to save the data and clos the window
         Button btnOk = (Button) dialog.findViewById(R.id.npOk);
         btnOk.setOnClickListener(new View.OnClickListener() {
             @Override

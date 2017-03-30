@@ -21,6 +21,7 @@ import com.example.mb7.sportappbp.Adapters.ExerciseViewAdapter;
 import com.example.mb7.sportappbp.BusinessLayer.Exercise;
 import com.example.mb7.sportappbp.R;
 
+import java.security.InvalidParameterException;
 import java.util.ArrayList;
 import java.util.Date;
 
@@ -52,14 +53,11 @@ public class ActivitySelectedExercises extends AppCompatActivity {
             date = (Date) extras.getSerializable("date");
         } else {
 
-            //Set attribute
             exerciseList = new ArrayList<Exercise>();
 
         }
 
-        //receive exercise list
-        //exerciseList = receiveExerciseList();
-
+        //create listview to thow all selected exercieses
         listView = (ListView) findViewById(R.id.listviewActivityOverview);
         exerciseViewAdapter = new ExerciseViewAdapter(ActivitySelectedExercises.this, exerciseList);
         listView.setAdapter(exerciseViewAdapter);
@@ -85,11 +83,11 @@ public class ActivitySelectedExercises extends AppCompatActivity {
 
         switch (item.getItemId()) {
 
-            case R.id.delete_id:
+            case R.id.delete_id: //remove item of the list
                 exerciseList.remove(info.position);
                 exerciseViewAdapter.notifyDataSetChanged();
                 return true;
-            case R.id.edit_id:
+            case R.id.edit_id: //open a number picker to change the duration
                 numberPicker(exerciseList.get(info.position));
                 return true;
             default:
@@ -124,7 +122,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
                 return true;
 
             default:
-                return super.onOptionsItemSelected(item);
+                throw new InvalidParameterException("The category items is not declared");
         }
     }
 
@@ -225,7 +223,7 @@ public class ActivitySelectedExercises extends AppCompatActivity {
                 int h = npHoures.getValue();
 
                 if (m != 0 || h != 0) {
-                    //save the picked numbers
+                    //check if the user entered a number save the picked numbers
                     exercise.setTimeHours(h);
                     exercise.setTimeMinutes(m);
                     dialog.dismiss();
@@ -251,14 +249,14 @@ public class ActivitySelectedExercises extends AppCompatActivity {
 
     }
 
+    /**
+     * This method opens the entered activity with the date and the exercise list of an exercise of the entry
+     * @param destinationClass
+     */
     private void openActivityWithExtra(Class destinationClass) {
 
-        // if nothing is longclicked -> go to the ActivityStimmung of the selected item
-        Intent open = new Intent(ActivitySelectedExercises.this, destinationClass);
-        // insert the date of the notificatino in the extra which is the unique field to delete the notification from
-        // the database
 
-        // pass the clicked diaryEntry to the activity
+        Intent open = new Intent(ActivitySelectedExercises.this, destinationClass);
         open.putParcelableArrayListExtra("oldExercises", exerciseList);
         open.putExtra("date", date);
         startActivity(open);

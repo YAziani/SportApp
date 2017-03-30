@@ -37,6 +37,12 @@ import java.util.Collections;
 import java.util.Date;
 import java.util.LinkedList;
 
+/**
+ * This class shows all diary entries and you can add and prepare them.
+ * You can also start to create a new one
+ * Created by Sebastian
+ */
+
 public class ActivityDiary extends AppCompatActivity {
 
     final static int REQUEST_ID = 555;
@@ -74,6 +80,7 @@ public class ActivityDiary extends AppCompatActivity {
     @Override
     public void onCreateContextMenu(ContextMenu menu, View v, ContextMenu.ContextMenuInfo menuInfo) {
         super.onCreateContextMenu(menu, v, menuInfo);
+        //set recycler for card view and a context menu with delete and prepare
         if (v.getId() == R.id.recycler_diary) {
             MenuInflater inflater = getMenuInflater();
             inflater.inflate(R.menu.menu_item_delete, menu);
@@ -107,7 +114,7 @@ public class ActivityDiary extends AppCompatActivity {
     public boolean onContextItemSelected(MenuItem item) {
 
         switch (item.getItemId()) {
-            case R.id.deleteItem:
+            case R.id.deleteItem: //delete pressed item and give a feedbacl
                 deleteDiaryEntry(((DiaryViewAdapter) rv.getAdapter()).getSelectedObject());
                 Toast.makeText(this, getString(R.string.erfolgreichgeloescht), Toast.LENGTH_SHORT).show();
                 break;
@@ -117,6 +124,9 @@ public class ActivityDiary extends AppCompatActivity {
     }
 
 
+    /**
+     * receive and unpack a package of a request from an activity
+     */
     @Override
     protected void onActivityResult(int requestCode, int resultCode, Intent data) {
         super.onActivityResult(requestCode, resultCode, data);
@@ -136,30 +146,7 @@ public class ActivityDiary extends AppCompatActivity {
     }
 
     /**
-     * This method start notifyDataSetChanged of the view adapter. When data has been changed in
-     * the AllDiaryEntries object from external, this method has to be executed
-     */
-    public static void notifyDataChanged() {
-        diaryViewAdapter.notifyDataSetChanged();
-    }
-
-
-    /**
-     * this method send the exerciseList of the selected diaryEntry to the diaryEntry Activity.
-     * Furthermore this method sends a request to receive the prepared exerciseList
-     */
-    public void sendOldAndRequestNewExerciseList() {
-        ArrayList<Exercise> oldList = exerciseList;
-        //set goal activity
-        Intent pickExerciseIntent = new Intent(this, ActivityDiaryEntry.class);
-        //List in package
-        pickExerciseIntent.putParcelableArrayListExtra("oldExercises", oldList);
-        //send package and open the goal activity
-        startActivityForResult(pickExerciseIntent, REQUEST_ID);
-    }
-
-    /**
-     * delete a diaryEntry
+     * delete a diaryEntry in the database
      *
      * @param diaryEntry the object to delete
      */
@@ -181,6 +168,9 @@ public class ActivityDiary extends AppCompatActivity {
         readDiaryEntry();
     }
 
+    /**
+     * this method recovers all diary entries of a users completely from the database
+     */
     private void readDiaryEntry() {
         final SimpleDateFormat sdfDate = new SimpleDateFormat("yyyyMMdd,HH:mm:ss");
         final SimpleDateFormat sdfDateDiary = new SimpleDateFormat("dd.MM.yyyy");
@@ -196,10 +186,12 @@ public class ActivityDiary extends AppCompatActivity {
 
                     diaryEntries = new LinkedList<DiaryEntry>();
 
+                    //recover of each day
                     for (DataSnapshot childDate : dataSnapshot.getChildren()) {
                         //date yyyyMMdd
                         final String strDate = childDate.getKey();
 
+                        //recovering diary entry from each team of a day
                         for (DataSnapshot childTime : childDate.getChildren()) {
                             //time
                             final String strTime = childTime.getKey();
@@ -218,6 +210,7 @@ public class ActivityDiary extends AppCompatActivity {
                                 e.printStackTrace();
                             }
 
+                            //add the recovered entry to the list
                             diaryEntries.add(diaryEntry);
 
 

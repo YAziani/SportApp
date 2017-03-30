@@ -1,5 +1,6 @@
 package com.example.mb7.sportappbp.Activity;
 
+import android.app.ProgressDialog;
 import android.content.Context;
 import android.content.Intent;
 import android.graphics.Typeface;
@@ -28,16 +29,24 @@ import android.widget.Toast;
 import com.example.mb7.sportappbp.BusinessLayer.RegisterCatcher;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.firebase.client.DataSnapshot;
+import com.firebase.client.Firebase;
+import com.firebase.client.FirebaseError;
+import com.firebase.client.ValueEventListener;
+
+import java.net.URL;
 
 /**
  * A login screen that offers login via email/password.
  */
 public class ActivityLogin extends AppCompatActivity {
 
+    ProgressDialog pd;
+
     private DataSnapshot dataSnapshot = null;
-    private boolean validSnapshot = false;
+    // private boolean validSnapshot = false;
 
     /**
      * Keep track of the login task to ensure we can cancel it if requested.
@@ -102,7 +111,7 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     /**
-     * Attempts to sign in or register the account specified by the login form.
+     * Attempts to sign in the account specified by the login form.
      * If there are form errors (invalid email, missing fields, etc.), the
      * errors are presented and no actual login attempt is made.
      */
@@ -111,11 +120,6 @@ public class ActivityLogin extends AppCompatActivity {
         // check if database is available
         if (!isNetworkAvailable()) {
             Toast.makeText(this, getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!validSnapshot) {
-            Toast.makeText(this, getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
-            DAL_RegisteredUsers.getRegisteredUsers(this);
             return;
         }
 
@@ -147,52 +151,27 @@ public class ActivityLogin extends AppCompatActivity {
             cancel = true;
         }
 
-        //check if credentials are valid
-        boolean validLogin = false;
-        String errMessage = getString(R.string.alunknownusername);
-        TextView focus = mUsernameView;
-        if (dataSnapshot.getValue() != null) {
-            for (DataSnapshot d : dataSnapshot.getChildren()) {
-                if (d.getKey().equals(username)) {
-                    if (d.child("password").getValue() != null && d.child("password").getValue().equals(password)) {
-                        validLogin = true;
-                        break;
-                    } else {
-                        errMessage = getString(R.string.alwrongpw);
-                        focus = mPasswordView;
-                        break;
-                    }
-                }
-            }
-        }
-
         if (cancel) {
             // There was an error; don't attempt login and focus the first
             // form field with an error.
             focusView.requestFocus();
         } else {
             // perform the user login attempt
-            if (validLogin) {
-                mAuthTask = new UserLoginTask(username, password, true);
-                mAuthTask.execute((Void) null);
-            } else {
-                focusView = focus;
-                focusView.requestFocus();
-                focus.setError(errMessage);
+            mAuthTask = new UserLoginTask(username, password, true);
+            mAuthTask.execute((Void) null);
 
-            }
         }
     }
 
+    /**
+     * Attempts to register the account specified by the login form.
+     * If there are form errors (invalid email, missing fields, etc.), the
+     * errors are presented and no actual login attempt is made.
+     */
     private void attemptRegister() {
         // check if database is available
         if (!isNetworkAvailable()) {
             Toast.makeText(this, getString(R.string.alinternetneed), Toast.LENGTH_SHORT).show();
-            return;
-        }
-        if (!validSnapshot) {
-            Toast.makeText(this, getString(R.string.aldberror), Toast.LENGTH_SHORT).show();
-            DAL_RegisteredUsers.getRegisteredUsers(this);
             return;
         }
 
@@ -258,15 +237,59 @@ public class ActivityLogin extends AppCompatActivity {
     }
 
     /**
+     * show error message to user
+     * @param focus the text view to focus
+     * @param errMessage the message to be shown
+     */
+    public void showError(TextView focus, String errMessage) {
+        if(pd != null) {
+            pd.dismiss();
+        }
+        mAuthTask = null;
+        focus.requestFocus();
+        focus.setError(errMessage);
+    }
+
+    /**
+     * create the user and open kompass webapp, if registration happened
+     *
+     * @param mUsername the users nickname
+     * @param mLogin true if login, false if registration
+     */
+    public void finishLogin(String mUsername, boolean mLogin) {
+        if(pd != null) {
+            pd.dismiss();
+        }
+        Toast.makeText(ActivityLogin.this, getString(R.string.allogcomplete), Toast.LENGTH_SHORT).show();
+        PreferenceManager
+                .getDefaultSharedPreferences(getApplicationContext())
+                .edit()
+                .putString("logedIn", mUsername)
+                .apply();
+        if (!mLogin) {
+            User user = User.Create(mUsername);
+            Intent kompassIntent = new Intent(ActivityLogin.this, ActivityKompass.class);
+            startActivity(kompassIntent);
+            RegisterCatcher registerCatcher = new RegisterCatcher();
+            registerCatcher.catchRegistration(user);
+        }
+        ActivityLogin.this.finish();
+    }
+
+    /**
      * return the snapshot with registered users to this activity
      *
      * @param dataSnapshot snapshot containing registered users
      */
     public void returnRegisteredUsers(DataSnapshot dataSnapshot) {
         this.dataSnapshot = dataSnapshot;
-        validSnapshot = true;
     }
 
+    /**
+     * check if password fits criteria
+     * @param password the user given password
+     * @return true if password okay
+     */
     private boolean isPasswordValid(String password) {
         return password.length() >= 4;
     }
@@ -286,42 +309,94 @@ public class ActivityLogin extends AppCompatActivity {
             mUsername = username;
             mPassword = password;
             mLogin = login;
+
+            pd = new ProgressDialog(ActivityLogin.this);
+            pd.setMessage(getString(R.string.wird_geladen));
+            pd.setCancelable(false);
+            pd.show();
         }
 
         @Override
         protected Boolean doInBackground(Void... params) {
 
             if (mLogin) {
-                User.createUser(mUsername, getApplicationContext());
+                try {
+                    URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + mUsername);
+                    Firebase root = new Firebase(url.toString());
+                    root.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.getChildrenCount() == 0) {
+                                showError(mUsernameView,getString(R.string.alunknownusername));
+                            }else if(dataSnapshot.child("password").getValue() == null
+                                    || !dataSnapshot.child("password").getValue().equals(mPassword)) {
+                                showError(mPasswordView,getString(R.string.alwrongpw));
+                            }else {
+                                User.createUser(mUsername, getApplicationContext());
+                                finishLogin(mUsername,mLogin);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(FirebaseError firebaseError) {
+                            mAuthTask = null;
+                            if(pd != null) {
+                                pd.dismiss();
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             } else {
-                User.createUser(mUsername, getApplicationContext()).saveRegistration(mUsername, mPassword);
+                try {
+                    URL url = new URL(DAL_Utilities.DatabaseURL + "users/" + mUsername);
+                    Firebase root = new Firebase(url.toString());
+                    root.addListenerForSingleValueEvent(new ValueEventListener() {
+                        @Override
+                        public void onDataChange(DataSnapshot dataSnapshot) {
+                            if(dataSnapshot.getChildrenCount() > 0 ) {
+                                showError(mUsernameView,getString(R.string.alusernametaken));
+                            }else {
+                                User.createUser(mUsername, getApplicationContext())
+                                        .saveRegistration(mUsername, mPassword);
+                                finishLogin(mUsername,mLogin);
+                            }
+                        }
+
+                        @Override
+                        public void onCancelled(FirebaseError firebaseError) {
+                            mAuthTask = null;
+                            if(pd != null) {
+                                pd.dismiss();
+                            }
+                        }
+                    });
+                } catch (Exception e) {
+                    e.printStackTrace();
+                }
             }
-            return true;
+            return false;
         }
 
         @Override
         protected void onPostExecute(final Boolean success) {
-            Toast.makeText(ActivityLogin.this, getString(R.string.allogcomplete), Toast.LENGTH_SHORT).show();
-            PreferenceManager
-                    .getDefaultSharedPreferences(getApplicationContext())
-                    .edit()
-                    .putString("logedIn", mUsername)
-                    .apply();
-            if (!mLogin) {
-                User user = User.Create(mUsername);
-                Intent kompassIntent = new Intent(ActivityLogin.this, ActivityKompass.class);
-                startActivity(kompassIntent);
-                RegisterCatcher registerCatcher = new RegisterCatcher();
-                registerCatcher.catchRegistration(user);
-            }
-            ActivityLogin.this.finish();
+
         }
 
         @Override
         protected void onCancelled() {
+            mAuthTask = null;
+            if(pd != null) {
+                pd.dismiss();
+            }
         }
     }
 
+    /**
+     * check if internet connection is established
+     * @return true if internet connection exists
+     */
     private boolean isNetworkAvailable() {
         ConnectivityManager connectivityManager
                 = (ConnectivityManager) getSystemService(Context.CONNECTIVITY_SERVICE);

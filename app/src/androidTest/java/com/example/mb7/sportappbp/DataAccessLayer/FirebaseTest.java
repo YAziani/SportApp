@@ -4,6 +4,7 @@ import android.content.Context;
 import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.MediumTest;
 import android.support.test.runner.AndroidJUnit4;
+import android.util.Log;
 
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
@@ -60,6 +61,191 @@ public class FirebaseTest {
         }
     }
 
+    @Test
+    public  void StressTest(){
+
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread1","PassUserThread1");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread2","PassUserThread2");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread3","PassUserThread3");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread4","PassUserThread3");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread5","PassUserThread3");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread6","PassUserThread3");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread7","PassUserThread3");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread8","PassUserThread3");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread9","PassUserThread3");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                writeDAL_ThreadUsers("UserThread10","PassUserThread3");
+                try {
+                    Thread.sleep(30000);
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+
+        /*  new Thread(new Runnable() {
+            @Override
+            public void run() {
+                threadFunction(4);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                threadFunction(5);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                threadFunction(6);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                threadFunction(7);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                threadFunction(8);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                threadFunction(9);
+            }
+        }).start();
+        new Thread(new Runnable() {
+            @Override
+            public void run() {
+                threadFunction(10);
+            }
+        }).start();*/
+
+    }
+
+    /**
+     * write data through DAL_RegisteredUsers
+     */
+    private static void writeDAL_ThreadUsers(String username, String password) {
+        DAL_RegisteredUsers.insertRegistration(username, password);
+        User user = User.Create(username);
+        DAL_RegisteredUsers.insertMail(username + "@gmail.com", user);        try {
+            for (int i=0; i<10; i++) {
+
+                DAL_User.InsertFitnessFragebogen(user,testfitness1(Integer.toString(i)));
+                Log.e("Thread " + username,Integer.toString((i)));
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+
+
+    }
+
+    private static void threadFunction(Integer threadnUmber){
+        for (int i=0; i<1000; i++) {
+            Log.d("THREAD " + threadnUmber , "Counting " + i + " in Thread " + threadnUmber +
+                    "***************************************************************");
+        }
+
+    }
     /**
      * write data through DAL_RegisteredUsers
      */
@@ -478,6 +664,50 @@ public class FirebaseTest {
             e.printStackTrace();
             assertTrue(false);
         }
+    }
+
+    public static FitnessFragebogen testfitness1(String date){
+        FitnessFragebogen testfitness=new FitnessFragebogen();
+        testfitness.Date = date;
+        testfitness.FirebaseDate = date;
+        testfitness.Score_Kraft=0;
+        testfitness.Score_Ausdauer=0;
+        testfitness.Score_Koordination=0;
+        testfitness.Score_Beweglichkeit=0;
+        testfitness.Score_Gesamt=0;
+
+        testfitness.vom_Stuhl_aufstehen=0;
+        testfitness.Einkaufskorb_tragen=0;
+        testfitness.Kiste_tragen=0;
+        testfitness.Situp=0;
+        testfitness.Koffer_hoch_heben=0;
+        testfitness.Koffer_tragen=0;
+        testfitness.Hantel_stemmen=0;
+
+        testfitness.flott_gehen=0;
+        testfitness. Treppen_gehen=0;
+        testfitness. Zwei_km_gehen=0;
+        testfitness. Ein_km_joggen=0;
+        testfitness. Dreißig_min_joggen=0;
+        testfitness. Sechzig_min_joggen=0;
+        testfitness. Marathon=0;
+
+        testfitness. Socken_anziehen=0;
+        testfitness.Boden_im_Sitzen_beruehren=0;
+        testfitness. Schuhe_binden=0;
+        testfitness. Ruecken_beruehren=0;
+        testfitness. Im_Stehen_Boden_beruehren=0;
+        testfitness. Mit_Kopf_das_Knie_beruehren=0;
+        testfitness. Bruecke=0;
+
+        testfitness. Treppe_runter_gehen=0;
+        testfitness. Einbeinstand=0;
+        testfitness. Purzelbaum=0;
+        testfitness. Ball_prellen=0;
+        testfitness.Zaunsprung=0;
+        testfitness. Kurve_fahren_ohne_Hand=0;
+        testfitness. Rad_schlagen=0;
+        return testfitness;
     }
 
 

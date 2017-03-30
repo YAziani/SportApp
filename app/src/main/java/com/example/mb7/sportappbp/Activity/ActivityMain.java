@@ -111,11 +111,6 @@ public class ActivityMain extends AppCompatActivity {
             DAL_Allocation.getAllocation(this);
         }
 
-        preferences.edit().putString("allocatedMethods",
-                "bsaQuestionary;fitnessQuestionary;groupactive;moodquery;motivationimages;motivationtexts;" +
-                        "trainingreminder"
-        ).apply();
-
         // show login if user is not logged in
         if (preferences.getString("logedIn", "").equals("")) {
             Intent loginIntent = new Intent(this, ActivityLogin.class);

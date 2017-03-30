@@ -118,12 +118,16 @@ public class ActivityFragebogen extends AppCompatActivity {
      */
     void getWochenanzahlFromDb() {
         try {
-            Firebase root = new Firebase("https://sportapp-cbd6b.firebaseio" + "" +
-                    ".com/Administration/bsa/questionaryPeriodweeks");
+            Firebase root = new Firebase(DAL_Utilities.DatabaseURL + "Administration/bsa/questionaryPeriodweeks");
             root.addValueEventListener(new ValueEventListener() {
                 @Override
                 public void onDataChange(DataSnapshot dataSnapshot) {
-                    wochenzeitraum = convertToLong(dataSnapshot.getValue());
+                    if(dataSnapshot.getValue() != null && !dataSnapshot.getValue().equals("")) {
+                        wochenzeitraum = convertToLong(dataSnapshot.getValue());
+                    }else {
+                        wochenzeitraum = 6;
+                    }
+
                     SetControlCaptions();
                     pd.dismiss();
                 }

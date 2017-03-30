@@ -19,8 +19,9 @@ I. Setup of the Kompass web app:
   * Run the shell scripts. We recommend using Git Bash.
   * Set your rules in the database as public 
   * Enable the Email/Password Sign-In Method
-  * Finally change the DAL_Utilities class in the DataAccessLayer package and set KompassURL to the URL of the database of Kompass.  
-II. Setup of the native App:  
+  * Finally change the DAL_Utilities class in the DataAccessLayer package and set KompassURL to the URL of the database of Kompass.
+  
+ II. Setup of the native App:  
   * Install the newest version of Android Studio
   * Clone the project via VCS -> Git -> Clone
   * Sync the project with gradle (open "build.gradle" and click on the message "Sync now" in the top right corner)

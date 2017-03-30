@@ -111,19 +111,18 @@ public class ObserverTrainingReminder extends Observer {
                                         Observer.timeTillTraining(getNextTrainingTimeString(context))
                                         + " " + context.getString(R.string.trNotiSmallTitle2),
                                 R.mipmap.ic_tagebuch_eintrag);
-                        preferences.edit().putBoolean("reminderNotified", true).apply();
-                        preferences
-                                .edit()
-                                .putString("nextTrainingTime", getNextTrainingTimeString(context))
-                                .apply();
-                        return;
                     }
+                    preferences.edit().putBoolean("reminderNotified", true).apply();
+                    preferences
+                            .edit()
+                            .putString("nextTrainingTime", getNextTrainingTimeString(context))
+                            .apply();
                     return;
                 }
             }
-            preferences.edit().putBoolean("reminderNotified", false).apply();
-            preferences.edit().remove("nextTrainingTime").apply();
         }
+        preferences.edit().putBoolean("reminderNotified", false).apply();
+        preferences.edit().remove("nextTrainingTime").apply();
     }
 
     @Override

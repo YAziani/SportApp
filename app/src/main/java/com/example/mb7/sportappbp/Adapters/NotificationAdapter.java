@@ -99,10 +99,9 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .trNotiTitle))) {
-                notifications.remove(notifications.get(getAdapterPosition()));
                 String nextTrainingTime = PreferenceManager
                         .getDefaultSharedPreferences(context.getContext()).getString("nextTrainingTime", "");
-                if (!nextTrainingTime.equals("")) {
+                if (!nextTrainingTime.equals("") && Observer.timeTillTraining(nextTrainingTime) > 0) {
                     Toast.makeText(
                             context.getContext(),
                             context.getString(R.string.ihr_train_begin_in)
@@ -110,10 +109,6 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                                     + " " + context.getString(R.string.minuten) + ".",
                             Toast.LENGTH_SHORT
                     ).show();
-                    PreferenceManager
-                            .getDefaultSharedPreferences(context.getActivity())
-                            .edit()
-                            .remove("nextTrainingTime").apply();
                 }
 
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string

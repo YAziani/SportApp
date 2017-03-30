@@ -50,18 +50,18 @@ This prototype has been tested manually and with help of the JUnit framework.
 
 ### Contribution guidelines ###
 
-* Writing code
+* Writing code: 
 Felix Götz, 
 Sebastian Jestädt, 
 Mohammad Braei, 
 Yassine Aziani, 
 Zamir Wayandou
 
-* Writing tests
+* Writing tests: 
 Felix Götz, 
 Yassine Aziani
 
-* Code review
+* Code review: 
 Felix Götz, 
 Sebastian Jestädt, 
 Mohammad Braei, 

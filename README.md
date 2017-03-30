@@ -8,6 +8,19 @@ The app uses the webapp "Kompass", which is available through this repository <h
 * Version 1.0
 
 ### How do I get set up? ###
+The setup is done in two main steps:
+I. Setup of the Kompass web app:
+* Download the project from https://bitbucket.org/Alfhir/kompass
+* Change the connection string which is located in src/app/app.module.ts as "export const firebaseConfig" to the connection of your webhost in firebase. 
+* Setup the project as described in the readme of https://bitbucket.org/Alfhir/kompass
+* Host the web site (in the www folder) in firebase 
+ To create the database, two shell script files are located in Kompass_Shell_Script.zip
+* Replace the used URL in the two files with the URL of your database in that firebase account
+* Run the shell scripts. We recommend using Git Bash.
+* Set your rules in the database as public 
+* Enable the Email/Password Sign-In Method
+* Finally change the DAL_Utilities class in the DataAccessLayer package and set KompassURL to the URL of the database of Kompass.
+II. Setup of the native App:
 * Install the newest version of Android Studio
 * Clone the project via VCS -> Git -> Clone
 * Sync the project with gradle (open "build.gradle" and click on the message "Sync now" in the top right corner)

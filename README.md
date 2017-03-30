@@ -8,8 +8,8 @@ The app uses the webapp "Kompass", which is available through this repository <h
 * Version 1.0
 
 ### How do I get set up? ###
-The setup is done in two main steps:
-I. Setup of the Kompass web app:
+The setup is done in two main steps:  
+I. Setup of the Kompass web app:  
 * Download the project from https://bitbucket.org/Alfhir/kompass
 * Change the connection string which is located in src/app/app.module.ts as "export const firebaseConfig" to the connection of your webhost in firebase. 
 * Setup the project as described in the readme of https://bitbucket.org/Alfhir/kompass
@@ -20,7 +20,7 @@ I. Setup of the Kompass web app:
 * Set your rules in the database as public 
 * Enable the Email/Password Sign-In Method
 * Finally change the DAL_Utilities class in the DataAccessLayer package and set KompassURL to the URL of the database of Kompass.
-II. Setup of the native App:
+II. Setup of the native App:  
 * Install the newest version of Android Studio
 * Clone the project via VCS -> Git -> Clone
 * Sync the project with gradle (open "build.gradle" and click on the message "Sync now" in the top right corner)

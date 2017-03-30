@@ -29,7 +29,11 @@ import android.view.View;
 import android.view.ViewGroup;
 import android.widget.TextView;
 
+import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
 import com.example.mb7.sportappbp.DataAccessLayer.DAL_Allocation;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_RegisteredUsers;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_User;
+import com.example.mb7.sportappbp.DataAccessLayer.DAL_Utilities;
 import com.example.mb7.sportappbp.R;
 import com.example.mb7.sportappbp.Fragments.TabFragment;
 import com.example.mb7.sportappbp.Fragments.TbNotificationContent;
@@ -37,6 +41,7 @@ import com.example.mb7.sportappbp.Fragments.TbReportContent;
 import com.example.mb7.sportappbp.Fragments.TbTaskCategContent;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.example.mb7.sportappbp.Utilities.AlertReceiver;
+import com.firebase.client.Firebase;
 
 import java.util.ArrayList;
 import java.util.Calendar;
@@ -139,7 +144,11 @@ public class ActivityMain extends AppCompatActivity {
         super.onStart();
         // Set the AlarmReceiver to run the notifications
         setAlarm();
+
     }
+
+
+
 
     public void setAlarm() {
 

@@ -12,6 +12,8 @@ import android.widget.TextView;
 import android.widget.Toast;
 
 import com.example.mb7.sportappbp.Activity.ActivityDiaryEntry;
+import com.example.mb7.sportappbp.Activity.ActivityFitnessFragebogen;
+import com.example.mb7.sportappbp.Activity.ActivityFragebogen;
 import com.example.mb7.sportappbp.Activity.ActivityMotivationMessage;
 import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.Activity.Activity_lst_Challenge;
@@ -76,14 +78,14 @@ public class NotificationAdapter extends RecyclerView.Adapter<NotificationAdapte
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .fitnessfragebogen))) {
-                Intent open = new Intent(context.getActivity(), Activity_lst_fitnessfragebogen.class);
+                Intent open = new Intent(context.getActivity(), ActivityFitnessFragebogen.class);
                 String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get
                         (getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate", NotificationDate);
                 context.startActivity(open);
             } else if (notifications.get(getAdapterPosition()).getTitle().equals(context.getString(R.string
                     .aktivitaetsfragebogen))) {
-                Intent open = new Intent(context.getActivity(), Activity_lst_bsafragebogen.class);
+                Intent open = new Intent(context.getActivity(), ActivityFragebogen.class);
                 String NotificationDate = DAL_Utilities.ConvertDateTimeToFirebaseString(notifications.get
                         (getAdapterPosition()).getDate());
                 open.putExtra("NotificationDate", NotificationDate);

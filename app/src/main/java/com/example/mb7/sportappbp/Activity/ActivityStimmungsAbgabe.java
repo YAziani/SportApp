@@ -313,7 +313,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
             case 0:
                 return 0;
             default:
-                throw new InvalidParameterException("stimmungsbarometerPositiv: The index is undefined");
+                return 0;
         }
     }
 
@@ -330,7 +330,7 @@ public class ActivityStimmungsAbgabe extends AppCompatActivity {
             case 0:
                 return 4;
             default:
-                throw new InvalidParameterException("stimmungsbarometerNegativ: The index is undefined");
+                return 0;
         }
     }
 

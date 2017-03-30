@@ -5,7 +5,10 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.filters.MediumTest;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.example.mb7.sportappbp.Activity.ActivityStimmungsAbgabe;
 import com.example.mb7.sportappbp.BusinessLayer.FitnessFragebogen;
+import com.example.mb7.sportappbp.BusinessLayer.Fragebogen;
+import com.example.mb7.sportappbp.BusinessLayer.StimmungAbfrageScore;
 import com.example.mb7.sportappbp.BusinessLayer.StimmungsAngabe;
 import com.example.mb7.sportappbp.BusinessLayer.User;
 import com.firebase.client.DataSnapshot;
@@ -42,19 +45,20 @@ public class FirebaseTest {
         Firebase.setAndroidContext(instrumentationCtx);
         // wait for initializing of database
         try {
-            Thread.sleep(1000);
+            Thread.sleep(2000);
         } catch (Exception e) {
             e.printStackTrace();
         }
 
-        // write data into database
         writeDAL_RegisteredUsers();
         writeAlternatingGroupsUpdate();
         writeFitnessFragebogen();
+        writeBSAFragebogen();
+        writeStimmung();
 
-
+        
         try {
-            Thread.sleep(3000);
+            Thread.sleep(2000);
         } catch (Exception e) {
             e.printStackTrace();
         }
@@ -134,6 +138,12 @@ public class FirebaseTest {
             e.printStackTrace();
             assertTrue(false);
         }
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
     /**
@@ -145,6 +155,48 @@ public class FirebaseTest {
         DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness2());
         DAL_User.InsertFitnessFragebogen(User.Create("TestUserFelix"),testfitness3());
 
+        DAL_User.UpdateFitnessFragebogen(User.Create("TestUserFelix"),testfitness1());
+        DAL_User.UpdateFitnessFragebogen(User.Create("TestUserFelix"),testfitness2());
+        DAL_User.UpdateFitnessFragebogen(User.Create("TestUserFelix"),testfitness3());
+
+
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private static void writeBSAFragebogen() {
+
+        DAL_User.InsertFragebogen(User.Create("TestUserFelix"),testbsa1());
+        DAL_User.InsertFragebogen(User.Create("TestUserFelix"),testbsa2());
+        DAL_User.InsertFragebogen(User.Create("TestUserFelix"),testbsa3());
+        DAL_User.InsertFragebogen(User.Create("TestUserFelix"),testbsa3());
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+
+    private static void writeStimmung() {
+
+        DAL_User.InsertStimmung(User.Create("TestUserFelix"),teststimmung1());
+        DAL_User.InsertStimmungScore(User.Create("TestUserFelix"),teststimmungscore1() );
+        DAL_User.InsertStimmung(User.Create("TestUserFelix"),teststimmung2());
+        DAL_User.InsertStimmung(User.Create("TestUserFelix"),teststimmung3());
+        DAL_User.InsertStimmung(User.Create("TestUserFelix"),teststimmung4());
+
+
+        try {
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
     }
 
 
@@ -156,6 +208,13 @@ public class FirebaseTest {
     private static void saveAlternatingGroups(String nextActiveGroup) {
         mNextActiveGroup = nextActiveGroup;
     }
+    public String VorNach(StimmungsAngabe teststimmung){
+        if (teststimmung.Vor)
+            return "V";
+        else
+            return "/N";
+    }
+
 
     @Test
     public void testReadRegistration() {
@@ -480,6 +539,617 @@ public class FirebaseTest {
         }
     }
 
+    @Test
+    public void testBSA1() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/BSAFragebogen/"+
+                testbsa1().Date);
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(testbsa1().Berufstaetig, dataSnapshot.getValue(Fragebogen.class).Berufstaetig);
+                        assertEquals(testbsa1().sitzende_Taetigkeiten, dataSnapshot.getValue(Fragebogen.class).sitzende_Taetigkeiten);
+                        assertEquals(testbsa1().maeßige_Bewegung, dataSnapshot.getValue(Fragebogen.class).maeßige_Bewegung);
+                        assertEquals(testbsa1().intensive_Bewegung, dataSnapshot.getValue(Fragebogen.class).intensive_Bewegung);
+                        assertEquals(testbsa1().sportlich_aktiv, dataSnapshot.getValue(Fragebogen.class).sportlich_aktiv);
+                        assertEquals(testbsa1().Zu_Fuß_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_zur_Arbeit);
+                        assertEquals(testbsa1().Zu_Fuß_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_zur_Arbeit_Tag);
+                        assertEquals(testbsa1().Zu_Fuß_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_zur_Arbeit_Minuten);
+                        assertEquals(testbsa1().Zu_Fuß_einkaufen, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_einkaufen);
+                        assertEquals(testbsa1().Zu_Fuß_einkaufen_Tag, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_einkaufen_Tag);
+                        assertEquals(testbsa1().Zu_Fuß_einkaufen_Minuten, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_einkaufen_Minuten);
+                        assertEquals(testbsa1().Rad_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class).Rad_zur_Arbeit);
+                        assertEquals(testbsa1().Rad_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Rad_zur_Arbeit_Tag);
+                        assertEquals(testbsa1().Rad_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Rad_zur_Arbeit_Minuten);
+                        assertEquals(testbsa1().Radfahren, dataSnapshot.getValue(Fragebogen.class).Radfahren);
+                        assertEquals(testbsa1().Radfahren_Tag, dataSnapshot.getValue(Fragebogen.class).Radfahren_Tag);
+                        assertEquals(testbsa1().Radfahren_Minuten, dataSnapshot.getValue(Fragebogen.class).Radfahren_Minuten);
+                        assertEquals(testbsa1().Spazieren, dataSnapshot.getValue(Fragebogen.class).Spazieren);
+                        assertEquals(testbsa1().Spazieren_Tag, dataSnapshot.getValue(Fragebogen.class).Spazieren_Tag);
+                        assertEquals(testbsa1().Spazieren_Minuten, dataSnapshot.getValue(Fragebogen.class).Spazieren_Minuten);
+                        assertEquals(testbsa1().Gartenarbeit, dataSnapshot.getValue(Fragebogen.class).Gartenarbeit);
+                        assertEquals(testbsa1().Gartenarbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Gartenarbeit_Tag);
+                        assertEquals(testbsa1().Gartenarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Gartenarbeit_Minuten);
+                        assertEquals(testbsa1().Hausarbeit, dataSnapshot.getValue(Fragebogen.class).Hausarbeit);
+                        assertEquals(testbsa1().Hausarbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Hausarbeit_Tag);
+                        assertEquals(testbsa1().Hausarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Hausarbeit_Minuten);
+                        assertEquals(testbsa1().Pflegearbeit, dataSnapshot.getValue(Fragebogen.class).Pflegearbeit);
+                        assertEquals(testbsa1().Pflegearbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Pflegearbeit_Tag);
+                        assertEquals(testbsa1().Pflegearbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Pflegearbeit_Minuten);
+                        assertEquals(testbsa1().Treppensteigen, dataSnapshot.getValue(Fragebogen.class).Treppensteigen);
+                        assertEquals(testbsa1().Treppensteigen_Tag, dataSnapshot.getValue(Fragebogen.class).Treppensteigen_Tag);
+                        assertEquals(testbsa1().Treppensteigen_Stockwerke, dataSnapshot.getValue(Fragebogen.class).Treppensteigen_Stockwerke);
+                        assertEquals(testbsa1().Aktivitaet_A_Name, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Name);
+                        assertEquals(testbsa1().Aktivitaet_A_Zeit, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Zeit);
+                        assertEquals(testbsa1().Aktivitaet_A_Einheiten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Einheiten);
+                        assertEquals(testbsa1().Aktivitaet_A_Minuten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Minuten);
+                        assertEquals(testbsa1().Aktivitaet_B_Name, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Name);
+                        assertEquals(testbsa1().Aktivitaet_B_Zeit, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Zeit);
+                        assertEquals(testbsa1().Aktivitaet_B_Einheiten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Einheiten);
+                        assertEquals(testbsa1().Aktivitaet_B_Minuten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Minuten);
+                        assertEquals(testbsa1().Aktivitaet_C_Name, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Name);
+                        assertEquals(testbsa1().Aktivitaet_C_Zeit, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Zeit);
+                        assertEquals(testbsa1().Aktivitaet_C_Einheiten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Einheiten);
+                        assertEquals(testbsa1().Aktivitaet_C_Minuten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Minuten);
+                        assertEquals(testbsa1().Bewegungsscoring, dataSnapshot.getValue(Fragebogen.class).Bewegungsscoring);
+                        assertEquals(testbsa1().Sportscoring, dataSnapshot.getValue(Fragebogen.class).Sportscoring);
+                        assertEquals(testbsa1().Gesamtscoring, dataSnapshot.getValue(Fragebogen.class).Gesamtscoring);
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+
+
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testBSA2() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/BSAFragebogen/"+
+                testbsa2().Date);
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                                                    @Override
+                                                    // define behavior once data had been captured
+                                                    public void onDataChange(DataSnapshot dataSnapshot) {
+                                                        // assert equality of captured data
+                                                        try {
+                                                            assertEquals(testbsa2().Berufstaetig, dataSnapshot.getValue(Fragebogen.class).Berufstaetig);
+                                                            assertEquals(null, dataSnapshot.getValue(Fragebogen.class).sitzende_Taetigkeiten);
+                                                            assertEquals(null, dataSnapshot.getValue(Fragebogen.class).maeßige_Bewegung);
+                                                            assertEquals(null, dataSnapshot.getValue(Fragebogen.class).intensive_Bewegung);
+                                                            assertEquals(testbsa2().sportlich_aktiv, dataSnapshot.getValue(Fragebogen.class).sportlich_aktiv);
+                                                            assertEquals(testbsa2().Zu_Fuß_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_zur_Arbeit);
+                                                            assertEquals(testbsa2().Zu_Fuß_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_zur_Arbeit_Tag);
+                                                            assertEquals(testbsa2().Zu_Fuß_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_zur_Arbeit_Minuten);
+                                                            assertEquals(testbsa2().Zu_Fuß_einkaufen, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_einkaufen);
+                                                            assertEquals(testbsa2().Zu_Fuß_einkaufen_Tag, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_einkaufen_Tag);
+                                                            assertEquals(testbsa2().Zu_Fuß_einkaufen_Minuten, dataSnapshot.getValue(Fragebogen.class).Zu_Fuß_einkaufen_Minuten);
+                                                            assertEquals(testbsa2().Rad_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class).Rad_zur_Arbeit);
+                                                            assertEquals(testbsa2().Rad_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Rad_zur_Arbeit_Tag);
+                                                            assertEquals(testbsa2().Rad_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Rad_zur_Arbeit_Minuten);
+                                                            assertEquals(testbsa2().Radfahren, dataSnapshot.getValue(Fragebogen.class).Radfahren);
+                                                            assertEquals(testbsa2().Radfahren_Tag, dataSnapshot.getValue(Fragebogen.class).Radfahren_Tag);
+                                                            assertEquals(testbsa2().Radfahren_Minuten, dataSnapshot.getValue(Fragebogen.class).Radfahren_Minuten);
+                                                            assertEquals(testbsa2().Spazieren, dataSnapshot.getValue(Fragebogen.class).Spazieren);
+                                                            assertEquals(testbsa2().Spazieren_Tag, dataSnapshot.getValue(Fragebogen.class).Spazieren_Tag);
+                                                            assertEquals(testbsa2().Spazieren_Minuten, dataSnapshot.getValue(Fragebogen.class).Spazieren_Minuten);
+                                                            assertEquals(testbsa2().Gartenarbeit, dataSnapshot.getValue(Fragebogen.class).Gartenarbeit);
+                                                            assertEquals(testbsa2().Gartenarbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Gartenarbeit_Tag);
+                                                            assertEquals(testbsa2().Gartenarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Gartenarbeit_Minuten);
+                                                            assertEquals(testbsa2().Hausarbeit, dataSnapshot.getValue(Fragebogen.class).Hausarbeit);
+                                                            assertEquals(testbsa2().Hausarbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Hausarbeit_Tag);
+                                                            assertEquals(testbsa2().Hausarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Hausarbeit_Minuten);
+                                                            assertEquals(testbsa2().Pflegearbeit, dataSnapshot.getValue(Fragebogen.class).Pflegearbeit);
+                                                            assertEquals(testbsa2().Pflegearbeit_Tag, dataSnapshot.getValue(Fragebogen.class).Pflegearbeit_Tag);
+                                                            assertEquals(testbsa2().Pflegearbeit_Minuten, dataSnapshot.getValue(Fragebogen.class).Pflegearbeit_Minuten);
+                                                            assertEquals(testbsa2().Treppensteigen, dataSnapshot.getValue(Fragebogen.class).Treppensteigen);
+                                                            assertEquals(testbsa2().Treppensteigen_Tag, dataSnapshot.getValue(Fragebogen.class).Treppensteigen_Tag);
+                                                            assertEquals(testbsa2().Treppensteigen_Stockwerke, dataSnapshot.getValue(Fragebogen.class).Treppensteigen_Stockwerke);
+                                                            assertEquals(testbsa2().Aktivitaet_A_Name, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Name);
+                                                            assertEquals(testbsa2().Aktivitaet_A_Zeit, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Zeit);
+                                                            assertEquals(testbsa2().Aktivitaet_A_Einheiten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Einheiten);
+                                                            assertEquals(testbsa2().Aktivitaet_A_Minuten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Minuten);
+                                                            assertEquals(testbsa2().Aktivitaet_B_Name, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Name);
+                                                            assertEquals(testbsa2().Aktivitaet_B_Zeit, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Zeit);
+                                                            assertEquals(testbsa2().Aktivitaet_B_Einheiten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Einheiten);
+                                                            assertEquals(testbsa2().Aktivitaet_B_Minuten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Minuten);
+                                                            assertEquals(testbsa2().Aktivitaet_C_Name, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Name);
+                                                            assertEquals(testbsa2().Aktivitaet_C_Zeit, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Zeit);
+                                                            assertEquals(testbsa2().Aktivitaet_C_Einheiten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Einheiten);
+                                                            assertEquals(testbsa2().Aktivitaet_C_Minuten, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Minuten);
+                                                            assertEquals(testbsa2().Bewegungsscoring, dataSnapshot.getValue(Fragebogen.class).Bewegungsscoring);
+                                                            assertEquals(testbsa2().Sportscoring, dataSnapshot.getValue(Fragebogen.class).Sportscoring);
+                                                            assertEquals(testbsa2().Gesamtscoring, dataSnapshot.getValue(Fragebogen.class).Gesamtscoring);
+
+                                                        } catch (Exception e) {
+                                                            e.printStackTrace();
+                                                        }
+                                                    }
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testBSA3() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/BSAFragebogen/"+
+                testbsa3().Date);
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(testbsa3().Berufstaetig, dataSnapshot.getValue(Fragebogen.class).Berufstaetig);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).sitzende_Taetigkeiten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).maeßige_Bewegung);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).intensive_Bewegung);
+                        assertEquals(testbsa3().sportlich_aktiv, dataSnapshot.getValue(Fragebogen.class)
+                                .sportlich_aktiv);
+                        assertEquals(testbsa3().Zu_Fuß_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_zur_Arbeit);
+                        assertEquals(testbsa3().Zu_Fuß_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_zur_Arbeit_Tag);
+                        assertEquals(testbsa3().Zu_Fuß_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_zur_Arbeit_Minuten);
+                        assertEquals(testbsa3().Zu_Fuß_einkaufen, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_einkaufen);
+                        assertEquals(testbsa3().Zu_Fuß_einkaufen_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_einkaufen_Tag);
+                        assertEquals(testbsa3().Zu_Fuß_einkaufen_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_einkaufen_Minuten);
+                        assertEquals(testbsa3().Rad_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class).Rad_zur_Arbeit);
+                        assertEquals(testbsa3().Rad_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Rad_zur_Arbeit_Tag);
+                        assertEquals(testbsa3().Rad_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Rad_zur_Arbeit_Minuten);
+                        assertEquals(testbsa3().Radfahren, dataSnapshot.getValue(Fragebogen.class).Radfahren);
+                        assertEquals(testbsa3().Radfahren_Tag, dataSnapshot.getValue(Fragebogen.class).Radfahren_Tag);
+                        assertEquals(testbsa3().Radfahren_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Radfahren_Minuten);
+                        assertEquals(testbsa3().Spazieren, dataSnapshot.getValue(Fragebogen.class).Spazieren);
+                        assertEquals(testbsa3().Spazieren_Tag, dataSnapshot.getValue(Fragebogen.class).Spazieren_Tag);
+                        assertEquals(testbsa3().Spazieren_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Spazieren_Minuten);
+                        assertEquals(testbsa3().Gartenarbeit, dataSnapshot.getValue(Fragebogen.class).Gartenarbeit);
+                        assertEquals(testbsa3().Gartenarbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Gartenarbeit_Tag);
+                        assertEquals(testbsa3().Gartenarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Gartenarbeit_Minuten);
+                        assertEquals(testbsa3().Hausarbeit, dataSnapshot.getValue(Fragebogen.class).Hausarbeit);
+                        assertEquals(testbsa3().Hausarbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Hausarbeit_Tag);
+                        assertEquals(testbsa3().Hausarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Hausarbeit_Minuten);
+                        assertEquals(testbsa3().Pflegearbeit, dataSnapshot.getValue(Fragebogen.class).Pflegearbeit);
+                        assertEquals(testbsa3().Pflegearbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Pflegearbeit_Tag);
+                        assertEquals(testbsa3().Pflegearbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Pflegearbeit_Minuten);
+                        assertEquals(testbsa3().Treppensteigen, dataSnapshot.getValue(Fragebogen.class).Treppensteigen);
+                        assertEquals(testbsa3().Treppensteigen_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Treppensteigen_Tag);
+                        assertEquals(testbsa3().Treppensteigen_Stockwerke, dataSnapshot.getValue(Fragebogen.class)
+                                .Treppensteigen_Stockwerke);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Name);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Zeit);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Einheiten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Minuten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Name);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Zeit);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Einheiten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Minuten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Name);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Zeit);
+                        assertEquals(null,dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Einheiten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Minuten);
+                        assertEquals(testbsa3().Bewegungsscoring, dataSnapshot.getValue(Fragebogen.class).Bewegungsscoring);
+                        assertEquals(testbsa3().Sportscoring, dataSnapshot.getValue(Fragebogen.class).Sportscoring);
+                        assertEquals(testbsa3().Gesamtscoring, dataSnapshot.getValue(Fragebogen.class).Gesamtscoring);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testBSA4() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/BSAFragebogen/"+
+                testbsa4().Date);
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Berufstaetig);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).sitzende_Taetigkeiten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).maeßige_Bewegung);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).intensive_Bewegung);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).sportlich_aktiv);
+                        assertEquals(testbsa4().Zu_Fuß_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_zur_Arbeit);
+                        assertEquals(testbsa4().Zu_Fuß_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_zur_Arbeit_Tag);
+                        assertEquals(testbsa4().Zu_Fuß_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_zur_Arbeit_Minuten);
+                        assertEquals(testbsa4().Zu_Fuß_einkaufen, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_einkaufen);
+                        assertEquals(testbsa4().Zu_Fuß_einkaufen_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_einkaufen_Tag);
+                        assertEquals(testbsa4().Zu_Fuß_einkaufen_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Zu_Fuß_einkaufen_Minuten);
+                        assertEquals(testbsa4().Rad_zur_Arbeit, dataSnapshot.getValue(Fragebogen.class).Rad_zur_Arbeit);
+                        assertEquals(testbsa4().Rad_zur_Arbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Rad_zur_Arbeit_Tag);
+                        assertEquals(testbsa4().Rad_zur_Arbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Rad_zur_Arbeit_Minuten);
+                        assertEquals(testbsa4().Radfahren, dataSnapshot.getValue(Fragebogen.class).Radfahren);
+                        assertEquals(testbsa4().Radfahren_Tag, dataSnapshot.getValue(Fragebogen.class).Radfahren_Tag);
+                        assertEquals(testbsa4().Radfahren_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Radfahren_Minuten);
+                        assertEquals(testbsa4().Spazieren, dataSnapshot.getValue(Fragebogen.class).Spazieren);
+                        assertEquals(testbsa4().Spazieren_Tag, dataSnapshot.getValue(Fragebogen.class).Spazieren_Tag);
+                        assertEquals(testbsa4().Spazieren_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Spazieren_Minuten);
+                        assertEquals(testbsa4().Gartenarbeit, dataSnapshot.getValue(Fragebogen.class).Gartenarbeit);
+                        assertEquals(testbsa4().Gartenarbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Gartenarbeit_Tag);
+                        assertEquals(testbsa4().Gartenarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Gartenarbeit_Minuten);
+                        assertEquals(testbsa4().Hausarbeit, dataSnapshot.getValue(Fragebogen.class).Hausarbeit);
+                        assertEquals(testbsa4().Hausarbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Hausarbeit_Tag);
+                        assertEquals(testbsa4().Hausarbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Hausarbeit_Minuten);
+                        assertEquals(testbsa4().Pflegearbeit, dataSnapshot.getValue(Fragebogen.class).Pflegearbeit);
+                        assertEquals(testbsa4().Pflegearbeit_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Pflegearbeit_Tag);
+                        assertEquals(testbsa4().Pflegearbeit_Minuten, dataSnapshot.getValue(Fragebogen.class)
+                                .Pflegearbeit_Minuten);
+                        assertEquals(testbsa4().Treppensteigen, dataSnapshot.getValue(Fragebogen.class).Treppensteigen);
+                        assertEquals(testbsa4().Treppensteigen_Tag, dataSnapshot.getValue(Fragebogen.class)
+                                .Treppensteigen_Tag);
+                        assertEquals(testbsa4().Treppensteigen_Stockwerke, dataSnapshot.getValue(Fragebogen.class)
+                                .Treppensteigen_Stockwerke);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Name);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Zeit);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Einheiten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_A_Minuten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Name);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Zeit);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Einheiten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_B_Minuten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Name);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Zeit);
+                        assertEquals(null,dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Einheiten);
+                        assertEquals(null, dataSnapshot.getValue(Fragebogen.class).Aktivitaet_C_Minuten);
+                        assertEquals(testbsa3().Bewegungsscoring, dataSnapshot.getValue(Fragebogen.class).Bewegungsscoring);
+                        assertEquals(testbsa3().Sportscoring, dataSnapshot.getValue(Fragebogen.class).Sportscoring);
+                        assertEquals(testbsa3().Gesamtscoring, dataSnapshot.getValue(Fragebogen.class).Gesamtscoring);
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testStimmung1() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/FitnessFragebogen/" +
+                teststimmung1().Date+ "/" +teststimmung1().Time + "/" + VorNach(teststimmung1()));
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(teststimmung1().Angespannt, dataSnapshot.getValue(StimmungsAngabe.class).Angespannt);
+                        assertEquals(teststimmung1().Mitteilsam, dataSnapshot.getValue(StimmungsAngabe.class).Mitteilsam);
+                        assertEquals(teststimmung1().Muede, dataSnapshot.getValue(StimmungsAngabe.class).Muede);
+                        assertEquals(teststimmung1().Selbstsicher, dataSnapshot.getValue(StimmungsAngabe.class).Selbstsicher);
+                        assertEquals(teststimmung1().Tatkraeftig, dataSnapshot.getValue(StimmungsAngabe.class).Tatkraeftig);
+                        assertEquals(teststimmung1().Traurig, dataSnapshot.getValue(StimmungsAngabe.class).Traurig);
+                        assertEquals(teststimmung1().Wuetend, dataSnapshot.getValue(StimmungsAngabe.class).Wuetend);
+                        assertEquals(teststimmung1().Zerstreut, dataSnapshot.getValue(StimmungsAngabe.class).Zerstreut);
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testStimmung2() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/FitnessFragebogen/" +
+                teststimmung2().Date+ "/" +teststimmung2().Time + "/" + VorNach(teststimmung2()));
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(teststimmung2().Angespannt, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Angespannt);
+                        assertEquals(teststimmung2().Mitteilsam, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Mitteilsam);
+                        assertEquals(teststimmung2().Muede, dataSnapshot.getValue(StimmungsAngabe.class).Muede);
+                        assertEquals(teststimmung2().Selbstsicher, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Selbstsicher);
+                        assertEquals(teststimmung2().Tatkraeftig, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Tatkraeftig);
+                        assertEquals(teststimmung2().Traurig, dataSnapshot.getValue(StimmungsAngabe.class).Traurig);
+                        assertEquals(teststimmung2().Wuetend, dataSnapshot.getValue(StimmungsAngabe.class).Wuetend);
+                        assertEquals(teststimmung2().Zerstreut, dataSnapshot.getValue(StimmungsAngabe.class).Zerstreut);
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testStimmung3() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/FitnessFragebogen/" +
+                teststimmung3().Date+ "/" +teststimmung3().Time + "/" + VorNach(teststimmung3()));
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(teststimmung3().Angespannt, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Angespannt);
+                        assertEquals(teststimmung3().Mitteilsam, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Mitteilsam);
+                        assertEquals(teststimmung3().Muede, dataSnapshot.getValue(StimmungsAngabe.class).Muede);
+                        assertEquals(teststimmung3().Selbstsicher, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Selbstsicher);
+                        assertEquals(teststimmung3().Tatkraeftig, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Tatkraeftig);
+                        assertEquals(teststimmung3().Traurig, dataSnapshot.getValue(StimmungsAngabe.class).Traurig);
+                        assertEquals(teststimmung3().Wuetend, dataSnapshot.getValue(StimmungsAngabe.class).Wuetend);
+                        assertEquals(teststimmung3().Zerstreut, dataSnapshot.getValue(StimmungsAngabe.class).Zerstreut);
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testStimmung4() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/FitnessFragebogen/" +
+                teststimmung4().Date+ "/" +teststimmung4().Time + "/" + VorNach(teststimmung4()));
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(teststimmung4().Angespannt, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Angespannt);
+                        assertEquals(teststimmung4().Mitteilsam, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Mitteilsam);
+                        assertEquals(teststimmung4().Muede, dataSnapshot.getValue(StimmungsAngabe.class).Muede);
+                        assertEquals(teststimmung4().Selbstsicher, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Selbstsicher);
+                        assertEquals(teststimmung4().Tatkraeftig, dataSnapshot.getValue(StimmungsAngabe.class)
+                                .Tatkraeftig);
+                        assertEquals(teststimmung4().Traurig, dataSnapshot.getValue(StimmungsAngabe.class).Traurig);
+                        assertEquals(teststimmung4().Wuetend, dataSnapshot.getValue(StimmungsAngabe.class).Wuetend);
+                        assertEquals(teststimmung4().Zerstreut, dataSnapshot.getValue(StimmungsAngabe.class).Zerstreut);
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+    @Test
+    public void testStimmungScore1() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/StimmungsabfrageScore/" +
+                teststimmungscore1().Date+ "/" +teststimmungscore1().Time + "/V");
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(teststimmungscore1().AngespanntScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).AngespanntScore);
+                        assertEquals(teststimmungscore1().TraurigScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).TraurigScore);
+                        assertEquals(teststimmungscore1().TatkraeftigScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).TatkraeftigScore);
+                        assertEquals(teststimmungscore1().ZerstreutScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).ZerstreutScore);
+                        assertEquals(teststimmungscore1().WuetendScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).WuetendScore);
+                        assertEquals(teststimmungscore1().MuedeScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).MuedeScore);
+                        assertEquals(teststimmungscore1().SelbstsicherScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).SelbstsicherScore);
+                        assertEquals(teststimmungscore1().MitteilsamScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).MitteilsamScore);
+                        assertEquals(teststimmungscore1().StimmungsBarometerScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).StimmungsBarometerScore);
+                        assertEquals(teststimmungscore1().EnergieIndexScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).EnergieIndexScore);
+
+
+
+
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+    @Test
+    public void testStimmungScore2() {
+        Firebase root = new Firebase(DAL_Utilities.DatabaseURL+ "users/TestUserFelix/StimmungsabfrageScore/" +
+                teststimmungscore2().Date+ "/" +teststimmungscore2().Time + "/V");
+        try {
+            root.addListenerForSingleValueEvent(new ValueEventListener() {
+                @Override
+                // define behavior once data had been captured
+                public void onDataChange(DataSnapshot dataSnapshot) {
+                    // assert equality of captured data
+                    try {
+                        assertEquals(teststimmungscore2().AngespanntScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).AngespanntScore);
+                        assertEquals(teststimmungscore2().TraurigScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).TraurigScore);
+                        assertEquals(teststimmungscore2().TatkraeftigScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).TatkraeftigScore);
+                        assertEquals(teststimmungscore2().ZerstreutScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).ZerstreutScore);
+                        assertEquals(teststimmungscore2().WuetendScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).WuetendScore);
+                        assertEquals(teststimmungscore2().MuedeScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).MuedeScore);
+                        assertEquals(teststimmungscore2().SelbstsicherScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).SelbstsicherScore);
+                        assertEquals(teststimmungscore2().MitteilsamScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).MitteilsamScore);
+                        assertEquals(teststimmungscore2().StimmungsBarometerScore, dataSnapshot.getValue
+                                (StimmungAbfrageScore
+                                .class).StimmungsBarometerScore);
+                        assertEquals(teststimmungscore2().EnergieIndexScore, dataSnapshot.getValue(StimmungAbfrageScore
+                                .class).EnergieIndexScore);
+
+
+
+
+
+
+
+                    } catch (Exception e) {
+                        e.printStackTrace();
+                    }
+                }
+                @Override
+                public void onCancelled(FirebaseError firebaseError) {
+                    assertTrue(false);
+                }
+            });
+            Thread.sleep(1000);
+        } catch (Exception e) {
+            e.printStackTrace();
+            assertTrue(false);
+        }
+    }
+
+
 
     public static FitnessFragebogen testfitness1(){
         FitnessFragebogen testfitness=new FitnessFragebogen();
@@ -524,7 +1194,6 @@ public class FirebaseTest {
         testfitness. Rad_schlagen=0;
         return testfitness;
     }
-
     public static FitnessFragebogen testfitness2(){
         FitnessFragebogen testfitness=new FitnessFragebogen();
         testfitness.Date="20170101";
@@ -568,7 +1237,6 @@ public class FirebaseTest {
         testfitness. Rad_schlagen=0;
         return testfitness;
     }
-
     public static FitnessFragebogen testfitness3(){
         FitnessFragebogen testfitness=new FitnessFragebogen();
         testfitness.Date="20170201";
@@ -613,5 +1281,360 @@ public class FirebaseTest {
         return testfitness;
     }
 
+    public static Fragebogen testbsa1(){
+        Fragebogen fragebogen=new Fragebogen();
+        fragebogen.Date="11";
+        fragebogen.FirebaseDate="20100101";
+        fragebogen.Berufstaetig=0;
+        fragebogen.sitzende_Taetigkeiten=1;
+        fragebogen.maeßige_Bewegung=3;
+        fragebogen.intensive_Bewegung=3;
+        fragebogen.sportlich_aktiv=0;
+
+        fragebogen.Zu_Fuß_zur_Arbeit=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Tag=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Minuten=3;
+
+        fragebogen.Zu_Fuß_einkaufen=3;
+        fragebogen.Zu_Fuß_einkaufen_Tag=3;
+        fragebogen.Zu_Fuß_einkaufen_Minuten=3;
+
+        fragebogen.Rad_zur_Arbeit=3;
+        fragebogen.Rad_zur_Arbeit_Tag=3;
+        fragebogen.Rad_zur_Arbeit_Minuten=3;
+
+        fragebogen.Radfahren=3;
+        fragebogen.Radfahren_Tag=3;
+        fragebogen.Radfahren_Minuten=3;
+
+        fragebogen.Spazieren=3;
+        fragebogen.Spazieren_Tag=3;
+        fragebogen.Spazieren_Minuten=3;
+
+        fragebogen.Gartenarbeit=3;
+        fragebogen.Gartenarbeit_Tag=3;
+        fragebogen.Gartenarbeit_Minuten=3;
+
+        fragebogen.Hausarbeit=3;
+        fragebogen.Hausarbeit_Tag=3;
+        fragebogen.Hausarbeit_Minuten=3;
+
+        fragebogen.Pflegearbeit=3;
+        fragebogen.Pflegearbeit_Tag=3;
+        fragebogen.Pflegearbeit_Minuten=3;
+
+        fragebogen.Treppensteigen=3;
+        fragebogen.Treppensteigen_Tag=3;
+        fragebogen.Treppensteigen_Stockwerke=3;
+
+        fragebogen.Aktivitaet_A_Name="Sport 1";
+        fragebogen.Aktivitaet_A_Zeit=3;
+        fragebogen.Aktivitaet_A_Einheiten=3;
+        fragebogen.Aktivitaet_A_Minuten=3;
+        fragebogen.Aktivitaet_B_Name="Sport 2";
+        fragebogen.Aktivitaet_B_Zeit=3;
+        fragebogen.Aktivitaet_B_Einheiten=3;
+        fragebogen.Aktivitaet_B_Minuten=3;
+        fragebogen.Aktivitaet_C_Name="Sport 3";
+        fragebogen.Aktivitaet_C_Zeit=3;
+        fragebogen.Aktivitaet_C_Einheiten=3;
+        fragebogen.Aktivitaet_C_Minuten=3;
+
+        fragebogen.Bewegungsscoring=3;
+        fragebogen.Sportscoring=3;
+        fragebogen.Gesamtscoring=3;
+        return fragebogen;
+    }
+    public static Fragebogen testbsa2(){
+        Fragebogen fragebogen=new Fragebogen();
+        fragebogen.Date="22";
+        fragebogen.FirebaseDate="20100101";
+        fragebogen.Berufstaetig=1;
+        fragebogen.sitzende_Taetigkeiten=1;
+        fragebogen.maeßige_Bewegung=3;
+        fragebogen.intensive_Bewegung=3;
+        fragebogen.sportlich_aktiv=0;
+
+        fragebogen.Zu_Fuß_zur_Arbeit=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Tag=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Minuten=3;
+
+        fragebogen.Zu_Fuß_einkaufen=3;
+        fragebogen.Zu_Fuß_einkaufen_Tag=3;
+        fragebogen.Zu_Fuß_einkaufen_Minuten=3;
+
+        fragebogen.Rad_zur_Arbeit=3;
+        fragebogen.Rad_zur_Arbeit_Tag=3;
+        fragebogen.Rad_zur_Arbeit_Minuten=3;
+
+        fragebogen.Radfahren=3;
+        fragebogen.Radfahren_Tag=3;
+        fragebogen.Radfahren_Minuten=3;
+
+        fragebogen.Spazieren=3;
+        fragebogen.Spazieren_Tag=3;
+        fragebogen.Spazieren_Minuten=3;
+
+        fragebogen.Gartenarbeit=3;
+        fragebogen.Gartenarbeit_Tag=3;
+        fragebogen.Gartenarbeit_Minuten=3;
+
+        fragebogen.Hausarbeit=3;
+        fragebogen.Hausarbeit_Tag=3;
+        fragebogen.Hausarbeit_Minuten=3;
+
+        fragebogen.Pflegearbeit=3;
+        fragebogen.Pflegearbeit_Tag=3;
+        fragebogen.Pflegearbeit_Minuten=3;
+
+        fragebogen.Treppensteigen=3;
+        fragebogen.Treppensteigen_Tag=3;
+        fragebogen.Treppensteigen_Stockwerke=3;
+
+        fragebogen.Aktivitaet_A_Name="Sport 1";
+        fragebogen.Aktivitaet_A_Zeit=3;
+        fragebogen.Aktivitaet_A_Einheiten=3;
+        fragebogen.Aktivitaet_A_Minuten=3;
+        fragebogen.Aktivitaet_B_Name="Sport 2";
+        fragebogen.Aktivitaet_B_Zeit=3;
+        fragebogen.Aktivitaet_B_Einheiten=3;
+        fragebogen.Aktivitaet_B_Minuten=3;
+        fragebogen.Aktivitaet_C_Name="Sport 3";
+        fragebogen.Aktivitaet_C_Zeit=3;
+        fragebogen.Aktivitaet_C_Einheiten=3;
+        fragebogen.Aktivitaet_C_Minuten=3;
+
+        fragebogen.Bewegungsscoring=3;
+        fragebogen.Sportscoring=3;
+        fragebogen.Gesamtscoring=3;
+        return fragebogen;
+    }
+    public static Fragebogen testbsa3(){
+        Fragebogen fragebogen=new Fragebogen();
+        fragebogen.Date="33";
+        fragebogen.FirebaseDate="20100101";
+        fragebogen.Berufstaetig=1;
+        fragebogen.sitzende_Taetigkeiten=1;
+        fragebogen.maeßige_Bewegung=3;
+        fragebogen.intensive_Bewegung=3;
+        fragebogen.sportlich_aktiv=1;
+
+        fragebogen.Zu_Fuß_zur_Arbeit=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Tag=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Minuten=3;
+
+        fragebogen.Zu_Fuß_einkaufen=3;
+        fragebogen.Zu_Fuß_einkaufen_Tag=3;
+        fragebogen.Zu_Fuß_einkaufen_Minuten=3;
+
+        fragebogen.Rad_zur_Arbeit=3;
+        fragebogen.Rad_zur_Arbeit_Tag=3;
+        fragebogen.Rad_zur_Arbeit_Minuten=3;
+
+        fragebogen.Radfahren=3;
+        fragebogen.Radfahren_Tag=3;
+        fragebogen.Radfahren_Minuten=3;
+
+        fragebogen.Spazieren=3;
+        fragebogen.Spazieren_Tag=3;
+        fragebogen.Spazieren_Minuten=3;
+
+        fragebogen.Gartenarbeit=3;
+        fragebogen.Gartenarbeit_Tag=3;
+        fragebogen.Gartenarbeit_Minuten=3;
+
+        fragebogen.Hausarbeit=3;
+        fragebogen.Hausarbeit_Tag=3;
+        fragebogen.Hausarbeit_Minuten=3;
+
+        fragebogen.Pflegearbeit=3;
+        fragebogen.Pflegearbeit_Tag=3;
+        fragebogen.Pflegearbeit_Minuten=3;
+
+        fragebogen.Treppensteigen=3;
+        fragebogen.Treppensteigen_Tag=3;
+        fragebogen.Treppensteigen_Stockwerke=3;
+
+        fragebogen.Aktivitaet_A_Name="Sport 1";
+        fragebogen.Aktivitaet_A_Zeit=3;
+        fragebogen.Aktivitaet_A_Einheiten=3;
+        fragebogen.Aktivitaet_A_Minuten=3;
+        fragebogen.Aktivitaet_B_Name="Sport 2";
+        fragebogen.Aktivitaet_B_Zeit=3;
+        fragebogen.Aktivitaet_B_Einheiten=3;
+        fragebogen.Aktivitaet_B_Minuten=3;
+        fragebogen.Aktivitaet_C_Name="Sport 3";
+        fragebogen.Aktivitaet_C_Zeit=3;
+        fragebogen.Aktivitaet_C_Einheiten=3;
+        fragebogen.Aktivitaet_C_Minuten=3;
+
+        fragebogen.Bewegungsscoring=3;
+        fragebogen.Sportscoring=3;
+        fragebogen.Gesamtscoring=3;
+        return fragebogen;
+    }
+    public static Fragebogen testbsa4(){
+        Fragebogen fragebogen=new Fragebogen();
+        fragebogen.Date="44";
+        fragebogen.FirebaseDate="20100101";
+        fragebogen.Berufstaetig=4;
+        fragebogen.sitzende_Taetigkeiten=1;
+        fragebogen.maeßige_Bewegung=3;
+        fragebogen.intensive_Bewegung=3;
+        fragebogen.sportlich_aktiv=4;
+
+        fragebogen.Zu_Fuß_zur_Arbeit=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Tag=3;
+        fragebogen.Zu_Fuß_zur_Arbeit_Minuten=3;
+
+        fragebogen.Zu_Fuß_einkaufen=3;
+        fragebogen.Zu_Fuß_einkaufen_Tag=3;
+        fragebogen.Zu_Fuß_einkaufen_Minuten=3;
+
+        fragebogen.Rad_zur_Arbeit=3;
+        fragebogen.Rad_zur_Arbeit_Tag=3;
+        fragebogen.Rad_zur_Arbeit_Minuten=3;
+
+        fragebogen.Radfahren=3;
+        fragebogen.Radfahren_Tag=3;
+        fragebogen.Radfahren_Minuten=3;
+
+        fragebogen.Spazieren=3;
+        fragebogen.Spazieren_Tag=3;
+        fragebogen.Spazieren_Minuten=3;
+
+        fragebogen.Gartenarbeit=3;
+        fragebogen.Gartenarbeit_Tag=3;
+        fragebogen.Gartenarbeit_Minuten=3;
+
+        fragebogen.Hausarbeit=3;
+        fragebogen.Hausarbeit_Tag=3;
+        fragebogen.Hausarbeit_Minuten=3;
+
+        fragebogen.Pflegearbeit=3;
+        fragebogen.Pflegearbeit_Tag=3;
+        fragebogen.Pflegearbeit_Minuten=3;
+
+        fragebogen.Treppensteigen=3;
+        fragebogen.Treppensteigen_Tag=3;
+        fragebogen.Treppensteigen_Stockwerke=3;
+
+        fragebogen.Aktivitaet_A_Name="Sport 1";
+        fragebogen.Aktivitaet_A_Zeit=3;
+        fragebogen.Aktivitaet_A_Einheiten=3;
+        fragebogen.Aktivitaet_A_Minuten=3;
+        fragebogen.Aktivitaet_B_Name="Sport 2";
+        fragebogen.Aktivitaet_B_Zeit=3;
+        fragebogen.Aktivitaet_B_Einheiten=3;
+        fragebogen.Aktivitaet_B_Minuten=3;
+        fragebogen.Aktivitaet_C_Name="Sport 3";
+        fragebogen.Aktivitaet_C_Zeit=3;
+        fragebogen.Aktivitaet_C_Einheiten=3;
+        fragebogen.Aktivitaet_C_Minuten=3;
+
+        fragebogen.Bewegungsscoring=3;
+        fragebogen.Sportscoring=3;
+        fragebogen.Gesamtscoring=3;
+        return fragebogen;
+    }
+
+    public static StimmungsAngabe teststimmung1(){
+        StimmungsAngabe teststimmung=new StimmungsAngabe();
+        teststimmung.Date="01";
+        teststimmung.FirebaseDate="01";
+        teststimmung.Vor=true;
+        teststimmung.Angespannt=0;
+        teststimmung.Mitteilsam=0;
+        teststimmung.Muede=0;
+        teststimmung.Selbstsicher=0;
+        teststimmung.Tatkraeftig=0;
+        teststimmung.Traurig=0;
+        teststimmung.Wuetend=0;
+        teststimmung.Zerstreut=0;
+        return teststimmung;
+    }
+    public static StimmungsAngabe teststimmung2(){
+        StimmungsAngabe teststimmung=new StimmungsAngabe();
+        teststimmung.Date="02";
+        teststimmung.FirebaseDate="02";
+        teststimmung.Vor=false;
+        teststimmung.Angespannt=0;
+        teststimmung.Mitteilsam=0;
+        teststimmung.Muede=0;
+        teststimmung.Selbstsicher=0;
+        teststimmung.Tatkraeftig=0;
+        teststimmung.Traurig=0;
+        teststimmung.Wuetend=0;
+        teststimmung.Zerstreut=0;
+        return teststimmung;
+    }
+    public static StimmungsAngabe teststimmung3(){
+        StimmungsAngabe teststimmung=new StimmungsAngabe();
+        teststimmung.Date="03";
+        teststimmung.FirebaseDate="03";
+        teststimmung.Vor=false;
+        teststimmung.Angespannt=4;
+        teststimmung.Mitteilsam=11;
+        teststimmung.Muede=21;
+        teststimmung.Selbstsicher=33;
+        teststimmung.Tatkraeftig=42;
+        teststimmung.Traurig=6;
+        teststimmung.Wuetend=42;
+        teststimmung.Zerstreut=45;
+        return teststimmung;
+    }
+    public static StimmungsAngabe teststimmung4(){
+        StimmungsAngabe teststimmung=new StimmungsAngabe();
+        teststimmung.Date="04";
+        teststimmung.FirebaseDate="04";
+        teststimmung.Vor=true;
+        teststimmung.Angespannt=2;
+        teststimmung.Mitteilsam=0;
+        teststimmung.Muede=-1;
+        teststimmung.Selbstsicher=4;
+        teststimmung.Tatkraeftig=2;
+        teststimmung.Traurig=null;
+        teststimmung.Wuetend=0;
+        teststimmung.Zerstreut=222;
+        return teststimmung;
+    }
+
+    public static StimmungAbfrageScore teststimmungscore1(){
+        StimmungAbfrageScore stimmungsscore= new StimmungAbfrageScore();
+        stimmungsscore.Date="11";
+        stimmungsscore.FirebaseDate="11";
+        stimmungsscore.AngespanntScore=0;
+        stimmungsscore.TraurigScore=0;
+        stimmungsscore.TatkraeftigScore=0;
+        stimmungsscore.ZerstreutScore=0;
+        stimmungsscore. WuetendScore=0;
+        stimmungsscore.MuedeScore=0;
+        stimmungsscore.SelbstsicherScore=0;
+        stimmungsscore.MitteilsamScore=0;
+        stimmungsscore.StimmungsBarometerScore=0;
+        stimmungsscore.EnergieIndexScore=0;
+        stimmungsscore.Vor=true;
+        return stimmungsscore;
+    }
+    public static StimmungAbfrageScore teststimmungscore2(){
+        StimmungAbfrageScore stimmungsscore= new StimmungAbfrageScore();
+        stimmungsscore.Date="22";
+        stimmungsscore.FirebaseDate="22";
+        stimmungsscore.AngespanntScore=2;
+        stimmungsscore.TraurigScore=5;
+        stimmungsscore.TatkraeftigScore=7;
+        stimmungsscore.ZerstreutScore=3;
+        stimmungsscore. WuetendScore=4;
+        stimmungsscore.MuedeScore=9;
+        stimmungsscore.SelbstsicherScore=2;
+        stimmungsscore.MitteilsamScore=3;
+        stimmungsscore.StimmungsBarometerScore=1;
+        stimmungsscore.EnergieIndexScore=4;
+        stimmungsscore.Vor=true;
+        return stimmungsscore;
+    }
+
+
 
 }
+

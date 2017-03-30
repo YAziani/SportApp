@@ -15,28 +15,6 @@
   <component name="ChangeListManager">
     <list default="true" id="675224c4-ac7f-4b5d-81de-a70e87b7fd6b" name="Default" comment="">
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityCategories.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityCategories.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityChallenge.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityChallenge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityDiary.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityDiary.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityDiaryEntry.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityDiaryEntry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityExercises.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityExercises.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivitySelectedExercises.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivitySelectedExercises.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_lst_Challenge.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/Activity_lst_Challenge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/ChallengeLstViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/ChallengeLstViewAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/ChallengeViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/ChallengeViewAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/DiaryEntryViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/DiaryEntryViewAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/DiaryViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/DiaryViewAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/ExerciseViewAdapter.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Adapters/ExerciseViewAdapter.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/Challenge.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/Challenge.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/DiaryEntry.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/DiaryEntry.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/User.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/BusinessLayer/User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/DataAccessLayer/DAL_User.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/DataAccessLayer/DAL_User.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Observe/ObserverChallengeInvitation.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Observe/ObserverChallengeInvitation.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Observe/ObserverChallengeWinner.java" afterPath="$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Observe/ObserverChallengeWinner.java" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_categories.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_categories.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/layout/activity_exercises.xml" afterPath="$PROJECT_DIR$/app/src/main/res/layout/activity_exercises.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/array.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/array.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" afterPath="$PROJECT_DIR$/app/src/main/res/values/strings.xml" />
     </list>
     <ignored path="SportApp.iws" />
     <ignored path=".idea/workspace.xml" />
@@ -200,8 +178,8 @@
       <file leaf-file-name="ActivityNewChallenge.java" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityNewChallenge.java">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="305">
-              <caret line="186" column="19" selection-start-line="186" selection-start-column="19" selection-end-line="186" selection-end-column="19" />
+            <state relative-caret-position="271">
+              <caret line="184" column="31" selection-start-line="184" selection-start-column="31" selection-end-line="184" selection-end-column="31" />
               <folding>
                 <element signature="imports" expanded="true" />
                 <element signature="e#2160#2166#0" expanded="true" />
@@ -259,6 +237,11 @@
     </option>
   </component>
   <component name="Git.Settings">
+    <option name="PREVIOUS_COMMIT_AUTHORS">
+      <list>
+        <option value="Basti &lt;sjestaedt@googlemail.com&gt;" />
+      </list>
+    </option>
     <option name="RECENT_GIT_ROOT_PATH" value="$PROJECT_DIR$" />
   </component>
   <component name="GradleLocalSettings">
@@ -3313,7 +3296,14 @@
       <option name="project" value="LOCAL" />
       <updated>1490807136086</updated>
     </task>
-    <option name="localTasksCounter" value="3" />
+    <task id="LOCAL-00003" summary="push comments">
+      <created>1490839496756</created>
+      <option name="number" value="00003" />
+      <option name="presentableId" value="LOCAL-00003" />
+      <option name="project" value="LOCAL" />
+      <updated>1490839496756</updated>
+    </task>
+    <option name="localTasksCounter" value="4" />
     <servers />
   </component>
   <component name="TestHistory">
@@ -3452,7 +3442,8 @@
   <component name="VcsManagerConfiguration">
     <MESSAGE value="added tests" />
     <MESSAGE value="changes test layout" />
-    <option name="LAST_COMMIT_MESSAGE" value="changes test layout" />
+    <MESSAGE value="push comments" />
+    <option name="LAST_COMMIT_MESSAGE" value="push comments" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -4011,8 +4002,8 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/src/main/java/com/example/mb7/sportappbp/Activity/ActivityNewChallenge.java">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="305">
-          <caret line="186" column="19" selection-start-line="186" selection-start-column="19" selection-end-line="186" selection-end-column="19" />
+        <state relative-caret-position="271">
+          <caret line="184" column="31" selection-start-line="184" selection-start-column="31" selection-end-line="184" selection-end-column="31" />
           <folding>
             <element signature="imports" expanded="true" />
             <element signature="e#2160#2166#0" expanded="true" />

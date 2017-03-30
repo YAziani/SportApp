@@ -9,17 +9,34 @@ The app uses the webapp "Kompass", which is available through this repository <h
 
 ### How do I get set up? ###
 The setup is done in two main steps:  
-I. Setup of the Kompass web app:  
-  * Download the project from https://bitbucket.org/Alfhir/kompass
-  * Change the connection string which is located in src/app/app.module.ts as "export const firebaseConfig" to the connection of your webhost in firebase. 
-  * Setup the project as described in the readme of https://bitbucket.org/Alfhir/kompass
-  * Host the web site (in the www folder) in firebase 
+I. Setup of the Kompass web app: 
+  * You need a seperate project(which can be on the same firebase account) for the Kompass web app. So first create a seperate project by going to https://console.firebase.google.com/.
+  * Change the security rules of the the database to public
   * To create the database, two shell script files are located in Kompass_Shell_Script.zip
   * Replace the used URL in the two files with the URL of your database in that firebase account
   * Run the shell scripts. We recommend using Git Bash.
-  * Set your rules in the database as public 
-  * Enable the Email/Password Sign-In Method
+  * Enable the Email/Password Sign-In Method (Go to the Authentication section on the left side bar, select the 
+Sign-in Method tab and enable Email/Password )
   * Finally change the DAL_Utilities class in the DataAccessLayer package and set KompassURL to the URL of the database of Kompass.
+  
+  * Download the project from https://bitbucket.org/Alfhir/kompass
+  * Change the connection string which is located in src/app/app.module.ts as "export const firebaseConfig" to the connection of your webhost in firebase. (You will find your connection string by going to your firebase account -> Overview -> Click on "Add Firebase to your web app" and copy the data from the config variable)
+  * Setup the project as described in the readme of https://bitbucket.org/Alfhir/kompass
+  * Host the web site (in the www folder) in firebase (you have to install node.js, if you haven't done the last step)
+    * install firebase tools: npm intall -g firebase-tools 
+    * insert command: firebase login and login in your firebase account
+    * go to the directory of your web app (inside www folder) and put the whole content in a new subfolder and rename it.
+    * run the command inside the www folder: firebase init
+    * Enter 'y' to the question "Are you ready to proceed"
+    * To the question: "What Firebase CLI features do you want ot setu for this folder?" Let just "Hosting" selected and deselect the other ones (Database and Functions)
+    * When asked about the Firebase project you have to associate, select the project you created for the Kompass web app.
+    * When asked what you want to use as your public directory, enter the name of the subfolder you have put the files of www folder in.
+    * Asked about single page app and to rewrite  all urls to index.html, answer with No
+    * When asked to overwrite index.html, say No.
+    * Now you have to deploy your web app in firebase with the command: firebase deploy
+    * After your web site has been deployed successfully, a Hosting URL will be displayed. Copy this URL and set it in DAL_Utilities.KompassURL and the Android project, after you have cloned it in step II. (pay attention that the URL has to have a slash at the end of the address "https://FIREBASE_ADDRESS/")
+  
+
   
  II. Setup of the native App:  
   * Install the newest version of Android Studio

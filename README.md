@@ -51,21 +51,21 @@ This prototype has been tested manually and with help of the JUnit framework.
 ### Contribution guidelines ###
 
 * Writing code
-Felix Götz
-Sebastian Jestädt
-Mohammad Braei
-Yassine Aziani
+Felix Götz, 
+Sebastian Jestädt, 
+Mohammad Braei, 
+Yassine Aziani, 
 Zamir Wayandou
 
 * Writing tests
-Felix Götz
+Felix Götz, 
 Yassine Aziani
 
 * Code review
-Felix Götz
-Sebastian Jestädt
-Mohammad Braei
-Yassine Aziani
+Felix Götz, 
+Sebastian Jestädt, 
+Mohammad Braei, 
+Yassine Aziani, 
 Zamir Wayandou
 
 ### Who do I talk to? ###
